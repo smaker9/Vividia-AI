@@ -8,95 +8,116 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #0b1120; --card: #1e293b; --accent: #4f46e5; --text: #f8fafc; --sidebar: #0f172a; }
+        * { box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
-        /* القائمة الجانبية (من صورة 1000015575) */
-        .sidebar { width: 260px; background: var(--sidebar); border-left: 1px solid #334155; display: flex; flex-direction: column; padding: 15px; gap: 10px; }
-        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; cursor: pointer; transition: 0.3s; color: #94a3b8; font-size: 0.9rem; }
-        .nav-item:hover { background: #1e293b; color: white; }
-        .nav-item i { width: 20px; text-align: center; }
+        /* القائمة الجانبية المحسنة */
+        .sidebar { width: 280px; background: var(--sidebar); border-left: 1px solid #334155; display: flex; flex-direction: column; padding: 20px; gap: 15px; z-index: 10; }
+        .nav-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; color: #94a3b8; border: 1px solid transparent; }
+        .nav-item:hover { background: #1e293b; color: white; border-color: #334155; }
+        .nav-item i { font-size: 1.1rem; }
 
-        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        /* منطقة العمل الرئيسية */
+        .main-content { flex: 1; display: flex; flex-direction: column; background: var(--bg); position: relative; width: 100%; }
         
-        header { padding: 15px 20px; background: var(--card); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; }
-        .header-left { display: flex; align-items: center; gap: 10px; }
-        .gemini-star { color: #8ab4f8; font-size: 1.2rem; }
+        header { padding: 15px 25px; background: var(--card); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; }
+        .gemini-star { color: #8ab4f8; font-size: 1.4rem; margin-left: 10px; }
 
-        #chat-container { flex: 1; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; gap: 20px; }
+        /* حاوية الرسائل - منع التشابك نهائياً */
+        #chat-container { flex: 1; overflow-y: auto; padding: 30px; display: flex; flex-direction: column; gap: 25px; padding-bottom: 120px; }
         
-        /* حل نهائي لتشابك الكلمات (Padding & Margin) */
-        .message { max-width: 80%; padding: 20px; border-radius: 20px; line-height: 1.8; position: relative; font-size: 1rem; clear: both; }
+        .message { max-width: 85%; padding: 20px; border-radius: 22px; line-height: 1.9; position: relative; font-size: 1.05rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .user-message { align-self: flex-end; background: var(--accent); color: white; border-bottom-left-radius: 4px; }
         .ai-message { align-self: flex-start; background: var(--card); border: 1px solid #334155; border-bottom-right-radius: 4px; }
 
-        /* منطقة الأيقونة منفصلة تماماً (من صورة 1771566287406) */
-        .msg-controls { display: flex; align-items: center; gap: 10px; margin-top: 15px; padding-top: 10px; border-top: 1px solid #334155; }
-        .audio-btn { cursor: pointer; color: #94a3b8; background: #0f172a; border: 1px solid #334155; padding: 5px 12px; border-radius: 15px; font-size: 0.9rem; transition: 0.3s; }
-        .audio-btn:hover { color: #8ab4f8; background: #1e293b; }
+        /* التحكم الصوتي أسفل النص بمسافة كافية */
+        .msg-footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid #334155; display: flex; align-items: center; }
+        .audio-btn { cursor: pointer; color: #8ab4f8; background: #0f172a; border: 1px solid #334155; padding: 6px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 0.9rem; }
+        .audio-btn:hover { background: #1e293b; transform: translateY(-2px); }
 
-        /* منطقة الإدخال الاحترافية (من صور 1000015571 و 1000015573) */
-        .input-wrapper { padding: 20px; background: var(--bg); }
-        .input-box { background: #1e293b; border: 1px solid #334155; border-radius: 30px; padding: 10px 15px; display: flex; align-items: center; gap: 12px; }
-        .input-box input { flex: 1; background: none; border: none; color: white; padding: 10px; outline: none; font-size: 1rem; }
+        /* مربع الدردشة الذكي - ظاهر ومثبت في الأسفل */
+        .input-area-fixed { position: absolute; bottom: 0; left: 0; right: 0; padding: 25px; background: linear-gradient(transparent, var(--bg) 30%); }
+        .input-box { background: #1e293b; border: 1px solid #4f46e5; border-radius: 35px; padding: 10px 20px; display: flex; align-items: center; gap: 15px; max-width: 900px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         
-        .action-icons { display: flex; gap: 15px; padding: 0 10px; border-left: 1px solid #334155; }
-        .action-icons i { color: #94a3b8; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
-        .action-icons i:hover { color: #8ab4f8; }
+        .input-box input { flex: 1; background: none; border: none; color: white; padding: 12px; outline: none; font-size: 1.1rem; }
         
-        .send-btn { background: #4f46e5; color: white; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .send-btn:hover { background: #6366f1; transform: scale(1.05); }
+        /* أيقونات الإضافات الأربعة التفاعلية */
+        .action-group { display: flex; gap: 18px; border-left: 1px solid #334155; padding-left: 15px; }
+        .action-group i { color: #94a3b8; cursor: pointer; font-size: 1.2rem; transition: 0.2s; }
+        .action-group i:hover { color: #8ab4f8; transform: scale(1.2); }
+        
+        .send-btn { background: #4f46e5; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .send-btn:hover { background: #6366f1; box-shadow: 0 0 15px var(--accent); }
+
+        /* إخفاء القائمة في الشاشات الصغيرة */
+        @media (max-width: 768px) { .sidebar { display: none; } }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <div class="nav-item" onclick="location.reload()"><i class="fas fa-plus"></i> محادثة جديدة</div>
-        <div class="nav-item" onclick="alert('جاري تجهيز محرك إنشاء الصور 🍌')"><i class="fas fa-banana"></i> إنشاء الصور 🍌</div>
-        <div class="nav-item" onclick="alert('ميزة البحث العميق ستتوفر قريباً')"><i class="fas fa-globe"></i> Deep Research</div>
-        <div class="nav-item" onclick="alert('Canvas قيد التطوير')"><i class="fas fa-layer-group"></i> Canvas</div>
-        <div class="nav-item" onclick="alert('قسم التعلم الموجّه سيفتح قريباً')"><i class="fas fa-book"></i> التعلّم الموجّه</div>
+        <div class="nav-item" onclick="location.reload()"><span>محادثة جديدة</span><i class="fas fa-plus"></i></div>
+        <div class="nav-item" onclick="handleExtra('إنشاء الصور')"><span>إنشاء الصور 🍌</span><i class="fas fa-image"></i></div>
+        <div class="nav-item" onclick="handleExtra('Deep Research')"><span>Deep Research</span><i class="fas fa-search-plus"></i></div>
+        <div class="nav-item" onclick="handleExtra('Canvas')"><span>Canvas</span><i class="fas fa- chalkboard"></i></div>
+        <div class="nav-item" onclick="handleExtra('التعلم الموجه')"><span>التعلّم الموجّه</span><i class="fas fa-graduation-cap"></i></div>
     </div>
 
     <div class="main-content">
         <header>
-            <div class="header-left"><i class="fas fa-sparkles gemini-star"></i><strong>Vividia AI Pro</strong></div>
-            <i class="fas fa-bars" style="cursor:pointer"></i>
+            <div style="display:flex; align-items:center">
+                <i class="fas fa-sparkles gemini-star"></i>
+                <strong style="font-size:1.2rem">Vividia AI Pro</strong>
+            </div>
+            <i class="fas fa-user-circle" style="font-size:1.5rem; color:#94a3b8"></i>
         </header>
 
         <div id="chat-container">
-            <div class="message ai-message">
-                <span id="initial-text">مرحباً بكِ في Vividia AI المطور! أنا هنا لمساعدتكِ بأفضل جودة صوت وأداء احترافي.</span>
-                <div class="msg-controls">
-                    <button class="audio-btn" onclick="speak(document.getElementById('initial-text').innerText)">
-                        <i class="fas fa-volume-up"></i> استماع (صوت جيميناي)
+            <div class="message ai-message" id="welcome-msg">
+                <span>مرحباً بكِ! أنا فيفيديا، مساعدكِ الذكي. كيف يمكنني خدمتكِ اليوم؟</span>
+                <div class="msg-footer">
+                    <button class="audio-btn" onclick="speak('مرحباً بكِ! أنا فيفيديا، مساعدكِ الذكي. كيف يمكنني خدمتكِ اليوم؟')">
+                        <i class="fas fa-volume-up"></i> استماع (Vividia Voice)
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="input-wrapper">
+        <div class="input-area-fixed">
             <div class="input-box">
-                <div class="action-icons">
-                    <i class="fas fa-hdd" onclick="alert('فتح الملفات...')"></i>
-                    <i class="fas fa-paperclip" onclick="alert('إرفاق ملف...')"></i>
-                    <i class="fas fa-image" onclick="alert('فتح معرض الصور...')"></i>
-                    <i class="fas fa-camera" onclick="alert('تشغيل الكاميرا...')"></i>
+                <div class="action-group">
+                    <i class="fas fa-plus-circle" title="إرفاق" onclick="handleExtra('إرفاق ملف')"></i>
+                    <i class="fas fa-camera" title="كاميرا" onclick="handleExtra('الكاميرا')"></i>
+                    <i class="fas fa-images" title="معرض" onclick="handleExtra('المعرض')"></i>
+                    <i class="fas fa-folder-open" title="ملفات" onclick="handleExtra('الملفات')"></i>
                 </div>
-                <input type="text" id="user-input" placeholder="اسألي Vividia..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                
+                <input type="text" id="user-input" placeholder="اسألي فيفيديا..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                
                 <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
     <script>
-        // إعدادات صوت احترافية (Gemini-like)
+        // إعداد صوت احترافي فائق الوضوح (Vividia Signature)
         function speak(text) {
             window.speechSynthesis.cancel();
             const msg = new SpeechSynthesisUtterance(text);
             msg.lang = 'ar-SA';
-            msg.rate = 0.9;  // سرعة هادئة واحترافية
-            msg.pitch = 1.1; // حدة صوت واضحة
+            msg.rate = 0.85; // سرعة موزونة جداً للفخامة
+            msg.pitch = 1.0; 
+            msg.volume = 1.0;
+            
+            // اختيار أفضل محرك صوتي متاح في المتصفح
+            const voices = window.speechSynthesis.getVoices();
+            msg.voice = voices.find(v => v.lang.includes('ar')) || voices[0];
+            
             window.speechSynthesis.speak(msg);
+        }
+
+        function handleExtra(type) {
+            alert(`فيفيديا AI: ميزة "${type}" قيد التنشيط الآن في النسخة البرو.`);
         }
 
         async function sendMessage() {
@@ -116,7 +137,7 @@
                 });
                 const data = await response.json();
                 typeText(aiBody, data.response);
-            } catch (e) { aiBody.innerText = "خطأ في الاتصال بالمحرك."; }
+            } catch (e) { aiBody.innerText = "حدث خطأ في الاتصال، يرجى المحاولة ثانية."; }
         }
 
         function appendMsg(role, text) {
@@ -129,14 +150,14 @@
             div.appendChild(contentSpan);
 
             if (role === 'ai') {
-                const controls = document.createElement('div');
-                controls.className = 'msg-controls';
+                const footer = document.createElement('div');
+                footer.className = 'msg-footer';
                 const btn = document.createElement('button');
                 btn.className = 'audio-btn';
                 btn.innerHTML = '<i class="fas fa-volume-up"></i> استماع';
                 btn.onclick = () => speak(contentSpan.innerText);
-                controls.appendChild(btn);
-                div.appendChild(controls);
+                footer.appendChild(btn);
+                div.appendChild(footer);
             }
 
             container.appendChild(div);
@@ -146,11 +167,12 @@
 
         function typeText(el, text) {
             let i = 0;
+            el.innerText = "";
             function type() {
                 if (i < text.length) {
                     el.innerText += text.charAt(i);
                     i++;
-                    setTimeout(type, 15);
+                    setTimeout(type, 20);
                     document.getElementById('chat-container').scrollTop = document.getElementById('chat-container').scrollHeight;
                 }
             }
