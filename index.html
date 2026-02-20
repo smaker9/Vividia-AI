@@ -3,125 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Vividia AI Pro - Elite Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --bg: #0b1120; --card: #1e293b; --accent: #4f46e5; --text: #f8fafc; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        
-        .main-content { flex: 1; display: flex; flex-direction: column; width: 100%; position: relative; }
-        
-        /* تنسيق الدردشة الأفقية الواسعة مثل جيميناي */
-        #chat-container { flex: 1; overflow-y: auto; padding: 40px 10%; display: flex; flex-direction: column; gap: 30px; }
-        
-        .message { width: 100%; display: flex; flex-direction: column; align-items: flex-start; animation: fadeIn 0.4s ease; }
-        .user-message { align-items: flex-end; }
-        
-        .bubble { max-width: 85%; padding: 15px 25px; border-radius: 15px; line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap; word-break: break-word; }
-        .user-bubble { background: var(--accent); color: white; border-bottom-left-radius: 2px; }
-        .ai-bubble { background: transparent; border: none; padding-right: 0; text-align: right; width: 100%; }
+        :root {
+            --bg-dark: #050a18;
+            --sidebar-bg: #0f172a;
+            --vividia-grad: linear-gradient(135deg, #4f46e5 0%, #a855f7 100%);
+            --text-main: #f1f5f9;
+            --accent-blue: #38bdf8;
+        }
 
-        /* فصل الأيقونات تماماً لمنع التشابك */
-        .controls { display: flex; gap: 15px; margin-top: 10px; color: #94a3b8; }
-        .controls i { cursor: pointer; transition: 0.3s; padding: 5px; }
-        .controls i:hover { color: #8ab4f8; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0; display: flex; height: 100vh; overflow: hidden;
+        }
 
-        /* مربع الإدخال الذكي مع الأيقونات الحقيقية */
-        .input-container { padding: 20px 10%; background: var(--bg); }
-        .input-box { background: #1e293b; border-radius: 30px; padding: 10px 20px; display: flex; align-items: center; gap: 15px; border: 1px solid #334155; }
-        .input-box input { flex: 1; background: none; border: none; color: white; font-size: 1rem; outline: none; }
+        /* Sidebar الاحترافي */
+        .sidebar {
+            width: 280px; background: var(--sidebar-bg); border-left: 1px solid #1e293b;
+            display: flex; flex-direction: column; padding: 25px; gap: 15px;
+        }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 15px; padding: 12px 18px;
+            border-radius: 12px; cursor: pointer; transition: 0.3s; color: #94a3b8; font-weight: 600;
+        }
+
+        .nav-item:hover, .nav-item.active { background: #1e293b; color: var(--accent-blue); }
+
+        /* منطقة الدردشة الأفقية */
+        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; }
         
-        .icon-btn { color: #94a3b8; cursor: pointer; font-size: 1.2rem; transition: 0.2s; }
-        .icon-btn:hover { color: #8ab4f8; }
-        
-        /* إخفاء مدخلات الملفات الأصلية */
-        #file-input, #image-input { display: none; }
+        #chat-container {
+            flex: 1; overflow-y: auto; padding: 50px 10%;
+            display: flex; flex-direction: column; gap: 40px;
+        }
+
+        .message-row { width: 100%; display: flex; flex-direction: column; }
+        .user-row { align-items: flex-end; }
+        .ai-row { align-items: flex-start; }
+
+        .bubble {
+            max-width: 85%; padding: 18px 25px; border-radius: 20px;
+            line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap; position: relative;
+        }
+
+        .user-bubble { background: var(--vividia-grad); color: white; border-bottom-left-radius: 4px; }
+        .ai-bubble { background: transparent; color: var(--text-main); width: 100%; }
+
+        /* أيقونات التحكم (نسخ وصوت) */
+        .action-bar { display: flex; gap: 20px; margin-top: 15px; color: #64748b; }
+        .action-bar i { cursor: pointer; transition: 0.2s; font-size: 1.1rem; }
+        .action-bar i:hover { color: var(--accent-blue); }
+
+        /* عرض الصور (المنشأة أو المرفوعة) */
+        .vividia-img {
+            max-width: 400px; border-radius: 20px; margin: 15px 0;
+            border: 3px solid #a855f7; box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        /* صندوق الإدخال الذكي */
+        .input-area { padding: 30px 10% 50px; background: linear-gradient(to top, var(--bg-dark) 70%, transparent); }
+        .input-card {
+            background: #1e293b; border-radius: 35px; padding: 10px 25px;
+            display: flex; align-items: center; gap: 20px; border: 1px solid #334155;
+        }
+
+        input { flex: 1; background: none; border: none; color: white; outline: none; font-size: 1.1rem; }
+        .icon-btn { color: #94a3b8; cursor: pointer; font-size: 1.3rem; transition: 0.2s; }
+        .icon-btn:hover { color: #a855f7; }
+        .mic-active { color: #ef4444 !important; animation: pulse 1s infinite; }
+
+        @keyframes pulse { 50% { opacity: 0.5; } }
     </style>
 </head>
 <body>
 
+    <div class="sidebar">
+        <div style="font-size: 1.8rem; font-weight: bold; margin-bottom: 40px; background: var(--vividia-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vividia AI</div>
+        <div class="nav-item active"><i class="fas fa-magic"></i> محادثة ذكية</div>
+        <div class="nav-item" onclick="toggleDeepSearch(this)"><i class="fas fa-microscope"></i> Deep Research</div>
+        <div class="nav-item" onclick="alert('تم تفعيل وضع Canvas الذكي')"><i class="fas fa-layer-group"></i> Canvas</div>
+        <div class="nav-item" onclick="alert('اطلبي من فيفيديا الآن رسم أي شيء!')"><i class="fas fa-palette"></i> إنشاء الصور</div>
+    </div>
+
     <div class="main-content">
         <div id="chat-container">
-            <div class="message ai-message">
-                <div class="ai-bubble" id="welcome-text">مرحباً بكِ في Vividia. أنا جاهزة لمساعدتكِ الآن بصوت احترافي وواجهة مطورة.</div>
-                <div class="controls">
-                    <i class="fas fa-volume-up" onclick="speak(document.getElementById('welcome-text').innerText)"></i>
-                    <i class="fas fa-copy" onclick="alert('تم النسخ')"></i>
-                </div>
+            <div class="message-row ai-row">
+                <div class="bubble ai-bubble">مرحباً بكِ في النسخة الأقوى! الآن يمكنني **إنشاء الصور**، **البحث العميق**، والتحدث معكِ بـ **الميكروفون**. كيف أبدأ معكِ؟</div>
             </div>
         </div>
 
-        <div class="input-container">
-            <div class="input-box">
-                <i class="fas fa-plus-circle icon-btn" onclick="document.getElementById('file-input').click()"></i>
-                <i class="fas fa-image icon-btn" onclick="document.getElementById('image-input').click()"></i>
+        <div class="input-area">
+            <div class="input-card">
+                <label for="img-file"><i class="fas fa-image icon-btn" title="معرض الصور"></i></label>
+                <input type="file" id="img-file" hidden onchange="previewImage(this)">
                 
-                <input type="file" id="file-input" onchange="alert('تم اختيار ملف: ' + this.files[0].name)">
-                <input type="file" id="image-input" accept="image/*" onchange="alert('تم اختيار صورة من المعرض: ' + this.files[0].name)">
+                <i class="fas fa-microphone icon-btn" id="mic-icon" onclick="startMic()"></i>
                 
-                <input type="text" id="user-input" placeholder="اسألي فيفيديا..." onkeypress="if(event.key === 'Enter') sendMessage()">
-                <i class="fas fa-paper-plane icon-btn" style="color:#4f46e5" onclick="sendMessage()"></i>
+                <input type="text" id="user-input" placeholder="اسألي فيفيديا أو اطلبي رسم صورة..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                
+                <i class="fas fa-paper-plane icon-btn" style="color:#6366f1" onclick="sendMessage()"></i>
             </div>
         </div>
     </div>
 
     <script>
-        function speak(text) {
-            window.speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(text);
-            msg.lang = 'ar-SA';
-            msg.rate = 0.9; 
-            msg.pitch = 1.0;
-            window.speechSynthesis.speak(msg);
+        let isDeepSearch = false;
+
+        function toggleDeepSearch(el) {
+            isDeepSearch = !isDeepSearch;
+            el.style.color = isDeepSearch ? "#38bdf8" : "#94a3b8";
+            alert(isDeepSearch ? "تم تفعيل البحث العميق!" : "عدنا للوضع العادي.");
         }
 
         async function sendMessage() {
             const input = document.getElementById('user-input');
-            const message = input.value.trim();
-            if (!message) return;
+            const msg = input.value.trim();
+            if (!msg) return;
 
-            appendMsg('user', message);
+            appendMsg('user', msg);
             input.value = '';
-            
-            // محاكاة استجابة فيفيديا الاحترافية
-            const aiBody = appendMsg('ai', '... جاري التفكير');
+
+            // محرك ذكاء لتمكين إنشاء الصور
+            if (msg.includes("ارسم") || msg.includes("صورة") || msg.includes("أنشئ صورة")) {
+                const aiBubble = appendMsg('ai', 'جاري إنشاء الصورة الفنية لكِ...');
+                setTimeout(() => {
+                    const imgUrl = `https://pollinations.ai/p/${encodeURIComponent(msg)}?width=1080&height=1080&seed=42&model=flux`;
+                    const imgHtml = `<img src="${imgUrl}" class="vividia-img" alt="Vividia Generated Image">`;
+                    aiBubble.innerHTML = `لقد رسمت لكِ هذه الصورة بناءً على طلبكِ:<br>${imgHtml}`;
+                }, 2000);
+                return;
+            }
+
+            const aiBody = appendMsg('ai', isDeepSearch ? 'جاري البحث العميق...' : 'جاري التفكير...');
             
             try {
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message })
+                    body: JSON.stringify({ message: isDeepSearch ? "إبحث بعمق عن: " + msg : msg })
                 });
                 const data = await response.json();
                 aiBody.innerText = data.response;
-                speak(data.response); // نطق الرد تلقائياً كجيميناي
-            } catch (e) { aiBody.innerText = "خطأ في الاتصال."; }
+            } catch (e) { aiBody.innerText = "خطأ في الاتصال بالمحرك."; }
         }
 
         function appendMsg(role, text) {
             const container = document.getElementById('chat-container');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${role}-message`;
-            
+            const row = document.createElement('div');
+            row.className = `message-row ${role}-row`;
             const bubble = document.createElement('div');
             bubble.className = `bubble ${role}-bubble`;
             bubble.innerText = text;
-            
-            msgDiv.appendChild(bubble);
-            
-            if(role === 'ai') {
-                const controls = document.createElement('div');
-                controls.className = 'controls';
-                controls.innerHTML = `<i class="fas fa-volume-up" onclick="speak('${text.replace(/'/g, "\\'")}')"></i><i class="fas fa-redo"></i>`;
-                msgDiv.appendChild(controls);
+            row.appendChild(bubble);
+
+            if (role === 'ai') {
+                const bar = document.createElement('div');
+                bar.className = 'action-bar';
+                bar.innerHTML = `<i class="fas fa-volume-up" onclick="speak('${text.replace(/'/g, "\\'")}')"></i><i class="fas fa-copy" onclick="copy(this, '${text.replace(/'/g, "\\'")}')"></i>`;
+                row.appendChild(bar);
             }
-            
-            container.appendChild(msgDiv);
+            container.appendChild(row);
             container.scrollTop = container.scrollHeight;
             return bubble;
+        }
+
+        function previewImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const row = document.createElement('div');
+                    row.className = 'message-row user-row';
+                    row.innerHTML = `<img src="${e.target.result}" class="vividia-img">`;
+                    document.getElementById('chat-container').appendChild(row);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function startMic() {
+            const mic = document.getElementById('mic-icon');
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'ar-SA';
+            recognition.start();
+            mic.classList.add('mic-active');
+            recognition.onresult = (e) => {
+                document.getElementById('user-input').value = e.results[0][0].transcript;
+                mic.classList.remove('mic-active');
+            };
+            recognition.onerror = () => mic.classList.remove('mic-active');
+        }
+
+        function speak(t) {
+            window.speechSynthesis.cancel();
+            const m = new SpeechSynthesisUtterance(t);
+            m.lang = 'ar-SA'; m.rate = 0.9;
+            window.speechSynthesis.speak(m);
+        }
+
+        function copy(el, t) {
+            navigator.clipboard.writeText(t);
+            el.className = "fas fa-check";
+            setTimeout(() => el.className = "fas fa-copy", 2000);
         }
     </script>
 </body>
 </html>
-
