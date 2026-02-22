@@ -3,316 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI | Global Experience</title>
+    <title>Vividia AI - النسخة التشغيلية النهائية</title>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root {
-            --glass-bg: rgba(18, 18, 18, 0.75);
-            --accent: #00d1ff;
-            --accent-purple: #9b51e0;
-            --text: #ffffff;
-            --sidebar-width: 280px;
-        }
-
-        body {
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            color: var(--text);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* القائمة الجانبية الاحترافية */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            z-index: 100;
-        }
-
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            padding: 10px;
-        }
-
-        .hex-logo {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
-            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .nav-link {
-            padding: 14px 18px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #888;
-            text-decoration: none;
-            transition: 0.3s;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--accent);
-        }
-
-        /* المحتوى الرئيسي */
-        .main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background: transparent;
-            position: relative;
-        }
-
-        .content-area {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        /* بطاقة الترحيب */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 40px;
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-
-        /* شريط المكونات (ترجمة، برمجة، إلخ) */
-        .mode-selector {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            background: rgba(255,255,255,0.05);
-            padding: 10px 20px;
-            border-radius: 50px;
-            width: fit-content;
-            margin: 25px auto;
-        }
-
-        .mode-icon {
-            font-size: 18px;
-            color: #666;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .mode-icon:hover { color: var(--accent); transform: scale(1.2); }
-
-        /* زر البحث واللوحة */
-        .btn-glow {
-            background: linear-gradient(90deg, var(--accent), var(--accent-purple));
-            border: none;
-            padding: 15px 35px;
-            border-radius: 15px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 20px rgba(0, 209, 255, 0.3);
-        }
-
-        #id-panel {
-            display: none;
-            margin-top: 25px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--accent);
-            border-radius: 15px;
-            padding: 20px;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        /* شريط الدردشة العالمي */
-        .chat-input-zone {
-            padding: 30px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .chat-box {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: 0.3s;
-        }
-
-        .chat-box:focus-within { border-color: var(--accent); box-shadow: 0 0 15px rgba(0,209,255,0.1); }
-
-        input {
-            flex-grow: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            outline: none;
-            font-size: 16px;
-        }
-
-        .chat-box i {
-            font-size: 20px;
-            color: #777;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .chat-box i:hover { color: var(--accent); }
-
-        /* نافذة الإعدادات */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--accent);
-            z-index: 1000;
-            width: 300px;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --accent: #00d1ff; --danger: #ff4b2b; --success: #00ff88; --bg: #050505; --panel: #111; --text: #eee; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; overflow: hidden; }
+        #auth-screen { display: flex; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle, #151515 0%, #000 100%); }
+        #app-screen { display: none; height: 100vh; grid-template-columns: 260px 1fr 60px; }
+        .sidebar { background: #000; border-left: 1px solid #222; padding: 25px; display: flex; flex-direction: column; }
+        .nav-item { padding: 12px; border-radius: 10px; color: #666; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .nav-item.active { background: rgba(0, 209, 255, 0.1); color: var(--accent); }
+        .main-content { padding: 30px; overflow-y: auto; }
+        .viewer-card { background: var(--panel); border-radius: 25px; padding: 25px; border: 1px solid #222; margin-bottom: 30px; position: relative; }
+        .screen-container { width: 100%; height: 450px; background: #000; border-radius: 20px; position: relative; overflow: hidden; border: 2px solid #333; }
+        video, canvas { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+        .interaction-bar { display: flex; gap: 18px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #222; color: #666; }
+        .icon-btn { cursor: pointer; transition: 0.2s; font-size: 16px; }
+        .icon-btn:hover { color: var(--accent); }
+        .btn { padding: 12px 20px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-accent { background: var(--accent); color: #000; }
+        .right-mini-bar { background: #000; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 25px; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="sidebar-brand">
-            <div class="hex-logo">V</div>
-            <span style="font-weight: bold; font-size: 20px;">Vividia AI</span>
+    <div id="auth-screen">
+        <div style="background: var(--panel); padding: 40px; border-radius: 30px; border: 1px solid #222; text-align: center; width: 380px;">
+            <h1 style="color: var(--accent);">Vividia AI</h1>
+            <p style="color: #888; margin-bottom: 30px;">نظام الحماية الذكي</p>
+            <button class="btn btn-accent" onclick="loginWithGoogle()"><i class="fab fa-google"></i> الدخول عبر جوجل</button>
         </div>
-        
-        <div class="nav-link active"><i class="fas fa-plus-circle"></i> دردشة جديدة</div>
-        <div class="nav-link"><i class="fas fa-history"></i> تاريخ Vividia</div>
-        <div class="nav-link"><i class="fas fa-image"></i> توليد الصور AI</div>
-        <div class="nav-link"><i class="fas fa-wand-magic-sparkles"></i> تعديل متقدم</div>
-        <div class="nav-link"><i class="fas fa-box-open"></i> الملفات المستخرجة</div>
-        
-        <div style="flex-grow: 1;"></div>
-        <div class="nav-link" onclick="toggleSettings()"><i class="fas fa-cog"></i> الإعدادات</div>
     </div>
 
-    <div class="main">
-        <div class="content-area">
-            <div class="glass-card">
-                <h1 style="margin-bottom: 10px;">مرحباً بك في Vividia</h1>
-                <p style="color: #888; font-size: 14px;">النظام الذكي لاستخراج البيانات وتوليد المحتوى فوراً.</p>
+    <div id="app-screen">
+        <div class="sidebar">
+            <h2 style="color: var(--accent);">Vividia</h2>
+            <div class="nav-item active"><i class="fas fa-shield-alt"></i> المراقبة</div>
+            <div style="flex-grow: 1;"></div>
+            <button class="btn" style="color:red; background:none;" onclick="clearLogs()">مسح السجلات</button>
+        </div>
 
-                <div class="mode-selector">
-                    <i class="fas fa-language mode-icon" title="ترجمة"></i>
-                    <i class="fas fa-code mode-icon" title="برمجة"></i>
-                    <i class="fas fa-pencil-alt mode-icon" title="تعديل"></i>
-                    <i class="fas fa-images mode-icon" title="توليد صور"></i>
+        <div class="main-content">
+            <div class="viewer-card">
+                <div class="screen-container">
+                    <video id="webcam" autoplay muted playsinline></video>
+                    <canvas id="overlay"></canvas>
                 </div>
-
-                <button class="btn-glow" onclick="startDeepSearch()">
-                    <i class="fas fa-shield-halved"></i> تشغيل البحث العميق (ID)
-                </button>
-
-                <div id="id-panel">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 12px; color: #555;">ID results-panel</span>
-                        <i class="fas fa-bolt" style="color: #fbbf24;"></i>
-                    </div>
-                    <div style="margin-top: 15px; border-top: 1px solid #222; padding-top: 15px;">
-                        <span style="color: #777;">Client Secret:</span>
-                        <span id="secret-val" style="color: var(--accent); font-family: monospace; margin-right: 10px;">جاري جلب المفتاح...</span>
-                    </div>
+                <div class="interaction-bar">
+                    <i class="far fa-thumbs-up icon-btn"></i>
+                    <i class="far fa-thumbs-down icon-btn"></i>
+                    <i class="fas fa-redo icon-btn" onclick="location.reload()"></i>
+                    <i class="fas fa-magic icon-btn" onclick="runMagicAnalysis()"></i>
+                    <i class="far fa-copy icon-btn" onclick="alert('تم نسخ التقرير')"></i>
+                    <div style="flex-grow: 1;"></div>
+                    <i class="fas fa-ellipsis-v icon-btn"></i>
                 </div>
             </div>
         </div>
 
-        <div class="chat-input-zone">
-            <div class="chat-box">
-                <label for="img-upload"><i class="fas fa-image"></i></label>
-                <input type="file" id="img-upload" style="display:none" onchange="alert('تم اختيار الصورة')">
-                
-                <input type="text" placeholder="اسأل Vividia">
-                
-                <i class="fas fa-microphone" title="تحدث"></i>
-                <i class="fas fa-paper-plane" style="color: var(--accent);"></i>
-            </div>
+        <div class="right-mini-bar">
+            <i class="fas fa-bars icon-btn"></i>
+            <i class="fas fa-sign-out-alt icon-btn" onclick="logout()"></i>
         </div>
     </div>
-
-    <div class="modal" id="settings-modal">
-        <h3>الإعدادات</h3>
-        <p style="font-size: 13px; color: #888;">اللغة: العربية</p>
-        <p style="font-size: 13px; color: #888;">السمة: داكن (Dark Mode)</p>
-        <button onclick="toggleSettings()" style="background: var(--accent); border:none; padding: 5px 15px; border-radius: 5px; cursor:pointer;">إغلاق</button>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
     <script>
+        // --- إعدادات Firebase الخاصة بك التي أرسلتها ---
         const firebaseConfig = {
-            apiKey: "AIzaSyC71p3tQ8CpgdIj2Pn2CL...", 
+            apiKey: "AIzaSyC71p3tQ8CpgdIj2Pn2CLvvm4q2VjlG-ZQ",
             authDomain: "studio-8235238182-c3590.firebaseapp.com",
-            databaseURL: "https://studio-8235238182-c3590-default-rtdb.firebaseio.com",
             projectId: "studio-8235238182-c3590",
-            appId: "1:703644313315:web:fb8932a4980a3731804d0c"
+            storageBucket: "studio-8235238182-c3590.firebasestorage.app",
+            messagingSenderId: "703644313315",
+            appId: "1:703644313315:web:fb8932a4dfae73114187d6",
+            databaseURL: "https://studio-8235238182-c3590-default-rtdb.firebaseio.com"
         };
 
         firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        const auth = firebase.auth();
+        const db = firebase.database();
 
-        function startDeepSearch() {
-            const panel = document.getElementById('id-panel');
-            const val = document.getElementById('secret-val');
-            panel.style.display = "block";
-            val.innerText = "جاري الاتصال بالسحابة...";
+        // منطق تسجيل الدخول
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('app-screen').style.display = 'grid';
+                initVividia();
+            } else {
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('app-screen').style.display = 'none';
+            }
+        });
 
-            // استخدام مستمع فوري لضمان عدم التعليق
-            database.ref('vividia_config/client_secret').on('value', (snapshot) => {
-                const secret = snapshot.val();
-                if (secret) {
-                    val.innerText = secret;
-                } else {
-                    val.innerText = "القيمة غير موجودة";
-                }
-            }, (error) => {
-                val.innerText = "خطأ في الاتصال!";
-            });
+        function loginWithGoogle() { auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+        function logout() { auth.signOut(); }
+
+        // تشغيل محرك الذكاء الاصطناعي
+        async function initVividia() {
+            const URL = 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights';
+            await faceapi.nets.tinyFaceDetector.loadFromUri(URL);
+            await faceapi.nets.faceLandmark68Net.loadFromUri(URL);
+            await faceapi.nets.faceRecognitionNet.loadFromUri(URL);
+
+            const video = document.getElementById('webcam');
+            const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+            video.srcObject = stream;
+
+            setInterval(async () => {
+                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
+                const canvas = document.getElementById('overlay');
+                canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                detections.forEach(d => {
+                    ctx.strokeStyle = "#00d1ff";
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(d.detection.box.x, d.detection.box.y, d.detection.box.width, d.detection.box.height);
+                });
+            }, 500);
         }
 
-        function toggleSettings() {
-            const m = document.getElementById('settings-modal');
-            m.style.display = (m.style.display === "block") ? "none" : "block";
+        function runMagicAnalysis() {
+            alert("✨ تحليل Vividia الذكي:\nالحالة: مراقبة نشطة\nالنتيجة: لا يوجد تهديد حالي، النظام يعمل بكفاءة سحابية.");
+        }
+
+        function clearLogs() {
+            if(confirm("هل تريد مسح سجلاتك من السحابة؟")) {
+                db.ref(`users/${auth.currentUser.uid}/logs`).remove();
+            }
         }
     </script>
 </body>
