@@ -2,79 +2,127 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vividia AI - Deep Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividia AI - Professional Suite</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --bg: #050505; --accent: #00d1ff; --card: #111; --text: #ffffff; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding-bottom: 80px; }
+        :root { --bg-dark: #0a0a0a; --sidebar-bg: #111; --accent: #00d1ff; --card-bg: #181818; --text-primary: #ffffff; --text-secondary: #b3b3b3; }
         
-        header { 
-            position: fixed; top: 0; width: 100%; height: 60px; 
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 15px; background: rgba(0,0,0,0.95); z-index: 1000; border-bottom: 1px solid #222;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg-dark); color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
-        .nav-tools { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; 
-            padding: 70px 15px 15px; background: #000; 
-        }
+        /* القائمة الجانبية الاحترافية */
+        .sidebar { width: 260px; background: var(--sidebar-bg); border-left: 1px solid #222; display: flex; flex-direction: column; padding: 20px; z-index: 1000; }
+        .sidebar-logo { font-size: 24px; font-weight: bold; color: var(--accent); margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+        .nav-group { margin-bottom: 25px; }
+        .nav-item { padding: 12px 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-secondary); transition: 0.3s; margin-bottom: 5px; font-size: 14px; }
+        .nav-item:hover, .nav-item.active { background: #222; color: var(--accent); }
+        .nav-item i { width: 20px; }
+
+        /* منطقة العمل الرئيسية */
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; position: relative; background: #000; }
+        header { height: 60px; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; }
         
-        .tool-btn { 
-            background: #111; border: 1px solid #333; padding: 12px; 
-            border-radius: 10px; text-align: center; font-size: 13px; color: #888;
+        /* استوديو التعديل (المربعات الاحترافية) */
+        .content-area { flex: 1; overflow-y: auto; padding: 25px; display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .studio-card { background: var(--card-bg); border-radius: 15px; border: 1px solid #222; padding: 20px; position: relative; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-title { font-size: 16px; font-weight: 600; color: var(--accent); }
+
+        /* أدوات التعديل (Sliders) */
+        .control-group { margin-bottom: 15px; }
+        .control-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+        input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+
+        /* نظام الشات المدمج */
+        .chat-section { display: flex; flex-direction: column; gap: 15px; }
+        .chat-display { height: 300px; background: #050505; border-radius: 10px; padding: 15px; overflow-y: auto; border: 1px solid #222; font-size: 13px; }
+        .input-wrapper { display: flex; gap: 10px; background: #111; padding: 10px; border-radius: 12px; border: 1px solid #333; }
+        .input-wrapper input { flex: 1; background: transparent; border: none; color: #fff; outline: none; padding: 5px; }
+
+        /* التجاوب مع الهاتف */
+        @media (max-width: 768px) {
+            .sidebar { position: fixed; right: -260px; height: 100%; transition: 0.3s; }
+            .sidebar.open { right: 0; }
+            .content-area { grid-template-columns: 1fr; }
         }
-        .tool-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,209,255,0.05); }
-
-        .chat-area { padding: 15px; min-height: 50vh; }
-        .message { margin-bottom: 15px; line-height: 1.5; font-size: 14px; }
-        .ai-msg { color: var(--accent); }
-
-        /* حالة البحث العميق */
-        .search-loader { display: none; padding: 10px; border-left: 2px solid var(--accent); margin: 10px 0; background: #111; font-size: 12px; color: #00d1ff; }
-
-        .input-box {
-            position: fixed; bottom: 0; width: 100%; background: #000;
-            padding: 15px; border-top: 1px solid #222; display: flex; gap: 10px;
-        }
-        input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 10px; outline: none; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div style="font-weight:bold; color:var(--accent);">VIVIDIA AI</div>
-        <button onclick="toggleLanguage()" id="langBtn" style="background:#222; color:#fff; border:1px solid #444; padding:5px 10px; border-radius:5px; font-size:12px;">English</button>
-    </header>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo"><i class="fas fa-bolt"></i> Vividia AI</div>
+        
+        <div class="nav-group">
+            <div class="nav-item active" onclick="showSection('chat')"><i class="fas fa-comment-dots"></i> chat-section</div>
+            <div class="nav-item" onclick="showSection('search')"><i class="fas fa-search"></i> البحث العميق</div>
+            <div class="nav-item" onclick="showSection('images')"><i class="fas fa-images"></i> Image sections AI</div>
+        </div>
 
-    <div class="nav-tools">
-        <div class="tool-btn active" id="btn-chat"><i class="fas fa-comments"></i> <span class="txt-chat">شات فيفيديا</span></div>
-        <div class="tool-btn" id="btn-search"><i class="fas fa-search"></i> <span class="txt-search">البحث العميق</span></div>
-        <div class="tool-btn"><i class="fas fa-paint-brush"></i> <span class="txt-nano">توليد الصور</span></div>
-        <div class="tool-btn"><i class="fas fa-video"></i> <span class="txt-veo">فيديو Veo</span></div>
-    </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="showSection('edit')"><i class="fas fa-magic"></i> Edit-section</div>
+            <div class="nav-item"><i class="fas fa-video"></i> فيديو (Veo)</div>
+            <div class="nav-item"><i class="fas fa-user-check"></i> كشف الحيوية</div>
+        </div>
 
-    <div class="chat-area" id="chatDisplay">
-        <div class="message ai-msg" id="welcomeMsg">Vividia AI: مفعّل الآن بنظام البحث العميق (Deep Search). كيف يمكنني مساعدتك؟</div>
-    </div>
+        <div class="nav-group" style="margin-top: auto;">
+            <div class="nav-item"><i class="fas fa-chart-bar"></i> لوحة الإحصائيات</div>
+            <div class="nav-item"><i class="fas fa-cog"></i> الإعدادات</div>
+        </div>
+    </aside>
 
-    <div id="searchIndicator" class="search-loader">
-        <i class="fas fa-spinner fa-spin"></i> <span id="searchStatus">جاري فحص الويب والبيانات العميقة...</span>
-    </div>
+    <div class="main-wrapper">
+        <header>
+            <div class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button class="lang-btn" onclick="toggleLang()">English</button>
+                <div style="font-size:12px; color:var(--text-secondary);"><i class="fas fa-shield-alt"></i> نظام الحماية الذكي</div>
+            </div>
+        </header>
 
-    <div class="input-box">
-        <input type="text" id="userInput" placeholder="اسأل أو ابحث بعمق...">
-        <button onclick="handleDeepSearch()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">
-            <i class="fas fa-paper-plane"></i>
-        </button>
+        <main class="content-area">
+            <section class="chat-section">
+                <div class="studio-card">
+                    <div class="card-header">
+                        <span class="card-title">Advanced Edit in Vividia</span>
+                        <i class="fas fa-info-circle" style="color:#444;"></i>
+                    </div>
+                    <div class="chat-display" id="chatWindow">
+                        <div style="color:var(--accent)">Vividia AI: النظام جاهز للبحث العميق والتعديل المتقدم. كيف يمكنني مساعدتك؟</div>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" id="userInput" placeholder="اسأل أو ابحث بعمق...">
+                        <button onclick="handleAction()" style="background:var(--accent); border:none; padding:8px 15px; border-radius:8px; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="edit-controls">
+                <div class="studio-card">
+                    <span class="card-title">Editing Studio</span>
+                    <div style="margin-top:20px;">
+                        <div class="control-group">
+                            <div class="control-label"><span>السطوع</span><span id="v-bright">100%</span></div>
+                            <input type="range" oninput="updateVal('v-bright', this.value)">
+                        </div>
+                        <div class="control-group">
+                            <div class="control-label"><span>التباين</span><span id="v-contrast">100%</span></div>
+                            <input type="range" oninput="updateVal('v-contrast', this.value)">
+                        </div>
+                        <button style="width:100%; background:var(--accent); color:#000; border:none; padding:10px; border-radius:8px; font-weight:bold; margin-top:10px;">حفظ التعديلات</button>
+                    </div>
+                </div>
+            </aside>
+        </main>
     </div>
 
     <script>
-        // إعدادات Firebase الخاصة بك
+        // تهيئة Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyC71p3tQ8CpgdIj2Pn2CLvvm4q2VjlG-ZQ",
             projectId: "studio-8235238182-c3590",
@@ -82,44 +130,26 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        let isEnglish = false;
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-        function toggleLanguage() {
-            isEnglish = !isEnglish;
-            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
-            document.getElementById('langBtn').innerText = isEnglish ? 'العربية' : 'English';
-            document.getElementById('welcomeMsg').innerText = isEnglish ? "Vividia AI: Deep Search enabled. How can I help?" : "Vividia AI: مفعّل الآن بنظام البحث العميق. كيف يمكنني مساعدتك؟";
-            // تحديث نصوص الأزرار
-            document.querySelector('.txt-chat').innerText = isEnglish ? 'Vividia Chat' : 'شات فيفيديا';
-            document.querySelector('.txt-search').innerText = isEnglish ? 'Deep Search' : 'البحث العميق';
-        }
+        function updateVal(id, val) { document.getElementById(id).innerText = val + "%"; }
 
-        async function handleDeepSearch() {
-            const query = document.getElementById('userInput').value;
-            if(!query) return;
+        async function handleAction() {
+            const input = document.getElementById('userInput');
+            const chat = document.getElementById('chatWindow');
+            if(!input.value) return;
 
-            const chat = document.getElementById('chatDisplay');
-            const loader = document.getElementById('searchIndicator');
+            chat.innerHTML += `<div style="margin-bottom:10px; text-align:left;">أنت: ${input.value}</div>`;
             
-            // إضافة رسالة المستخدم
-            chat.innerHTML += `<div class="message"><b>أنت:</b> ${query}</div>`;
-            document.getElementById('userInput').value = "";
-
-            // تفعيل "البحث العميق"
-            loader.style.display = 'block';
-            document.getElementById('btn-search').classList.add('active');
-            document.getElementById('btn-chat').classList.remove('active');
-
-            // محاكاة الاتصال بمحرك البحث العميق (Deep Search Logic)
+            // محاكاة البحث العميق الفعلي
+            chat.innerHTML += `<div style="color:var(--accent); margin-bottom:10px;">Vividia (Deep Search): جاري فحص الويب والبيانات العميقة...</div>`;
+            
             setTimeout(() => {
-                document.getElementById('searchStatus').innerText = isEnglish ? "Analyzing sources and fact-checking..." : "جاري تحليل المصادر والتحقق من البيانات...";
-                
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    chat.innerHTML += `<div class="message ai-msg"><b>Vividia (Deep Search):</b> بناءً على البحث العميق في المصادر المتاحة، تم العثور على النتائج التالية لطلبك "${query}"... [هنا تظهر النتائج المستخلصة]</div>`;
-                    chat.scrollTop = chat.scrollHeight;
-                }, 2000);
+                chat.innerHTML += `<div style="color:var(--accent); margin-bottom:10px;">Vividia: تم العثور على النتائج المتقدمة لطلبك.</div>`;
+                chat.scrollTop = chat.scrollHeight;
             }, 1500);
+            
+            input.value = "";
         }
     </script>
 </body>
