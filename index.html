@@ -3,177 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia - البحث العميق</title>
+    <title>Vividia - الذكاء الاصطناعي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00d1ff, #9b51e0);
+            --bg-color: #0f1113;
+            --card-bg: #1a1d21;
+        }
+
         body {
-            background-color: #000;
+            background-color: var(--bg-color);
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* أيقونة فيفيديا المتوهجة (محاكاة الصورة 2) */
-        .vividia-star {
+        /* تصميم أيقونة Vividia السداسية الاحترافية (V) */
+        .vividia-logo-container {
             position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #4285f4, #9b51e0);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+            width: 80px;
+            height: 80px;
             margin-bottom: 20px;
-        }
-        
-        .vividia-star::after {
-            content: '✦';
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 22px;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(155, 81, 224, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(155, 81, 224, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(155, 81, 224, 0); }
-        }
-
-        /* حاوية الدردشة */
-        .chat-container {
-            background: #111;
-            padding: 25px;
-            border-radius: 15px;
-            width: 80%;
-            max-width: 600px;
-            border: 1px solid #333;
-        }
-
-        /* شريط الأدوات الديناميكي (محاكاة الصورة 1) */
-        .action-bar {
             display: flex;
-            gap: 20px;
-            background: #1e1e1e;
-            padding: 10px 20px;
-            border-radius: 25px;
-            width: fit-content;
-            margin: 20px 0;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 15px rgba(0, 209, 255, 0.4));
         }
 
-        .action-bar i {
+        .hexagon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+            animation: rotateGlow 4s linear infinite;
+        }
+
+        .inner-v {
+            position: relative;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        @keyframes rotateGlow {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.2); }
+        }
+
+        .project-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* حاوية التصميم الرئيسية */
+        .main-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 650px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid #2d3238;
+            text-align: center;
+        }
+
+        .card-header h1 {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-header p {
+            color: #9ba1a6;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* شريط الأدوات */
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background: #25292e;
+            padding: 12px 25px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0 auto 30px auto;
+        }
+
+        .toolbar i {
             color: #888;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s ease;
             font-size: 18px;
         }
 
-        .action-bar i:hover {
-            color: #fff;
+        .toolbar i:hover {
+            color: #00d1ff;
             transform: scale(1.2);
         }
 
-        /* زر البحث العميق */
+        /* زر Deep Search الاحترافي */
         .deep-search-btn {
-            background: transparent;
-            color: #00d1ff;
-            border: 1px solid #00d1ff;
-            border-radius: 10px;
-            padding: 10px 20px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 0 auto;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0, 209, 255, 0.2);
         }
 
         .deep-search-btn:hover {
-            background: rgba(0, 209, 255, 0.1);
-            box-shadow: 0 0 10px #00d1ff;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 209, 255, 0.4);
         }
+
+        /* لوحة النتائج المنبثقة (Animation) */
+        #id-results-panel {
+            display: none;
+            margin-top: 30px;
+            background: #111418;
+            border-radius: 18px;
+            padding: 25px;
+            border: 1px solid #333;
+            text-align: right;
+            position: relative;
+            animation: popUp 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .result-item {
+            background: #1e2227;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-right: 4px solid #00d1ff;
+        }
+
+        .label { color: #888; font-size: 13px; }
+        .value { color: #00d1ff; font-family: 'Courier New', monospace; font-weight: bold; }
+
+        .loading-dots:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } }
     </style>
 </head>
 <body>
 
-    <div class="vividia-star"></div>
+    <div class="vividia-logo-container">
+        <div class="hexagon"></div>
+        <div class="inner-v">V</div>
+    </div>
 
-    <div class="chat-container">
-        <h3>مرحباً بك في Vividia</h3>
-        <p>لقد انتهينا من ربط المصادر! يمكنك الآن استخدام ميزة البحث العميق لاستخراج البيانات مباشرة من قاعدة البيانات السحابية.</p>
+    <div class="project-title">Vividia - بشيان</div>
 
-        <div class="action-bar">
-            <i class="fas fa-ellipsis-v" title="المزيد"></i>
-            <i class="far fa-copy" title="نسخ" onclick="alert('تم نسخ النص')"></i>
-            <i class="fas fa-magic" title="تحسين"></i>
-            <i class="far fa-thumbs-down" title="لم يعجبني"></i>
-            <i class="far fa-thumbs-up" title="أعجبني"></i>
+    <div class="main-card">
+        <div class="card-header">
+            <h1>Vividia عشاق</h1>
+            <p>النظام الذكي لاستخراج البيانات وتحليل الوثائق السرية فوراً.</p>
         </div>
 
-        <button class="deep-search-btn" onclick="downloadResults()">
-            <i class="fas fa-search"></i> تشغيل البحث العميق (استخراج Secret)
+        <div class="toolbar">
+            <i class="far fa-star"></i>
+            <i class="fas fa-file-code"></i>
+            <i class="fas fa-link"></i>
+            <i class="far fa-thumbs-up"></i>
+            <i class="far fa-thumbs-down"></i>
+            <i class="fas fa-share-alt"></i>
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <button class="deep-search-btn" onclick="triggerAnimationSearch()">
+            <i class="fas fa-unlock-alt"></i> Deep Search بشيان
         </button>
+
+        <div id="id-results-panel">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <i class="fas fa-bolt" style="color: #fbbf24;"></i>
+                <span style="font-weight: bold;">نتائج استخراج الهوية ID</span>
+            </div>
+            
+            <div class="result-item">
+                <span class="label">Client Secret:</span>
+                <span id="secret-val" class="value">جاري الاتصال بالسحابة...</span>
+            </div>
+            
+            <div style="font-size: 11px; color: #555; margin-top: 15px;">
+                تم الاتصال بقاعدة بيانات: studio-8235238182
+            </div>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
     <script>
-        // إعدادات Firebase الحقيقية الخاصة بمشروعك (studio-8235238182-c3590)
+        // إعداداتك الخاصة التي استخرجناها من الصور
         const firebaseConfig = {
-            apiKey: "AIzaSyC71p3tQ8CpgdIj2Pn2CL...", // تم جلبها من صورتك
+            apiKey: "AIzaSyC71p3tQ8CpgdIj2Pn2CL...", 
             authDomain: "studio-8235238182-c3590.firebaseapp.com",
-            databaseURL: "https://studio-8235238182-c3590-default-rtdb.firebaseio.com", // تأكد من تفعيل Realtime Database
+            databaseURL: "https://studio-8235238182-c3590-default-rtdb.firebaseio.com",
             projectId: "studio-8235238182-c3590",
             storageBucket: "studio-8235238182-c3590.appspot.com",
             messagingSenderId: "703644313315",
             appId: "1:703644313315:web:fb8932a4980a3731804d0c"
         };
 
-        // تهيئة Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // وظيفة البحث العميق وتحميل الملف
-        async function downloadResults() {
+        function triggerAnimationSearch() {
+            const panel = document.getElementById('id-results-panel');
+            const secretText = document.getElementById('secret-val');
             const btn = document.querySelector('.deep-search-btn');
-            btn.innerHTML = "جاري البحث...";
-            
-            // جلب البيانات من المسار vividia_config/client_secret
-            database.ref('vividia_config/client_secret').once('value').then((snapshot) => {
-                const secret = snapshot.val();
+
+            // تأثير الضغط على الزر
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث';
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                panel.style.display = "block"; // ظهور اللوحة بالـ Animation
                 
-                if (secret) {
-                    const data = { 
-                        project: "Vividia", 
-                        client_secret: secret, 
-                        status: "Active",
-                        timestamp: new Date().toLocaleString() 
-                    };
-                    
-                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'Vividia_Secret_Export.json';
-                    a.click();
-                    
-                    alert("نجاح! تم استخراج الملف.");
-                } else {
-                    alert("خطأ: لم نجد 'client_secret' في قاعدة البيانات. تأكد من إضافته يدوياً في Firebase.");
-                }
-                btn.innerHTML = '<i class="fas fa-search"></i> تشغيل البحث العميق';
-            }).catch((error) => {
-                console.error(error);
-                alert("حدث خطأ في الاتصال. تأكد من إعداد القواعد (Rules) في Firebase إلى true.");
-                btn.innerHTML = '<i class="fas fa-search"></i> تشغيل البحث العميق';
-            });
+                // جلب البيانات الحقيقية
+                database.ref('vividia_config/client_secret').once('value').then((snapshot) => {
+                    const secret = snapshot.val();
+                    if (secret) {
+                        secretText.innerText = secret;
+                        secretText.style.color = "#00d1ff";
+                    } else {
+                        secretText.innerText = "لم يتم العثور على قيمة في Firebase";
+                        secretText.style.color = "#ff4d4d";
+                    }
+                    btn.innerHTML = '<i class="fas fa-check"></i> تم الاستخراج';
+                    btn.style.opacity = "1";
+                }).catch(err => {
+                    secretText.innerText = "خطأ في الاتصال";
+                    btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> خطأ';
+                });
+            }, 800); // تأخير بسيط لمحاكاة التفكير والذكاء
         }
     </script>
-
 </body>
 </html>
