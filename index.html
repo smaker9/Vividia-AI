@@ -3,82 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI Studio | استوديو فيفيديا للإبداع</title>
+    <title>Vividia AI | Cinema Studio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* تصميم سينمائي يشبه Leonardo.ai */
+        :root {
+            --primary-glow: #7000ff;
+            --secondary-glow: #00d4ff;
+            --bg-dark: #050505;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
         body {
-            background-color: #0f0f13;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
             margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* خلفية متدرجة سينمائية */
+        .hero-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, #1a1033, transparent);
+            z-index: -1;
+        }
+
+        /* الهيدر */
+        header {
+            padding: 20px 50px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        /* القائمة الجانبية */
-        .sidebar {
-            width: 250px;
-            background-color: #1a1a23;
-            height: 100vh;
-            padding: 20px;
-            border-left: 1px solid #333;
-        }
+
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #7000ff; /* لون فيفيديا المميز */
-            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #fff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .menu-item {
-            padding: 15px;
-            margin-bottom: 10px;
+
+        /* شبكة الأدوات (مثل Leonardo) */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        h1 { text-align: center; font-size: 3rem; margin-bottom: 10px; }
+        p.subtitle { text-align: center; color: #aaa; margin-bottom: 50px; }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-glow);
+            box-shadow: 0 10px 30px rgba(112, 0, 255, 0.2);
+        }
+
+        .tool-card i {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tool-card h3 { font-size: 22px; margin: 15px 0; }
+        .tool-card p { color: #888; font-size: 14px; line-height: 1.6; }
+
+        /* زر التشغيل السريع */
+        .launch-btn {
+            margin-top: 20px;
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            opacity: 0;
             transition: 0.3s;
         }
-        .menu-item:hover {
-            background-color: #2d2d3d;
-        }
-        /* ساحة العمل */
-        .main-content {
-            flex-grow: 1;
-            padding: 40px;
-        }
-        .studio-card {
-            background: linear-gradient(145deg, #1e1e2a, #161621);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid #333;
-        }
-        .generate-btn {
-            background-color: #7000ff;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+
+        .tool-card:hover .launch-btn { opacity: 1; }
+
     </style>
 </head>
 <body>
+    <div class="hero-bg"></div>
 
-    <div class="sidebar">
+    <header>
         <div class="logo">VIVIDIA AI</div>
-        <div class="menu-item">🎨 توليد الصور (Leonardo Style)</div>
-        <div class="menu-item">🎥 سينما فيديو (Cinema Studio)</div>
-        <div class="menu-item">🎙️ الدبلجة الصوتية</div>
-        <div class="menu-item">🎵 صناعة الموسيقى</div>
-    </div>
+        <div class="user-menu">
+            <i class="fa-solid fa-crown" style="color: gold; margin-left: 15px;"></i>
+            <span>حساب برو</span>
+        </div>
+    </header>
 
-    <div class="main-content">
-        <div class="studio-card">
-            <h2>مرحباً بك في استوديو فيفيديا</h2>
-            <p>اختر الأداة من القائمة الجانبية لتبدأ الإبداع بمنافسة أقوى المواقع العالمية.</p>
-            <textarea id="prompt" style="width: 100%; height: 100px; background: #0b0b11; border: 1px solid #444; color: white; border-radius: 10px; padding: 15px;" placeholder="اكتب ما يتخيله عقلك هنا..."></textarea>
-            <br><br>
-            <button class="generate-btn">إطلاق الإبداع (Generate)</button>
+    <div class="container">
+        <h1>صناعة المستقبل بالذكاء الاصطناعي</h1>
+        <p class="subtitle">استوديو متكامل ينافس Leonardo و Cinema Studio في مكان واحد.</p>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fa-solid fa-palette"></i>
+                <h3>Image Generation</h3>
+                <p>توليد صور فائقة الواقعية بمحركات Imagen 3 و Stable Diffusion.</p>
+                <button class="launch-btn">ابدأ التصميم</button>
+            </div>
+
+            <div class="tool-card">
+                <i class="fa-solid fa-clapperboard"></i>
+                <h3>Cinema Studio</h3>
+                <p>حول نصوصك إلى مقاطع فيديو سينمائية بدقة 4K (منافس Runway).</p>
+                <button class="launch-btn">أنشئ فيديو</button>
+            </div>
+
+            <div class="tool-card">
+                <i class="fa-solid fa-microphone-lines"></i>
+                <h3>AI Lipsync</h3>
+                <p>دبلجة الفيديو لأي لغة في العالم مع مطابقة حركة الشفاه بدقة.</p>
+                <button class="launch-btn">ابدأ الدبلجة</button>
+            </div>
+
+            <div class="tool-card">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h3>AI Upscale</h3>
+                <p>رفع جودة الفيديو والصور إلى مستويات مذهلة (Flow State).</p>
+                <button class="launch-btn">تحسين الجودة</button>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
