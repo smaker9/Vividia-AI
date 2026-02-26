@@ -2,138 +2,83 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vividia AI - Enterprise Suite</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividia AI Studio | استوديو فيفيديا للإبداع</title>
     <style>
-        :root { --bg: #050505; --side: #0f0f11; --accent: #00d1ff; --card: #161618; --text: #ffffff; --border: #26262b; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
-
-        /* Sidebar Pro */
-        .sidebar { width: 280px; background: var(--side); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; }
-        .logo { font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 40px; display: flex; align-items: center; gap: 12px; }
-        .nav-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #888; transition: 0.2s; margin-bottom: 6px; font-size: 14px; }
-        .nav-item:hover, .nav-item.active { background: #1c1c1f; color: var(--accent); }
-
-        /* Content Area */
-        .main { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-        header { height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 25px; background: rgba(5,5,5,0.8); backdrop-filter: blur(15px); }
-
-        /* Section Controller */
-        .section { display: none; flex: 1; padding: 25px; overflow-y: auto; flex-direction: column; }
-        .section.active { display: flex; }
-
-        /* Advanced Chat Box */
-        .chat-wrap { max-width: 900px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column; }
-        .messages { flex: 1; overflow-y: auto; padding-bottom: 20px; display: flex; flex-direction: column; gap: 20px; }
-        .msg { max-width: 80%; padding: 15px; border-radius: 18px; font-size: 14px; line-height: 1.6; position: relative; }
-        .u-msg { align-self: flex-end; background: #222; border-bottom-left-radius: 4px; }
-        .ai-msg { align-self: flex-start; background: rgba(0,209,255,0.05); color: var(--accent); border: 1px solid rgba(0,209,255,0.1); border-bottom-right-radius: 4px; }
-        
-        .chat-bar { background: #121214; border: 1px solid var(--border); border-radius: 20px; padding: 10px 18px; display: flex; align-items: center; gap: 15px; margin-top: 10px; }
-        .chat-bar input { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 15px; }
-
-        /* Stats Dashboard */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
-        .stat-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        .stat-val { font-size: 28px; font-weight: bold; color: var(--accent); margin: 10px 0; }
-
-        /* Studio Tools */
-        .studio-layout { display: grid; grid-template-columns: 1fr 320px; gap: 25px; }
-        .canvas-box { background: #000; border: 2px dashed #222; border-radius: 25px; min-height: 480px; display: flex; align-items: center; justify-content: center; position: relative; }
-
-        @media (max-width: 900px) {
-            .sidebar { position: fixed; right: -280px; }
-            .sidebar.open { right: 0; }
-            .studio-layout { grid-template-columns: 1fr; }
+        /* تصميم سينمائي يشبه Leonardo.ai */
+        body {
+            background-color: #0f0f13;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        /* القائمة الجانبية */
+        .sidebar {
+            width: 250px;
+            background-color: #1a1a23;
+            height: 100vh;
+            padding: 20px;
+            border-left: 1px solid #333;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7000ff; /* لون فيفيديا المميز */
+            margin-bottom: 40px;
+        }
+        .menu-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .menu-item:hover {
+            background-color: #2d2d3d;
+        }
+        /* ساحة العمل */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+        }
+        .studio-card {
+            background: linear-gradient(145deg, #1e1e2a, #161621);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #333;
+        }
+        .generate-btn {
+            background-color: #7000ff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar" id="sidebar">
-        <div class="logo"><i class="fas fa-brain"></i> Vividia AI</div>
-        <div class="nav-item active" onclick="nav('chat', this)"><i class="fas fa-comment-alt"></i> <span class="ln" data-ar="شات فيفيديا" data-en="Vividia Chat">شات فيفيديا</span></div>
-        <div class="nav-item" onclick="nav('studio', this)"><i class="fas fa-magic"></i> <span class="ln" data-ar="استوديو التعديل" data-en="Edit Studio">استوديو التعديل</span></div>
-        <div class="nav-item" onclick="nav('stats', this)"><i class="fas fa-chart-line"></i> <span class="ln" data-ar="الأرباح والإحصائيات" data-en="Stats & Earnings">الأرباح والإحصائيات</span></div>
-        <div class="nav-item"><i class="fas fa-fingerprint"></i> <span class="ln" data-ar="كشف الحيوية" data-en="Liveness">كشف الحيوية</span></div>
-    </aside>
-
-    <div class="main">
-        <header>
-            <div onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fas fa-bars-staggered" style="font-size:20px; cursor:pointer;"></i></div>
-            <select onchange="setLang(this.value)" style="background:#111; color:#fff; border:1px solid #333; padding:8px; border-radius:10px;">
-                <option value="ar">العربية</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-            </select>
-        </header>
-
-        <section id="chat-sec" class="section active">
-            <div class="chat-wrap">
-                <div style="background:#111; padding:15px; border-radius:15px; border:1px solid #222; display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                    <span class="ln" data-ar="وضع البحث العميق (Deep Search)" data-en="Deep Search Mode">وضع البحث العميق (Deep Search)</span>
-                    <input type="checkbox" id="deep" style="width:40px; height:20px; accent-color:var(--accent);">
-                </div>
-                <div class="messages" id="mBox">
-                    <div class="msg ai-msg">Vividia AI: مرحباً بك في المحرك المحدث. كيف يمكنني خدمتك اليوم؟</div>
-                </div>
-                <div class="chat-bar">
-                    <i class="fas fa-paperclip" style="color:#555; cursor:pointer;"></i>
-                    <input type="text" id="mInp" placeholder="اسأل فيفيديا..." onkeypress="if(event.key==='Enter') push()">
-                    <i class="fas fa-microphone" style="color:#555; cursor:pointer;"></i>
-                    <button onclick="push()" style="background:var(--accent); border:none; width:45px; height:45px; border-radius:14px; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <section id="stats-sec" class="section">
-            <h2 class="ln" data-ar="إحصائيات أرباح مشروع فيفيديا" data-en="Vividia Project Earnings">إحصائيات أرباح مشروع فيفيديا</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-credit-card" style="font-size:30px; color:var(--accent);"></i>
-                    <div class="ln" data-ar="أرباح الفيزا" data-en="Visa Earnings">أرباح الفيزا</div>
-                    <div class="stat-val">$14,520</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fab fa-bitcoin" style="font-size:30px; color:#f7931a;"></i>
-                    <div class="ln" data-ar="أرباح الكريبتو" data-en="Crypto Earnings">أرباح الكريبتو</div>
-                    <div class="stat-val">0.42 BTC</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-users" style="font-size:30px; color:#4caf50;"></i>
-                    <div class="ln" data-ar="المستخدمين النشطين" data-en="Active Users">المستخدمين النشطين</div>
-                    <div class="stat-val">1,204</div>
-                </div>
-            </div>
-        </section>
+    <div class="sidebar">
+        <div class="logo">VIVIDIA AI</div>
+        <div class="menu-item">🎨 توليد الصور (Leonardo Style)</div>
+        <div class="menu-item">🎥 سينما فيديو (Cinema Studio)</div>
+        <div class="menu-item">🎙️ الدبلجة الصوتية</div>
+        <div class="menu-item">🎵 صناعة الموسيقى</div>
     </div>
 
-    <script>
-        function setLang(l) {
-            document.documentElement.dir = (l === 'ar' ? 'rtl' : 'ltr');
-            document.querySelectorAll('.ln').forEach(e => e.innerText = e.getAttribute(`data-${l}`));
-        }
+    <div class="main-content">
+        <div class="studio-card">
+            <h2>مرحباً بك في استوديو فيفيديا</h2>
+            <p>اختر الأداة من القائمة الجانبية لتبدأ الإبداع بمنافسة أقوى المواقع العالمية.</p>
+            <textarea id="prompt" style="width: 100%; height: 100px; background: #0b0b11; border: 1px solid #444; color: white; border-radius: 10px; padding: 15px;" placeholder="اكتب ما يتخيله عقلك هنا..."></textarea>
+            <br><br>
+            <button class="generate-btn">إطلاق الإبداع (Generate)</button>
+        </div>
+    </div>
 
-        function nav(id, b) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id + '-sec').classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            b.classList.add('active');
-        }
-
-        function push() {
-            const i = document.getElementById('mInp'), b = document.getElementById('mBox');
-            if(!i.value) return;
-            b.innerHTML += `<div class="msg u-msg">${i.value} <div style="font-size:10px; margin-top:5px; opacity:0.5;"><i class="fas fa-edit"></i> تعديل</div></div>`;
-            const v = i.value; i.value = '';
-            setTimeout(() => {
-                const d = document.getElementById('deep').checked;
-                b.innerHTML += `<div class="msg ai-msg">${d ? '<b>Vividia Deep Search:</b> جاري تحليل البيانات العميقة...' : 'Vividia: تم استلام طلبك.'}</div>`;
-                b.scrollTop = b.scrollHeight;
-            }, 800);
-        }
-    </script>
 </body>
 </html>
