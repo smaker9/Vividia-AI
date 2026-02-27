@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta name="cryptomus" content="1428beac" />
     
     <title>Vividia AI | الفخامة في توليد الصور</title>
     
     <style>
+        /* --- 🎨 التصميم الفاخر للموقع --- */
         :root {
             --gold: #d4af37;
             --black: #0a0a0a;
             --gray: #1a1a1a;
             --white: #ffffff;
+            --shadow: rgba(212, 175, 55, 0.3);
         }
 
         body {
             background-color: var(--black);
             color: var(--white);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', serif; /* لمسة كلاسيكية فخمة */
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -27,73 +30,109 @@
         }
 
         header {
-            padding: 2rem;
+            padding: 3rem;
             text-align: center;
             border-bottom: 1px solid var(--gold);
             width: 100%;
+            background: linear-gradient(to bottom, #111, var(--black));
         }
 
         h1 {
             color: var(--gold);
-            font-size: 2.5rem;
-            letter-spacing: 2px;
+            font-size: 3.5rem;
+            letter-spacing: 5px;
             margin: 0;
+            text-shadow: 2px 2px 10px var(--shadow);
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #888;
+            margin-top: 10px;
         }
 
         .container {
-            max-width: 800px;
-            padding: 2rem;
+            max-width: 900px;
+            padding: 4rem 2rem;
             text-align: center;
         }
 
         .premium-input {
-            background: var(--gray);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--gold);
             color: white;
-            padding: 1rem;
-            width: 80%;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            padding: 1.2rem;
+            width: 90%;
+            border-radius: 0; /* زوايا حادة للفخامة */
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            outline: none;
+            transition: 0.5s;
+        }
+
+        .premium-input:focus {
+            box-shadow: 0 0 20px var(--shadow);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .btn-gold {
-            background: linear-gradient(45deg, #d4af37, #f9f295);
+            background: linear-gradient(45deg, #d4af37, #f9f295, #d4af37);
             color: black;
             border: none;
-            padding: 1rem 2rem;
+            padding: 1.2rem 3rem;
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
-            transition: 0.3s;
-            border-radius: 5px;
+            transition: 0.4s;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .btn-gold:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow);
         }
 
         #resultArea {
-            margin-top: 2rem;
-            border: 1px solid #333;
-            min-height: 300px;
+            margin-top: 4rem;
+            border: 1px solid var(--gray);
+            padding: 10px;
+            min-height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #0d0d0d;
+            position: relative;
+        }
+
+        #resultArea::before {
+            content: "VIVIDIA PREVIEW";
+            color: #222;
+            font-size: 3rem;
+            position: absolute;
+            z-index: 0;
         }
 
         img {
             max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--gold);
+            z-index: 1;
+        }
+
+        /* --- 💳 قسم الدفع --- */
+        .payment-section {
+            margin-top: 5rem;
+            padding: 3rem;
+            border: 1px dashed var(--gold);
+            background: rgba(212, 175, 55, 0.02);
         }
 
         .footer {
             margin-top: auto;
-            padding: 2rem;
-            font-size: 0.8rem;
-            color: #555;
+            padding: 3rem;
+            font-size: 0.9rem;
+            color: #444;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -101,48 +140,49 @@
 
     <header>
         <h1>VIVIDIA AI</h1>
-        <p>تجربة بصرية لا تضاهى</p>
+        <p class="tagline">حيث يتجسد الخيال في صورة</p>
     </header>
 
     <div class="container">
-        <input type="text" id="promptInput" class="premium-input" placeholder="اكتب وصف الصورة هنا بالإنجليزية...">
+        <input type="text" id="promptInput" class="premium-input" placeholder="أدخل وصف الصورة السحرية هنا...">
         <br>
-        <button onclick="generateImage()" class="btn-gold">توليد الصورة السحرية</button>
+        <button onclick="generateImage()" class="btn-gold">توليد التحفة الفنية</button>
         
         <div id="resultArea">
-            <p id="statusText">ابدأ الإبداع الآن...</p>
+            <p id="statusText" style="z-index:1; color: var(--gold);">بانتظار إلهامك...</p>
         </div>
 
-        <hr style="border: 0.5px solid var(--gray); margin: 3rem 0;">
-        
-        <h3>نفدت نقاطك؟</h3>
-        <p>احصل على اشتراك "بريميوم" بـ 4.99$ فقط للوصول غير المحدود</p>
-        <button onclick="payWithVisa()" class="btn-gold" style="background: white; color: black;">اشترك عبر الفيزا / كاش</button>
+        <div class="payment-section">
+            <h3 style="color: var(--gold);">عضوية Vividia بريميوم</h3>
+            <p>استمتع بتوليد صور غير محدود بجودة 4K مقابل 4.99$ فقط</p>
+            <br>
+            <button onclick="payWithVisa()" class="btn-gold" style="background: white; color: black; border-radius: 50px;">
+                💳 الدفع عبر الفيزا / كارد
+            </button>
+        </div>
     </div>
 
     <div class="footer">
-        © 2026 Vividia Project | Powered by Leonardo.ai & Cryptomus
+        EST. 2026 | VIVIDIA LUXURY ARTIFICIAL INTELLIGENCE
     </div>
 
     <script>
-        // --- 🛠️ الإعدادات السرية ---
-        const LEONARDO_KEY = "99f5..."; // تأكد من وضع المفتاح الكامل هنا
-        
+        // --- ⚙️ الربط البرمجي ---
+        const LEONARDO_KEY = "99f5..."; // تأكد من وضع مفتاحك هنا
+
         async function generateImage() {
             const prompt = document.getElementById('promptInput').value;
-            if(!prompt) return alert("من فضلك اكتب وصفاً!");
+            if(!prompt) return alert("من فضلك صف الصورة التي تتخيلها أولاً.");
 
-            document.getElementById('statusText').innerText = "جاري الإبداع... يرجى الانتظار";
-
-            // ملاحظة: هنا يتم ربط Leonardo API
-            // سيتم إرسال الطلب واستقبال الصورة
-            alert("سيتم توليد الصورة باستخدام محرك Leonardo الفاخر");
+            document.getElementById('statusText').innerText = "جاري صقل التحفة الفنية... يرجى الانتظار";
+            
+            // هنا سيتم وضع كود Leonardo API الخاص بنا
+            console.log("Generating for:", prompt);
         }
 
         function payWithVisa() {
-            // بعد قبول حسابك في Cryptomus، سنضع رابط الفاتورة هنا
-            // حالياً سيظهر هذا التنبيه حتى تضغط على "Verify" في موقعهم
-            alert("جاري تجهيز بوابة الدفع... تأكد من الضغط على 'يفحص' في Cryptomus أولاً");
+            // هذا التنبيه سيظل حتى يتم تفعيل حسابك في Cryptomus
+            alert("سيتم توجيهك لبوابة الدفع الآمنة بمجرد انتهاء فحص النطاق.");
         }
     </script>
 </body>
