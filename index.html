@@ -3,123 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - منصة الإنتاج الصوتي بالذكاء الاصطناعي</title>
+    <title>Vividia AI - الإنتاج الصوتي بالذكاء الاصطناعي</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #6366f1;
-            --secondary: #ec4899;
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --dark: #030712;
-            --darker: #020617;
-            --card: #111827;
-            --border: #1f2937;
-            --text: #f9fafb;
-            --text-muted: #9ca3af;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background: var(--darker);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #030712;
+            color: #f9fafb;
             min-height: 100vh;
         }
 
         /* شريط التنقل */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 24px;
+            background: #111827;
+            border-bottom: 1px solid #1f2937;
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #6366f1, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 32px;
-        }
-
-        .nav-link {
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--text);
-        }
-
-        /* محول اللغات */
-        .language-selector {
-            position: relative;
-        }
-
-        .current-lang {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .lang-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 300px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-top: 8px;
-            padding: 12px;
-            display: none;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            z-index: 1000;
-        }
-
-        .language-selector:hover .lang-dropdown {
-            display: grid;
-        }
-
-        .lang-option {
-            padding: 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .lang-option:hover {
-            background: var(--border);
-        }
-
-        /* معلومات المستخدم */
         .user-info {
             display: flex;
             align-items: center;
@@ -127,175 +43,92 @@
         }
 
         .credits {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: #6366f1;
             padding: 8px 16px;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .plan {
-            background: var(--warning);
-            color: var(--darker);
+            background: #f59e0b;
+            color: #030712;
             padding: 8px 16px;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         /* المحتوى الرئيسي */
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px 20px 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
         /* الهيدر */
         .header {
             text-align: center;
-            padding: 60px 20px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .header h1 {
             font-size: 3rem;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #6366f1, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* شبكة المنتجات */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .product-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .product-icon {
-            font-size: 2rem;
-            margin-bottom: 16px;
-        }
-
-        .product-title {
+        .header p {
+            color: #9ca3af;
             font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 8px;
         }
 
-        .product-desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-
-        .product-price {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        /* خطط الأسعار */
-        .pricing-grid {
+        /* شبكة الأدوات */
+        .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 24px;
-            margin: 40px 0;
+            margin-bottom: 60px;
         }
 
-        .pricing-card {
-            background: var(--card);
-            border: 1px solid var(--border);
+        .tool-card {
+            background: #111827;
+            border: 1px solid #1f2937;
             border-radius: 24px;
             padding: 32px;
-            position: relative;
-        }
-
-        .pricing-card.popular {
-            border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--warning);
-            color: var(--darker);
-            padding: 4px 20px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .plan-price {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .plan-price small {
-            font-size: 1rem;
-            color: var(--text-muted);
-        }
-
-        .plan-features {
-            list-style: none;
-            margin: 20px 0;
-        }
-
-        .plan-features li {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .plan-features li::before {
-            content: "✓";
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        /* الأزرار */
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: #6366f1;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .tool-desc {
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+
+        .tool-price {
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 1.2rem;
         }
 
         /* Modal */
@@ -305,7 +138,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             align-items: center;
             justify-content: center;
@@ -317,47 +150,144 @@
         }
 
         .modal-content {
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: #111827;
+            border: 1px solid #1f2937;
             border-radius: 24px;
-            padding: 32px;
-            max-width: 500px;
+            padding: 40px;
             width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        .crypto-address {
-            background: var(--darker);
+        .modal-content h2 {
+            margin-bottom: 24px;
+            color: #6366f1;
+        }
+
+        textarea, select, input {
+            width: 100%;
+            background: #030712;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
             padding: 16px;
-            border-radius: 8px;
-            font-family: monospace;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        textarea:focus, select:focus, input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #1f2937;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .audio-player {
             margin: 20px 0;
-            word-break: break-all;
+            padding: 20px;
+            background: #030712;
+            border-radius: 12px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        .close {
+            float: left;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #1f2937;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            width: 0%;
+            transition: width 0.3s;
         }
 
         /* سجل الإنتاج */
-        .history-grid {
-            display: grid;
-            gap: 12px;
+        .history-section {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+
+        .history-section h2 {
+            margin-bottom: 24px;
+            color: #6366f1;
         }
 
         .history-item {
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: #030712;
+            border: 1px solid #1f2937;
             border-radius: 12px;
             padding: 16px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .history-item button {
+            background: #6366f1;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
             .header h1 {
                 font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -366,28 +296,9 @@
     <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="logo">Vividia AI</div>
-        
-        <div class="nav-links">
-            <span class="nav-link active" onclick="showSection('create')">إنشاء</span>
-            <span class="nav-link" onclick="showSection('pricing')">الأسعار</span>
-            <span class="nav-link" onclick="showSection('history')">السجل</span>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <!-- محول اللغات -->
-            <div class="language-selector">
-                <div class="current-lang">
-                    <span id="currentLangFlag">🇸🇦</span>
-                    <span id="currentLangName">العربية</span>
-                </div>
-                <div class="lang-dropdown" id="langDropdown"></div>
-            </div>
-
-            <!-- معلومات المستخدم -->
-            <div class="user-info">
-                <span class="credits" id="creditsDisplay">100</span>
-                <span class="plan" id="planDisplay">مجاني</span>
-            </div>
+        <div class="user-info">
+            <span class="credits" id="creditsDisplay">100</span>
+            <span class="plan" id="planDisplay">مجاني</span>
         </div>
     </nav>
 
@@ -401,77 +312,37 @@
             <p>حوّل نصوصك إلى مقاطع صوتية احترافية</p>
         </div>
 
-        <!-- قسم الإنشاء -->
-        <div id="createSection">
-            <div class="products-grid">
-                <div class="product-card" onclick="openTool('tts')">
-                    <div class="product-icon">🎙️</div>
-                    <div class="product-title">نص إلى صوت</div>
-                    <div class="product-desc">تحويل النص إلى كلام طبيعي</div>
-                    <div class="product-price">10 نقاط</div>
-                </div>
-                <div class="product-card" onclick="openTool('dub')">
-                    <div class="product-icon">🌐</div>
-                    <div class="product-title">دبلجة فيديو</div>
-                    <div class="product-desc">ترجمة ودبلجة الفيديوهات</div>
-                    <div class="product-price">50 نقطة</div>
-                </div>
-                <div class="product-card" onclick="openTool('sfx')">
-                    <div class="product-icon">🔊</div>
-                    <div class="product-title">مؤثرات صوتية</div>
-                    <div class="product-desc">إنشاء مؤثرات صوتية مخصصة</div>
-                    <div class="product-price">5 نقاط</div>
-                </div>
+        <!-- شبكة الأدوات -->
+        <div class="tools-grid">
+            <!-- نص إلى صوت -->
+            <div class="tool-card" onclick="openTool('tts')">
+                <div class="tool-icon">🎙️</div>
+                <div class="tool-title">نص إلى صوت</div>
+                <div class="tool-desc">تحويل النص إلى كلام طبيعي باستخدام الذكاء الاصطناعي</div>
+                <div class="tool-price">10 نقاط</div>
+            </div>
+
+            <!-- دبلجة فيديو -->
+            <div class="tool-card" onclick="openTool('dub')">
+                <div class="tool-icon">🌐</div>
+                <div class="tool-title">دبلجة فيديو</div>
+                <div class="tool-desc">ترجمة ودبلجة الفيديوهات إلى أي لغة</div>
+                <div class="tool-price">50 نقطة</div>
+            </div>
+
+            <!-- مؤثرات صوتية -->
+            <div class="tool-card" onclick="openTool('sfx')">
+                <div class="tool-icon">🔊</div>
+                <div class="tool-title">مؤثرات صوتية</div>
+                <div class="tool-desc">إنشاء مؤثرات صوتية مخصصة</div>
+                <div class="tool-price">5 نقاط</div>
             </div>
         </div>
 
-        <!-- قسم الأسعار -->
-        <div id="pricingSection" style="display: none;">
-            <div class="pricing-grid">
-                <!-- مجاني -->
-                <div class="pricing-card">
-                    <h3>مجاني</h3>
-                    <div class="plan-price">$0 <small>/شهر</small></div>
-                    <ul class="plan-features">
-                        <li>100 نقطة شهرياً</li>
-                        <li>أصوات أساسية</li>
-                        <li>جودة عادية</li>
-                    </ul>
-                    <button class="btn btn-secondary" onclick="selectPlan('free')">مشترك حالياً</button>
-                </div>
-
-                <!-- احترافي -->
-                <div class="pricing-card popular">
-                    <span class="popular-badge">الأكثر طلباً</span>
-                    <h3>احترافي</h3>
-                    <div class="plan-price">$19.99 <small>/شهر</small></div>
-                    <ul class="plan-features">
-                        <li>1000 نقطة شهرياً</li>
-                        <li>أصوات متميزة</li>
-                        <li>جودة عالية</li>
-                        <li>دبلجة فيديوهات</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="showPaymentModal('pro')">اشتراك</button>
-                </div>
-
-                <!-- غير محدود -->
-                <div class="pricing-card">
-                    <h3>غير محدود</h3>
-                    <div class="plan-price">$49.99 <small>/شهر</small></div>
-                    <ul class="plan-features">
-                        <li>نقاط غير محدودة</li>
-                        <li>جميع الأصوات</li>
-                        <li>جودة فائقة</li>
-                        <li>دبلجة غير محدودة</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="showPaymentModal('unlimited')">اشتراك</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- قسم السجل -->
-        <div id="historySection" style="display: none;">
-            <div class="history-grid" id="historyList"></div>
+        <!-- سجل الإنتاج -->
+        <div class="history-section">
+            <h2>📋 سجل الإنتاج</h2>
+            <div id="historyList"></div>
         </div>
     </div>
 
@@ -480,143 +351,44 @@
         <div class="modal-content" id="toolContent"></div>
     </div>
 
-    <!-- Modal الدفع -->
-    <div class="modal" id="paymentModal">
-        <div class="modal-content">
-            <h3 id="paymentTitle">اشتراك احترافي</h3>
-            <p style="margin: 20px 0;">اختر طريقة الدفع:</p>
-            
-            <div style="margin-bottom: 20px;">
-                <div style="background: var(--border); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                    <strong>🪙 Cryptomus</strong>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Bitcoin, Ethereum, USDT, BNB, SOL</p>
-                </div>
-            </div>
-
-            <div id="cryptoPayment">
-                <p>للدفع عبر Cryptomus:</p>
-                <div class="crypto-address" id="cryptoAddress">
-                    bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
-                </div>
-                <button class="btn btn-primary" onclick="processCryptoPayment()" style="margin-bottom: 10px;">
-                    تأكيد الدفع
-                </button>
-                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // ==================== المفاتيح الحقيقية ====================
+        // ==================== المفتاح الحقيقي لـ ElevenLabs ====================
         const ELEVENLABS_KEY = "sk_9e048006fa8c6ebe0068240531808bba33c809c6f43313fe";
-        const CRYPTOMUS_MERCHANT_ID = "6Va2ikdcfMbYwog2wJf6thH21iq0fbI9FSLXOefkbFg7pNgRy5WA8ijFqxnBjCc5IF3anDhDzdM5DaqLKN54KUngfpdj5RqBbJ5AG1balI8KeULyrEXallo7qqx0oH57";
-        const CRYPTOMUS_API_KEY = "6Va2ikdcfMbYwog2wJf6thH21iq0fbI9FSLXOefkbFg7pNgRy5WA8ijFqxnBjCc5IF3anDhDzdM5DaqLKN54KUngfpdj5RqBbJ5AG1balI8KeULyrEXallo7qqx0oH57";
-
+        
         // ==================== بيانات المستخدم ====================
         let currentUser = {
-            email: localStorage.getItem('user_email') || '',
-            plan: localStorage.getItem('user_plan') || 'free',
             credits: parseInt(localStorage.getItem('user_credits')) || 100,
+            plan: localStorage.getItem('user_plan') || 'free',
             history: JSON.parse(localStorage.getItem('user_history')) || []
         };
 
-        // ==================== اللغات العالمية ====================
-        const languages = [
-            { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-            { code: 'en', name: 'English', flag: '🇬🇧' },
-            { code: 'zh', name: '中文', flag: '🇨🇳' },
-            { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
-            { code: 'es', name: 'Español', flag: '🇪🇸' },
-            { code: 'fr', name: 'Français', flag: '🇫🇷' },
-            { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-            { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-            { code: 'pt', name: 'Português', flag: '🇵🇹' },
-            { code: 'ja', name: '日本語', flag: '🇯🇵' },
-            { code: 'ko', name: '한국어', flag: '🇰🇷' },
-            { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-            { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-            { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-            { code: 'pl', name: 'Polski', flag: '🇵🇱' },
-            { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
-            { code: 'ur', name: 'اردو', flag: '🇵🇰' },
-            { code: 'he', name: 'עברית', flag: '🇮🇱' },
-            { code: 'id', name: 'Indonesia', flag: '🇮🇩' },
-            { code: 'th', name: 'ไทย', flag: '🇹🇭' },
-            { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-            { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
-            { code: 'da', name: 'Dansk', flag: '🇩🇰' },
-            { code: 'no', name: 'Norsk', flag: '🇳🇴' },
-            { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
-            { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
-            { code: 'cs', name: 'Čeština', flag: '🇨🇿' },
-            { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
-            { code: 'ro', name: 'Română', flag: '🇷🇴' }
+        // ==================== أصوات ElevenLabs المتاحة ====================
+        const voices = [
+            { id: '21m00Tcm4TlvDq8ikWAM', name: 'صوت عربي 1 (ذكر)' },
+            { id: 'AZnzlk1XvdvUeBnXmlld', name: 'صوت عربي 2 (أنثى)' },
+            { id: 'EXAVITQu4vr4xnSDxMaL', name: 'English Voice 1' },
+            { id: 'MF3mGyEYCl7XYWbV9V6O', name: 'English Voice 2' }
         ];
 
         // ==================== التهيئة ====================
         document.addEventListener('DOMContentLoaded', () => {
-            initLanguages();
             updateUserDisplay();
             loadHistory();
-            checkURLParams();
         });
-
-        // ==================== تهيئة اللغات ====================
-        function initLanguages() {
-            const dropdown = document.getElementById('langDropdown');
-            languages.forEach(lang => {
-                const div = document.createElement('div');
-                div.className = 'lang-option';
-                div.innerHTML = `${lang.flag} ${lang.name}`;
-                div.onclick = () => changeLanguage(lang.code);
-                dropdown.appendChild(div);
-            });
-
-            const savedLang = localStorage.getItem('language') || 'ar';
-            changeLanguage(savedLang);
-        }
-
-        // ==================== تغيير اللغة ====================
-        function changeLanguage(code) {
-            const lang = languages.find(l => l.code === code);
-            if (!lang) return;
-
-            document.getElementById('currentLangFlag').textContent = lang.flag;
-            document.getElementById('currentLangName').textContent = lang.name;
-            document.documentElement.lang = code;
-            document.documentElement.dir = code === 'ar' || code === 'fa' || code === 'ur' || code === 'he' ? 'rtl' : 'ltr';
-            localStorage.setItem('language', code);
-        }
 
         // ==================== تحديث عرض المستخدم ====================
         function updateUserDisplay() {
             document.getElementById('creditsDisplay').textContent = currentUser.credits;
             document.getElementById('planDisplay').textContent = 
-                currentUser.plan === 'free' ? 'مجاني' : 
-                currentUser.plan === 'pro' ? 'احترافي' : 'غير محدود';
+                currentUser.plan === 'free' ? 'مجاني' : 'احترافي';
             
-            localStorage.setItem('user_plan', currentUser.plan);
             localStorage.setItem('user_credits', currentUser.credits);
-        }
-
-        // ==================== التنقل بين الأقسام ====================
-        function showSection(section) {
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            document.getElementById('createSection').style.display = section === 'create' ? 'block' : 'none';
-            document.getElementById('pricingSection').style.display = section === 'pricing' ? 'block' : 'none';
-            document.getElementById('historySection').style.display = section === 'history' ? 'block' : 'none';
+            localStorage.setItem('user_plan', currentUser.plan);
+            localStorage.setItem('user_history', JSON.stringify(currentUser.history));
         }
 
         // ==================== فتح أداة ====================
         function openTool(tool) {
-            if (currentUser.credits < getToolCost(tool)) {
-                alert('رصيد غير كافٍ. الرجاء ترقية خطتك');
-                showSection('pricing');
-                return;
-            }
-
             const modal = document.getElementById('toolModal');
             const content = document.getElementById('toolContent');
 
@@ -631,34 +403,36 @@
             modal.classList.add('active');
         }
 
-        function getToolCost(tool) {
-            const costs = { tts: 10, dub: 50, sfx: 5 };
-            return costs[tool] || 0;
+        // ==================== إغلاق Modal ====================
+        function closeModal() {
+            document.getElementById('toolModal').classList.remove('active');
         }
 
         // ==================== واجهة النص إلى صوت ====================
         function getTTSInterface() {
             return `
-                <h3 style="margin-bottom: 20px;">🎙️ نص إلى صوت</h3>
-                <textarea id="ttsText" rows="5" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;" placeholder="اكتب النص هنا..."></textarea>
+                <span class="close" onclick="closeModal()">✕</span>
+                <h2>🎙️ نص إلى صوت</h2>
                 
-                <select id="ttsVoice" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;">
-                    <option value="21m00Tcm4TlvDq8ikWAM">صوت ذكر (عربي)</option>
-                    <option value="AZnzlk1XvdvUeBnXmlld">صوت أنثى (عربي)</option>
-                    <option value="EXAVITQu4vr4xnSDxMaL">English Voice</option>
+                <textarea id="ttsText" rows="4" placeholder="اكتب النص هنا...">مرحباً بكم في منصة Vividia AI للإنتاج الصوتي</textarea>
+                
+                <select id="ttsVoice">
+                    ${voices.map(v => `<option value="${v.id}">${v.name}</option>`).join('')}
                 </select>
                 
-                <button class="btn btn-primary" onclick="generateTTS()" style="margin-bottom: 20px;">توليد الصوت</button>
+                <button class="btn btn-primary" onclick="generateTTS()">توليد الصوت (10 نقاط)</button>
                 
                 <div id="ttsResult" style="display: none;">
-                    <audio id="ttsAudio" controls style="width: 100%;"></audio>
+                    <div class="audio-player">
+                        <audio id="ttsAudio" controls></audio>
+                    </div>
                 </div>
                 
-                <button class="btn btn-secondary" onclick="closeToolModal()">إغلاق</button>
+                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
             `;
         }
 
-        // ==================== توليد صوت حقيقي ====================
+        // ==================== توليد صوت باستخدام ElevenLabs ====================
         async function generateTTS() {
             const text = document.getElementById('ttsText').value;
             const voiceId = document.getElementById('ttsVoice').value;
@@ -668,7 +442,19 @@
                 return;
             }
 
+            if (currentUser.credits < 10) {
+                alert('رصيد غير كافٍ');
+                closeModal();
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'جاري التوليد...';
+            button.disabled = true;
+
             try {
+                // استخدام API ElevenLabs الحقيقي مع المفتاح
                 const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
                     method: 'POST',
                     headers: {
@@ -686,54 +472,71 @@
                     })
                 });
 
-                if (!response.ok) throw new Error('فشل التوليد');
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(`فشل التوليد: ${error}`);
+                }
 
                 const audioBlob = await response.blob();
                 const audioUrl = URL.createObjectURL(audioBlob);
 
+                // عرض النتيجة
                 document.getElementById('ttsResult').style.display = 'block';
-                document.getElementById('ttsAudio').src = audioUrl;
+                const audio = document.getElementById('ttsAudio');
+                audio.src = audioUrl;
+                audio.play();
 
                 // خصم النقاط
                 currentUser.credits -= 10;
-                updateUserDisplay();
-
+                
                 // حفظ في السجل
                 saveToHistory('tts', text, audioUrl);
 
+                alert('تم توليد الصوت بنجاح!');
+
             } catch (error) {
                 console.error('TTS Error:', error);
-                alert('حدث خطأ في توليد الصوت');
+                alert('حدث خطأ في توليد الصوت: ' + error.message);
+            } finally {
+                button.textContent = originalText;
+                button.disabled = false;
             }
         }
 
         // ==================== واجهة الدبلجة ====================
         function getDubbingInterface() {
             return `
-                <h3 style="margin-bottom: 20px;">🌐 دبلجة فيديو</h3>
-                <input type="url" id="videoUrl" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;" placeholder="رابط الفيديو">
+                <span class="close" onclick="closeModal()">✕</span>
+                <h2>🌐 دبلجة فيديو</h2>
                 
-                <select id="targetLang" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;">
-                    ${languages.map(l => `<option value="${l.code}">${l.flag} ${l.name}</option>`).join('')}
+                <input type="url" id="videoUrl" placeholder="رابط الفيديو (YouTube)">
+                
+                <select id="dubLanguage">
+                    <option value="ar">العربية</option>
+                    <option value="en">الإنجليزية</option>
+                    <option value="fr">الفرنسية</option>
+                    <option value="es">الإسبانية</option>
+                    <option value="de">الألمانية</option>
+                    <option value="ja">اليابانية</option>
+                    <option value="zh">الصينية</option>
                 </select>
                 
-                <button class="btn btn-primary" onclick="processDubbing()" style="margin-bottom: 20px;">بدء الدبلجة</button>
+                <button class="btn btn-primary" onclick="processDubbing()">بدء الدبلجة (50 نقطة)</button>
                 
                 <div id="dubProgress" style="display: none;">
-                    <div style="width: 100%; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden;">
-                        <div id="dubProgressBar" style="height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 0%;"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="dubProgressFill"></div>
                     </div>
                 </div>
                 
-                <button class="btn btn-secondary" onclick="closeToolModal()">إغلاق</button>
+                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
             `;
         }
 
         // ==================== معالجة الدبلجة ====================
-        async function processDubbing() {
+        function processDubbing() {
             const videoUrl = document.getElementById('videoUrl').value;
-            const targetLang = document.getElementById('targetLang').value;
-
+            
             if (!videoUrl) {
                 alert('الرجاء إدخال رابط الفيديو');
                 return;
@@ -741,28 +544,34 @@
 
             if (currentUser.plan === 'free') {
                 alert('الدبلجة متاحة فقط في الخطة الاحترافية');
-                closeToolModal();
-                showSection('pricing');
+                closeModal();
+                return;
+            }
+
+            if (currentUser.credits < 50) {
+                alert('رصيد غير كافٍ');
+                closeModal();
                 return;
             }
 
             document.getElementById('dubProgress').style.display = 'block';
+            
             let progress = 0;
             const interval = setInterval(() => {
                 progress += 10;
-                document.getElementById('dubProgressBar').style.width = progress + '%';
+                document.getElementById('dubProgressFill').style.width = progress + '%';
+                
                 if (progress >= 100) {
                     clearInterval(interval);
-                    alert('تمت الدبلجة بنجاح!');
                     
                     // خصم النقاط
                     currentUser.credits -= 50;
-                    updateUserDisplay();
                     
                     // حفظ في السجل
                     saveToHistory('dub', videoUrl, '');
                     
-                    closeToolModal();
+                    alert('تمت الدبلجة بنجاح!');
+                    closeModal();
                 }
             }, 500);
         }
@@ -770,152 +579,111 @@
         // ==================== واجهة المؤثرات ====================
         function getSFXInterface() {
             return `
-                <h3 style="margin-bottom: 20px;">🔊 مؤثرات صوتية</h3>
-                <input type="text" id="sfxPrompt" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;" placeholder="وصف المؤثر الصوتي">
+                <span class="close" onclick="closeModal()">✕</span>
+                <h2>🔊 مؤثرات صوتية</h2>
                 
-                <select id="sfxCategory" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;">
-                    <option value="explosion">انفجار</option>
-                    <option value="nature">طبيعة</option>
-                    <option value="horror">رعب</option>
-                    <option value="cinematic">سينمائي</option>
+                <input type="text" id="sfxPrompt" placeholder="وصف المؤثر الصوتي (مثال: صوت انفجار قوي)">
+                
+                <select id="sfxDuration">
+                    <option value="2">قصير (2 ثواني)</option>
+                    <option value="5">متوسط (5 ثواني)</option>
+                    <option value="10">طويل (10 ثواني)</option>
                 </select>
                 
-                <button class="btn btn-primary" onclick="generateSFX()" style="margin-bottom: 20px;">توليد المؤثر</button>
+                <button class="btn btn-primary" onclick="generateSFX()">توليد المؤثر (5 نقاط)</button>
                 
                 <div id="sfxResult" style="display: none;">
-                    <audio id="sfxAudio" controls style="width: 100%;"></audio>
+                    <div class="audio-player">
+                        <audio id="sfxAudio" controls></audio>
+                    </div>
                 </div>
                 
-                <button class="btn btn-secondary" onclick="closeToolModal()">إغلاق</button>
+                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
             `;
         }
 
         // ==================== توليد مؤثرات ====================
-        async function generateSFX() {
+        function generateSFX() {
             const prompt = document.getElementById('sfxPrompt').value;
-            const category = document.getElementById('sfxCategory').value;
-
+            
             if (!prompt) {
                 alert('الرجاء إدخال وصف المؤثر');
                 return;
             }
 
-            // محاكاة توليد مؤثر (في الواقع سنستخدم API حقيقي)
+            if (currentUser.credits < 5) {
+                alert('رصيد غير كافٍ');
+                closeModal();
+                return;
+            }
+
+            const button = event.target;
+            button.textContent = 'جاري التوليد...';
+            button.disabled = true;
+
+            // محاكاة توليد مؤثر (في الإصدار الحقيقي سنستخدم API)
             setTimeout(() => {
+                // مثال على رابط صوتي حقيقي
                 const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+                
                 document.getElementById('sfxResult').style.display = 'block';
-                document.getElementById('sfxAudio').src = audioUrl;
+                const audio = document.getElementById('sfxAudio');
+                audio.src = audioUrl;
+                audio.play();
 
                 // خصم النقاط
                 currentUser.credits -= 5;
-                updateUserDisplay();
-
+                
                 // حفظ في السجل
                 saveToHistory('sfx', prompt, audioUrl);
+
+                button.textContent = 'توليد المؤثر (5 نقاط)';
+                button.disabled = false;
             }, 2000);
         }
 
-        // ==================== إظهار نافذة الدفع ====================
-        function showPaymentModal(plan) {
-            const titles = {
-                pro: 'اشتراك احترافي - $19.99/شهر',
-                unlimited: 'اشتراك غير محدود - $49.99/شهر'
+        // ==================== حفظ في السجل ====================
+        function saveToHistory(type, text, url) {
+            const item = {
+                id: Date.now(),
+                type: type,
+                text: text.length > 30 ? text.substring(0, 30) + '...' : text,
+                url: url,
+                date: new Date().toLocaleString('ar-EG')
             };
             
-            document.getElementById('paymentTitle').textContent = titles[plan];
-            document.getElementById('paymentModal').classList.add('active');
-            currentSelectedPlan = plan;
+            currentUser.history.unshift(item);
+            if (currentUser.history.length > 10) currentUser.history.pop();
+            
+            updateUserDisplay();
+            loadHistory();
         }
 
-        let currentSelectedPlan = 'pro';
-
-        // ==================== معالجة الدفع عبر Cryptomus ====================
-        async function processCryptoPayment() {
-            const button = document.getElementById('paymentButton');
-            const originalText = button.textContent;
+        // ==================== تحميل السجل ====================
+        function loadHistory() {
+            const historyList = document.getElementById('historyList');
             
-            button.disabled = true;
-            button.textContent = 'جاري التوجيه...';
-
-            const prices = {
-                pro: 19.99,
-                unlimited: 49.99
-            };
-
-            try {
-                // إنشاء طلب دفع حقيقي لـ Cryptomus
-                const paymentData = {
-                    merchant_id: CRYPTOMUS_MERCHANT_ID,
-                    amount: prices[currentSelectedPlan].toString(),
-                    currency: 'USD',
-                    order_id: 'order_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                    url_return: window.location.href,
-                    url_success: window.location.href + '?payment=success',
-                    url_callback: 'https://vividia-ai.com/api/cryptomus-webhook',
-                    is_payment_multiple: false,
-                    lifetime: 3600,
-                    to_currency: 'USDT'
-                };
-
-                // إنشاء توقيع للطلب
-                const sign = await generateSignature(paymentData);
-
-                // إرسال طلب الدفع
-                const response = await fetch('https://api.cryptomus.com/v1/payment', {
-                    method: 'POST',
-                    headers: {
-                        'merchant': CRYPTOMUS_MERCHANT_ID,
-                        'sign': sign,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(paymentData)
-                });
-
-                const result = await response.json();
-
-                if (result.state === 0 && result.result) {
-                    // تخزين معلومات الطلب
-                    localStorage.setItem('current_payment', JSON.stringify({
-                        plan: currentSelectedPlan,
-                        order_id: paymentData.order_id,
-                        url: result.result.url
-                    }));
-
-                    // توجيه المستخدم إلى صفحة الدفع
-                    window.location.href = result.result.url;
-                } else {
-                    throw new Error('فشل إنشاء طلب الدفع');
-                }
-
-            } catch (error) {
-                console.error('Payment error:', error);
-                alert('حدث خطأ في الاتصال ببوابة الدفع. يرجى المحاولة مرة أخرى.');
-                
-                button.disabled = false;
-                button.textContent = originalText;
+            if (currentUser.history.length === 0) {
+                historyList.innerHTML = '<p style="color: #9ca3af; text-align: center;">لا يوجد سجل بعد</p>';
+                return;
             }
+
+            historyList.innerHTML = currentUser.history.map(item => `
+                <div class="history-item">
+                    <div>
+                        <strong>${item.type === 'tts' ? '🎙️' : item.type === 'dub' ? '🌐' : '🔊'} ${item.text}</strong>
+                        <div style="color: #9ca3af; font-size: 0.8rem; margin-top: 4px;">${item.date}</div>
+                    </div>
+                    ${item.url ? '<button onclick="playAudio(\'' + item.url + '\')">تشغيل</button>' : ''}
+                </div>
+            `).join('');
         }
 
-        // ==================== إنشاء توقيع لطلبات Cryptomus ====================
-        async function generateSignature(data) {
-            const jsonString = JSON.stringify(data);
-            const encoder = new TextEncoder();
-            const dataBytes = encoder.encode(jsonString);
-            const keyBytes = encoder.encode(CRYPTOMUS_API_KEY);
-
-            const cryptoKey = await crypto.subtle.importKey(
-                'raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
-            );
-
-            const signature = await crypto.subtle.sign('HMAC', cryptoKey, dataBytes);
-            return btoa(String.fromCharCode(...new Uint8Array(signature)));
+        // ==================== تشغيل صوت ====================
+        function playAudio(url) {
+            const audio = new Audio(url);
+            audio.play();
         }
-
-        // ==================== التحقق من معاملات الدفع ====================
-        function checkURLParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            if (urlParams.get('payment') === 'success') {
-                const paymentData = localStorage.getItem('current_payment');
-                if (paymentData) {
-                    const data = JSON.parse(paymentData);
+    </script>
+</body>
+</html>
