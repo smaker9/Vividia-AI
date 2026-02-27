@@ -3,122 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - الإنتاج الصوتي بالذكاء الاصطناعي</title>
+    <title>Vividia AI - منصة الإنتاج الصوتي بالذكاء الاصطناعي</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         :root {
-            --primary: #7C3AED;
-            --primary-light: #9F7AEA;
-            --primary-dark: #5B21B6;
-            --secondary: #F59E0B;
-            --secondary-light: #FBBF24;
-            --dark: #0B0B0F;
-            --darker: #030305;
-            --card: #111115;
-            --border: #22222A;
-            --text: #FFFFFF;
-            --text-muted: #9CA3AF;
-            --success: #10B981;
-            --danger: #EF4444;
-            --gradient: linear-gradient(135deg, #7C3AED, #F59E0B);
-            --gradient-hover: linear-gradient(135deg, #8B5CF6, #F97316);
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #030712;
+            --darker: #020617;
+            --card: #111827;
+            --border: #1f2937;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
         }
 
         body {
             background: var(--darker);
             color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* خلفية متحركة تفاعلية */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
-            z-index: -1;
-            animation: gradientMove 15s ease infinite;
-        }
-
-        @keyframes gradientMove {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
         }
 
         /* شريط التنقل */
         .navbar {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 1400px;
-            background: rgba(17, 17, 21, 0.8);
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(3, 7, 18, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 12px 24px;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            animation: slideDown 0.5s ease;
-        }
-
-        @keyframes slideDown {
-            from { transform: translate(-50%, -100%); }
-            to { transform: translate(-50%, 0); }
         }
 
         .logo {
             font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--gradient);
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 32px;
         }
 
         .nav-link {
             color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
             cursor: pointer;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient);
             transition: 0.3s;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
         }
 
         .nav-link:hover,
@@ -126,7 +72,7 @@
             color: var(--text);
         }
 
-        /* محول اللغات العالمي */
+        /* محول اللغات */
         .language-selector {
             position: relative;
         }
@@ -138,276 +84,128 @@
             padding: 8px 16px;
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 50px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .current-lang:hover {
-            border-color: var(--primary);
         }
 
         .lang-dropdown {
             position: absolute;
             top: 100%;
             right: 0;
-            width: 400px;
+            width: 300px;
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            margin-top: 10px;
-            padding: 15px;
+            border-radius: 8px;
+            margin-top: 8px;
+            padding: 12px;
             display: none;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
             z-index: 1000;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .language-selector:hover .lang-dropdown {
             display: grid;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .lang-option {
-            padding: 10px;
-            border-radius: 10px;
+            padding: 8px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: 0.3s;
             text-align: center;
         }
 
         .lang-option:hover {
             background: var(--border);
-            transform: scale(1.05);
         }
 
-        /* User info */
-        .user-section {
+        /* معلومات المستخدم */
+        .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
-        .credits-badge {
-            background: var(--gradient);
-            padding: 8px 20px;
+        .credits {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 8px 16px;
             border-radius: 50px;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
+            font-weight: bold;
         }
 
-        .credits-badge::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .plan-badge {
-            background: var(--secondary);
+        .plan {
+            background: var(--warning);
             color: var(--darker);
-            padding: 8px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: bold;
         }
 
-        /* الهيدر الرئيسي */
-        .hero {
-            padding-top: 120px;
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 1s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .gradient-text {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: gradient 3s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        /* إحصائيات */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .stat-item {
-            text-align: center;
-            animation: fadeInUp 1s ease;
-            animation-fill-mode: both;
-        }
-
-        .stat-item:nth-child(1) { animation-delay: 0.2s; }
-        .stat-item:nth-child(2) { animation-delay: 0.4s; }
-        .stat-item:nth-child(3) { animation-delay: 0.6s; }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Main content */
+        /* المحتوى الرئيسي */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
-            padding-bottom: 100px;
+            padding: 100px 20px 20px;
         }
 
-        /* Tabs مثل Leonardo */
-        .tabs {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
-            flex-wrap: wrap;
+        /* الهيدر */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            margin-bottom: 40px;
         }
 
-        .tab {
-            padding: 12px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
         }
 
-        .tab::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .tab:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .tab.active {
-            background: var(--gradient);
-        }
-
-        /* Grid للمنتجات */
+        /* شبكة المنتجات */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
             margin-bottom: 40px;
         }
 
         .product-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 20px;
-            transition: 0.3s;
+            border-radius: 16px;
+            padding: 24px;
             cursor: pointer;
-            animation: fadeInUp 0.5s ease;
-            animation-fill-mode: both;
+            transition: 0.3s;
         }
 
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-        .product-card:nth-child(4) { animation-delay: 0.4s; }
-
         .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
         }
 
         .product-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            margin-bottom: 15px;
-            transition: 0.3s;
-        }
-
-        .product-card:hover .product-icon {
-            transform: rotate(360deg);
+            font-size: 2rem;
+            margin-bottom: 16px;
         }
 
         .product-title {
             font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .product-desc {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .product-price {
@@ -415,150 +213,44 @@
             font-weight: 600;
         }
 
-        /* Blueprints مثل Leonardo */
-        .blueprints-section {
-            margin-top: 60px;
-            animation: fadeInUp 1s ease;
-            animation-delay: 0.5s;
-            animation-fill-mode: both;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-header h2 {
-            font-size: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .view-more {
-            color: var(--primary);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .view-more:hover {
-            transform: translateX(-5px);
-        }
-
-        .blueprints-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .blueprint-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .blueprint-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
-        }
-
-        .blueprint-image {
-            height: 150px;
-            background: var(--gradient);
-            opacity: 0.8;
-            transition: 0.3s;
-        }
-
-        .blueprint-card:hover .blueprint-image {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .blueprint-info {
-            padding: 15px;
-        }
-
-        .blueprint-info h4 {
-            margin-bottom: 5px;
-        }
-
-        .blueprint-info p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
         /* خطط الأسعار */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 24px;
             margin: 40px 0;
         }
 
         .pricing-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 32px;
             position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-            animation: fadeInUp 0.5s ease;
-            animation-fill-mode: both;
         }
-
-        .pricing-card:nth-child(1) { animation-delay: 0.1s; }
-        .pricing-card:nth-child(2) { animation-delay: 0.2s; }
-        .pricing-card:nth-child(3) { animation-delay: 0.3s; }
 
         .pricing-card.popular {
             border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
         }
 
         .popular-badge {
             position: absolute;
-            top: 20px;
-            right: -30px;
-            background: var(--secondary);
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--warning);
             color: var(--darker);
-            padding: 5px 40px;
-            transform: rotate(45deg);
-            font-size: 0.7rem;
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .plan-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
         }
 
         .plan-price small {
@@ -575,7 +267,7 @@
             margin: 10px 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .plan-features li::before {
@@ -584,44 +276,19 @@
             font-weight: bold;
         }
 
-        .plan-features li.disabled::before {
-            content: "✗";
-            color: var(--danger);
-        }
-
+        /* الأزرار */
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1rem;
             cursor: pointer;
             transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
         }
 
         .btn-primary {
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
 
@@ -631,102 +298,18 @@
             color: var(--text);
         }
 
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
-        }
-
-        /* Tool Modal */
-        .tool-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .tool-modal.active {
-            display: flex;
-        }
-
-        .tool-container {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 40px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .tool-input {
-            width: 100%;
-            background: var(--darker);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 15px;
-            color: white;
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
-
-        .tool-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-        }
-
-        .tool-select {
-            width: 100%;
-            background: var(--darker);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 15px;
-            color: white;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        .audio-player {
-            width: 100%;
-            margin-top: 20px;
-            padding: 20px;
-            background: var(--darker);
-            border-radius: 15px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        audio {
-            width: 100%;
-        }
-
-        /* Modal الدفع */
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.9);
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 3000;
+            z-index: 1000;
         }
 
         .modal.active {
@@ -736,200 +319,62 @@
         .modal-content {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 40px;
+            border-radius: 24px;
+            padding: 32px;
             max-width: 500px;
             width: 90%;
-            animation: slideUp 0.3s ease;
-        }
-
-        .modal-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .payment-options {
-            display: grid;
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .payment-option {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .payment-option:hover {
-            border-color: var(--primary);
-            transform: translateX(-5px);
-        }
-
-        .payment-option.selected {
-            border-color: var(--primary);
-            background: rgba(124, 58, 237, 0.1);
         }
 
         .crypto-address {
             background: var(--darker);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 8px;
             font-family: monospace;
-            margin: 15px 0;
+            margin: 20px 0;
             word-break: break-all;
-            border: 1px solid var(--border);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: 0.3s;
-        }
-
-        .close-modal:hover {
-            color: var(--danger);
-            transform: rotate(90deg);
         }
 
         /* سجل الإنتاج */
         .history-grid {
             display: grid;
-            gap: 15px;
+            gap: 12px;
         }
 
         .history-item {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            animation: fadeInLeft 0.3s ease;
-            animation-fill-mode: both;
-        }
-
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .history-item:hover {
-            border-color: var(--primary);
-        }
-
-        .history-info h4 {
-            margin-bottom: 5px;
-        }
-
-        .history-info p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .play-btn {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .play-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .navbar {
-                width: 90%;
-                padding: 10px 15px;
-            }
-
             .nav-links {
                 display: none;
             }
 
-            .hero h1 {
+            .header h1 {
                 font-size: 2rem;
-            }
-
-            .stats {
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            .stat-number {
-                font-size: 1.5rem;
-            }
-
-            .tabs {
-                overflow-x: auto;
-                padding-bottom: 10px;
-                flex-wrap: nowrap;
-            }
-
-            .tab {
-                white-space: nowrap;
-            }
-
-            .lang-dropdown {
-                width: 300px;
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background"></div>
-
     <!-- شريط التنقل -->
     <nav class="navbar">
-        <div class="logo" onclick="showSection('create')">Vividia AI</div>
+        <div class="logo">Vividia AI</div>
         
         <div class="nav-links">
-            <a class="nav-link active" onclick="showSection('create')">Create</a>
-            <a class="nav-link" onclick="showSection('blueprints')">Blueprints</a>
-            <a class="nav-link" onclick="showSection('pricing')">Pricing</a>
-            <a class="nav-link" onclick="showSection('history')">History</a>
+            <span class="nav-link active" onclick="showSection('create')">إنشاء</span>
+            <span class="nav-link" onclick="showSection('pricing')">الأسعار</span>
+            <span class="nav-link" onclick="showSection('history')">السجل</span>
         </div>
 
         <div style="display: flex; align-items: center; gap: 20px;">
-            <!-- محول اللغات العالمي -->
+            <!-- محول اللغات -->
             <div class="language-selector">
                 <div class="current-lang">
                     <span id="currentLangFlag">🇸🇦</span>
@@ -939,94 +384,124 @@
             </div>
 
             <!-- معلومات المستخدم -->
-            <div class="user-section">
-                <div class="credits-badge" id="creditsDisplay">100</div>
-                <div class="plan-badge" id="planDisplay">مجاني</div>
+            <div class="user-info">
+                <span class="credits" id="creditsDisplay">100</span>
+                <span class="plan" id="planDisplay">مجاني</span>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <!-- Hero Section -->
-        <div class="hero">
+        <!-- الهيدر -->
+        <div class="header">
             <h1>
-                <span class="gradient-text">YOURS TO CREATE</span>
+                <span class="gradient-text">Vividia AI</span>
                 <br>الإنتاج الصوتي بالذكاء الاصطناعي
             </h1>
-            <p>حوّل نصوصك إلى مقاطع صوتية احترافية باستخدام أحدث تقنيات الذكاء الاصطناعي</p>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="statsVideos">1.2M+</div>
-                    <div class="stat-label">مقطع منتج</div>
+            <p>حوّل نصوصك إلى مقاطع صوتية احترافية</p>
+        </div>
+
+        <!-- قسم الإنشاء -->
+        <div id="createSection">
+            <div class="products-grid">
+                <div class="product-card" onclick="openTool('tts')">
+                    <div class="product-icon">🎙️</div>
+                    <div class="product-title">نص إلى صوت</div>
+                    <div class="product-desc">تحويل النص إلى كلام طبيعي</div>
+                    <div class="product-price">10 نقاط</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="statsLanguages">95+</div>
-                    <div class="stat-label">لغة مدعومة</div>
+                <div class="product-card" onclick="openTool('dub')">
+                    <div class="product-icon">🌐</div>
+                    <div class="product-title">دبلجة فيديو</div>
+                    <div class="product-desc">ترجمة ودبلجة الفيديوهات</div>
+                    <div class="product-price">50 نقطة</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="statsAccuracy">99.9%</div>
-                    <div class="stat-label">دقة الصوت</div>
+                <div class="product-card" onclick="openTool('sfx')">
+                    <div class="product-icon">🔊</div>
+                    <div class="product-title">مؤثرات صوتية</div>
+                    <div class="product-desc">إنشاء مؤثرات صوتية مخصصة</div>
+                    <div class="product-price">5 نقاط</div>
                 </div>
             </div>
         </div>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" onclick="filterProducts('all')">الكل</div>
-            <div class="tab" onclick="filterProducts('audio')">صوتي</div>
-            <div class="tab" onclick="filterProducts('video')">فيديو</div>
-            <div class="tab" onclick="filterProducts('effects')">مؤثرات</div>
-            <div class="tab" onclick="filterProducts('new')">جديد</div>
-        </div>
+        <!-- قسم الأسعار -->
+        <div id="pricingSection" style="display: none;">
+            <div class="pricing-grid">
+                <!-- مجاني -->
+                <div class="pricing-card">
+                    <h3>مجاني</h3>
+                    <div class="plan-price">$0 <small>/شهر</small></div>
+                    <ul class="plan-features">
+                        <li>100 نقطة شهرياً</li>
+                        <li>أصوات أساسية</li>
+                        <li>جودة عادية</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="selectPlan('free')">مشترك حالياً</button>
+                </div>
 
-        <!-- Products Grid -->
-        <div class="products-grid" id="productsGrid"></div>
+                <!-- احترافي -->
+                <div class="pricing-card popular">
+                    <span class="popular-badge">الأكثر طلباً</span>
+                    <h3>احترافي</h3>
+                    <div class="plan-price">$19.99 <small>/شهر</small></div>
+                    <ul class="plan-features">
+                        <li>1000 نقطة شهرياً</li>
+                        <li>أصوات متميزة</li>
+                        <li>جودة عالية</li>
+                        <li>دبلجة فيديوهات</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="showPaymentModal('pro')">اشتراك</button>
+                </div>
 
-        <!-- Blueprints Section مثل Leonardo -->
-        <div class="blueprints-section" id="blueprintsSection">
-            <div class="section-header">
-                <h2>القوالب المميزة</h2>
-                <span class="view-more" onclick="loadMoreBlueprints()">عرض المزيد ←</span>
+                <!-- غير محدود -->
+                <div class="pricing-card">
+                    <h3>غير محدود</h3>
+                    <div class="plan-price">$49.99 <small>/شهر</small></div>
+                    <ul class="plan-features">
+                        <li>نقاط غير محدودة</li>
+                        <li>جميع الأصوات</li>
+                        <li>جودة فائقة</li>
+                        <li>دبلجة غير محدودة</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="showPaymentModal('unlimited')">اشتراك</button>
+                </div>
             </div>
-            <div class="blueprints-grid" id="blueprintsGrid"></div>
         </div>
 
-        <!-- Pricing Section -->
-        <div class="pricing-grid" id="pricingSection"></div>
-
-        <!-- History Section -->
-        <div class="history-grid" id="historySection" style="display: none;"></div>
+        <!-- قسم السجل -->
+        <div id="historySection" style="display: none;">
+            <div class="history-grid" id="historyList"></div>
+        </div>
     </div>
 
-    <!-- Tool Modal -->
-    <div class="tool-modal" id="toolModal">
-        <div class="tool-container" id="toolContainer"></div>
+    <!-- Modal الأداة -->
+    <div class="modal" id="toolModal">
+        <div class="modal-content" id="toolContent"></div>
     </div>
 
-    <!-- Payment Modal -->
+    <!-- Modal الدفع -->
     <div class="modal" id="paymentModal">
-        <span class="close-modal" onclick="closePaymentModal()">✕</span>
         <div class="modal-content">
-            <h3 id="modalTitle">اشتراك Pro - $19.99</h3>
+            <h3 id="paymentTitle">اشتراك احترافي</h3>
+            <p style="margin: 20px 0;">اختر طريقة الدفع:</p>
             
-            <div class="payment-options">
-                <div class="payment-option selected" onclick="selectPaymentMethod('crypto')">
-                    <span>🪙</span>
-                    <div>
-                        <strong>Cryptomus</strong>
-                        <p style="color: var(--text-muted); font-size: 0.8rem;">Bitcoin, Ethereum, USDT, 100+ عملة</p>
-                    </div>
+            <div style="margin-bottom: 20px;">
+                <div style="background: var(--border); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <strong>🪙 Cryptomus</strong>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Bitcoin, Ethereum, USDT, BNB, SOL</p>
                 </div>
             </div>
 
             <div id="cryptoPayment">
-                <p style="margin-bottom: 15px;">سيتم توجيهك إلى بوابة الدفع الآمنة Cryptomus</p>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">نقبل: BTC, ETH, USDT, BNB, SOL, DOGE, XRP والمزيد</p>
-                <button class="btn btn-primary" onclick="processCryptoPayment()" id="paymentButton">
-                    متابعة إلى الدفع
+                <p>للدفع عبر Cryptomus:</p>
+                <div class="crypto-address" id="cryptoAddress">
+                    bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                </div>
+                <button class="btn btn-primary" onclick="processCryptoPayment()" style="margin-bottom: 10px;">
+                    تأكيد الدفع
                 </button>
-                <div id="paymentSpinner" class="spinner" style="display: none;"></div>
+                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
             </div>
         </div>
     </div>
@@ -1039,8 +514,7 @@
 
         // ==================== بيانات المستخدم ====================
         let currentUser = {
-            id: 'user_' + Date.now(),
-            email: localStorage.getItem('user_email') || 'guest@example.com',
+            email: localStorage.getItem('user_email') || '',
             plan: localStorage.getItem('user_plan') || 'free',
             credits: parseInt(localStorage.getItem('user_credits')) || 100,
             history: JSON.parse(localStorage.getItem('user_history')) || []
@@ -1048,29 +522,400 @@
 
         // ==================== اللغات العالمية ====================
         const languages = [
-            { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' },
-            { code: 'en', name: 'English', flag: '🇬🇧', dir: 'ltr' },
-            { code: 'zh', name: '中文', flag: '🇨🇳', dir: 'ltr' },
-            { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
-            { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
-            { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
-            { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
-            { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
-            { code: 'pt', name: 'Português', flag: '🇵🇹', dir: 'ltr' },
-            { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr' },
-            { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr' },
-            { code: 'tr', name: 'Türkçe', flag: '🇹🇷', dir: 'ltr' },
-            { code: 'it', name: 'Italiano', flag: '🇮🇹', dir: 'ltr' },
-            { code: 'nl', name: 'Nederlands', flag: '🇳🇱', dir: 'ltr' },
-            { code: 'pl', name: 'Polski', flag: '🇵🇱', dir: 'ltr' },
-            { code: 'uk', name: 'Українська', flag: '🇺🇦', dir: 'ltr' },
-            { code: 'fa', name: 'فارسی', flag: '🇮🇷', dir: 'rtl' },
-            { code: 'ur', name: 'اردو', flag: '🇵🇰', dir: 'rtl' },
-            { code: 'he', name: 'עברית', flag: '🇮🇱', dir: 'rtl' },
-            { code: 'id', name: 'Indonesia', flag: '🇮🇩', dir: 'ltr' },
-            { code: 'ms', name: 'Melayu', flag: '🇲🇾', dir: 'ltr' },
-            { code: 'th', name: 'ไทย', flag: '🇹🇭', dir: 'ltr' },
-            { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳', dir: 'ltr' },
-            { code: 'fil', name: 'Filipino', flag: '🇵🇭', dir: 'ltr' },
-            { code: 'sv', name: 'Svenska', flag: '🇸🇪', dir: 'ltr' },
-            { code: 'da
+            { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+            { code: 'en', name: 'English', flag: '🇬🇧' },
+            { code: 'zh', name: '中文', flag: '🇨🇳' },
+            { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+            { code: 'es', name: 'Español', flag: '🇪🇸' },
+            { code: 'fr', name: 'Français', flag: '🇫🇷' },
+            { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+            { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+            { code: 'pt', name: 'Português', flag: '🇵🇹' },
+            { code: 'ja', name: '日本語', flag: '🇯🇵' },
+            { code: 'ko', name: '한국어', flag: '🇰🇷' },
+            { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+            { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+            { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+            { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+            { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
+            { code: 'ur', name: 'اردو', flag: '🇵🇰' },
+            { code: 'he', name: 'עברית', flag: '🇮🇱' },
+            { code: 'id', name: 'Indonesia', flag: '🇮🇩' },
+            { code: 'th', name: 'ไทย', flag: '🇹🇭' },
+            { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
+            { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
+            { code: 'da', name: 'Dansk', flag: '🇩🇰' },
+            { code: 'no', name: 'Norsk', flag: '🇳🇴' },
+            { code: 'fi', name: 'Suomi', flag: '🇫🇮' },
+            { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
+            { code: 'cs', name: 'Čeština', flag: '🇨🇿' },
+            { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
+            { code: 'ro', name: 'Română', flag: '🇷🇴' }
+        ];
+
+        // ==================== التهيئة ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            initLanguages();
+            updateUserDisplay();
+            loadHistory();
+            checkURLParams();
+        });
+
+        // ==================== تهيئة اللغات ====================
+        function initLanguages() {
+            const dropdown = document.getElementById('langDropdown');
+            languages.forEach(lang => {
+                const div = document.createElement('div');
+                div.className = 'lang-option';
+                div.innerHTML = `${lang.flag} ${lang.name}`;
+                div.onclick = () => changeLanguage(lang.code);
+                dropdown.appendChild(div);
+            });
+
+            const savedLang = localStorage.getItem('language') || 'ar';
+            changeLanguage(savedLang);
+        }
+
+        // ==================== تغيير اللغة ====================
+        function changeLanguage(code) {
+            const lang = languages.find(l => l.code === code);
+            if (!lang) return;
+
+            document.getElementById('currentLangFlag').textContent = lang.flag;
+            document.getElementById('currentLangName').textContent = lang.name;
+            document.documentElement.lang = code;
+            document.documentElement.dir = code === 'ar' || code === 'fa' || code === 'ur' || code === 'he' ? 'rtl' : 'ltr';
+            localStorage.setItem('language', code);
+        }
+
+        // ==================== تحديث عرض المستخدم ====================
+        function updateUserDisplay() {
+            document.getElementById('creditsDisplay').textContent = currentUser.credits;
+            document.getElementById('planDisplay').textContent = 
+                currentUser.plan === 'free' ? 'مجاني' : 
+                currentUser.plan === 'pro' ? 'احترافي' : 'غير محدود';
+            
+            localStorage.setItem('user_plan', currentUser.plan);
+            localStorage.setItem('user_credits', currentUser.credits);
+        }
+
+        // ==================== التنقل بين الأقسام ====================
+        function showSection(section) {
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.getElementById('createSection').style.display = section === 'create' ? 'block' : 'none';
+            document.getElementById('pricingSection').style.display = section === 'pricing' ? 'block' : 'none';
+            document.getElementById('historySection').style.display = section === 'history' ? 'block' : 'none';
+        }
+
+        // ==================== فتح أداة ====================
+        function openTool(tool) {
+            if (currentUser.credits < getToolCost(tool)) {
+                alert('رصيد غير كافٍ. الرجاء ترقية خطتك');
+                showSection('pricing');
+                return;
+            }
+
+            const modal = document.getElementById('toolModal');
+            const content = document.getElementById('toolContent');
+
+            if (tool === 'tts') {
+                content.innerHTML = getTTSInterface();
+            } else if (tool === 'dub') {
+                content.innerHTML = getDubbingInterface();
+            } else if (tool === 'sfx') {
+                content.innerHTML = getSFXInterface();
+            }
+
+            modal.classList.add('active');
+        }
+
+        function getToolCost(tool) {
+            const costs = { tts: 10, dub: 50, sfx: 5 };
+            return costs[tool] || 0;
+        }
+
+        // ==================== واجهة النص إلى صوت ====================
+        function getTTSInterface() {
+            return `
+                <h3 style="margin-bottom: 20px;">🎙️ نص إلى صوت</h3>
+                <textarea id="ttsText" rows="5" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;" placeholder="اكتب النص هنا..."></textarea>
+                
+                <select id="ttsVoice" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;">
+                    <option value="21m00Tcm4TlvDq8ikWAM">صوت ذكر (عربي)</option>
+                    <option value="AZnzlk1XvdvUeBnXmlld">صوت أنثى (عربي)</option>
+                    <option value="EXAVITQu4vr4xnSDxMaL">English Voice</option>
+                </select>
+                
+                <button class="btn btn-primary" onclick="generateTTS()" style="margin-bottom: 20px;">توليد الصوت</button>
+                
+                <div id="ttsResult" style="display: none;">
+                    <audio id="ttsAudio" controls style="width: 100%;"></audio>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="closeToolModal()">إغلاق</button>
+            `;
+        }
+
+        // ==================== توليد صوت حقيقي ====================
+        async function generateTTS() {
+            const text = document.getElementById('ttsText').value;
+            const voiceId = document.getElementById('ttsVoice').value;
+
+            if (!text) {
+                alert('الرجاء إدخال النص');
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'audio/mpeg',
+                        'Content-Type': 'application/json',
+                        'xi-api-key': ELEVENLABS_KEY
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        model_id: 'eleven_monolingual_v1',
+                        voice_settings: {
+                            stability: 0.5,
+                            similarity_boost: 0.5
+                        }
+                    })
+                });
+
+                if (!response.ok) throw new Error('فشل التوليد');
+
+                const audioBlob = await response.blob();
+                const audioUrl = URL.createObjectURL(audioBlob);
+
+                document.getElementById('ttsResult').style.display = 'block';
+                document.getElementById('ttsAudio').src = audioUrl;
+
+                // خصم النقاط
+                currentUser.credits -= 10;
+                updateUserDisplay();
+
+                // حفظ في السجل
+                saveToHistory('tts', text, audioUrl);
+
+            } catch (error) {
+                console.error('TTS Error:', error);
+                alert('حدث خطأ في توليد الصوت');
+            }
+        }
+
+        // ==================== واجهة الدبلجة ====================
+        function getDubbingInterface() {
+            return `
+                <h3 style="margin-bottom: 20px;">🌐 دبلجة فيديو</h3>
+                <input type="url" id="videoUrl" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;" placeholder="رابط الفيديو">
+                
+                <select id="targetLang" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;">
+                    ${languages.map(l => `<option value="${l.code}">${l.flag} ${l.name}</option>`).join('')}
+                </select>
+                
+                <button class="btn btn-primary" onclick="processDubbing()" style="margin-bottom: 20px;">بدء الدبلجة</button>
+                
+                <div id="dubProgress" style="display: none;">
+                    <div style="width: 100%; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden;">
+                        <div id="dubProgressBar" style="height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 0%;"></div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="closeToolModal()">إغلاق</button>
+            `;
+        }
+
+        // ==================== معالجة الدبلجة ====================
+        async function processDubbing() {
+            const videoUrl = document.getElementById('videoUrl').value;
+            const targetLang = document.getElementById('targetLang').value;
+
+            if (!videoUrl) {
+                alert('الرجاء إدخال رابط الفيديو');
+                return;
+            }
+
+            if (currentUser.plan === 'free') {
+                alert('الدبلجة متاحة فقط في الخطة الاحترافية');
+                closeToolModal();
+                showSection('pricing');
+                return;
+            }
+
+            document.getElementById('dubProgress').style.display = 'block';
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                document.getElementById('dubProgressBar').style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    alert('تمت الدبلجة بنجاح!');
+                    
+                    // خصم النقاط
+                    currentUser.credits -= 50;
+                    updateUserDisplay();
+                    
+                    // حفظ في السجل
+                    saveToHistory('dub', videoUrl, '');
+                    
+                    closeToolModal();
+                }
+            }, 500);
+        }
+
+        // ==================== واجهة المؤثرات ====================
+        function getSFXInterface() {
+            return `
+                <h3 style="margin-bottom: 20px;">🔊 مؤثرات صوتية</h3>
+                <input type="text" id="sfxPrompt" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;" placeholder="وصف المؤثر الصوتي">
+                
+                <select id="sfxCategory" style="width: 100%; background: var(--darker); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: white; margin-bottom: 20px;">
+                    <option value="explosion">انفجار</option>
+                    <option value="nature">طبيعة</option>
+                    <option value="horror">رعب</option>
+                    <option value="cinematic">سينمائي</option>
+                </select>
+                
+                <button class="btn btn-primary" onclick="generateSFX()" style="margin-bottom: 20px;">توليد المؤثر</button>
+                
+                <div id="sfxResult" style="display: none;">
+                    <audio id="sfxAudio" controls style="width: 100%;"></audio>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="closeToolModal()">إغلاق</button>
+            `;
+        }
+
+        // ==================== توليد مؤثرات ====================
+        async function generateSFX() {
+            const prompt = document.getElementById('sfxPrompt').value;
+            const category = document.getElementById('sfxCategory').value;
+
+            if (!prompt) {
+                alert('الرجاء إدخال وصف المؤثر');
+                return;
+            }
+
+            // محاكاة توليد مؤثر (في الواقع سنستخدم API حقيقي)
+            setTimeout(() => {
+                const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+                document.getElementById('sfxResult').style.display = 'block';
+                document.getElementById('sfxAudio').src = audioUrl;
+
+                // خصم النقاط
+                currentUser.credits -= 5;
+                updateUserDisplay();
+
+                // حفظ في السجل
+                saveToHistory('sfx', prompt, audioUrl);
+            }, 2000);
+        }
+
+        // ==================== إظهار نافذة الدفع ====================
+        function showPaymentModal(plan) {
+            const titles = {
+                pro: 'اشتراك احترافي - $19.99/شهر',
+                unlimited: 'اشتراك غير محدود - $49.99/شهر'
+            };
+            
+            document.getElementById('paymentTitle').textContent = titles[plan];
+            document.getElementById('paymentModal').classList.add('active');
+            currentSelectedPlan = plan;
+        }
+
+        let currentSelectedPlan = 'pro';
+
+        // ==================== معالجة الدفع عبر Cryptomus ====================
+        async function processCryptoPayment() {
+            const button = document.getElementById('paymentButton');
+            const originalText = button.textContent;
+            
+            button.disabled = true;
+            button.textContent = 'جاري التوجيه...';
+
+            const prices = {
+                pro: 19.99,
+                unlimited: 49.99
+            };
+
+            try {
+                // إنشاء طلب دفع حقيقي لـ Cryptomus
+                const paymentData = {
+                    merchant_id: CRYPTOMUS_MERCHANT_ID,
+                    amount: prices[currentSelectedPlan].toString(),
+                    currency: 'USD',
+                    order_id: 'order_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    url_return: window.location.href,
+                    url_success: window.location.href + '?payment=success',
+                    url_callback: 'https://vividia-ai.com/api/cryptomus-webhook',
+                    is_payment_multiple: false,
+                    lifetime: 3600,
+                    to_currency: 'USDT'
+                };
+
+                // إنشاء توقيع للطلب
+                const sign = await generateSignature(paymentData);
+
+                // إرسال طلب الدفع
+                const response = await fetch('https://api.cryptomus.com/v1/payment', {
+                    method: 'POST',
+                    headers: {
+                        'merchant': CRYPTOMUS_MERCHANT_ID,
+                        'sign': sign,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                const result = await response.json();
+
+                if (result.state === 0 && result.result) {
+                    // تخزين معلومات الطلب
+                    localStorage.setItem('current_payment', JSON.stringify({
+                        plan: currentSelectedPlan,
+                        order_id: paymentData.order_id,
+                        url: result.result.url
+                    }));
+
+                    // توجيه المستخدم إلى صفحة الدفع
+                    window.location.href = result.result.url;
+                } else {
+                    throw new Error('فشل إنشاء طلب الدفع');
+                }
+
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('حدث خطأ في الاتصال ببوابة الدفع. يرجى المحاولة مرة أخرى.');
+                
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+
+        // ==================== إنشاء توقيع لطلبات Cryptomus ====================
+        async function generateSignature(data) {
+            const jsonString = JSON.stringify(data);
+            const encoder = new TextEncoder();
+            const dataBytes = encoder.encode(jsonString);
+            const keyBytes = encoder.encode(CRYPTOMUS_API_KEY);
+
+            const cryptoKey = await crypto.subtle.importKey(
+                'raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+            );
+
+            const signature = await crypto.subtle.sign('HMAC', cryptoKey, dataBytes);
+            return btoa(String.fromCharCode(...new Uint8Array(signature)));
+        }
+
+        // ==================== التحقق من معاملات الدفع ====================
+        function checkURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.get('payment') === 'success') {
+                const paymentData = localStorage.getItem('current_payment');
+                if (paymentData) {
+                    const data = JSON.parse(paymentData);
