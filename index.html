@@ -5,295 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vividia AI - الإنتاج الصوتي بالذكاء الاصطناعي</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        body {
-            background: #030712;
-            color: #f9fafb;
-            min-height: 100vh;
-        }
-
-        /* شريط التنقل */
-        .navbar {
-            background: #111827;
-            border-bottom: 1px solid #1f2937;
-            padding: 16px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .credits {
-            background: #6366f1;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-        }
-
-        .plan {
-            background: #f59e0b;
-            color: #030712;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-        }
-
-        /* المحتوى الرئيسي */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* الهيدر */
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            color: #9ca3af;
-            font-size: 1.2rem;
-        }
-
-        /* شبكة الأدوات */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
-            margin-bottom: 60px;
-        }
-
-        .tool-card {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 24px;
-            padding: 32px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            border-color: #6366f1;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-        }
-
-        .tool-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .tool-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .tool-desc {
-            color: #9ca3af;
-            margin-bottom: 20px;
-        }
-
-        .tool-price {
-            color: #6366f1;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 24px;
-            padding: 40px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-content h2 {
-            margin-bottom: 24px;
-            color: #6366f1;
-        }
-
-        textarea, select, input {
-            width: 100%;
-            background: #030712;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
-            padding: 16px;
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-
-        textarea:focus, select:focus, input:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-bottom: 12px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid #1f2937;
-            color: white;
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
-        }
-
-        .audio-player {
-            margin: 20px 0;
-            padding: 20px;
-            background: #030712;
-            border-radius: 12px;
-        }
-
-        audio {
-            width: 100%;
-        }
-
-        .close {
-            float: left;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #9ca3af;
-        }
-
-        .close:hover {
-            color: white;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #1f2937;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #6366f1, #ec4899);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        /* سجل الإنتاج */
-        .history-section {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 24px;
-            padding: 32px;
-            margin-top: 40px;
-        }
-
-        .history-section h2 {
-            margin-bottom: 24px;
-            color: #6366f1;
-        }
-
-        .history-item {
-            background: #030712;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-item button {
-            background: #6366f1;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #030712; color: #f9fafb; min-height: 100vh; }
+        .navbar { background: #111827; border-bottom: 1px solid #1f2937; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; background: linear-gradient(135deg, #6366f1, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .user-info { display: flex; align-items: center; gap: 16px; }
+        .credits { background: #6366f1; padding: 8px 16px; border-radius: 50px; font-weight: 600; }
+        .plan { background: #f59e0b; color: #030712; padding: 8px 16px; border-radius: 50px; font-weight: 600; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .header { text-align: center; margin-bottom: 60px; }
+        .header h1 { font-size: 3rem; margin-bottom: 16px; }
+        .gradient-text { background: linear-gradient(135deg, #6366f1, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { color: #9ca3af; font-size: 1.2rem; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-bottom: 60px; }
+        .tool-card { background: #111827; border: 1px solid #1f2937; border-radius: 24px; padding: 32px; cursor: pointer; transition: 0.3s; }
+        .tool-card:hover { transform: translateY(-5px); border-color: #6366f1; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2); }
+        .tool-icon { font-size: 3rem; margin-bottom: 20px; }
+        .tool-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; }
+        .tool-desc { color: #9ca3af; margin-bottom: 20px; }
+        .tool-price { color: #6366f1; font-weight: 600; font-size: 1.2rem; }
+        .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal.active { display: flex; }
+        .modal-content { background: #111827; border: 1px solid #1f2937; border-radius: 24px; padding: 40px; width: 90%; max-width: 600px; }
+        textarea, select, input { width: 100%; background: #030712; border: 1px solid #1f2937; border-radius: 12px; padding: 16px; color: white; margin-bottom: 20px; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-bottom: 12px; }
+        .btn-primary { background: linear-gradient(135deg, #6366f1, #ec4899); color: white; }
+        .btn-secondary { background: transparent; border: 1px solid #1f2937; color: white; }
+        .close { float: left; font-size: 2rem; cursor: pointer; color: #9ca3af; }
+        .history-section { background: #111827; border: 1px solid #1f2937; border-radius: 24px; padding: 32px; }
+        .history-item { background: #030712; border: 1px solid #1f2937; border-radius: 12px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
-    <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="logo">Vividia AI</div>
         <div class="user-info">
@@ -301,388 +44,123 @@
             <span class="plan" id="planDisplay">مجاني</span>
         </div>
     </nav>
-
     <div class="container">
-        <!-- الهيدر -->
         <div class="header">
-            <h1>
-                <span class="gradient-text">Vividia AI</span>
-                <br>الإنتاج الصوتي بالذكاء الاصطناعي
-            </h1>
-            <p>حوّل نصوصك إلى مقاطع صوتية احترافية</p>
+            <h1><span class="gradient-text">Vividia AI</span></h1>
+            <p>الإنتاج الصوتي الاحترافي بالذكاء الاصطناعي</p>
         </div>
-
-        <!-- شبكة الأدوات -->
         <div class="tools-grid">
-            <!-- نص إلى صوت -->
-            <div class="tool-card" onclick="openTool('tts')">
-                <div class="tool-icon">🎙️</div>
-                <div class="tool-title">نص إلى صوت</div>
-                <div class="tool-desc">تحويل النص إلى كلام طبيعي باستخدام الذكاء الاصطناعي</div>
-                <div class="tool-price">10 نقاط</div>
-            </div>
-
-            <!-- دبلجة فيديو -->
-            <div class="tool-card" onclick="openTool('dub')">
-                <div class="tool-icon">🌐</div>
-                <div class="tool-title">دبلجة فيديو</div>
-                <div class="tool-desc">ترجمة ودبلجة الفيديوهات إلى أي لغة</div>
-                <div class="tool-price">50 نقطة</div>
-            </div>
-
-            <!-- مؤثرات صوتية -->
-            <div class="tool-card" onclick="openTool('sfx')">
-                <div class="tool-icon">🔊</div>
-                <div class="tool-title">مؤثرات صوتية</div>
-                <div class="tool-desc">إنشاء مؤثرات صوتية مخصصة</div>
-                <div class="tool-price">5 نقاط</div>
-            </div>
-        </div>
-
-        <!-- سجل الإنتاج -->
-        <div class="history-section">
-            <h2>📋 سجل الإنتاج</h2>
-            <div id="historyList"></div>
+            <div class="tool-card" onclick="openTool('tts')"><div class="tool-icon">🎙️</div><div class="tool-title">نص إلى صوت</div><div class="tool-price">10 نقاط</div></div>
+            <div class="tool-card" onclick="openTool('dub')"><div class="tool-icon">🌐</div><div class="tool-title">دبلجة</div><div class="tool-price">50 نقطة</div></div>
+            <div class="tool-card" onclick="openTool('sfx')"><div class="tool-icon">🔊</div><div class="tool-title">مؤثرات</div><div class="tool-price">5 نقاط</div></div>
         </div>
     </div>
-
-    <!-- Modal الأداة -->
-    <div class="modal" id="toolModal">
-        <div class="modal-content" id="toolContent"></div>
-    </div>
+    <div class="modal" id="toolModal"><div class="modal-content" id="toolContent"></div></div>
 
     <script>
-        // ==================== المفتاح الحقيقي لـ ElevenLabs ====================
+        // *** المفتاح الخاص بك ***
         const ELEVENLABS_KEY = "sk_9e048006fa8c6ebe0068240531808bba33c809c6f43313fe";
         
-        // ==================== بيانات المستخدم ====================
         let currentUser = {
             credits: parseInt(localStorage.getItem('user_credits')) || 100,
-            plan: localStorage.getItem('user_plan') || 'free',
-            history: JSON.parse(localStorage.getItem('user_history')) || []
+            plan: localStorage.getItem('user_plan') || 'free'
         };
 
-        // ==================== أصوات ElevenLabs المتاحة ====================
-        const voices = [
-            { id: '21m00Tcm4TlvDq8ikWAM', name: 'صوت عربي 1 (ذكر)' },
-            { id: 'AZnzlk1XvdvUeBnXmlld', name: 'صوت عربي 2 (أنثى)' },
-            { id: 'EXAVITQu4vr4xnSDxMaL', name: 'English Voice 1' },
-            { id: 'MF3mGyEYCl7XYWbV9V6O', name: 'English Voice 2' }
-        ];
-
-        // ==================== التهيئة ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            updateUserDisplay();
-            loadHistory();
-        });
-
-        // ==================== تحديث عرض المستخدم ====================
         function updateUserDisplay() {
             document.getElementById('creditsDisplay').textContent = currentUser.credits;
-            document.getElementById('planDisplay').textContent = 
-                currentUser.plan === 'free' ? 'مجاني' : 'احترافي';
-            
+            document.getElementById('planDisplay').textContent = currentUser.plan === 'free' ? 'مجاني' : 'احترافي';
             localStorage.setItem('user_credits', currentUser.credits);
-            localStorage.setItem('user_plan', currentUser.plan);
-            localStorage.setItem('user_history', JSON.stringify(currentUser.history));
         }
 
-        // ==================== فتح أداة ====================
+        document.addEventListener('DOMContentLoaded', updateUserDisplay);
+
         function openTool(tool) {
             const modal = document.getElementById('toolModal');
             const content = document.getElementById('toolContent');
-
-            if (tool === 'tts') {
-                content.innerHTML = getTTSInterface();
-            } else if (tool === 'dub') {
-                content.innerHTML = getDubbingInterface();
-            } else if (tool === 'sfx') {
-                content.innerHTML = getSFXInterface();
-            }
-
+            if (tool === 'tts') content.innerHTML = getTTSInterface();
+            else if (tool === 'dub') content.innerHTML = getDubbingInterface();
+            else if (tool === 'sfx') content.innerHTML = getSFXInterface();
             modal.classList.add('active');
         }
 
-        // ==================== إغلاق Modal ====================
-        function closeModal() {
-            document.getElementById('toolModal').classList.remove('active');
-        }
+        function closeModal() { document.getElementById('toolModal').classList.remove('active'); }
 
-        // ==================== واجهة النص إلى صوت ====================
+        // 1. النص إلى صوت (تم ربطه)
         function getTTSInterface() {
-            return `
-                <span class="close" onclick="closeModal()">✕</span>
-                <h2>🎙️ نص إلى صوت</h2>
-                
-                <textarea id="ttsText" rows="4" placeholder="اكتب النص هنا...">مرحباً بكم في منصة Vividia AI للإنتاج الصوتي</textarea>
-                
-                <select id="ttsVoice">
-                    ${voices.map(v => `<option value="${v.id}">${v.name}</option>`).join('')}
-                </select>
-                
-                <button class="btn btn-primary" onclick="generateTTS()">توليد الصوت (10 نقاط)</button>
-                
-                <div id="ttsResult" style="display: none;">
-                    <div class="audio-player">
-                        <audio id="ttsAudio" controls></audio>
-                    </div>
-                </div>
-                
-                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
-            `;
+            return `<span class="close" onclick="closeModal()">✕</span><h2>🎙️ نص إلى صوت</h2>
+                <textarea id="ttsText" rows="4" placeholder="اكتب النص...">أهلاً بك في Vividia</textarea>
+                <button class="btn btn-primary" onclick="generateTTS()">إنشاء (10 نقاط)</button>`;
         }
 
-        // ==================== توليد صوت باستخدام ElevenLabs ====================
         async function generateTTS() {
             const text = document.getElementById('ttsText').value;
-            const voiceId = document.getElementById('ttsVoice').value;
+            if (currentUser.credits < 10) return alert('رصيد غير كافٍ');
+            
+            try {
+                const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/pNInz6obpgDQGcFmaJgB`, {
+                    method: 'POST',
+                    headers: {'Accept': 'audio/mpeg', 'Content-Type': 'application/json', 'xi-api-key': ELEVENLABS_KEY},
+                    body: JSON.stringify({text: text, model_id: 'eleven_multilingual_v2'})
+                });
+                const audioUrl = URL.createObjectURL(await response.blob());
+                new Audio(audioUrl).play();
+                currentUser.credits -= 10;
+                updateUserDisplay();
+            } catch (error) { alert('خطأ'); }
+        }
 
-            if (!text) {
-                alert('الرجاء إدخال النص');
-                return;
-            }
+        // 2. الدبلجة (تم ربطها)
+        function getDubbingInterface() {
+            return `<span class="close" onclick="closeModal()">✕</span><h2>🌐 دبلجة (PRO)</h2>
+                <input type="file" id="dubFile">
+                <select id="targetLang"><option value="ar">العربية</option><option value="en">الإنجليزية</option></select>
+                <button class="btn btn-primary" onclick="startDubbing()">دبلجة (50 نقطة)</button>`;
+        }
 
-            if (currentUser.credits < 10) {
-                alert('رصيد غير كافٍ');
-                closeModal();
-                return;
-            }
+        async function startDubbing() {
+            const fileInput = document.getElementById('dubFile');
+            if (currentUser.plan === 'free') return alert('تحتاج للترقية للدبلجة!');
+            if (currentUser.credits < 50) return alert('رصيد غير كافٍ');
+            if (fileInput.files.length === 0) return alert('اختر ملفاً');
 
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = 'جاري التوليد...';
-            button.disabled = true;
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('target_language', document.getElementById('targetLang').value);
 
             try {
-                // استخدام API ElevenLabs الحقيقي مع المفتاح
-                const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+                await fetch('https://api.elevenlabs.io/v1/dubbing', {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'audio/mpeg',
-                        'Content-Type': 'application/json',
-                        'xi-api-key': ELEVENLABS_KEY
-                    },
-                    body: JSON.stringify({
-                        text: text,
-                        model_id: 'eleven_monolingual_v1',
-                        voice_settings: {
-                            stability: 0.5,
-                            similarity_boost: 0.5
-                        }
-                    })
+                    headers: {'xi-api-key': ELEVENLABS_KEY},
+                    body: formData
                 });
-
-                if (!response.ok) {
-                    const error = await response.text();
-                    throw new Error(`فشل التوليد: ${error}`);
-                }
-
-                const audioBlob = await response.blob();
-                const audioUrl = URL.createObjectURL(audioBlob);
-
-                // عرض النتيجة
-                document.getElementById('ttsResult').style.display = 'block';
-                const audio = document.getElementById('ttsAudio');
-                audio.src = audioUrl;
-                audio.play();
-
-                // خصم النقاط
-                currentUser.credits -= 10;
-                
-                // حفظ في السجل
-                saveToHistory('tts', text, audioUrl);
-
-                alert('تم توليد الصوت بنجاح!');
-
-            } catch (error) {
-                console.error('TTS Error:', error);
-                alert('حدث خطأ في توليد الصوت: ' + error.message);
-            } finally {
-                button.textContent = originalText;
-                button.disabled = false;
-            }
+                currentUser.credits -= 50;
+                updateUserDisplay();
+                alert('تم إرسال الملف للدبلجة!');
+            } catch (error) { alert('خطأ'); }
         }
 
-        // ==================== واجهة الدبلجة ====================
-        function getDubbingInterface() {
-            return `
-                <span class="close" onclick="closeModal()">✕</span>
-                <h2>🌐 دبلجة فيديو</h2>
-                
-                <input type="url" id="videoUrl" placeholder="رابط الفيديو (YouTube)">
-                
-                <select id="dubLanguage">
-                    <option value="ar">العربية</option>
-                    <option value="en">الإنجليزية</option>
-                    <option value="fr">الفرنسية</option>
-                    <option value="es">الإسبانية</option>
-                    <option value="de">الألمانية</option>
-                    <option value="ja">اليابانية</option>
-                    <option value="zh">الصينية</option>
-                </select>
-                
-                <button class="btn btn-primary" onclick="processDubbing()">بدء الدبلجة (50 نقطة)</button>
-                
-                <div id="dubProgress" style="display: none;">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="dubProgressFill"></div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
-            `;
-        }
-
-        // ==================== معالجة الدبلجة ====================
-        function processDubbing() {
-            const videoUrl = document.getElementById('videoUrl').value;
-            
-            if (!videoUrl) {
-                alert('الرجاء إدخال رابط الفيديو');
-                return;
-            }
-
-            if (currentUser.plan === 'free') {
-                alert('الدبلجة متاحة فقط في الخطة الاحترافية');
-                closeModal();
-                return;
-            }
-
-            if (currentUser.credits < 50) {
-                alert('رصيد غير كافٍ');
-                closeModal();
-                return;
-            }
-
-            document.getElementById('dubProgress').style.display = 'block';
-            
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 10;
-                document.getElementById('dubProgressFill').style.width = progress + '%';
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    
-                    // خصم النقاط
-                    currentUser.credits -= 50;
-                    
-                    // حفظ في السجل
-                    saveToHistory('dub', videoUrl, '');
-                    
-                    alert('تمت الدبلجة بنجاح!');
-                    closeModal();
-                }
-            }, 500);
-        }
-
-        // ==================== واجهة المؤثرات ====================
+        // 3. المؤثرات الصوتية (تم ربطها)
         function getSFXInterface() {
-            return `
-                <span class="close" onclick="closeModal()">✕</span>
-                <h2>🔊 مؤثرات صوتية</h2>
-                
-                <input type="text" id="sfxPrompt" placeholder="وصف المؤثر الصوتي (مثال: صوت انفجار قوي)">
-                
-                <select id="sfxDuration">
-                    <option value="2">قصير (2 ثواني)</option>
-                    <option value="5">متوسط (5 ثواني)</option>
-                    <option value="10">طويل (10 ثواني)</option>
-                </select>
-                
-                <button class="btn btn-primary" onclick="generateSFX()">توليد المؤثر (5 نقاط)</button>
-                
-                <div id="sfxResult" style="display: none;">
-                    <div class="audio-player">
-                        <audio id="sfxAudio" controls></audio>
-                    </div>
-                </div>
-                
-                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
-            `;
+            return `<span class="close" onclick="closeModal()">✕</span><h2>🔊 مؤثرات صوتية</h2>
+                <input type="text" id="sfxPrompt" placeholder="وصف المؤثر...">
+                <button class="btn btn-primary" onclick="generateSFX()">إنشاء (5 نقاط)</button>`;
         }
 
-        // ==================== توليد مؤثرات ====================
-        function generateSFX() {
+        async function generateSFX() {
             const prompt = document.getElementById('sfxPrompt').value;
-            
-            if (!prompt) {
-                alert('الرجاء إدخال وصف المؤثر');
-                return;
-            }
+            if (currentUser.credits < 5) return alert('رصيد غير كافٍ');
 
-            if (currentUser.credits < 5) {
-                alert('رصيد غير كافٍ');
-                closeModal();
-                return;
-            }
-
-            const button = event.target;
-            button.textContent = 'جاري التوليد...';
-            button.disabled = true;
-
-            // محاكاة توليد مؤثر (في الإصدار الحقيقي سنستخدم API)
-            setTimeout(() => {
-                // مثال على رابط صوتي حقيقي
-                const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
-                
-                document.getElementById('sfxResult').style.display = 'block';
-                const audio = document.getElementById('sfxAudio');
-                audio.src = audioUrl;
-                audio.play();
-
-                // خصم النقاط
+            try {
+                const response = await fetch('https://api.elevenlabs.io/v1/sound-generation', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json', 'xi-api-key': ELEVENLABS_KEY},
+                    body: JSON.stringify({text: prompt})
+                });
+                const audioUrl = URL.createObjectURL(await response.blob());
+                new Audio(audioUrl).play();
                 currentUser.credits -= 5;
-                
-                // حفظ في السجل
-                saveToHistory('sfx', prompt, audioUrl);
-
-                button.textContent = 'توليد المؤثر (5 نقاط)';
-                button.disabled = false;
-            }, 2000);
-        }
-
-        // ==================== حفظ في السجل ====================
-        function saveToHistory(type, text, url) {
-            const item = {
-                id: Date.now(),
-                type: type,
-                text: text.length > 30 ? text.substring(0, 30) + '...' : text,
-                url: url,
-                date: new Date().toLocaleString('ar-EG')
-            };
-            
-            currentUser.history.unshift(item);
-            if (currentUser.history.length > 10) currentUser.history.pop();
-            
-            updateUserDisplay();
-            loadHistory();
-        }
-
-        // ==================== تحميل السجل ====================
-        function loadHistory() {
-            const historyList = document.getElementById('historyList');
-            
-            if (currentUser.history.length === 0) {
-                historyList.innerHTML = '<p style="color: #9ca3af; text-align: center;">لا يوجد سجل بعد</p>';
-                return;
-            }
-
-            historyList.innerHTML = currentUser.history.map(item => `
-                <div class="history-item">
-                    <div>
-                        <strong>${item.type === 'tts' ? '🎙️' : item.type === 'dub' ? '🌐' : '🔊'} ${item.text}</strong>
-                        <div style="color: #9ca3af; font-size: 0.8rem; margin-top: 4px;">${item.date}</div>
-                    </div>
-                    ${item.url ? '<button onclick="playAudio(\'' + item.url + '\')">تشغيل</button>' : ''}
-                </div>
-            `).join('');
-        }
-
-        // ==================== تشغيل صوت ====================
-        function playAudio(url) {
-            const audio = new Audio(url);
-            audio.play();
+                updateUserDisplay();
+            } catch (error) { alert('خطأ'); }
         }
     </script>
 </body>
