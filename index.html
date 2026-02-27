@@ -6,133 +6,139 @@
     
     <meta name="cryptomus" content="1428beac" />
     
-    <title>Vividia AI | الفخامة في توليد الصور</title>
+    <title>Vividia AI | تجسيد الخيال في صورة</title>
     
     <style>
-        /* --- 🎨 التصميم الفاخر للموقع --- */
+        /* --- 🎨 التصميم الفاخر المعتمد في الصور الأخيرة --- */
         :root {
-            --gold: #d4af37;
+            --gold-gradient: linear-gradient(45deg, #d4af37, #f9f295, #d4af37);
             --black: #0a0a0a;
-            --gray: #1a1a1a;
-            --white: #ffffff;
-            --shadow: rgba(212, 175, 55, 0.3);
+            --gray-border: #333;
         }
 
         body {
             background-color: var(--black);
-            color: var(--white);
-            font-family: 'Times New Roman', serif; /* لمسة كلاسيكية فخمة */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            text-align: center;
         }
 
         header {
-            padding: 3rem;
-            text-align: center;
-            border-bottom: 1px solid var(--gold);
-            width: 100%;
-            background: linear-gradient(to bottom, #111, var(--black));
+            margin-top: 50px;
+            margin-bottom: 30px;
         }
 
         h1 {
-            color: var(--gold);
-            font-size: 3.5rem;
-            letter-spacing: 5px;
+            color: #d4af37;
+            font-size: 3rem;
+            letter-spacing: 4px;
             margin: 0;
-            text-shadow: 2px 2px 10px var(--shadow);
         }
 
         .tagline {
-            font-style: italic;
-            color: #888;
+            font-size: 0.9rem;
+            color: #ccc;
             margin-top: 10px;
         }
 
-        .container {
-            max-width: 900px;
-            padding: 4rem 2rem;
-            text-align: center;
+        .input-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
         }
 
         .premium-input {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--gold);
+            border: 1px solid var(--gray-border);
             color: white;
-            padding: 1.2rem;
-            width: 90%;
-            border-radius: 0; /* زوايا حادة للفخامة */
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
+            padding: 15px;
+            width: 100%;
+            text-align: right;
+            font-size: 1rem;
             outline: none;
-            transition: 0.5s;
-        }
-
-        .premium-input:focus {
-            box-shadow: 0 0 20px var(--shadow);
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .btn-gold {
-            background: linear-gradient(45deg, #d4af37, #f9f295, #d4af37);
+            background: var(--gold-gradient);
             color: black;
             border: none;
-            padding: 1.2rem 3rem;
+            padding: 12px 40px;
             font-weight: bold;
             cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.4s;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-top: 20px;
+            transition: 0.3s;
         }
 
         .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px var(--shadow);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
+        /* --- 🖼️ منطقة عرض الصور (Preview) --- */
         #resultArea {
-            margin-top: 4rem;
-            border: 1px solid var(--gray);
-            padding: 10px;
-            min-height: 400px;
+            width: 90%;
+            max-width: 500px;
+            height: 400px;
+            margin: 40px auto;
+            border: 1px solid #1a1a1a;
+            background-color: #0d0d0d;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0d0d0d;
             position: relative;
         }
 
-        #resultArea::before {
-            content: "VIVIDIA PREVIEW";
-            color: #222;
-            font-size: 3rem;
+        .watermark {
             position: absolute;
+            color: #1a1a1a;
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
             z-index: 0;
+            user-select: none;
         }
 
-        img {
-            max-width: 100%;
-            border: 1px solid var(--gold);
+        #statusText {
+            color: #d4af37;
             z-index: 1;
+            font-size: 0.9rem;
         }
 
-        /* --- 💳 قسم الدفع --- */
-        .payment-section {
-            margin-top: 5rem;
-            padding: 3rem;
-            border: 1px dashed var(--gold);
+        /* --- 💳 قسم الاشتراك (الفيزا) --- */
+        .subscription-box {
+            border: 1px dashed #444;
+            padding: 30px;
+            width: 80%;
+            max-width: 500px;
+            margin: 50px auto;
             background: rgba(212, 175, 55, 0.02);
         }
 
-        .footer {
-            margin-top: auto;
-            padding: 3rem;
-            font-size: 0.9rem;
-            color: #444;
-            letter-spacing: 1px;
+        .subscription-box h3 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .subscription-box p {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        .btn-visa {
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 30px;
+            padding: 10px 30px;
+            border: none;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
     </style>
 </head>
@@ -143,46 +149,34 @@
         <p class="tagline">حيث يتجسد الخيال في صورة</p>
     </header>
 
-    <div class="container">
+    <div class="input-container">
         <input type="text" id="promptInput" class="premium-input" placeholder="أدخل وصف الصورة السحرية هنا...">
-        <br>
         <button onclick="generateImage()" class="btn-gold">توليد التحفة الفنية</button>
-        
-        <div id="resultArea">
-            <p id="statusText" style="z-index:1; color: var(--gold);">بانتظار إلهامك...</p>
-        </div>
-
-        <div class="payment-section">
-            <h3 style="color: var(--gold);">عضوية Vividia بريميوم</h3>
-            <p>استمتع بتوليد صور غير محدود بجودة 4K مقابل 4.99$ فقط</p>
-            <br>
-            <button onclick="payWithVisa()" class="btn-gold" style="background: white; color: black; border-radius: 50px;">
-                💳 الدفع عبر الفيزا / كارد
-            </button>
-        </div>
     </div>
 
-    <div class="footer">
-        EST. 2026 | VIVIDIA LUXURY ARTIFICIAL INTELLIGENCE
+    <div id="resultArea">
+        <div class="watermark">VIVIDIA PREVIEW</div>
+        <p id="statusText">بانتظار إلهامك...</p>
+    </div>
+
+    <div class="subscription-box">
+        <h3>عضوية Vividia بريميوم</h3>
+        <p>استمتع بتوليد صور غير محدود بجودة 4K مقابل 4.99$ فقط</p>
+        <button onclick="payWithVisa()" class="btn-visa">
+            💳 الدفع عبر الفيزا / كارد
+        </button>
     </div>
 
     <script>
-        // --- ⚙️ الربط البرمجي ---
-        const LEONARDO_KEY = "99f5..."; // تأكد من وضع مفتاحك هنا
-
-        async function generateImage() {
+        function generateImage() {
             const prompt = document.getElementById('promptInput').value;
-            if(!prompt) return alert("من فضلك صف الصورة التي تتخيلها أولاً.");
-
-            document.getElementById('statusText').innerText = "جاري صقل التحفة الفنية... يرجى الانتظار";
-            
-            // هنا سيتم وضع كود Leonardo API الخاص بنا
-            console.log("Generating for:", prompt);
+            if(!prompt) return alert("يرجى كتابة وصف للصورة.");
+            document.getElementById('statusText').innerText = "جاري الإبداع... يرجى الانتظار";
         }
 
         function payWithVisa() {
-            // هذا التنبيه سيظل حتى يتم تفعيل حسابك في Cryptomus
-            alert("سيتم توجيهك لبوابة الدفع الآمنة بمجرد انتهاء فحص النطاق.");
+            // سيتم تفعيل هذا الزر بمجرد قبول مشروعك في Cryptomus
+            alert("سيتم توجيهك لبوابة الدفع الآمنة فور إتمام فحص النطاق بنجاح.");
         }
     </script>
 </body>
