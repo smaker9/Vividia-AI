@@ -3,64 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI | لوحة التحكم الشاملة</title>
+    <title>Vividia Studio | الاحترافية العالمية</title>
     <style>
-        :root { --primary: #6366f1; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #ec4899; }
-        body { background-color: var(--bg); color: var(--text); font-family: sans-serif; display: flex; justify-content: center; padding: 20px; }
-        .container { background: var(--card); padding: 2rem; border-radius: 20px; width: 100%; max-width: 600px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        h1 { color: var(--primary); text-align: center; margin-bottom: 0.5rem; }
-        h3 { color: #cbd5e1; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 20px; }
-        textarea, input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; margin-bottom: 10px; box-sizing: border-box; }
-        button { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 15px; transition: 0.3s; }
-        button:hover { opacity: 0.9; transform: scale(1.01); }
+        :root {
+            --bg-body: #050509;
+            --bg-card: #0c0c14;
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --text-main: #ffffff;
+            --text-sub: #a1a1aa;
+            --border: #27272a;
+            --accent: #ec4899;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .studio-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .header { text-align: center; margin-bottom: 2rem; }
+        h1 { color: var(--primary); margin: 0; font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
+        .subtitle { color: var(--text-sub); margin-top: 0.5rem; font-size: 1rem; }
+
+        .card-section {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            transition: 0.3s;
+        }
+        .card-section:hover { border-color: var(--primary); }
+        .card-section h3 { margin: 0 0 1rem 0; color: var(--text-main); font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+
+        textarea, input[type="text"], input[type="file"], select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #050509;
+            color: white;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        textarea:focus, input:focus { outline: none; border-color: var(--primary); }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 1rem;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        button:hover { background: var(--primary-hover); transform: translateY(-2px); }
         button.accent { background: var(--accent); }
-        .status { font-size: 0.85rem; color: #10b981; text-align: center; margin-top: 10px; }
+        button.accent:hover { background: #be185d; }
+
+        .status-bar {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Vividia AI 🚀</h1>
-    <p style="text-align:center; color: #94a3b8;">لوحة تحكم الخدمات الشاملة</p>
-
-    <div class="section">
-        <h3>1. توليد صوت من نص</h3>
-        <textarea id="ttsText" rows="3" placeholder="اكتب النص هنا..."></textarea>
-        <button onclick="generateTTS()">توليد الصوت (آدم)</button>
+<div class="studio-container">
+    <div class="header">
+        <h1>Vividia</h1>
+        <div class="subtitle">استوديو الإنتاج الصوتي الشامل - احترافية غير محدودة</div>
     </div>
 
-    <div class="section">
-        <h3>2. دبلجة فيديو/صوت (ملف)</h3>
+    <div class="card-section">
+        <h3>🎙️ تحويل النص إلى صوت سينمائي</h3>
+        <textarea id="ttsText" rows="3" placeholder="أدخل النص هنا..."></textarea>
+        <button onclick="generateTTS()">توليد الصوت (Adam)</button>
+    </div>
+
+    <div class="card-section">
+        <h3>🌐 دبلجة الفيديو/الصوت الاحترافية</h3>
         <input type="file" id="dubFile" accept="audio/*,video/*">
         <select id="targetLang">
-            <option value="ar">العربية</option>
-            <option value="en">الإنجليزية</option>
-            <option value="fr">الفرنسية</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="en">الإنجليزية (English)</option>
+            <option value="fr">الفرنسية (French)</option>
         </select>
-        <button class="accent" onclick="startDubbing()">بدء الدبلجة</button>
+        <button class="accent" onclick="startDubbing()">بدء الدبلجة السينمائية</button>
     </div>
 
-    <div class="section">
-        <h3>3. توليد مؤثرات صوتية (وصف)</h3>
-        <input type="text" id="sfxPrompt" placeholder="وصف المؤثر (مثلاً: صوت مطر...)">
-        <button onclick="generateSFX()">توليد المؤثر الصوتي</button>
+    <div class="card-section">
+        <h3>🔊 هندسة المؤثرات الصوتية</h3>
+        <input type="text" id="sfxPrompt" placeholder="وصف المؤثر الصوتي بدقة...">
+        <button onclick="generateSFX()">إنشاء المؤثر</button>
     </div>
 
-    <div id="status" class="status"></div>
+    <div id="status" class="status-bar"></div>
 </div>
 
 <script>
-    // مفتاحك السري
-    const MY_API_KEY = "sk_9e048006fa8c6ebe0068240531808bba33c809c6f43313fe"; 
-    const status = document.getElementById('status');
+    // مفتاحك السري تم دمجه
+    const MY_API_KEY = "sk_9e048006fa8c6ebe0068240531808bba33c809c6f43313fe";
+    const statusDiv = document.getElementById('status');
 
-    function updateStatus(msg) { status.innerText = msg; }
+    function updateStatus(msg) {
+        statusDiv.innerText = msg;
+        statusDiv.style.display = 'block';
+    }
 
     // --- 1. TTS ---
     async function generateTTS() {
         const text = document.getElementById('ttsText').value;
-        if (!text) return alert("اكتب نصاً!");
-        updateStatus("جاري توليد الصوت...");
+        if (!text) return alert("الرجاء إدخال النص");
+        updateStatus("جاري التوليد... انتظر اللمسة الاحترافية");
         
         try {
             const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/pNInz6obpgDQGcFmaJgB`, {
@@ -70,15 +153,15 @@
             });
             const audioBlob = await response.blob();
             new Audio(URL.createObjectURL(audioBlob)).play();
-            updateStatus("تم تشغيل الصوت! 🎧");
-        } catch (error) { updateStatus("خطأ في TTS"); }
+            updateStatus("تم إنتاج الصوت بنجاح!");
+        } catch (error) { updateStatus("حدث خطأ أثناء الاتصال"); }
     }
 
     // --- 2. Dubbing ---
     async function startDubbing() {
         const fileInput = document.getElementById('dubFile');
-        if (fileInput.files.length === 0) return alert("اختر ملفاً!");
-        updateStatus("جاري رفع الملف للدبلجة...");
+        if (fileInput.files.length === 0) return alert("الرجاء اختيار ملف");
+        updateStatus("جاري رفع الملف لمعالجته...");
 
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
@@ -90,16 +173,15 @@
                 headers: { 'xi-api-key': MY_API_KEY },
                 body: formData
             });
-            const result = await response.json();
-            updateStatus("تم إرسال الملف! سيظهر في موقع ElevenLabs.");
-        } catch (error) { updateStatus("خطأ في الدبلجة"); }
+            updateStatus("تم إرسال الملف! تفقد لوحة تحكم ElevenLabs لمعرفة حالة الدبلجة.");
+        } catch (error) { updateStatus("فشل في إرسال الملف"); }
     }
 
     // --- 3. Sound Effects ---
     async function generateSFX() {
         const prompt = document.getElementById('sfxPrompt').value;
-        if (!prompt) return alert("اكتب وصفاً للمؤثر!");
-        updateStatus("جاري توليد المؤثر الصوتي...");
+        if (!prompt) return alert("الرجاء إدخال وصف");
+        updateStatus("جاري هندسة الصوت...");
 
         try {
             const response = await fetch('https://api.elevenlabs.io/v1/sound-generation', {
@@ -109,8 +191,8 @@
             });
             const audioBlob = await response.blob();
             new Audio(URL.createObjectURL(audioBlob)).play();
-            updateStatus("تم توليد المؤثر! 🎧");
-        } catch (error) { updateStatus("خطأ في المؤثرات"); }
+            updateStatus("تم إنشاء المؤثر الصوتي!");
+        } catch (error) { updateStatus("خطأ في إنتاج الصوت"); }
     }
 </script>
 
