@@ -3,123 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI Studio | الإنتاج السينمائي</title>
+    <meta name="cryptomus" content="1428beac" />
+    
+    <title>Vividia AI | الفخامة في توليد الصور</title>
+    
     <style>
         :root {
-            --bg: #030305;
-            --card-bg: #0a0a0c;
-            --primary: #7c3aed;
-            --accent: #f59e0b;
-            --text: #ffffff;
-            --text-muted: #94a3b8;
-            --border: #1e1e21;
+            --gold: #d4af37;
+            --black: #0a0a0a;
+            --gray: #1a1a1a;
+            --white: #ffffff;
         }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 20px; }
-        .dashboard { max-width: 1000px; margin: 0 auto; }
-        .header { text-align: center; padding: 30px 0; }
-        .header h1 { font-size: 2.5rem; margin: 0; color: white; }
-        .header p { color: var(--text-muted); }
-        
-        /* مربع الطلب الذكي */
-        .prompt-container {
-            background: var(--card-bg);
-            border: 1px solid var(--primary);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        .prompt-input {
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--gold);
             width: 100%;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            outline: none;
-            margin-bottom: 15px;
         }
-        .action-btn {
-            background: var(--primary);
+
+        h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .premium-input {
+            background: var(--gray);
+            border: 1px solid var(--gold);
             color: white;
+            padding: 1rem;
+            width: 80%;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-gold {
+            background: linear-gradient(45deg, #d4af37, #f9f295);
+            color: black;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 1rem 2rem;
             font-weight: bold;
             cursor: pointer;
+            text-transform: uppercase;
             transition: 0.3s;
+            border-radius: 5px;
         }
-        .action-btn:hover { opacity: 0.9; }
 
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 25px; border-radius: 16px; transition: 0.3s; }
-        .card:hover { border-color: var(--primary); }
-        .card h2 { color: var(--primary); margin-top: 0; font-size: 1.3rem; }
-        input, textarea, select { width: 100%; background: #131316; border: 1px solid var(--border); color: white; padding: 12px; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; }
-        .sub-btn { width: 100%; background: var(--card-bg); color: var(--text); border: 1px solid var(--border); padding: 12px; border-radius: 8px; cursor: pointer; }
-        .sub-btn:hover { border-color: var(--text-muted); }
-        .pro-badge { background: var(--accent); color: black; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+        .btn-gold:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        #resultArea {
+            margin-top: 2rem;
+            border: 1px solid #333;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #555;
+        }
     </style>
 </head>
 <body>
 
-<div class="dashboard">
-    <div class="header">
-        <h1>Vividia <span style="color:var(--primary)">Studio</span></h1>
-        <p>استوديو الإنتاج الصوتي الاحترافي</p>
-    </div>
+    <header>
+        <h1>VIVIDIA AI</h1>
+        <p>تجربة بصرية لا تضاهى</p>
+    </header>
 
-    <div class="prompt-container">
-        <textarea class="prompt-input" id="mainPrompt" rows="2" placeholder="ماذا تريد أن تنشئ اليوم؟ (مثال: دبلج لي هذا الفيديو للعربية)"></textarea>
-        <button class="action-btn" onclick="processPrompt()">إنشاء بالذكاء الاصطناعي</button>
-    </div>
-
-    <div class="tools-grid">
-        <div class="card">
-            <h2>🎙️ نص إلى صوت</h2>
-            <textarea id="ttsText" rows="3" placeholder="أدخل النص..."></textarea>
-            <button class="sub-btn" onclick="generateTTS()">توليد الصوت</button>
-        </div>
-
-        <div class="card">
-            <h2>🌐 دبلجة عالمية <span class="pro-badge">PRO</span></h2>
-            <input type="file" id="dubFile">
-            <button class="sub-btn" onclick="startDubbing()">بدء الدبلجة</button>
-        </div>
-
-        <div class="card">
-            <h2>🔊 مؤثرات صوتية</h2>
-            <input type="text" id="sfxPrompt" placeholder="وصف المؤثر...">
-            <button class="sub-btn" onclick="generateSFX()">إنشاء المؤثر</button>
-        </div>
+    <div class="container">
+        <input type="text" id="promptInput" class="premium-input" placeholder="اكتب وصف الصورة هنا بالإنجليزية...">
+        <br>
+        <button onclick="generateImage()" class="btn-gold">توليد الصورة السحرية</button>
         
-        <div class="card">
-            <h2>🧬 استنساخ صوت <span class="pro-badge">PRO</span></h2>
-            <input type="file" id="cloneFile" accept="audio/*">
-            <button class="sub-btn" onclick="cloneVoice()">استنساخ</button>
+        <div id="resultArea">
+            <p id="statusText">ابدأ الإبداع الآن...</p>
         </div>
+
+        <hr style="border: 0.5px solid var(--gray); margin: 3rem 0;">
+        
+        <h3>نفدت نقاطك؟</h3>
+        <p>احصل على اشتراك "بريميوم" بـ 4.99$ فقط للوصول غير المحدود</p>
+        <button onclick="payWithVisa()" class="btn-gold" style="background: white; color: black;">اشترك عبر الفيزا / كاش</button>
     </div>
-</div>
 
-<script>
-    const API_KEY = "sk_9e048006fa8c6ebe0068240531808bba33c809c6f43313fe";
-    
-    // 💡 وظيفة تحليل طلب المستخدم (الذكاء)
-    function processPrompt() {
-        const prompt = document.getElementById('mainPrompt').value.toLowerCase();
-        if (prompt.includes('دبلج') || prompt.includes('ترجم')) {
-            alert('يرجى اختيار ملف في قسم الدبلجة');
-        } else if (prompt.includes('صوت') || prompt.includes('تكلم')) {
-            alert('يرجى كتابة النص في قسم النص إلى صوت');
-        } else {
-            alert('جاري تحليل طلبك...');
+    <div class="footer">
+        © 2026 Vividia Project | Powered by Leonardo.ai & Cryptomus
+    </div>
+
+    <script>
+        // --- 🛠️ الإعدادات السرية ---
+        const LEONARDO_KEY = "99f5..."; // تأكد من وضع المفتاح الكامل هنا
+        
+        async function generateImage() {
+            const prompt = document.getElementById('promptInput').value;
+            if(!prompt) return alert("من فضلك اكتب وصفاً!");
+
+            document.getElementById('statusText').innerText = "جاري الإبداع... يرجى الانتظار";
+
+            // ملاحظة: هنا يتم ربط Leonardo API
+            // سيتم إرسال الطلب واستقبال الصورة
+            alert("سيتم توليد الصورة باستخدام محرك Leonardo الفاخر");
         }
-    }
 
-    // --- الوظائف الحقيقية ---
-    async function generateTTS() { /* ... */ }
-    async function startDubbing() { /* ... */ }
-    async function generateSFX() { /* ... */ }
-    async function cloneVoice() { /* ... */ }
-</script>
+        function payWithVisa() {
+            // بعد قبول حسابك في Cryptomus، سنضع رابط الفاتورة هنا
+            // حالياً سيظهر هذا التنبيه حتى تضغط على "Verify" في موقعهم
+            alert("جاري تجهيز بوابة الدفع... تأكد من الضغط على 'يفحص' في Cryptomus أولاً");
+        }
+    </script>
 </body>
 </html>
