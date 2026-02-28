@@ -3,180 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI | Professional Studio</title>
+    <title>VIVIDIA AI | Elite Studio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --surface: #101010;
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
-            --text-dim: #888888;
-            --accent: #a855f7; /* Purple Accent */
-            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            --bg-color: #030303;
+            --panel-bg: rgba(10, 10, 10, 0.6);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #d946ef;
+            --glass: blur(20px);
+        }
+
+        body.light-mode {
+            --bg-color: #f0f0f0;
+            --panel-bg: rgba(255, 255, 255, 0.8);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-main: #000000;
+            --text-dim: #505050;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding-bottom: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s;
         }
 
-        /* --- Header --- */
+        /* --- خلفية متحركة (Particle Network) --- */
+        .background-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #030303 100%);
+        }
+
+        /* --- الهيكل الزجاجي (Main Panel) --- */
+        .main-panel {
+            background: var(--panel-bg);
+            backdrop-filter: var(--glass);
+            -webkit-backdrop-filter: var(--glass);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* --- Header & Dark Mode --- */
         .header {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
-        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 3px; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; }
+        .theme-toggle { cursor: pointer; color: var(--text-dim); }
 
-        /* --- Workspace --- */
-        .workspace {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .engine-select {
+        /* --- Input Area --- */
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-dim); font-size: 0.9rem; }
+        input[type="text"], textarea {
             width: 100%;
-            background: var(--bg);
-            color: var(--text);
-            border: 1px solid var(--border);
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 12px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        /* --- Action Buttons (Upload/Download) --- */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .action-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px;
             border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
 
-        textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 1rem;
-            resize: none;
-            outline: none;
-            height: 100px;
-        }
-
-        .generate-btn {
-            background: var(--accent-gradient);
+        /* --- Create Magic Button --- */
+        .create-btn {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
             color: white;
             border: none;
             width: 100%;
             padding: 15px;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: 0.3s;
         }
-        .generate-btn:active { transform: scale(0.98); }
+        .create-btn:hover { box-shadow: 0 0 20px rgba(139,92,246,0.5); }
 
-        /* --- Subscription --- */
-        .sub-banner {
-            background: var(--surface);
-            border: 1px solid var(--border);
+        /* --- Subscription Panel --- */
+        .sub-panel {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--accent-purple);
             border-radius: 16px;
-            margin: 30px 20px;
             padding: 20px;
+            margin-top: 30px;
             text-align: center;
         }
-        .price { font-size: 2rem; font-weight: 700; margin: 10px 0; }
+        .price { font-size: 2rem; font-weight: 800; margin: 5px 0; }
+        .limits { color: var(--text-dim); font-size: 0.8rem; margin-bottom: 15px; }
         .sub-btn {
             background: white;
             color: black;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
         }
-
-        /* --- Bottom Nav --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: rgba(16, 16, 16, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            border-top: 1px solid var(--border);
-        }
-        .nav-item {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 0.75rem;
-            text-align: center;
-        }
-        .nav-item.active { color: var(--text); }
-        .nav-item i { display: block; font-size: 1.25rem; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo">VIVIDIA</div>
-    </div>
+    <div class="background-animation" id="particles-js"></div>
 
-    <div class="workspace">
-        <div class="card">
-            <select id="engineType" class="engine-select">
-                <option value="image">✨ Leonardo: توليد صور</option>
-                <option value="video">🎥 Leonardo: تحريك فيديو</option>
-                <option value="voice">🎙️ ElevenLabs: دبلجة</option>
-            </select>
-            <textarea id="promptInput" placeholder="اكتب وصفك هنا..."></textarea>
-            <button class="generate-btn" onclick="runEngine()">إنتاج العمل</button>
+    <div class="main-panel">
+        <div class="header">
+            <div class="logo">VIVIDIA AI</div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
         </div>
-        <div id="statusMsg" style="text-align:center; margin-top:15px; color:var(--text-dim); font-size:0.9rem;"></div>
-    </div>
 
-    <div class="sub-banner">
-        <div>باقة Vividia Pro</div>
-        <div class="price">4.99$</div>
-        <div style="color:var(--text-dim); font-size:0.9rem; margin-bottom:15px;">
-            100 صورة | 10 فيديوهات | 20k دبلجة
+        <div class="input-group">
+            <label>Prompt input:</label>
+            <input type="text" id="promptInput" placeholder="Describe your creation...">
         </div>
-        <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">اشتراك</button>
-    </div>
 
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active"><i class="fas fa-magic"></i>الاستوديو</a>
-        <a href="#" class="nav-item"><i class="fas fa-images"></i>معرضي</a>
-        <a href="#" class="nav-item"><i class="fas fa-user"></i>حسابي</a>
+        <div class="action-row">
+            <div class="action-btn"><i class="fas fa-upload"></i> Upload Media</div>
+            <div class="action-btn"><i class="fas fa-download"></i> Download</div>
+        </div>
+
+        <button class="create-btn" onclick="runMagic()">Create Magic</button>
+
+        <div class="sub-panel">
+            <div>Unlimited Power</div>
+            <div class="price">4.99<span style="font-size:1rem;">$</span>/month</div>
+            <div class="limits">100 Images | 10 Videos | 20k Voice</div>
+            <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">Subscribe</button>
+        </div>
     </div>
 
     <script>
-        function runEngine() {
-            const prompt = document.getElementById('promptInput').value;
-            const engine = document.getElementById('engineType').value;
-            const status = document.getElementById('statusMsg');
-            
-            if(!prompt) return alert("يرجى كتابة وصف.");
+        // --- Dark Mode ---
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('theme-icon');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
 
-            status.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري الإنتاج عبر ${engine}...`;
-            
-            // تمثيل عملية الربط
-            setTimeout(() => {
-                status.innerHTML = `<i class="fas fa-check" style="color:#00c853"></i> تم الإنتاج بنجاح!`;
-            }, 2000);
+        // --- Core Logic (API Keys Control & Processing) ---
+        async function runMagic() {
+            const prompt = document.getElementById('promptInput').value;
+            if(!prompt) return alert("Please enter a prompt.");
+
+            // تمثيل التحكم بنقاط المفاتيح (API Logic)
+            console.log("Checking API Keys...");
+            console.log("Leonardo Credits Left: 500");
+            console.log("ElevenLabs Characters Left: 15,000");
+
+            alert("Magic Creating...");
+            // هنا سيتم الربط بـ Backend للتعامل مع Cryptomus و APIs
         }
     </script>
 </body>
