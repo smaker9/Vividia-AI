@@ -3,199 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI | Global Studio</title>
+    <title>Vividia AI | Professional Studio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-bg: #0d0d0d;
-            --card-bg: #1a1a1c;
-            --gradient: linear-gradient(135deg, #8a2be2 0%, #ff00ff 100%);
-            --text-main: #ffffff;
-            --text-dim: #a1a1a1;
+            --bg: #050505;
+            --surface: #101010;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+            --text-dim: #888888;
+            --accent: #a855f7; /* Purple Accent */
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
         }
 
         body {
-            background-color: var(--primary-bg);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding-bottom: 90px;
         }
 
-        .top-nav {
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(13, 13, 13, 0.95);
+        /* --- Header --- */
+        .header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(5, 5, 5, 0.8);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid #222;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 3px; }
+
+        /* --- Workspace --- */
+        .workspace {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        .logo { font-weight: bold; letter-spacing: 2px; font-size: 1.2rem; }
-
-        .gen-interface {
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 20px;
-            background: var(--card-bg);
-            margin: 20px;
-            border-radius: 20px;
-            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .engine-select {
+            width: 100%;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
         }
 
         textarea {
             width: 100%;
             background: transparent;
             border: none;
-            color: #fff;
+            color: var(--text);
             font-size: 1rem;
             resize: none;
             outline: none;
-            min-height: 80px;
+            height: 100px;
         }
 
-        .gen-button {
-            background: var(--gradient);
+        .generate-btn {
+            background: var(--accent-gradient);
             color: white;
             border: none;
             width: 100%;
             padding: 15px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1rem;
-            margin-top: 15px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.2);
+            transition: transform 0.2s;
         }
+        .generate-btn:active { transform: scale(0.98); }
 
-        .upgrade-banner {
-            background: var(--gradient);
-            margin: 20px;
+        /* --- Subscription --- */
+        .sub-banner {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 30px 20px;
             padding: 20px;
-            border-radius: 15px;
             text-align: center;
-            font-weight: bold;
+        }
+        .price { font-size: 2rem; font-weight: 700; margin: 10px 0; }
+        .sub-btn {
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
         }
 
-        .limits-list {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0 0 0;
-            font-size: 0.85rem;
-            text-align: right;
-            color: #eee;
-        }
-        .limits-list li { margin-bottom: 5px; }
-
+        /* --- Bottom Nav --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: #111;
+            background: rgba(16, 16, 16, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-around;
             padding: 15px 0;
-            border-top: 1px solid #222;
-            z-index: 100;
+            border-top: 1px solid var(--border);
         }
-        .nav-link {
+        .nav-item {
             color: var(--text-dim);
             text-decoration: none;
-            font-size: 0.7rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-        .nav-link.active { color: #fff; }
-        .nav-link i { font-size: 1.2rem; }
-
-        #statusMsg {
+            font-size: 0.75rem;
             text-align: center;
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: #a1a1a1;
-            min-height: 20px;
         }
+        .nav-item.active { color: var(--text); }
+        .nav-item i { display: block; font-size: 1.25rem; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
+    <div class="header">
         <div class="logo">VIVIDIA</div>
-        <div style="font-size:0.8rem; color:#ffd700;">PRO ENGINE</div>
     </div>
 
-    <div class="upgrade-banner" onclick="window.location.href='https://cryptomus.com/gateway/process'">
-        <div>اشترك بـ 4.99$ فقط</div>
-        <ul class="limits-list">
-            <li><i class="fas fa-check"></i> 100 صورة / 10 فيديوهات / 20k حرف دبلجة</li>
-        </ul>
+    <div class="workspace">
+        <div class="card">
+            <select id="engineType" class="engine-select">
+                <option value="image">✨ Leonardo: توليد صور</option>
+                <option value="video">🎥 Leonardo: تحريك فيديو</option>
+                <option value="voice">🎙️ ElevenLabs: دبلجة</option>
+            </select>
+            <textarea id="promptInput" placeholder="اكتب وصفك هنا..."></textarea>
+            <button class="generate-btn" onclick="runEngine()">إنتاج العمل</button>
+        </div>
+        <div id="statusMsg" style="text-align:center; margin-top:15px; color:var(--text-dim); font-size:0.9rem;"></div>
     </div>
 
-    <div class="gen-interface">
-        <select id="engineType" onchange="updatePromptPlaceholder()" style="background:#000; color:#fff; border:1px solid #333; padding:10px; margin-bottom:15px; width:100%;">
-            <option value="image">💡 توليد صور احترافي (Leonardo)</option>
-            <option value="video">🎥 تحريك صورة لفيديو (Image-to-Video)</option>
-            <option value="voice">🎙️ دبلجة صوتية (ElevenLabs)</option>
-            <option value="clone">🎭 استنساخ الصوت (Voice Cloning)</option>
-        </select>
-        
-        <textarea id="promptInput" placeholder="صف الصورة التي تريد ابتكارها..."></textarea>
-        
-        <button class="gen-button" onclick="runEngine()">تفعيل الإنتاج</button>
-        <div id="statusMsg">بانتظار أوامرك...</div>
+    <div class="sub-banner">
+        <div>باقة Vividia Pro</div>
+        <div class="price">4.99$</div>
+        <div style="color:var(--text-dim); font-size:0.9rem; margin-bottom:15px;">
+            100 صورة | 10 فيديوهات | 20k دبلجة
+        </div>
+        <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">اشتراك</button>
     </div>
 
-    <nav class="bottom-nav">
-        <a href="#" class="nav-link active"><i class="fas fa-wand-magic-sparkles"></i><span>إبداع</span></a>
-        <a href="#" class="nav-link"><i class="fas fa-image"></i><span>الصور</span></a>
-        <a href="#" class="nav-link"><i class="fas fa-microphone"></i><span>صوت</span></a>
-    </nav>
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active"><i class="fas fa-magic"></i>الاستوديو</a>
+        <a href="#" class="nav-item"><i class="fas fa-images"></i>معرضي</a>
+        <a href="#" class="nav-item"><i class="fas fa-user"></i>حسابي</a>
+    </div>
 
     <script>
-        function updatePromptPlaceholder() {
-            const engine = document.getElementById('engineType').value;
-            const input = document.getElementById('promptInput');
-            if(engine === 'image') input.placeholder = "صف الصورة التي تريد ابتكارها...";
-            if(engine === 'video') input.placeholder = "ادخل رابط الصورة (URL) لتحريكها...";
-            if(engine === 'voice') input.placeholder = "اكتب النص المراد دبلجته...";
-            if(engine === 'clone') input.placeholder = "ارفع ملف صوتي لصوتك (URL)...";
-        }
-
-        async function runEngine() {
+        function runEngine() {
             const prompt = document.getElementById('promptInput').value;
             const engine = document.getElementById('engineType').value;
             const status = document.getElementById('statusMsg');
             
             if(!prompt) return alert("يرجى كتابة وصف.");
 
-            status.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري إرسال الطلب لـ ${engine === 'image' || engine === 'video' ? 'Leonardo' : 'ElevenLabs'}...`;
+            status.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جاري الإنتاج عبر ${engine}...`;
             
-            // --- ⚙️ الربط الحقيقي (Real API Integration) ---
-            try {
-                // ملاحظة: هذا الكود سيعمل عند ربطه بـ Backend حقيقي يمتلك المفاتيح
-                // هنا نقوم بتمثيل عملية الاتصال
-                
-                let endpoint = '';
-                if(engine === 'image') endpoint = '/api/leonardo/generate';
-                if(engine === 'video') endpoint = '/api/leonardo/motion';
-                if(engine === 'voice') endpoint = '/api/elevenlabs/dub';
-                if(engine === 'clone') endpoint = '/api/elevenlabs/clone';
-
-                console.log(`Calling API endpoint: ${endpoint} with prompt: ${prompt}`);
-
-                // تمثيل انتظار استجابة الـ API
-                setTimeout(() => {
-                    status.innerHTML = `<i class="fas fa-check" style="color:green"></i> تم البدء بنجاح! سيظهر الناتج فور اكتماله.`;
-                }, 2500);
-
-            } catch (error) {
-                status.innerHTML = `<i class="fas fa-times" style="color:red"></i> خطأ في الاتصال بالسيرفر.`;
-            }
+            // تمثيل عملية الربط
+            setTimeout(() => {
+                status.innerHTML = `<i class="fas fa-check" style="color:#00c853"></i> تم الإنتاج بنجاح!`;
+            }, 2000);
         }
     </script>
 </body>
