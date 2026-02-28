@@ -3,249 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="cryptomus" content="1428beac" />
-    <title>Vividia AI | القمة في الإبداع الاصطناعي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>Vividia AI | Global Creative Suite</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #020203;
-            --panel-bg: #0a0b0e;
-            --accent-glow: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.08);
-            --text-main: #f0f0f0;
-            --text-dim: #666;
+            --primary-bg: #0d0d0d;
+            --card-bg: #1a1a1c;
+            --accent: #ff00ff; /* تدرج لوني يشبه OpenArt */
+            --gradient: linear-gradient(135deg, #8a2be2 0%, #ff00ff 100%);
+            --text-main: #ffffff;
+            --text-dim: #a1a1a1;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--primary-bg);
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            overflow: hidden; /* لمنع التمرير خارج لوحة التحكم */
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding-bottom: 80px; /* لمساحة القائمة السفلية */
+            overflow-x: hidden;
         }
 
-        /* --- 🔝 شريط علوي فاخر --- */
-        nav {
-            height: 60px;
-            border-bottom: 1px solid var(--border);
+        /* --- 🔝 Header & Credits --- */
+        .top-nav {
+            padding: 15px 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 0 40px;
-            background: rgba(0,0,0,0.8);
+            align-items: center;
+            background: rgba(13, 13, 13, 0.9);
             backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo { letter-spacing: 8px; font-weight: 200; font-size: 1.5rem; text-transform: uppercase; }
-
-        /* --- 🖥️ تقسيم لوحة الاستوديو --- */
-        .main-studio {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* القائمة اليمنى: الأدوات */
-        .sidebar-right {
-            width: 300px;
-            background: var(--panel-bg);
-            border-left: 1px solid var(--border);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* المنطقة الوسطى: العرض */
-        .preview-canvas {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, #111 0%, #020203 100%);
-            position: relative;
-        }
-
-        .canvas-box {
-            width: 100%;
-            max-width: 800px;
-            height: 500px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.01);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-        }
-
-        /* القائمة اليسرى: التحكم الدقيق */
-        .sidebar-left {
-            width: 280px;
-            background: var(--panel-bg);
-            border-right: 1px solid var(--border);
-            padding: 20px;
-        }
-
-        /* --- 🎨 عناصر الواجهة الاحترافية --- */
-        .tool-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
-            padding: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .tool-card:hover, .tool-card.active {
-            background: rgba(255,255,255,0.07);
-            border-color: #fff;
-        }
-
-        .prompt-area {
-            position: absolute;
-            bottom: 40px;
-            width: 80%;
-            max-width: 700px;
-            background: rgba(15, 15, 15, 0.9);
-            border: 1px solid var(--border);
-            padding: 10px;
-            display: flex;
-            gap: 10px;
-            backdrop-filter: blur(20px);
-        }
-
-        input[type="text"] {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #fff;
-            padding: 10px;
-            outline: none;
-        }
-
-        .generate-btn {
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 0 25px;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
+        .credits-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
-        }
-
-        /* --- 💳 بوابة الدفع (Premium Card) --- */
-        .payment-footer {
-            height: 100px;
-            background: #000;
-            border-top: 1px solid var(--border);
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 50px;
+            gap: 8px;
         }
 
-        .premium-badge {
-            border: 1px solid #d4af37; /* لمسة ذهبية خفيفة جداً للاشتراك فقط */
-            color: #d4af37;
-            padding: 5px 15px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
+        /* --- 🎨 Main Grid (Grid of Tools) --- */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
         }
 
-        .btn-subscribe {
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tool-card:active { transform: scale(0.95); }
+
+        .tool-image {
+            width: 100%;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+        }
+
+        .tool-info {
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- ⌨️ Generation Interface --- */
+        .gen-interface {
+            padding: 20px;
+            background: var(--card-bg);
+            margin: 20px;
+            border-radius: 20px;
+        }
+
+        textarea {
+            width: 100%;
             background: transparent;
+            border: none;
             color: #fff;
-            border: 1px solid #fff;
-            padding: 10px 30px;
-            cursor: pointer;
-            transition: 0.3s;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+            min-height: 80px;
         }
-        .btn-subscribe:hover { background: #fff; color: #000; }
+
+        .gen-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
+        }
+
+        /* --- 📱 Bottom Navigation (OpenArt Style) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #111;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #222;
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-link.active { color: #fff; }
+        .nav-link i { font-size: 1.2rem; }
+
+        /* --- 💳 Subscription --- */
+        .upgrade-banner {
+            background: var(--gradient);
+            margin: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
 
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">VIVIDIA</div>
-        <div style="color: var(--text-dim); font-size: 0.8rem;">STUDIO v2.0 PRO</div>
+    <div class="top-nav">
+        <div style="font-weight: bold; letter-spacing: 2px;">VIVIDIA</div>
+        <div class="credits-badge">
+            <i class="fas fa-bolt" style="color: #ffd700;"></i>
+            <span>40 Credits</span>
+            <button style="background: #00c853; border:none; border-radius: 5px; color:white; padding: 2px 8px; margin-right: 10px;">Upgrade</button>
+        </div>
+    </div>
+
+    <div class="upgrade-banner" onclick="window.location.href='https://cryptomus.com/gateway/process'">
+        إصدار بريميوم: فتح محرك Kling 3.0 Omni & Leonardo 
+    </div>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-image" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=400');"></div>
+            <div class="tool-info"><span>توليد الصور</span> <i class="fas fa-chevron-left"></i></div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-image" style="background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=400');"></div>
+            <div class="tool-info"><span>تحويل الفيديو</span> <i class="fas fa-chevron-left"></i></div>
+        </div>
+    </div>
+
+    <div class="gen-interface">
+        <textarea placeholder="صف الفيديو أو المشهد... استخدم @character للاتساق"></textarea>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <div style="background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem;">Model: Leonardo v3</div>
+            <div style="background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem;">Size: 16:9</div>
+        </div>
+        <button class="gen-button">توليد (10 Credits)</button>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-link active"><i class="fas fa-wand-magic-sparkles"></i><span>إبداع</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-image"></i><span>الصور</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-video"></i><span>فيديو</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-microphone"></i><span>صوت</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-history"></i><span>السجل</span></a>
     </nav>
 
-    <main class="main-studio">
-        <aside class="sidebar-left">
-            <h4 style="font-weight: 400; color: #888;">الخصائص (Settings)</h4>
-            <div style="margin-top: 20px;">
-                <label style="font-size: 0.7rem; color: #555;">الدقة (Resolution)</label>
-                <select style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px; margin-top:5px;">
-                    <option>4K Ultra HD</option>
-                    <option>Cinema 2.35:1</option>
-                </select>
-            </div>
-        </aside>
-
-        <section class="preview-canvas">
-            <div class="canvas-box">
-                <div style="text-align: center;">
-                    <p style="color: #333; letter-spacing: 5px; font-size: 2rem;">STANDBY</p>
-                    <p id="status" style="font-size: 0.8rem; color: #666;">في انتظار الأوامر الإبداعية...</p>
-                </div>
-            </div>
-
-            <div class="prompt-area">
-                <input type="text" id="userPrompt" placeholder="اكتب وصفاً ليوناردو أو نصاً لدبلجة ElevenLabs...">
-                <button class="generate-btn" onclick="executeAI()">توليد</button>
-            </div>
-        </section>
-
-        <aside class="sidebar-right">
-            <div class="tool-card active" onclick="selectTool('image')">
-                <div style="font-size: 0.8rem; font-weight: 600;">IMAGE GENERATION</div>
-                <div style="font-size: 0.7rem; color: #666;">Powered by Leonardo AI</div>
-            </div>
-            <div class="tool-card" onclick="selectTool('video')">
-                <div style="font-size: 0.8rem; font-weight: 600;">VIDEO MOTION</div>
-                <div style="font-size: 0.7rem; color: #666;">Image-to-Video Engine</div>
-            </div>
-            <div class="tool-card" onclick="selectTool('voice')">
-                <div style="font-size: 0.8rem; font-weight: 600;">VOICE DUBBING</div>
-                <div style="font-size: 0.7rem; color: #666;">ElevenLabs Multilingual</div>
-            </div>
-        </aside>
-    </main>
-
-    <footer class="payment-footer">
-        <div class="premium-badge">VIVIDIA RESERVE</div>
-        <p style="font-size: 0.9rem; font-weight: 200;">فتح جميع المزايا الاحترافية مقابل $4.99</p>
-        <button class="btn-subscribe" onclick="location.href='https://cryptomus.com/gateway/process'">UPGRADE NOW</button>
-    </footer>
-
-    <script>
-        // الربط البرمجي مع المفاتيح
-        function executeAI() {
-            const prompt = document.getElementById('userPrompt').value;
-            const status = document.getElementById('status');
-            
-            if(!prompt) {
-                status.innerText = "يرجى كتابة وصف للبدء.";
-                return;
-            }
-
-            status.innerHTML = `<span style="color:#fff;">جاري المعالجة عبر السيرفرات العالمية...</span>`;
-            
-            // هنا يتم استدعاء Leonardo أو ElevenLabs بناءً على الأداة المختارة
-            console.log("Using API Keys from Vercel environment...");
-        }
-
-        function selectTool(tool) {
-            document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-    </script>
 </body>
 </html>
