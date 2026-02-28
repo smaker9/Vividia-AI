@@ -6,10 +6,10 @@
     
     <meta name="cryptomus" content="1428beac" />
     
-    <title>Vividia AI | تجسيد الخيال في صورة</title>
+    <title>Vividia AI | الفخامة في توليد الصور</title>
     
     <style>
-        /* --- 🎨 التصميم الفاخر (Luxury) كما في الصورة --- */
+        /* --- 🎨 التصميم الفاخر (Luxury) --- */
         :root {
             --gold: #d4af37;
             --black: #0a0a0a;
@@ -163,20 +163,20 @@
     </div>
 
     <script>
-        // --- ⚙️ الربط البرمجي للمشروع ---
-        const LEONARDO_KEY = "YOUR_LEONARDO_KEY"; // ⚠️ ضع مفتاح ليوناردو الخاص بك هنا
-        const ELEVENLABS_KEY = "YOUR_ELEVENLABS_KEY"; // ⚠️ ضع مفتاح ElevenLabs الخاص بك هنا
+        // --- ⚙️ الربط البرمجي للمشروع (تم دمج مفاتيحك الخاصة) ---
+        const LEONARDO_KEY = "3e9b1d12-f155-46fd-b57f-d99f665551fb"; // تم وضع مفتاح ليوناردو
+        const ELEVENLABS_KEY = "sk_1c6999a38096c4d444498305f6e814041ae917036d0b6732"; // تم وضع مفتاح ElevenLabs
 
         function generateImage() {
             const prompt = document.getElementById('promptInput').value;
             if(!prompt) return alert("يرجى كتابة وصف للصورة أولاً.");
             document.getElementById('statusText').innerText = "جاري صقل التحفة الفنية... يرجى الانتظار";
             
-            // هنا يتم استدعاء Leonardo API (سيتم تفعيله بعد التحقق)
+            // سيتم تفعيل الاتصال بـ Leonardo API هنا باستخدام LEONARDO_KEY
         }
 
         function payWithVisa() {
-            // سيتم توجيهك لبوابة الدفع الآمنة
+            // توجيه المستخدم لبوابة الدفع
             window.location.href = "https://cryptomus.com/gateway/process";
         }
     </script>
