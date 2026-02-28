@@ -3,169 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI | Global Creative Suite</title>
+    <meta name="cryptomus" content="1428beac" />
+    <title>Vividia AI | القمة في الإبداع الاصطناعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --card-bg: #0f1115;
-            --accent: #ffffff;
-            --text-muted: #888;
-            --border: rgba(255,255,255,0.1);
+            --bg-dark: #020203;
+            --panel-bg: #0a0b0e;
+            --accent-glow: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f0f0f0;
+            --text-dim: #666;
         }
 
         body {
-            background-color: var(--bg);
-            color: #fff;
-            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             margin: 0;
+            overflow: hidden; /* لمنع التمرير خارج لوحة التحكم */
+            height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* --- 🔝 شريط علوي فاخر --- */
+        nav {
+            height: 60px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
         }
 
-        header { margin: 60px 0; text-align: center; }
-        h1 { letter-spacing: 15px; font-weight: 200; text-transform: uppercase; margin: 0; }
+        .logo { letter-spacing: 8px; font-weight: 200; font-size: 1.5rem; text-transform: uppercase; }
 
-        /* --- 🛠️ لوحة الأدوات (Tools Dashboard) --- */
-        .dashboard-container {
-            width: 90%;
-            max-width: 1000px;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
-            margin-bottom: 50px;
+        /* --- 🖥️ تقسيم لوحة الاستوديو --- */
+        .main-studio {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
         }
 
-        /* القائمة الجانبية للأدوات */
-        .tools-sidebar {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+        /* القائمة اليمنى: الأدوات */
+        .sidebar-right {
+            width: 300px;
+            background: var(--panel-bg);
+            border-left: 1px solid var(--border);
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .tool-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid transparent;
-            padding: 15px;
-            text-align: right;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .tool-btn.active {
-            color: #fff;
-            border-color: var(--border);
-            background: rgba(255,255,255,0.05);
-        }
-
-        /* منطقة العمل الرئيسية */
-        .workspace {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+        /* المنطقة الوسطى: العرض */
+        .preview-canvas {
+            flex: 1;
             padding: 40px;
-            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #111 0%, #020203 100%);
+            position: relative;
         }
 
-        .input-group { margin-bottom: 30px; }
-        label { display: block; color: var(--text-muted); margin-bottom: 10px; font-size: 0.8rem; }
-        
-        input, select, textarea {
+        .canvas-box {
             width: 100%;
-            background: #000;
+            max-width: 800px;
+            height: 500px;
             border: 1px solid var(--border);
-            color: #fff;
-            padding: 15px;
-            outline: none;
-            box-sizing: border-box;
-        }
-
-        .btn-execute {
-            background: #fff;
-            color: #000;
-            padding: 15px 40px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            text-transform: uppercase;
-        }
-
-        #outputPreview {
-            margin-top: 30px;
-            border: 1px dashed var(--border);
-            height: 250px;
+            background: rgba(255,255,255,0.01);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
+
+        /* القائمة اليسرى: التحكم الدقيق */
+        .sidebar-left {
+            width: 280px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        /* --- 🎨 عناصر الواجهة الاحترافية --- */
+        .tool-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tool-card:hover, .tool-card.active {
+            background: rgba(255,255,255,0.07);
+            border-color: #fff;
+        }
+
+        .prompt-area {
+            position: absolute;
+            bottom: 40px;
+            width: 80%;
+            max-width: 700px;
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid var(--border);
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            backdrop-filter: blur(20px);
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            outline: none;
+        }
+
+        .generate-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 0 25px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        /* --- 💳 بوابة الدفع (Premium Card) --- */
+        .payment-footer {
+            height: 100px;
+            background: #000;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .premium-badge {
+            border: 1px solid #d4af37; /* لمسة ذهبية خفيفة جداً للاشتراك فقط */
+            color: #d4af37;
+            padding: 5px 15px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+
+        .btn-subscribe {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 10px 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-subscribe:hover { background: #fff; color: #000; }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Vividia</h1>
-        <p style="color:var(--text-muted); letter-spacing: 3px;">PREMIUM AI ECOSYSTEM</p>
-    </header>
+    <nav>
+        <div class="logo">VIVIDIA</div>
+        <div style="color: var(--text-dim); font-size: 0.8rem;">STUDIO v2.0 PRO</div>
+    </nav>
 
-    <div class="dashboard-container">
-        <div class="tools-sidebar">
-            <button class="tool-btn active" onclick="showTool('image')">🖼️ توليد الصور (Leonardo)</button>
-            <button class="tool-btn" onclick="showTool('video')">🎬 تحويل الصورة لفيديو</button>
-            <button class="tool-btn" onclick="showTool('voice')">🎙️ الدبلجة والتعليق (ElevenLabs)</button>
-            <button class="tool-btn" onclick="showTool('sfx')">🎵 المؤثرات الصوتية</button>
-        </div>
-
-        <div class="workspace" id="toolWorkspace">
-            <h2 id="toolTitle" style="font-weight: 300;">توليد الصور الاحترافي</h2>
-            
-            <div class="input-group">
-                <label>وصف العمل الإبداعي (Prompt)</label>
-                <textarea id="mainPrompt" rows="4" placeholder="مثال: رائد فضاء في غابة سينمائية، إضاءة درامية، 8k..."></textarea>
+    <main class="main-studio">
+        <aside class="sidebar-left">
+            <h4 style="font-weight: 400; color: #888;">الخصائص (Settings)</h4>
+            <div style="margin-top: 20px;">
+                <label style="font-size: 0.7rem; color: #555;">الدقة (Resolution)</label>
+                <select style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px; margin-top:5px;">
+                    <option>4K Ultra HD</option>
+                    <option>Cinema 2.35:1</option>
+                </select>
             </div>
+        </aside>
 
-            <div id="dynamicOptions">
+        <section class="preview-canvas">
+            <div class="canvas-box">
+                <div style="text-align: center;">
+                    <p style="color: #333; letter-spacing: 5px; font-size: 2rem;">STANDBY</p>
+                    <p id="status" style="font-size: 0.8rem; color: #666;">في انتظار الأوامر الإبداعية...</p>
                 </div>
-
-            <button class="btn-execute" onclick="runAI()">تفعيل المعالجة الذكية</button>
-
-            <div id="outputPreview">
-                معاينة النتيجة ستظهر هنا
             </div>
-        </div>
-    </div>
+
+            <div class="prompt-area">
+                <input type="text" id="userPrompt" placeholder="اكتب وصفاً ليوناردو أو نصاً لدبلجة ElevenLabs...">
+                <button class="generate-btn" onclick="executeAI()">توليد</button>
+            </div>
+        </section>
+
+        <aside class="sidebar-right">
+            <div class="tool-card active" onclick="selectTool('image')">
+                <div style="font-size: 0.8rem; font-weight: 600;">IMAGE GENERATION</div>
+                <div style="font-size: 0.7rem; color: #666;">Powered by Leonardo AI</div>
+            </div>
+            <div class="tool-card" onclick="selectTool('video')">
+                <div style="font-size: 0.8rem; font-weight: 600;">VIDEO MOTION</div>
+                <div style="font-size: 0.7rem; color: #666;">Image-to-Video Engine</div>
+            </div>
+            <div class="tool-card" onclick="selectTool('voice')">
+                <div style="font-size: 0.8rem; font-weight: 600;">VOICE DUBBING</div>
+                <div style="font-size: 0.7rem; color: #666;">ElevenLabs Multilingual</div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="payment-footer">
+        <div class="premium-badge">VIVIDIA RESERVE</div>
+        <p style="font-size: 0.9rem; font-weight: 200;">فتح جميع المزايا الاحترافية مقابل $4.99</p>
+        <button class="btn-subscribe" onclick="location.href='https://cryptomus.com/gateway/process'">UPGRADE NOW</button>
+    </footer>
 
     <script>
-        // سيتم سحب المفاتيح من بيئة Vercel تلقائياً عند النشر
-        function showTool(type) {
-            // تحديث الأزرار
-            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const title = document.getElementById('toolTitle');
-            const options = document.getElementById('dynamicOptions');
-
-            if(type === 'image') {
-                title.innerText = "توليد الصور الاحترافي (Leonardo AI)";
-                options.innerHTML = `<label>الأبعاد</label><select><option>16:9</option><option>1:1</option></select>`;
-            } else if(type === 'voice') {
-                title.innerText = "الدبلجة الصوتية الفاخرة (ElevenLabs)";
-                options.innerHTML = `<label>اختيار الصوت</label><select><option>Adam (Deep Voice)</option><option>Bella (Professional)</option></select>`;
-            } else if(type === 'video') {
-                title.innerText = "تحويل الصور إلى فيديو سينمائي";
-                options.innerHTML = `<label>قوة الحركة (Motion)</label><input type="range" min="1" max="10">`;
+        // الربط البرمجي مع المفاتيح
+        function executeAI() {
+            const prompt = document.getElementById('userPrompt').value;
+            const status = document.getElementById('status');
+            
+            if(!prompt) {
+                status.innerText = "يرجى كتابة وصف للبدء.";
+                return;
             }
+
+            status.innerHTML = `<span style="color:#fff;">جاري المعالجة عبر السيرفرات العالمية...</span>`;
+            
+            // هنا يتم استدعاء Leonardo أو ElevenLabs بناءً على الأداة المختارة
+            console.log("Using API Keys from Vercel environment...");
         }
 
-        function runAI() {
-            const status = document.getElementById('outputPreview');
-            status.innerHTML = "جاري الاتصال بالسيرفرات ومعالجة البيانات باستخدام المفاتيح المفعلة...";
-            // هنا يتم الربط الفعلي مع الـ API Keys التي وضعتها في Vercel
+        function selectTool(tool) {
+            document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
         }
     </script>
 </body>
