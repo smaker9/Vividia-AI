@@ -6,10 +6,9 @@
     
     <meta name="cryptomus" content="1428beac" />
     
-    <title>Vividia AI | الفخامة في توليد الصور</title>
+    <title>Vividia AI | الفخامة في الإبداع</title>
     
     <style>
-        /* --- 🎨 التصميم الفاخر (Luxury) المعتمد في صورك --- */
         :root {
             --gold: #d4af37;
             --black: #0a0a0a;
@@ -19,7 +18,7 @@
         body {
             background-color: var(--black);
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -27,23 +26,20 @@
             text-align: center;
         }
 
-        header { margin-top: 50px; margin-bottom: 30px; }
+        header { margin-top: 50px; }
+        h1 { color: var(--gold); font-size: 3.5rem; letter-spacing: 5px; margin: 0; }
+        .tagline { color: #888; font-style: italic; margin-bottom: 40px; }
 
-        h1 { color: var(--gold); font-size: 3rem; letter-spacing: 4px; margin: 0; }
-
-        .tagline { color: #ccc; font-size: 0.9rem; margin-top: 10px; }
-
-        /* --- 📝 المكونات التشغيلية --- */
-        .input-container { width: 80%; max-width: 600px; margin: 20px auto; }
-
+        /* منطقة الإدخال الفاخرة */
         .premium-input {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #333;
             color: white;
-            padding: 15px;
-            width: 100%;
-            text-align: center;
-            font-size: 1rem;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             outline: none;
         }
 
@@ -51,18 +47,19 @@
             background: var(--gold-gradient);
             color: black;
             border: none;
-            padding: 12px 40px;
+            padding: 15px 50px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* --- 🖼️ منطقة المعاينة (Vividia Preview) --- */
+        /* منطقة المعاينة مع الـ Watermark الأصلي */
         #resultArea {
             width: 90%;
-            max-width: 500px;
-            height: 400px;
-            margin: 40px auto;
+            max-width: 600px;
+            height: 450px;
+            margin: 50px auto;
             border: 1px solid #1a1a1a;
             background-color: #0d0d0d;
             display: flex;
@@ -73,31 +70,31 @@
 
         .watermark {
             position: absolute;
-            color: #1a1a1a;
-            font-size: 3.5rem;
+            color: #151515;
+            font-size: 4rem;
             font-weight: bold;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
             z-index: 0;
         }
 
-        /* --- 💳 قسم الاشتراك والدفع بالفيزا --- */
-        .subscription-box {
-            border: 1px dashed #444;
-            padding: 30px;
-            width: 80%;
-            max-width: 500px;
+        /* قسم الاشتراك وبوابة الفيزا */
+        .payment-card {
+            border: 1px solid #333;
+            padding: 40px;
             margin: 50px auto;
+            background: #050505;
+            max-width: 500px;
         }
 
         .btn-visa {
             background-color: #ffffff;
             color: #000000;
-            border-radius: 30px;
-            padding: 10px 30px;
+            border-radius: 50px;
+            padding: 15px 40px;
             border: none;
             font-weight: bold;
-            margin-top: 20px;
             cursor: pointer;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -105,12 +102,13 @@
 
     <header>
         <h1>VIVIDIA AI</h1>
-        <p class="tagline">حيث يتجسد الخيال في صورة</p>
+        <p class="tagline">حيث ينطق الخيال وتتجسد الصور</p>
     </header>
 
     <div class="input-container">
-        <input type="text" id="promptInput" class="premium-input" placeholder="أدخل وصف الصورة السحرية هنا...">
-        <button onclick="generateImage()" class="btn-gold">توليد التحفة الفنية</button>
+        <input type="text" id="promptInput" class="premium-input" placeholder="صف الرؤية الفنية هنا...">
+        <br>
+        <button onclick="generateArt()" class="btn-gold">توليد التحفة الفنية</button>
     </div>
 
     <div id="resultArea">
@@ -118,23 +116,28 @@
         <p id="statusText" style="color: var(--gold); z-index: 1;">بانتظار إلهامك...</p>
     </div>
 
-    <div class="subscription-box">
-        <h3 style="color: var(--gold);">عضوية Vividia بريميوم</h3>
-        <p>توليد غير محدود بجودة 4K مقابل 4.99$ فقط</p>
+    <div class="payment-card">
+        <h3 style="color: var(--gold);">عضوية Vividia الإبداعية</h3>
+        <p>وصول كامل لتقنيات Leonardo و ElevenLabs بـ 4.99$</p>
         <button onclick="payWithVisa()" class="btn-visa">💳 الدفع عبر الفيزا / كارد</button>
     </div>
 
     <script>
-        function generateImage() {
+        // --- ⚙️ الربط بالخدمات الذكية (Keys) ---
+        const LEONARDO_API_KEY = "YOUR_LEONARDO_KEY"; // ضع مفتاح ليوناردو هنا
+        const ELEVENLABS_API_KEY = "YOUR_ELEVENLABS_KEY"; // ضع مفتاح ElevenLabs هنا
+
+        async function generateArt() {
             const prompt = document.getElementById('promptInput').value;
-            if(!prompt) return alert("يرجى وصف الصورة!");
-            document.getElementById('statusText').innerText = "جاري الإبداع...";
+            if(!prompt) return alert("يرجى إدخال وصف!");
+            document.getElementById('statusText').innerText = "جاري الإبداع عبر محرك Leonardo...";
+            // كود الربط الفعلي مع Leonardo سيتم تفعيله هنا
         }
 
         function payWithVisa() {
-            // ملاحظة: الرابط "https://cryptomus.com/gateway" هو لوحة تحكمك
-            // هذا الزر الآن سيوجهك لصفحة الدفع مباشرة (Gateway)
-            window.location.href = "https://cryptomus.com/gateway";
+            // حل مشكلة التوجيه: بدلاً من الصفحة العامة، سنستخدم رابط الفاتورة المباشر
+            // بمجرد قبول النطاق، ضع رابط الـ Checkout الخاص بمتجرك هنا
+            window.location.href = "https://cryptomus.com/gateway/process"; 
         }
     </script>
 </body>
