@@ -6,19 +6,21 @@
     
     <meta name="cryptomus" content="1428beac" />
     
-    <title>Vividia AI | الفخامة في الإبداع</title>
+    <title>Vividia AI | تجسيد الخيال في صورة</title>
     
     <style>
+        /* --- 🎨 التصميم الفاخر (Luxury) كما في الصورة --- */
         :root {
             --gold: #d4af37;
             --black: #0a0a0a;
+            --gray-border: #333;
             --gold-gradient: linear-gradient(45deg, #d4af37, #f9f295, #d4af37);
         }
 
         body {
             background-color: var(--black);
             color: #ffffff;
-            font-family: 'Times New Roman', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -26,118 +28,156 @@
             text-align: center;
         }
 
-        header { margin-top: 50px; }
-        h1 { color: var(--gold); font-size: 3.5rem; letter-spacing: 5px; margin: 0; }
-        .tagline { color: #888; font-style: italic; margin-bottom: 40px; }
+        header {
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
 
-        /* منطقة الإدخال الفاخرة */
+        h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            letter-spacing: 4px;
+            margin: 0;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        /* --- 📝 منطقة الإدخال والوظائف --- */
+        .input-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
         .premium-input {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #333;
             color: white;
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            padding: 15px;
+            width: 100%;
+            text-align: right;
+            font-size: 1rem;
             outline: none;
+            transition: 0.3s;
         }
+
+        .premium-input:focus { border-color: var(--gold); }
 
         .btn-gold {
             background: var(--gold-gradient);
             color: black;
             border: none;
-            padding: 15px 50px;
+            padding: 12px 40px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        /* منطقة المعاينة مع الـ Watermark الأصلي */
+        /* --- 🖼️ منطقة عرض الصور (Vividia Preview) --- */
         #resultArea {
             width: 90%;
-            max-width: 600px;
-            height: 450px;
-            margin: 50px auto;
+            max-width: 500px;
+            height: 400px;
+            margin: 40px auto;
             border: 1px solid #1a1a1a;
             background-color: #0d0d0d;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .watermark {
             position: absolute;
-            color: #151515;
-            font-size: 4rem;
+            color: #1a1a1a;
+            font-size: 3.5rem;
             font-weight: bold;
-            letter-spacing: 8px;
+            letter-spacing: 5px;
             z-index: 0;
+            user-select: none;
         }
 
-        /* قسم الاشتراك وبوابة الفيزا */
-        .payment-card {
-            border: 1px solid #333;
-            padding: 40px;
-            margin: 50px auto;
-            background: #050505;
-            max-width: 500px;
+        #statusText {
+            color: var(--gold);
+            z-index: 1;
+            font-size: 0.9rem;
         }
+
+        /* --- 💳 قسم الاشتراك وبوابة الدفع --- */
+        .subscription-box {
+            border: 1px dashed #444;
+            padding: 30px;
+            width: 80%;
+            max-width: 500px;
+            margin: 50px auto;
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        .subscription-box h3 { color: var(--gold); margin-bottom: 10px; }
 
         .btn-visa {
             background-color: #ffffff;
             color: #000000;
-            border-radius: 50px;
-            padding: 15px 40px;
+            border-radius: 30px;
+            padding: 12px 35px;
             border: none;
             font-weight: bold;
-            cursor: pointer;
             margin-top: 20px;
+            cursor: pointer;
+            transition: 0.3s;
         }
+
+        .btn-visa:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
 
     <header>
         <h1>VIVIDIA AI</h1>
-        <p class="tagline">حيث ينطق الخيال وتتجسد الصور</p>
+        <p class="tagline">حيث يتجسد الخيال في صورة</p>
     </header>
 
     <div class="input-container">
-        <input type="text" id="promptInput" class="premium-input" placeholder="صف الرؤية الفنية هنا...">
-        <br>
-        <button onclick="generateArt()" class="btn-gold">توليد التحفة الفنية</button>
+        <input type="text" id="promptInput" class="premium-input" placeholder="أدخل وصف الصورة السحرية هنا...">
+        <button onclick="generateImage()" class="btn-gold">توليد التحفة الفنية</button>
     </div>
 
     <div id="resultArea">
         <div class="watermark">VIVIDIA PREVIEW</div>
-        <p id="statusText" style="color: var(--gold); z-index: 1;">بانتظار إلهامك...</p>
+        <p id="statusText">بانتظار إلهامك...</p>
     </div>
 
-    <div class="payment-card">
-        <h3 style="color: var(--gold);">عضوية Vividia الإبداعية</h3>
-        <p>وصول كامل لتقنيات Leonardo و ElevenLabs بـ 4.99$</p>
-        <button onclick="payWithVisa()" class="btn-visa">💳 الدفع عبر الفيزا / كارد</button>
+    <div class="subscription-box">
+        <h3>عضوية Vividia بريميوم</h3>
+        <p>استمتع بتوليد صور غير محدود بجودة 4K مقابل 4.99$ فقط</p>
+        <button onclick="payWithVisa()" class="btn-visa">
+            💳 الدفع عبر الفيزا / كارد
+        </button>
     </div>
 
     <script>
-        // --- ⚙️ الربط بالخدمات الذكية (Keys) ---
-        const LEONARDO_API_KEY = "YOUR_LEONARDO_KEY"; // ضع مفتاح ليوناردو هنا
-        const ELEVENLABS_API_KEY = "YOUR_ELEVENLABS_KEY"; // ضع مفتاح ElevenLabs هنا
+        // --- ⚙️ الربط البرمجي للمشروع ---
+        const LEONARDO_KEY = "YOUR_LEONARDO_KEY"; // ⚠️ ضع مفتاح ليوناردو الخاص بك هنا
+        const ELEVENLABS_KEY = "YOUR_ELEVENLABS_KEY"; // ⚠️ ضع مفتاح ElevenLabs الخاص بك هنا
 
-        async function generateArt() {
+        function generateImage() {
             const prompt = document.getElementById('promptInput').value;
-            if(!prompt) return alert("يرجى إدخال وصف!");
-            document.getElementById('statusText').innerText = "جاري الإبداع عبر محرك Leonardo...";
-            // كود الربط الفعلي مع Leonardo سيتم تفعيله هنا
+            if(!prompt) return alert("يرجى كتابة وصف للصورة أولاً.");
+            document.getElementById('statusText').innerText = "جاري صقل التحفة الفنية... يرجى الانتظار";
+            
+            // هنا يتم استدعاء Leonardo API (سيتم تفعيله بعد التحقق)
         }
 
         function payWithVisa() {
-            // حل مشكلة التوجيه: بدلاً من الصفحة العامة، سنستخدم رابط الفاتورة المباشر
-            // بمجرد قبول النطاق، ضع رابط الـ Checkout الخاص بمتجرك هنا
-            window.location.href = "https://cryptomus.com/gateway/process"; 
+            // سيتم توجيهك لبوابة الدفع الآمنة
+            window.location.href = "https://cryptomus.com/gateway/process";
         }
     </script>
 </body>
