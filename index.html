@@ -3,180 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="cryptomus" content="1428beac" />
-    
-    <title>Vividia AI | الفخامة في توليد الصور</title>
+    <title>Vividia AI | العصر الجديد للذكاء الاصطناعي</title>
     
     <style>
-        /* --- 🎨 التصميم الفاخر (Luxury) --- */
+        /* --- 💎 GLOBAL LUXURY DESIGN --- */
         :root {
-            --gold: #d4af37;
-            --black: #0a0a0a;
-            --gray-border: #333;
-            --gold-gradient: linear-gradient(45deg, #d4af37, #f9f295, #d4af37);
+            --primary-accent: #f8f9fa; /* فضي فاتح جداً */
+            --secondary-accent: #94a3b8; /* رمادي معدني */
+            --bg-deep: #0f172a; /* كحلي فحمي عميق */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            background-color: var(--black);
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--primary-accent);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
         header {
-            margin-top: 50px;
-            margin-bottom: 30px;
+            margin-top: 80px;
+            margin-bottom: 50px;
+            text-align: center;
         }
 
         h1 {
-            color: var(--gold);
-            font-size: 3rem;
-            letter-spacing: 4px;
+            font-weight: 200;
+            font-size: 3.5rem;
+            letter-spacing: 12px;
             margin: 0;
-        }
-
-        .tagline {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-top: 10px;
-        }
-
-        /* --- 📝 منطقة الإدخال والوظائف --- */
-        .input-container {
-            width: 80%;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-
-        .premium-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid #333;
-            color: white;
-            padding: 15px;
-            width: 100%;
-            text-align: right;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .premium-input:focus { border-color: var(--gold); }
-
-        .btn-gold {
-            background: var(--gold-gradient);
-            color: black;
-            border: none;
-            padding: 12px 40px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
+            background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
         }
 
-        /* --- 🖼️ منطقة عرض الصور (Vividia Preview) --- */
+        .tagline {
+            font-size: 1rem;
+            color: var(--secondary-accent);
+            margin-top: 15px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* --- 🔘 INPUT & ACTIONS --- */
+        .input-container {
+            width: 85%;
+            max-width: 700px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .premium-input {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 20px 25px;
+            width: 100%;
+            border-radius: 2px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+        }
+
+        .premium-input:focus {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .btn-main {
+            background-color: #ffffff;
+            color: #000;
+            border: none;
+            padding: 15px 50px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .btn-main:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- 🖼️ DISPLAY AREA --- */
         #resultArea {
             width: 90%;
-            max-width: 500px;
-            height: 400px;
-            margin: 40px auto;
-            border: 1px solid #1a1a1a;
-            background-color: #0d0d0d;
+            max-width: 600px;
+            height: 450px;
+            margin: 60px auto;
+            border: 1px solid var(--border-color);
+            background: var(--glass-bg);
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
         .watermark {
             position: absolute;
-            color: #1a1a1a;
-            font-size: 3.5rem;
-            font-weight: bold;
-            letter-spacing: 5px;
+            color: rgba(255, 255, 255, 0.02);
+            font-size: 5rem;
+            font-weight: 900;
             z-index: 0;
-            user-select: none;
+            pointer-events: none;
         }
 
         #statusText {
-            color: var(--gold);
+            color: var(--secondary-accent);
             z-index: 1;
-            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        /* --- 💳 قسم الاشتراك وبوابة الدفع --- */
+        /* --- 💳 SUBSCRIPTION --- */
         .subscription-box {
-            border: 1px dashed #444;
-            padding: 30px;
-            width: 80%;
-            max-width: 500px;
-            margin: 50px auto;
-            background: rgba(212, 175, 55, 0.02);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 20px;
+            width: 100%;
+            margin-top: 80px;
+            background: rgba(0,0,0,0.2);
+            text-align: center;
         }
 
-        .subscription-box h3 { color: var(--gold); margin-bottom: 10px; }
+        .subscription-box h3 { 
+            font-weight: 300; 
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .price-tag {
+            color: var(--secondary-accent);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
 
         .btn-visa {
-            background-color: #ffffff;
-            color: #000000;
-            border-radius: 30px;
-            padding: 12px 35px;
-            border: none;
-            font-weight: bold;
-            margin-top: 20px;
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 12px 40px;
+            font-weight: 400;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
         }
 
-        .btn-visa:hover { transform: scale(1.05); }
+        .btn-visa:hover {
+            background: #fff;
+            color: #000;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>VIVIDIA AI</h1>
-        <p class="tagline">حيث يتجسد الخيال في صورة</p>
+        <h1>Vividia</h1>
+        <p class="tagline">WHERE ART MEETS INTELLIGENCE</p>
     </header>
 
     <div class="input-container">
-        <input type="text" id="promptInput" class="premium-input" placeholder="أدخل وصف الصورة السحرية هنا...">
-        <button onclick="generateImage()" class="btn-gold">توليد التحفة الفنية</button>
+        <input type="text" id="promptInput" class="premium-input" placeholder="صف المشهد الذي تتخيله...">
+        <button onclick="generateImage()" class="btn-main">ابتكار الصورة</button>
     </div>
 
     <div id="resultArea">
-        <div class="watermark">VIVIDIA PREVIEW</div>
-        <p id="statusText">بانتظار إلهامك...</p>
+        <div class="watermark">VIVIDIA</div>
+        <p id="statusText">المنصة جاهزة لاستقبال أوامرك</p>
     </div>
 
     <div class="subscription-box">
-        <h3>عضوية Vividia بريميوم</h3>
-        <p>استمتع بتوليد صور غير محدود بجودة 4K مقابل 4.99$ فقط</p>
+        <h3>VIVIDIA PRIVATE RESERVE</h3>
+        <p class="price-tag">وصول كامل لجميع المحركات بدقة 4K • 4.99$ شهرياً</p>
         <button onclick="payWithVisa()" class="btn-visa">
-            💳 الدفع عبر الفيزا / كارد
+            Subscribe Now
         </button>
     </div>
 
     <script>
-        // --- ⚙️ الربط البرمجي للمشروع (تم دمج مفاتيحك الخاصة) ---
-        const LEONARDO_KEY = "3e9b1d12-f155-46fd-b57f-d99f665551fb"; // تم وضع مفتاح ليوناردو
-        const ELEVENLABS_KEY = "sk_1c6999a38096c4d444498305f6e814041ae917036d0b6732"; // تم وضع مفتاح ElevenLabs
+        const LEONARDO_KEY = "3e9b1d12-f155-46fd-b57f-d99f665551fb";
+        const ELEVENLABS_KEY = "sk_1c6999a38096c4d444498305f6e814041ae917036d0b6732";
 
         function generateImage() {
             const prompt = document.getElementById('promptInput').value;
-            if(!prompt) return alert("يرجى كتابة وصف للصورة أولاً.");
-            document.getElementById('statusText').innerText = "جاري صقل التحفة الفنية... يرجى الانتظار";
-            
-            // سيتم تفعيل الاتصال بـ Leonardo API هنا باستخدام LEONARDO_KEY
+            if(!prompt) return;
+            document.getElementById('statusText').innerText = "GENERATING MASTERPIECE...";
         }
 
         function payWithVisa() {
-            // توجيه المستخدم لبوابة الدفع
             window.location.href = "https://cryptomus.com/gateway/process";
         }
     </script>
