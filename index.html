@@ -7,19 +7,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #030303;
-            --panel-bg: rgba(10, 10, 10, 0.6);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-color: #050505;
+            --panel-bg: rgba(20, 20, 20, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --accent-purple: #8b5cf6;
             --accent-pink: #d946ef;
-            --glass: blur(20px);
+            --glass: blur(25px);
         }
 
         body.light-mode {
             --bg-color: #f0f0f0;
-            --panel-bg: rgba(255, 255, 255, 0.8);
+            --panel-bg: rgba(255, 255, 255, 0.9);
             --border-color: rgba(0, 0, 0, 0.1);
             --text-main: #000000;
             --text-dim: #505050;
@@ -34,7 +34,6 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
             transition: background 0.3s;
         }
 
@@ -43,7 +42,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #030303 100%);
+            background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
         }
 
         /* --- الهيكل الزجاجي (Main Panel) --- */
@@ -54,56 +53,49 @@
             border: 1px solid var(--border-color);
             border-radius: 24px;
             width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 550px;
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             position: relative;
         }
 
-        /* --- Header & Dark Mode --- */
+        /* --- Header & Theme --- */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-        }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; }
-        .theme-toggle { cursor: pointer; color: var(--text-dim); }
-
-        /* --- Input Area --- */
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: var(--text-dim); font-size: 0.9rem; }
-        input[type="text"], textarea {
-            width: 100%;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px;
-            border-radius: 12px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-
-        /* --- Action Buttons (Upload/Download) --- */
-        .action-row {
-            display: flex;
-            gap: 10px;
-            justify-content: space-between;
             margin-bottom: 20px;
         }
-        .action-btn {
-            background: rgba(255,255,255,0.05);
+        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 2px; }
+        .theme-toggle { cursor: pointer; color: var(--text-dim); }
+
+        /* --- Prompts --- */
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: var(--text-dim); font-size: 0.85rem; }
+        input[type="text"] {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 10px;
-            border-radius: 8px;
-            flex: 1;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.8rem;
+            border-radius: 10px;
+            box-sizing: border-box;
         }
 
-        /* --- Create Magic Button --- */
+        /* --- Icons Services Row --- */
+        .services-icons {
+            display: flex;
+            justify-content: space-around;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+        }
+        .service-item { text-align: center; font-size: 0.75rem; }
+
+        /* --- Create Button --- */
         .create-btn {
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
             color: white;
@@ -114,9 +106,8 @@
             font-weight: 700;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.3s;
+            margin-bottom: 20px;
         }
-        .create-btn:hover { box-shadow: 0 0 20px rgba(139,92,246,0.5); }
 
         /* --- Subscription Panel --- */
         .sub-panel {
@@ -124,25 +115,36 @@
             border: 1px solid var(--accent-purple);
             border-radius: 16px;
             padding: 20px;
-            margin-top: 30px;
             text-align: center;
         }
-        .price { font-size: 2rem; font-weight: 800; margin: 5px 0; }
+        .price { font-size: 2.2rem; font-weight: 800; margin: 5px 0; }
         .limits { color: var(--text-dim); font-size: 0.8rem; margin-bottom: 15px; }
         .sub-btn {
-            background: white;
-            color: black;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            color: white;
             border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
+            padding: 12px 30px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
         }
+
+        /* --- Bottom Nav --- */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+        .nav-item { text-align: center; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="background-animation" id="particles-js"></div>
+    <div class="background-animation"></div>
 
     <div class="main-panel">
         <div class="header">
@@ -154,21 +156,36 @@
 
         <div class="input-group">
             <label>Prompt input:</label>
-            <input type="text" id="promptInput" placeholder="Describe your creation...">
+            <input type="text" id="promptInput" placeholder="leonardo-image value">
+        </div>
+        <div class="input-group">
+            <input type="text" placeholder="co lo leciorleo-tlieoo 🎥 donardo-video">
+        </div>
+        <div class="input-group">
+            <input type="text" placeholder="I[e lo ergise: leevenlabs-music">
         </div>
 
-        <div class="action-row">
-            <div class="action-btn"><i class="fas fa-upload"></i> Upload Media</div>
-            <div class="action-btn"><i class="fas fa-download"></i> Download</div>
+        <div class="services-icons">
+            <div class="service-item"><i class="fas fa-image"></i><br>Image</div>
+            <div class="service-item"><i class="fas fa-video"></i><br>Video</div>
+            <div class="service-item"><i class="fas fa-music"></i><br>Music</div>
+            <div class="service-item"><i class="fas fa-microphone"></i><br>Voice</div>
         </div>
 
         <button class="create-btn" onclick="runMagic()">Create Magic</button>
 
         <div class="sub-panel">
             <div>Unlimited Power</div>
-            <div class="price">4.99<span style="font-size:1rem;">$</span>/month</div>
-            <div class="limits">100 Images | 10 Videos | 20k Voice</div>
-            <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">Subscribe</button>
+            <div class="price">4.99<span style="font-size:1.2rem;">$/month</span></div>
+            <div class="limits">Limits 100 Images | 10 Videos | 20k Voice</div>
+            <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">subscribe abn</button>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item"><i class="fas fa-home"></i><br>home</div>
+            <div class="nav-item"><i class="fas fa-image"></i><br>Gallery</div>
+            <div class="nav-item"><i class="fas fa-cogs"></i><br>Settings</div>
+            <div class="nav-item"><i class="fas fa-user"></i><br>Profile</div>
         </div>
     </div>
 
@@ -181,18 +198,11 @@
             icon.classList.toggle('fa-sun');
         }
 
-        // --- Core Logic (API Keys Control & Processing) ---
+        // --- Core Logic (API Keys & Cryptomus) ---
         async function runMagic() {
-            const prompt = document.getElementById('promptInput').value;
-            if(!prompt) return alert("Please enter a prompt.");
-
-            // تمثيل التحكم بنقاط المفاتيح (API Logic)
-            console.log("Checking API Keys...");
-            console.log("Leonardo Credits Left: 500");
-            console.log("ElevenLabs Characters Left: 15,000");
-
-            alert("Magic Creating...");
-            // هنا سيتم الربط بـ Backend للتعامل مع Cryptomus و APIs
+            // ⚙️ هنا يتم ربط كود الـ Leonardo و ElevenLabs
+            alert("Starting Production Engine...");
+            // Cryptomus API call goes here
         }
     </script>
 </body>
