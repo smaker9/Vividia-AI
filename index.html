@@ -158,36 +158,71 @@
         }
         .nav-item { text-align: center; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
         .nav-item.active { color: var(--accent-pink); }
-        .nav-item.active i { color: var(--accent-pink); }
         .nav-item:hover { color: #fff; }
 
         /* أقسام إضافية ديناميكية */
         .panel-section { display: none; }
         .panel-section.active { display: block; }
+        
+        /* --- لوحة الشرح (Side Panel) --- */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 300px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            border-left: 1px solid var(--accent-purple);
+            padding: 20px;
+            transition: 0.4s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .side-panel.open { right: 0; }
+        .close-btn { cursor: pointer; color: white; float: left; }
     </style>
 </head>
 <body>
 
     <div class="background-animation"></div>
 
+    <div class="side-panel" id="sidePanel">
+        <span class="close-btn" onclick="toggleSidePanel()"><i class="fas fa-times"></i></span>
+        <h3 style="color:var(--accent-purple)">كيف يعمل الموقع؟</h3>
+        <p style="font-size:0.9rem; color:var(--text-dim); line-height:1.6;">
+            1. اختر الخدمة المطلوبة (صورة، فيديو، موسيقى) من الأيقونات.<br><br>
+            2. اكتب وصفاً دقيقاً لما تريد إنشاءه في مربع النص.<br><br>
+            3. اضغط على زر "Create Magic" وانتظر المعالجة.<br><br>
+            4. يمكنك تحميل نتيجتك النهائية من زر Download.<br><br>
+            5. للاستخدام غير المحدود، اشترك في باقة Elite.
+        </p>
+    </div>
+
     <div class="main-panel">
         <div class="header">
             <div class="logo">VIVIDIA AI</div>
-            <div class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-moon" id="theme-icon"></i>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <div onclick="toggleSidePanel()" style="cursor:pointer; color:var(--text-dim);"><i class="fas fa-bell"></i></div>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </div>
             </div>
         </div>
 
         <div id="section-home" class="panel-section active">
+            <div class="input-group" style="background: rgba(255,255,255,0.05); padding:10px; border-radius:12px; border:1px solid var(--accent-purple);">
+                <label style="color:white; font-weight:bold;"><i class="fas fa-magic"></i> Leonardo Prompt:</label>
+                <input type="text" id="leonardoInput" placeholder="Type your prompt here..." style="background:transparent; border:none; color:white; font-size:1.1rem; padding:5px;">
+            </div>
+            
             <div class="input-group">
                 <label>Prompt input:</label>
                 <input type="text" id="promptInput" placeholder="Enter your prompt...">
             </div>
-            
-            <div class="input-group" id="videoPromptGroup" style="display:none;">
+            <div class="input-group">
                 <input type="text" placeholder="video prompt...">
             </div>
-            <div class="input-group" id="musicPromptGroup" style="display:none;">
+            <div class="input-group">
                 <input type="text" placeholder="music prompt...">
             </div>
 
@@ -198,10 +233,10 @@
             </div>
 
             <div class="services-icons">
-                <div class="service-item active" onclick="setService('image', this)"><i class="fas fa-image"></i><br>Image</div>
-                <div class="service-item" onclick="setService('video', this)"><i class="fas fa-video"></i><br>Video</div>
-                <div class="service-item" onclick="setService('music', this)"><i class="fas fa-music"></i><br>Music</div>
-                <div class="service-item" onclick="setService('bg', this)"><i class="fas fa-eraser"></i><br>Remove BG</div>
+                <div class="service-item active" onclick="setService('image')"><i class="fas fa-image"></i><br>Image</div>
+                <div class="service-item" onclick="setService('video')"><i class="fas fa-video"></i><br>Video</div>
+                <div class="service-item" onclick="setService('music')"><i class="fas fa-music"></i><br>Music</div>
+                <div class="service-item" onclick="setService('voice')"><i class="fas fa-microphone"></i><br>Voice</div>
             </div>
 
             <div style="display:flex; gap:10px; margin-bottom:15px;">
@@ -219,7 +254,7 @@
 
             <div class="sub-panel">
                 <div>Unlimited Power</div>
-                <div class="price">4.99<span style="font-size:1.2rem;">$/month</span></div>
+                <div class="price">7.60<span style="font-size:1.2rem;">$/month</span></div>
                 <div class="limits">Limits 100 Images | 10 Videos | 20k Voice</div>
                 <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">subscribe abn</button>
             </div>
@@ -230,16 +265,14 @@
         <div id="section-profile" class="panel-section"><h3>Profile</h3></div>
 
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="showSection('home')"><i class="fas fa-home"></i><br>home</div>
-            <div class="nav-item" onclick="showSection('gallery')"><i class="fas fa-image"></i><br>Gallery</div>
-            <div class="nav-item" onclick="showSection('settings')"><i class="fas fa-cogs"></i><br>Settings</div>
-            <div class="nav-item" onclick="showSection('profile')"><i class="fas fa-user"></i><br>Profile</div>
+            <div class="nav-item active" onclick="showSection('home', this)"><i class="fas fa-home"></i><br>home</div>
+            <div class="nav-item" onclick="showSection('gallery', this)"><i class="fas fa-image"></i><br>Gallery</div>
+            <div class="nav-item" onclick="showSection('settings', this)"><i class="fas fa-cogs"></i><br>Settings</div>
+            <div class="nav-item" onclick="showSection('profile', this)"><i class="fas fa-user"></i><br>Profile</div>
         </div>
     </div>
 
     <script>
-        let currentService = 'image';
-
         // --- Dark Mode ---
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
@@ -247,41 +280,26 @@
             icon.classList.toggle('fa-moon');
             icon.classList.toggle('fa-sun');
         }
+        
+        // --- Side Panel (How it works) ---
+        function toggleSidePanel() {
+            document.getElementById('sidePanel').classList.toggle('open');
+        }
 
         // --- Bottom Navigation Logic ---
-        function showSection(sectionId) {
+        function showSection(sectionId, el) {
             document.querySelectorAll('.panel-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             
             document.getElementById(`section-${sectionId}`).classList.add('active');
-            event.currentTarget.classList.add('active');
+            el.classList.add('active');
         }
 
-        // --- Service Selection & UI Update ---
-        function setService(service, el) {
-            currentService = service;
+        // --- Service Selection ---
+        function setService(service) {
             document.querySelectorAll('.service-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-            
-            // تحديث الحقول بناءً على الخدمة
-            const promptInput = document.getElementById('promptInput');
-            const videoGroup = document.getElementById('videoPromptGroup');
-            const musicGroup = document.getElementById('musicPromptGroup');
-            
-            videoGroup.style.display = 'none';
-            musicGroup.style.display = 'none';
-            
-            if(service === 'image') {
-                promptInput.placeholder = "Enter image prompt...";
-            } else if(service === 'video') {
-                promptInput.placeholder = "Enter video prompt...";
-                videoGroup.style.display = 'block';
-            } else if(service === 'music') {
-                promptInput.placeholder = "Enter music prompt...";
-                musicGroup.style.display = 'block';
-            } else if(service === 'bg') {
-                promptInput.placeholder = "Upload image to remove background...";
-            }
+            event.currentTarget.classList.add('active');
+            document.getElementById('promptInput').placeholder = `Enter ${service} prompt...`;
         }
 
         // --- Upload / Preview Logic (مُفعل لعرض الصورة/الفيديو) ---
@@ -319,31 +337,34 @@
             alert("Downloading generated media...");
         }
 
-        // --- Core Logic (API Calls) ---
+        // --- Core Logic (API Keys & Cryptomus Integration) ---
         async function runMagic() {
             const prompt = document.getElementById('promptInput').value;
+            const leonardoPrompt = document.getElementById('leonardoInput').value;
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
             
-            if(currentService !== 'bg' && !prompt) return alert("Please enter a prompt.");
-            if(currentService === 'bg' && !file) return alert("Please upload an image to remove background.");
+            if(!prompt && !leonardoPrompt) return alert("Please enter a prompt.");
             
-            // ⚙️ 1. تحضير البيانات للارسال (FormData for file + text)
+            // ⚙️ 1. التحقق من النقاط (Credits Check) - منطق محاكاة
+            const credits = { leonardo: 50, elevenlabs: 15000 };
+            if(credits.leonardo < 10) return alert("Not enough Leonardo credits!");
+            
+            // ⚙️ 2. تحضير البيانات للارسال (FormData for file + text)
             const formData = new FormData();
-            formData.append('service', currentService);
-            formData.append('prompt', prompt);
+            formData.append('prompt', prompt || leonardoPrompt);
             if(file) formData.append('media', file);
             
-            // ⚙️ 2. إظهار التحميل
+            // ⚙️ 3. إظهار التحميل
             const statusMsg = document.getElementById('statusMsg') || createStatusMsg();
             statusMsg.innerText = "Processing Magic...";
             
-            // ⚙️ 3. الإرسال إلى Backend الفعلي (API Call)
+            // ⚙️ 4. الإرسال إلى Backend الفعلي (API Call)
             try {
                 // ملاحظة: قم بتغيير الرابط أدناه لرابط السيرفر الفعلي الخاص بك
                 const response = await fetch('YOUR_BACKEND_URL/api/generate', {
                     method: 'POST',
-                    body: formData
+                    body: formData // إرسال الملف والنص معاً
                 });
                 
                 const result = await response.json();
@@ -368,7 +389,6 @@
             div.style.color = '#fff';
             div.style.textAlign = 'center';
             div.style.marginTop = '10px';
-            div.style.fontSize = '0.9rem';
             document.querySelector('.main-panel').appendChild(div);
             return div;
         }
