@@ -111,7 +111,7 @@
             margin-bottom: 20px;
         }
 
-        /* --- Media Preview Box --- */
+        /* --- Media Preview Box (مُفعل) --- */
         .media-preview {
             width: 100%;
             height: 200px;
@@ -124,7 +124,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
-        .media-preview video, .media-preview audio { width: 100%; height: 100%; }
+        .media-preview img, .media-preview video, .media-preview audio { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         /* --- Subscription Panel --- */
         .sub-panel {
@@ -156,7 +156,13 @@
             color: var(--text-dim);
             font-size: 0.8rem;
         }
-        .nav-item { text-align: center; cursor: pointer; }
+        .nav-item { text-align: center; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
+        .nav-item.active { color: var(--accent-pink); }
+        .nav-item:hover { color: #fff; }
+
+        /* أقسام إضافية ديناميكية */
+        .panel-section { display: none; }
+        .panel-section.active { display: block; }
     </style>
 </head>
 <body>
@@ -171,54 +177,61 @@
             </div>
         </div>
 
-        <div class="input-group">
-            <label>Prompt input:</label>
-            <input type="text" id="promptInput" placeholder="Enter your prompt...">
-        </div>
-        <div class="input-group">
-            <input type="text" placeholder="video prompt...">
-        </div>
-        <div class="input-group">
-            <input type="text" placeholder="music prompt...">
+        <div id="section-home" class="panel-section active">
+            <div class="input-group">
+                <label>Prompt input:</label>
+                <input type="text" id="promptInput" placeholder="Enter your prompt...">
+            </div>
+            <div class="input-group">
+                <input type="text" placeholder="video prompt...">
+            </div>
+            <div class="input-group">
+                <input type="text" placeholder="music prompt...">
+            </div>
+
+            <div class="media-preview" id="mediaPreview">
+                <img id="imagePlayer" src="" alt="Preview" style="display:none;">
+                <video id="videoPlayer" controls style="display:none;"></video>
+                <audio id="audioPlayer" controls style="display:none;"></audio>
+            </div>
+
+            <div class="services-icons">
+                <div class="service-item active" onclick="setService('image')"><i class="fas fa-image"></i><br>Image</div>
+                <div class="service-item" onclick="setService('video')"><i class="fas fa-video"></i><br>Video</div>
+                <div class="service-item" onclick="setService('music')"><i class="fas fa-music"></i><br>Music</div>
+                <div class="service-item" onclick="setService('voice')"><i class="fas fa-microphone"></i><br>Voice</div>
+            </div>
+
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button class="create-btn" style="margin:0; padding:10px;" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-upload"></i> Upload
+                </button>
+                <input type="file" id="fileInput" style="display:none" onchange="handleFileUpload(this)">
+                
+                <button class="create-btn" style="margin:0; padding:10px; background:var(--accent-purple);" onclick="downloadMedia()">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+
+            <button class="create-btn" onclick="runMagic()">Create Magic</button>
+
+            <div class="sub-panel">
+                <div>Unlimited Power</div>
+                <div class="price">4.99<span style="font-size:1.2rem;">$/month</span></div>
+                <div class="limits">Limits 100 Images | 10 Videos | 20k Voice</div>
+                <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">subscribe abn</button>
+            </div>
         </div>
 
-        <div class="media-preview" id="mediaPreview">
-            <video id="videoPlayer" controls></video>
-            <audio id="audioPlayer" controls style="display:none;"></audio>
-        </div>
-
-        <div class="services-icons">
-            <div class="service-item active" onclick="setService('image')"><i class="fas fa-image"></i><br>Image</div>
-            <div class="service-item" onclick="setService('video')"><i class="fas fa-video"></i><br>Video</div>
-            <div class="service-item" onclick="setService('music')"><i class="fas fa-music"></i><br>Music</div>
-            <div class="service-item" onclick="setService('voice')"><i class="fas fa-microphone"></i><br>Voice</div>
-        </div>
-
-        <div style="display:flex; gap:10px; margin-bottom:15px;">
-            <button class="create-btn" style="margin:0; padding:10px;" onclick="document.getElementById('fileInput').click()">
-                <i class="fas fa-upload"></i> Upload
-            </button>
-            <input type="file" id="fileInput" style="display:none" onchange="handleFileUpload(this)">
-            
-            <button class="create-btn" style="margin:0; padding:10px; background:var(--accent-purple);" onclick="downloadMedia()">
-                <i class="fas fa-download"></i> Download
-            </button>
-        </div>
-
-        <button class="create-btn" onclick="runMagic()">Create Magic</button>
-
-        <div class="sub-panel">
-            <div>Unlimited Power</div>
-            <div class="price">4.99<span style="font-size:1.2rem;">$/month</span></div>
-            <div class="limits">Limits 100 Images | 10 Videos | 20k Voice</div>
-            <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">subscribe abn</button>
-        </div>
+        <div id="section-gallery" class="panel-section"><h3>Gallery</h3></div>
+        <div id="section-settings" class="panel-section"><h3>Settings</h3></div>
+        <div id="section-profile" class="panel-section"><h3>Profile</h3></div>
 
         <div class="bottom-nav">
-            <div class="nav-item"><i class="fas fa-home"></i><br>home</div>
-            <div class="nav-item"><i class="fas fa-image"></i><br>Gallery</div>
-            <div class="nav-item"><i class="fas fa-cogs"></i><br>Settings</div>
-            <div class="nav-item"><i class="fas fa-user"></i><br>Profile</div>
+            <div class="nav-item active" onclick="showSection('home')"><i class="fas fa-home"></i><br>home</div>
+            <div class="nav-item" onclick="showSection('gallery')"><i class="fas fa-image"></i><br>Gallery</div>
+            <div class="nav-item" onclick="showSection('settings')"><i class="fas fa-cogs"></i><br>Settings</div>
+            <div class="nav-item" onclick="showSection('profile')"><i class="fas fa-user"></i><br>Profile</div>
         </div>
     </div>
 
@@ -231,6 +244,15 @@
             icon.classList.toggle('fa-sun');
         }
 
+        // --- Bottom Navigation Logic ---
+        function showSection(sectionId) {
+            document.querySelectorAll('.panel-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(`section-${sectionId}`).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
         // --- Service Selection ---
         function setService(service) {
             document.querySelectorAll('.service-item').forEach(i => i.classList.remove('active'));
@@ -238,40 +260,117 @@
             document.getElementById('promptInput').placeholder = `Enter ${service} prompt...`;
         }
 
-        // --- Upload / Download Logic ---
+        // --- Upload / Preview Logic (مُفعل لعرض الصورة/الفيديو) ---
         function handleFileUpload(input) {
             const file = input.files[0];
             if(!file) return;
-            alert(`Uploading: ${file.name}`);
-            // Logic to send file to backend
+
+            const mediaPreview = document.getElementById('mediaPreview');
+            const imgPlayer = document.getElementById('imagePlayer');
+            const vidPlayer = document.getElementById('videoPlayer');
+            const audPlayer = document.getElementById('audioPlayer');
+
+            mediaPreview.style.display = 'flex';
+            imgPlayer.style.display = 'none';
+            vidPlayer.style.display = 'none';
+            audPlayer.style.display = 'none';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(file.type.startsWith('image/')) {
+                    imgPlayer.src = e.target.result;
+                    imgPlayer.style.display = 'block';
+                } else if(file.type.startsWith('video/')) {
+                    vidPlayer.src = e.target.result;
+                    vidPlayer.style.display = 'block';
+                } else if(file.type.startsWith('audio/')) {
+                    audPlayer.src = e.target.result;
+                    audPlayer.style.display = 'block';
+                }
+            }
+            reader.readAsDataURL(file);
         }
 
         function downloadMedia() {
             alert("Downloading generated media...");
-            // Logic to download from backend
         }
 
-        // --- Core Logic (API Keys & Cryptomus) ---
+        // --- Core Logic (API Keys & Cryptomus Integration) ---
         async function runMagic() {
             const prompt = document.getElementById('promptInput').value;
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
             if(!prompt) return alert("Please enter a prompt.");
             
-            // ⚙️ التحقق من نقاط المفاتيح (Credits Check)
-            const credits = {
-                leonardo: 50, // نقاط افتراضية
-                elevenlabs: 15000 // أحرف افتراضية
-            };
-            
-            console.log(`Checking Leonardo Credits: ${credits.leonardo}`);
-            console.log(`Checking ElevenLabs Characters: ${credits.elevenlabs}`);
-
+            // ⚙️ 1. التحقق من النقاط (Credits Check) - منطق محاكاة
+            const credits = { leonardo: 50, elevenlabs: 15000 };
             if(credits.leonardo < 10) return alert("Not enough Leonardo credits!");
             
-            const mediaPreview = document.getElementById('mediaPreview');
-            mediaPreview.style.display = 'flex';
+            // ⚙️ 2. تحضير البيانات للارسال (FormData for file + text)
+            const formData = new FormData();
+            formData.append('prompt', prompt);
+            if(file) formData.append('media', file);
             
-            alert("Starting Production Engine...");
-            // Cryptomus API call goes here
+            // ⚙️ 3. إظهار التحميل
+            const statusMsg = document.getElementById('statusMsg') || createStatusMsg();
+            statusMsg.innerText = "Processing Magic...";
+            
+            // ⚙️ 4. الإرسال إلى Backend الفعلي (API Call)
+            try {
+                const response = await fetch('YOUR_BACKEND_URL/api/generate', {
+                    method: 'POST',
+                    body: formData // إرسال الملف والنص معاً
+                });
+                
+                const result = await response.json();
+                
+                if(result.success) {
+                    statusMsg.innerText = "Magic Created Successfully!";
+                    // عرض الملف الناتج في الـ Preview
+                    updatePreview(result.mediaUrl, result.mediaType);
+                } else {
+                    statusMsg.innerText = "Error: " + result.message;
+                }
+            } catch (error) {
+                statusMsg.innerText = "Connection Error";
+                console.error(error);
+            }
+        }
+
+        // دالة مساعدة لإنشاء رسالة الحالة إذا لم تكن موجودة
+        function createStatusMsg() {
+            const div = document.createElement('div');
+            div.id = 'statusMsg';
+            div.style.color = '#fff';
+            div.style.textAlign = 'center';
+            div.style.marginTop = '10px';
+            document.querySelector('.main-panel').appendChild(div);
+            return div;
+        }
+
+        // دالة لتحديث المعاينة بعد استلام الملف من السيرفر
+        function updatePreview(url, type) {
+            const imgPlayer = document.getElementById('imagePlayer');
+            const vidPlayer = document.getElementById('videoPlayer');
+            const audPlayer = document.getElementById('audioPlayer');
+            const mediaPreview = document.getElementById('mediaPreview');
+            
+            mediaPreview.style.display = 'flex';
+            imgPlayer.style.display = 'none';
+            vidPlayer.style.display = 'none';
+            audPlayer.style.display = 'none';
+
+            if(type === 'image') {
+                imgPlayer.src = url;
+                imgPlayer.style.display = 'block';
+            } else if(type === 'video') {
+                vidPlayer.src = url;
+                vidPlayer.style.display = 'block';
+            } else if(type === 'audio') {
+                audPlayer.src = url;
+                audPlayer.style.display = 'block';
+            }
         }
     </script>
 </body>
