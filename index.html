@@ -2,375 +2,204 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIVIDIA AI | Elite Studio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vividia AI - Pro Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #030303;
-            --panel-bg: rgba(10, 10, 10, 0.7);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --accent-purple: #8b5cf6;
-            --accent-pink: #d946ef;
-            --glass: blur(25px);
-        }
+        :root { --bg: #050505; --side: #0f0f11; --accent: #a855f7; --card: #161618; --text: #ffffff; --border: #26262b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
 
-        body.light-mode {
-            --bg-color: #f0f0f0;
-            --panel-bg: rgba(255, 255, 255, 0.9);
-            --border-color: rgba(0, 0, 0, 0.1);
-            --text-main: #000000;
-            --text-dim: #505050;
-        }
+        /* Sidebar Styling */
+        .sidebar { width: 280px; background: var(--side); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; overflow-y: auto; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 40px; display: flex; align-items: center; gap: 12px; }
+        .nav-label { font-size: 11px; color: #555; text-transform: uppercase; margin: 20px 0 10px 10px; display: block; }
+        .nav-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #888; transition: 0.2s; margin-bottom: 6px; font-size: 14px; }
+        .nav-item:hover, .nav-item.active { background: #1c1c1f; color: var(--accent); }
+        .nav-item i { width: 20px; text-align: center; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            transition: background 0.3s;
-        }
+        /* Main Content Styling */
+        .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        header { height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 25px; background: rgba(5,5,5,0.8); backdrop-filter: blur(15px); }
+        
+        .section { display: none; flex: 1; padding: 25px; overflow-y: auto; flex-direction: column; }
+        .section.active { display: flex; }
 
-        /* --- خلفية متحركة (Particle Network) --- */
-        .background-animation {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #030303 100%);
-        }
+        /* Chat UI Styling */
+        .chat-wrap { max-width: 900px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column; }
+        .messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; padding: 10px; }
+        .msg { max-width: 80%; padding: 16px; border-radius: 18px; font-size: 14px; line-height: 1.6; position: relative; }
+        .ai-msg { align-self: flex-start; background: rgba(168, 85, 247, 0.05); color: var(--accent); border: 1px solid rgba(168, 85, 247, 0.2); border-bottom-right-radius: 4px; }
+        .u-msg { align-self: flex-end; background: #222; border-bottom-left-radius: 4px; }
+        
+        .msg-actions { display: flex; gap: 10px; margin-top: 8px; font-size: 12px; color: #555; }
+        .msg-actions i:hover { color: var(--accent); cursor: pointer; }
 
-        /* --- الهيكل الزجاجي (Main Panel) --- */
-        .main-panel {
-            background: var(--panel-bg);
-            backdrop-filter: var(--glass);
-            -webkit-backdrop-filter: var(--glass);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            width: 90%;
-            max-width: 550px;
-            padding: 25px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            position: relative;
-        }
+        /* Input Bar */
+        .chat-bar { background: #121214; border: 1px solid var(--border); border-radius: 20px; padding: 10px 18px; display: flex; align-items: center; gap: 15px; margin-top: 15px; }
+        .chat-bar input { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 15px; }
+        .chat-bar i { color: #555; cursor: pointer; font-size: 18px; }
+        .chat-bar i:hover { color: var(--accent); }
 
-        /* --- Header & Theme --- */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 2px; }
-        .theme-toggle { cursor: pointer; color: var(--text-dim); }
+        /* Stats & Billing Styling */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .stat-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+        .price-val { font-size: 36px; font-weight: bold; color: var(--accent); margin: 15px 0; }
 
-        /* --- Prompts --- */
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: var(--text-dim); font-size: 0.85rem; }
-        input[type="text"] {
-            width: 100%;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 10px;
-            box-sizing: border-box;
-        }
+        /* Studio Styling - المحدث بناءً على التصميم */
+        .studio-grid { display: grid; grid-template-columns: 1fr 340px; gap: 25px; }
+        .canvas-box { background: var(--card); border: 2px dashed #333; border-radius: 25px; min-height: 480px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor:pointer; }
+        .edit-tools-panel { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
+        .tool-title { font-size: 18px; font-weight: bold; margin-bottom: 20px; }
+        .btn-remove-bg { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 25px; }
+        .slider-group { margin-bottom: 15px; }
+        .slider-group label { display: flex; justify-content: space-between; font-size: 14px; color: #aaa; margin-bottom: 5px; }
+        .slider-group input { width: 100%; accent-color: var(--accent); }
 
-        /* --- Icons Services Row --- */
-        .services-icons {
-            display: flex;
-            justify-content: space-around;
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            margin: 20px 0;
-            padding: 10px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .sidebar { position: fixed; right: -280px; height: 100%; }
+            .sidebar.open { right: 0; }
+            .studio-grid { grid-template-columns: 1fr; }
         }
-        .service-item { text-align: center; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
-        .service-item.active { color: var(--accent-pink); }
-        .service-item:hover { color: #fff; }
-
-        /* --- Create Button --- */
-        .create-btn {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        /* --- Media Preview Box (مُفعل) --- */
-        .media-preview {
-            width: 100%;
-            height: 200px;
-            background: #000;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-        .media-preview img, .media-preview video, .media-preview audio { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-        /* --- Subscription Panel --- */
-        .sub-panel {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--accent-purple);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-        }
-        .price { font-size: 2.2rem; font-weight: 800; margin: 5px 0; }
-        .limits { color: var(--text-dim); font-size: 0.8rem; margin-bottom: 15px; }
-        .sub-btn {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* --- Bottom Nav --- */
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-dim);
-            font-size: 0.8rem;
-        }
-        .nav-item { text-align: center; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
-        .nav-item.active { color: var(--accent-pink); }
-        .nav-item:hover { color: #fff; }
-
-        /* أقسام إضافية ديناميكية */
-        .panel-section { display: none; }
-        .panel-section.active { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="background-animation"></div>
-
-    <div class="main-panel">
-        <div class="header">
-            <div class="logo">VIVIDIA AI</div>
-            <div class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </div>
+    <aside class="sidebar" id="sidebar">
+        <div class="logo"><i class="fas fa-brain"></i> VIVIDIA AI</div>
+        
+        <div class="nav-item active" onclick="showTab('chat', this)"><i class="fas fa-comment-dots"></i> <span class="ln" data-ar="شات فيفيديا" data-en="Vividia Chat">شات فيفيديا</span></div>
+        <div class="nav-item" onclick="showTab('studio', this)"><i class="fas fa-wand-magic-sparkles"></i> <span class="ln" data-ar="استوديو التعديل" data-en="Edit Studio">استوديو التعديل</span></div>
+        <div class="nav-item" onclick="invokeNano()"><i class="fas fa-palette"></i> <span class="ln" data-ar="توليد الصور (Nano)" data-en="Image Gen (Nano)">توليد الصور (Nano)</span></div>
+        <div class="nav-item" onclick="invokeVeo()"><i class="fas fa-video"></i> <span class="ln" data-ar="فيديو (Veo)" data-en="Video (Veo)">فيديو (Veo)</span></div>
+        <div class="nav-item" onclick="invokeLiveness()"><i class="fas fa-fingerprint"></i> <span class="ln" data-ar="كشف الحيوية" data-en="Liveness">كشف الحيوية</span></div>
+        
+        <div style="margin-top:auto;">
+            <div class="nav-item" onclick="showTab('stats', this)"><i class="fas fa-chart-line"></i> <span class="ln" data-ar="الإحصائيات والاشتراك" data-en="Stats & Billing">الإحصائيات والاشتراك</span></div>
         </div>
+    </aside>
 
-        <div id="section-home" class="panel-section active">
-            <div class="input-group">
-                <label>Prompt input:</label>
-                <input type="text" id="promptInput" placeholder="Enter your prompt...">
-            </div>
-            <div class="input-group">
-                <input type="text" placeholder="video prompt...">
-            </div>
-            <div class="input-group">
-                <input type="text" placeholder="music prompt...">
-            </div>
+    <div class="main">
+        <header>
+            <div onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fas fa-bars-staggered" style="font-size:22px; cursor:pointer;"></i></div>
+            <select id="langPicker" onchange="changeLanguage(this.value)" style="background:#111; color:#fff; border:1px solid #333; padding:8px 12px; border-radius:10px; cursor:pointer;">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+            </select>
+        </header>
 
-            <div class="media-preview" id="mediaPreview">
-                <img id="imagePlayer" src="" alt="Preview" style="display:none;">
-                <video id="videoPlayer" controls style="display:none;"></video>
-                <audio id="audioPlayer" controls style="display:none;"></audio>
+        <section id="chat-sec" class="section active">
+            <div class="chat-wrap">
+                <div class="messages" id="chatBox">
+                    <div class="msg ai-msg ln" data-ar="مرحبا بك كيف يمكنني خدمتك اليوم ؟" data-en="Welcome! How can I help you today?">مرحبا بك كيف يمكنني خدمتك اليوم ؟</div>
+                </div>
+                <div class="chat-bar">
+                    <i class="fas fa-paperclip" onclick="alert('File upload active')"></i>
+                    <input type="text" id="chatInp" class="ln-ph" data-ar="اسأل فيفيديا..." data-en="Ask Vividia..." placeholder="اسأل فيفيديا..." onkeypress="if(event.key==='Enter') pushMsg()">
+                    <i class="fas fa-microphone" onclick="alert('Mic active')"></i>
+                    <button onclick="pushMsg()" style="background:var(--accent); border:none; width:45px; height:45px; border-radius:14px; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
+        </section>
 
-            <div class="services-icons">
-                <div class="service-item active" onclick="setService('image')"><i class="fas fa-image"></i><br>Image</div>
-                <div class="service-item" onclick="setService('video')"><i class="fas fa-video"></i><br>Video</div>
-                <div class="service-item" onclick="setService('music')"><i class="fas fa-music"></i><br>Music</div>
-                <div class="service-item" onclick="setService('voice')"><i class="fas fa-microphone"></i><br>Voice</div>
-            </div>
-
-            <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="create-btn" style="margin:0; padding:10px;" onclick="document.getElementById('fileInput').click()">
-                    <i class="fas fa-upload"></i> Upload
-                </button>
-                <input type="file" id="fileInput" style="display:none" onchange="handleFileUpload(this)">
+        <section id="studio-sec" class="section">
+            <div class="studio-grid">
+                <div class="canvas-box" onclick="document.getElementById('imgInp').click()">
+                    <input type="file" id="imgInp" hidden onchange="handleStudio(event)">
+                    <img id="studioImg" style="max-width:100%; display:none; border-radius:15px;">
+                    <div id="studioLabel" style="text-align:center; color:#888;">
+                        <i class="fas fa-cloud-arrow-up" style="font-size:50px; margin-bottom:15px;"></i>
+                        <p class="ln" data-ar="ارفع صورة للتعديل" data-en="Upload Image">ارفع صورة للتعديل</p>
+                    </div>
+                </div>
                 
-                <button class="create-btn" style="margin:0; padding:10px; background:var(--accent-purple);" onclick="downloadMedia()">
-                    <i class="fas fa-download"></i> Download
-                </button>
+                <div class="edit-tools-panel">
+                    <h3 class="tool-title ln" data-ar="أدوات التعديل" data-en="Edit Tools">أدوات التعديل</h3>
+                    
+                    <button onclick="removeBG()" class="btn-remove-bg">
+                        <i class="fas fa-eraser"></i> <span class="ln" data-ar="إزالة الخلفية (AI)" data-en="Remove Background (AI)">إزالة الخلفية (AI)</span>
+                    </button>
+                    
+                    <div class="slider-group">
+                        <label><span>Brightness</span> <span id="v-bright">0</span></label>
+                        <input type="range" min="0" max="200" value="100" oninput="document.getElementById('v-bright').innerText = this.value">
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label><span>Contrast</span> <span id="v-contrast">91</span></label>
+                        <input type="range" min="0" max="200" value="91" oninput="document.getElementById('v-contrast').innerText = this.value">
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <button class="create-btn" onclick="runMagic()">Create Magic</button>
-
-            <div class="sub-panel">
-                <div>Unlimited Power</div>
-                <div class="price">4.99<span style="font-size:1.2rem;">$/month</span></div>
-                <div class="limits">Limits 100 Images | 10 Videos | 20k Voice</div>
-                <button class="sub-btn" onclick="window.location.href='https://cryptomus.com/gateway/process'">subscribe abn</button>
+        <section id="stats-sec" class="section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="ln" data-ar="باقة الاشتراك الحالي" data-en="Subscription Plan">باقة الاشتراك الحالي</p>
+                    <div class="price-val">$7.60 <span style="font-size:18px; color:#888;">/mo</span></div>
+                    <button onclick="manageSubscription()" style="background:var(--accent); border:none; padding:12px 25px; border-radius:10px; color:white; font-weight:bold; cursor:pointer;">
+                        <span class="ln" data-ar="إدارة الاشتراك" data-en="Manage">إدارة الاشتراك</span>
+                    </button>
+                </div>
             </div>
-        </div>
-
-        <div id="section-gallery" class="panel-section"><h3>Gallery</h3></div>
-        <div id="section-settings" class="panel-section"><h3>Settings</h3></div>
-        <div id="section-profile" class="panel-section"><h3>Profile</h3></div>
-
-        <div class="bottom-nav">
-            <div class="nav-item active" onclick="showSection('home')"><i class="fas fa-home"></i><br>home</div>
-            <div class="nav-item" onclick="showSection('gallery')"><i class="fas fa-image"></i><br>Gallery</div>
-            <div class="nav-item" onclick="showSection('settings')"><i class="fas fa-cogs"></i><br>Settings</div>
-            <div class="nav-item" onclick="showSection('profile')"><i class="fas fa-user"></i><br>Profile</div>
-        </div>
+        </section>
     </div>
 
     <script>
-        // --- Dark Mode ---
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const icon = document.getElementById('theme-icon');
-            icon.classList.toggle('fa-moon');
-            icon.classList.toggle('fa-sun');
+        // Language System
+        function changeLanguage(lang) {
+            document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
+            document.querySelectorAll('.ln').forEach(el => el.innerText = el.getAttribute(`data-${lang}`));
+            document.querySelectorAll('.ln-ph').forEach(el => el.placeholder = el.getAttribute(`data-${lang}`));
         }
 
-        // --- Bottom Navigation Logic ---
-        function showSection(sectionId) {
-            document.querySelectorAll('.panel-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            document.getElementById(`section-${sectionId}`).classList.add('active');
-            event.currentTarget.classList.add('active');
+        // Tab Switcher
+        function showTab(tabId, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(tabId + '-sec').classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            if(window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
         }
 
-        // --- Service Selection ---
-        function setService(service) {
-            document.querySelectorAll('.service-item').forEach(i => i.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            document.getElementById('promptInput').placeholder = `Enter ${service} prompt...`;
+        // Chat System
+        function pushMsg() {
+            const inp = document.getElementById('chatInp');
+            const box = document.getElementById('chatBox');
+            if(!inp.value) return;
+            box.innerHTML += `
+                <div class="msg u-msg">
+                    ${inp.value}
+                    <div class="msg-actions"><i class="fas fa-edit"></i> <i class="fas fa-thumbs-up"></i></div>
+                </div>`;
+            inp.value = '';
+            setTimeout(() => {
+                box.innerHTML += `<div class="msg ai-msg">Vividia: Received.</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 800);
         }
 
-        // --- Upload / Preview Logic (مُفعل لعرض الصورة/الفيديو) ---
-        function handleFileUpload(input) {
-            const file = input.files[0];
-            if(!file) return;
-
-            const mediaPreview = document.getElementById('mediaPreview');
-            const imgPlayer = document.getElementById('imagePlayer');
-            const vidPlayer = document.getElementById('videoPlayer');
-            const audPlayer = document.getElementById('audioPlayer');
-
-            mediaPreview.style.display = 'flex';
-            imgPlayer.style.display = 'none';
-            vidPlayer.style.display = 'none';
-            audPlayer.style.display = 'none';
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                if(file.type.startsWith('image/')) {
-                    imgPlayer.src = e.target.result;
-                    imgPlayer.style.display = 'block';
-                } else if(file.type.startsWith('video/')) {
-                    vidPlayer.src = e.target.result;
-                    vidPlayer.style.display = 'block';
-                } else if(file.type.startsWith('audio/')) {
-                    audPlayer.src = e.target.result;
-                    audPlayer.style.display = 'block';
-                }
-            }
-            reader.readAsDataURL(file);
+        // Studio System - التحديث لتفعيل التصميم
+        function handleStudio(e) {
+            const img = document.getElementById('studioImg');
+            const label = document.getElementById('studioLabel');
+            img.src = URL.createObjectURL(e.target.files[0]);
+            img.style.display = 'block';
+            label.style.display = 'none';
         }
+        function removeBG() { alert("AI Background Removal Activated"); }
 
-        function downloadMedia() {
-            alert("Downloading generated media...");
-        }
+        // Pro Tools
+        function invokeNano() { alert("Nano Engine: Generating Image..."); }
+        function invokeVeo() { alert("Veo Engine: Rendering Video..."); }
+        function invokeLiveness() { alert("Liveness Check: Activating Camera..."); }
 
-        // --- Core Logic (API Keys & Cryptomus Integration) ---
-        async function runMagic() {
-            const prompt = document.getElementById('promptInput').value;
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            
-            if(!prompt) return alert("Please enter a prompt.");
-            
-            // ⚙️ 1. التحقق من النقاط (Credits Check) - منطق محاكاة
-            const credits = { leonardo: 50, elevenlabs: 15000 };
-            if(credits.leonardo < 10) return alert("Not enough Leonardo credits!");
-            
-            // ⚙️ 2. تحضير البيانات للارسال (FormData for file + text)
-            const formData = new FormData();
-            formData.append('prompt', prompt);
-            if(file) formData.append('media', file);
-            
-            // ⚙️ 3. إظهار التحميل
-            const statusMsg = document.getElementById('statusMsg') || createStatusMsg();
-            statusMsg.innerText = "Processing Magic...";
-            
-            // ⚙️ 4. الإرسال إلى Backend الفعلي (API Call)
-            try {
-                const response = await fetch('YOUR_BACKEND_URL/api/generate', {
-                    method: 'POST',
-                    body: formData // إرسال الملف والنص معاً
-                });
-                
-                const result = await response.json();
-                
-                if(result.success) {
-                    statusMsg.innerText = "Magic Created Successfully!";
-                    // عرض الملف الناتج في الـ Preview
-                    updatePreview(result.mediaUrl, result.mediaType);
-                } else {
-                    statusMsg.innerText = "Error: " + result.message;
-                }
-            } catch (error) {
-                statusMsg.innerText = "Connection Error";
-                console.error(error);
-            }
-        }
-
-        // دالة مساعدة لإنشاء رسالة الحالة إذا لم تكن موجودة
-        function createStatusMsg() {
-            const div = document.createElement('div');
-            div.id = 'statusMsg';
-            div.style.color = '#fff';
-            div.style.textAlign = 'center';
-            div.style.marginTop = '10px';
-            document.querySelector('.main-panel').appendChild(div);
-            return div;
-        }
-
-        // دالة لتحديث المعاينة بعد استلام الملف من السيرفر
-        function updatePreview(url, type) {
-            const imgPlayer = document.getElementById('imagePlayer');
-            const vidPlayer = document.getElementById('videoPlayer');
-            const audPlayer = document.getElementById('audioPlayer');
-            const mediaPreview = document.getElementById('mediaPreview');
-            
-            mediaPreview.style.display = 'flex';
-            imgPlayer.style.display = 'none';
-            vidPlayer.style.display = 'none';
-            audPlayer.style.display = 'none';
-
-            if(type === 'image') {
-                imgPlayer.src = url;
-                imgPlayer.style.display = 'block';
-            } else if(type === 'video') {
-                vidPlayer.src = url;
-                vidPlayer.style.display = 'block';
-            } else if(type === 'audio') {
-                audPlayer.src = url;
-                audPlayer.style.display = 'block';
-            }
+        // Payment
+        function manageSubscription() {
+            const paymentLink = 'رابط_بوابة_الدفع_الخاص_بـ_فـيـفـيـديـا';
+            window.location.href = paymentLink;
         }
     </script>
 </body>
