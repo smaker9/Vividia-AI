@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vividia AI - Pro Suite</title>
+    <title>Vividia AI - Edit Studio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --bg: #050505; --side: #0f0f11; --accent: #a855f7; --card: #161618; --text: #ffffff; --border: #26262b; }
@@ -13,54 +13,35 @@
         /* Sidebar Styling */
         .sidebar { width: 280px; background: var(--side); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; overflow-y: auto; }
         .logo { font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 40px; display: flex; align-items: center; gap: 12px; }
-        .nav-label { font-size: 11px; color: #555; text-transform: uppercase; margin: 20px 0 10px 10px; display: block; }
         .nav-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #888; transition: 0.2s; margin-bottom: 6px; font-size: 14px; }
         .nav-item:hover, .nav-item.active { background: #1c1c1f; color: var(--accent); }
         .nav-item i { width: 20px; text-align: center; }
 
         /* Main Content Styling */
-        .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-        header { height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 25px; background: rgba(5,5,5,0.8); backdrop-filter: blur(15px); }
+        .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        header { height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 25px; }
+
+        /* Studio Styling - بناءً على الصورة */
+        .studio-container { padding: 30px; display: flex; gap: 25px; flex-wrap: wrap; }
         
-        .section { display: none; flex: 1; padding: 25px; overflow-y: auto; flex-direction: column; }
-        .section.active { display: flex; }
+        .upload-area { flex: 1; min-width: 300px; background: var(--card); border: 2px dashed #333; border-radius: 25px; min-height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888; cursor: pointer; transition: 0.3s; }
+        .upload-area:hover { border-color: var(--accent); }
+        .upload-area i { font-size: 50px; margin-bottom: 15px; }
 
-        /* Chat UI Styling */
-        .chat-wrap { max-width: 900px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column; }
-        .messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; padding: 10px; }
-        .msg { max-width: 80%; padding: 16px; border-radius: 18px; font-size: 14px; line-height: 1.6; position: relative; }
-        .ai-msg { align-self: flex-start; background: rgba(168, 85, 247, 0.05); color: var(--accent); border: 1px solid rgba(168, 85, 247, 0.2); border-bottom-right-radius: 4px; }
-        .u-msg { align-self: flex-end; background: #222; border-bottom-left-radius: 4px; }
-        
-        .msg-actions { display: flex; gap: 10px; margin-top: 8px; font-size: 12px; color: #555; }
-        .msg-actions i:hover { color: var(--accent); cursor: pointer; }
-
-        /* Input Bar */
-        .chat-bar { background: #121214; border: 1px solid var(--border); border-radius: 20px; padding: 10px 18px; display: flex; align-items: center; gap: 15px; margin-top: 15px; }
-        .chat-bar input { flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 15px; }
-        .chat-bar i { color: #555; cursor: pointer; font-size: 18px; }
-        .chat-bar i:hover { color: var(--accent); }
-
-        /* Stats & Billing Styling */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .stat-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        .price-val { font-size: 36px; font-weight: bold; color: var(--accent); margin: 15px 0; }
-
-        /* Studio Styling - المحدث بناءً على التصميم */
-        .studio-grid { display: grid; grid-template-columns: 1fr 340px; gap: 25px; }
-        .canvas-box { background: var(--card); border: 2px dashed #333; border-radius: 25px; min-height: 480px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor:pointer; }
-        .edit-tools-panel { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
+        .edit-tools-panel { width: 340px; background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
         .tool-title { font-size: 18px; font-weight: bold; margin-bottom: 20px; }
-        .btn-remove-bg { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 25px; }
-        .slider-group { margin-bottom: 15px; }
-        .slider-group label { display: flex; justify-content: space-between; font-size: 14px; color: #aaa; margin-bottom: 5px; }
-        .slider-group input { width: 100%; accent-color: var(--accent); }
+        
+        /* زر إزالة الخلفية كما في الصورة */
+        .btn-remove-bg { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 25px; font-size: 14px;}
+        
+        .slider-group { margin-bottom: 20px; }
+        .slider-group label { display: flex; justify-content: space-between; font-size: 14px; color: #aaa; margin-bottom: 8px; }
+        .slider-group input { width: 100%; accent-color: var(--accent); cursor: pointer; }
 
-        /* Mobile Responsive */
         @media (max-width: 900px) {
             .sidebar { position: fixed; right: -280px; height: 100%; }
             .sidebar.open { right: 0; }
-            .studio-grid { grid-template-columns: 1fr; }
+            .edit-tools-panel { width: 100%; }
         }
     </style>
 </head>
@@ -69,137 +50,49 @@
     <aside class="sidebar" id="sidebar">
         <div class="logo"><i class="fas fa-brain"></i> VIVIDIA AI</div>
         
-        <div class="nav-item active" onclick="showTab('chat', this)"><i class="fas fa-comment-dots"></i> <span class="ln" data-ar="شات فيفيديا" data-en="Vividia Chat">شات فيفيديا</span></div>
-        <div class="nav-item" onclick="showTab('studio', this)"><i class="fas fa-wand-magic-sparkles"></i> <span class="ln" data-ar="استوديو التعديل" data-en="Edit Studio">استوديو التعديل</span></div>
-        <div class="nav-item" onclick="invokeNano()"><i class="fas fa-palette"></i> <span class="ln" data-ar="توليد الصور (Nano)" data-en="Image Gen (Nano)">توليد الصور (Nano)</span></div>
-        <div class="nav-item" onclick="invokeVeo()"><i class="fas fa-video"></i> <span class="ln" data-ar="فيديو (Veo)" data-en="Video (Veo)">فيديو (Veo)</span></div>
-        <div class="nav-item" onclick="invokeLiveness()"><i class="fas fa-fingerprint"></i> <span class="ln" data-ar="كشف الحيوية" data-en="Liveness">كشف الحيوية</span></div>
-        
-        <div style="margin-top:auto;">
-            <div class="nav-item" onclick="showTab('stats', this)"><i class="fas fa-chart-line"></i> <span class="ln" data-ar="الإحصائيات والاشتراك" data-en="Stats & Billing">الإحصائيات والاشتراك</span></div>
-        </div>
+        <div class="nav-item active" onclick="alert('شات فيفيديا')"><i class="fas fa-comment-dots"></i> <span>شات فيفيديا</span></div>
+        <div class="nav-item" onclick="alert('استوديو التعديل')"><i class="fas fa-wand-magic-sparkles"></i> <span>استوديو التعديل</span></div>
+        <div class="nav-item" onclick="alert('توليد الصور')"><i class="fas fa-palette"></i> <span>توليد الصور (Nano)</span></div>
+        <div class="nav-item" onclick="alert('فيديو')"><i class="fas fa-video"></i> <span>فيديو (Veo)</span></div>
     </aside>
 
     <div class="main">
         <header>
             <div onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fas fa-bars-staggered" style="font-size:22px; cursor:pointer;"></i></div>
-            <select id="langPicker" onchange="changeLanguage(this.value)" style="background:#111; color:#fff; border:1px solid #333; padding:8px 12px; border-radius:10px; cursor:pointer;">
-                <option value="ar">العربية</option>
-                <option value="en">English</option>
-            </select>
+            <div style="color:var(--accent); font-weight:bold;">Edit Studio</div>
         </header>
 
-        <section id="chat-sec" class="section active">
-            <div class="chat-wrap">
-                <div class="messages" id="chatBox">
-                    <div class="msg ai-msg ln" data-ar="مرحبا بك كيف يمكنني خدمتك اليوم ؟" data-en="Welcome! How can I help you today?">مرحبا بك كيف يمكنني خدمتك اليوم ؟</div>
-                </div>
-                <div class="chat-bar">
-                    <i class="fas fa-paperclip" onclick="alert('File upload active')"></i>
-                    <input type="text" id="chatInp" class="ln-ph" data-ar="اسأل فيفيديا..." data-en="Ask Vividia..." placeholder="اسأل فيفيديا..." onkeypress="if(event.key==='Enter') pushMsg()">
-                    <i class="fas fa-microphone" onclick="alert('Mic active')"></i>
-                    <button onclick="pushMsg()" style="background:var(--accent); border:none; width:45px; height:45px; border-radius:14px; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
-                </div>
+        <div class="studio-container">
+            <div class="upload-area" onclick="document.getElementById('imgInp').click()">
+                <input type="file" id="imgInp" hidden>
+                <i class="fas fa-cloud-arrow-up"></i>
+                <p>Upload Image</p>
             </div>
-        </section>
-
-        <section id="studio-sec" class="section">
-            <div class="studio-grid">
-                <div class="canvas-box" onclick="document.getElementById('imgInp').click()">
-                    <input type="file" id="imgInp" hidden onchange="handleStudio(event)">
-                    <img id="studioImg" style="max-width:100%; display:none; border-radius:15px;">
-                    <div id="studioLabel" style="text-align:center; color:#888;">
-                        <i class="fas fa-cloud-arrow-up" style="font-size:50px; margin-bottom:15px;"></i>
-                        <p class="ln" data-ar="ارفع صورة للتعديل" data-en="Upload Image">ارفع صورة للتعديل</p>
-                    </div>
+            
+            <div class="edit-tools-panel">
+                <h3 class="tool-title">Edit Tools</h3>
+                
+                <button class="btn-remove-bg">
+                    <i class="fas fa-eraser"></i> Remove Background (AI)
+                </button>
+                
+                <div class="slider-group">
+                    <label><span>Brightness</span> <span>0</span></label>
+                    <input type="range" min="0" max="200" value="100">
                 </div>
                 
-                <div class="edit-tools-panel">
-                    <h3 class="tool-title ln" data-ar="أدوات التعديل" data-en="Edit Tools">أدوات التعديل</h3>
-                    
-                    <button onclick="removeBG()" class="btn-remove-bg">
-                        <i class="fas fa-eraser"></i> <span class="ln" data-ar="إزالة الخلفية (AI)" data-en="Remove Background (AI)">إزالة الخلفية (AI)</span>
-                    </button>
-                    
-                    <div class="slider-group">
-                        <label><span>Brightness</span> <span id="v-bright">0</span></label>
-                        <input type="range" min="0" max="200" value="100" oninput="document.getElementById('v-bright').innerText = this.value">
-                    </div>
-                    
-                    <div class="slider-group">
-                        <label><span>Contrast</span> <span id="v-contrast">91</span></label>
-                        <input type="range" min="0" max="200" value="91" oninput="document.getElementById('v-contrast').innerText = this.value">
-                    </div>
+                <div class="slider-group">
+                    <label><span>Contrast</span> <span>91</span></label>
+                    <input type="range" min="0" max="200" value="91">
                 </div>
             </div>
-        </section>
-
-        <section id="stats-sec" class="section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <p class="ln" data-ar="باقة الاشتراك الحالي" data-en="Subscription Plan">باقة الاشتراك الحالي</p>
-                    <div class="price-val">$7.60 <span style="font-size:18px; color:#888;">/mo</span></div>
-                    <button onclick="manageSubscription()" style="background:var(--accent); border:none; padding:12px 25px; border-radius:10px; color:white; font-weight:bold; cursor:pointer;">
-                        <span class="ln" data-ar="إدارة الاشتراك" data-en="Manage">إدارة الاشتراك</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 
     <script>
-        // Language System
-        function changeLanguage(lang) {
-            document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
-            document.querySelectorAll('.ln').forEach(el => el.innerText = el.getAttribute(`data-${lang}`));
-            document.querySelectorAll('.ln-ph').forEach(el => el.placeholder = el.getAttribute(`data-${lang}`));
-        }
-
-        // Tab Switcher
-        function showTab(tabId, el) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(tabId + '-sec').classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-            if(window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
-        }
-
-        // Chat System
-        function pushMsg() {
-            const inp = document.getElementById('chatInp');
-            const box = document.getElementById('chatBox');
-            if(!inp.value) return;
-            box.innerHTML += `
-                <div class="msg u-msg">
-                    ${inp.value}
-                    <div class="msg-actions"><i class="fas fa-edit"></i> <i class="fas fa-thumbs-up"></i></div>
-                </div>`;
-            inp.value = '';
-            setTimeout(() => {
-                box.innerHTML += `<div class="msg ai-msg">Vividia: Received.</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 800);
-        }
-
-        // Studio System - التحديث لتفعيل التصميم
-        function handleStudio(e) {
-            const img = document.getElementById('studioImg');
-            const label = document.getElementById('studioLabel');
-            img.src = URL.createObjectURL(e.target.files[0]);
-            img.style.display = 'block';
-            label.style.display = 'none';
-        }
-        function removeBG() { alert("AI Background Removal Activated"); }
-
-        // Pro Tools
-        function invokeNano() { alert("Nano Engine: Generating Image..."); }
-        function invokeVeo() { alert("Veo Engine: Rendering Video..."); }
-        function invokeLiveness() { alert("Liveness Check: Activating Camera..."); }
-
-        // Payment
-        function manageSubscription() {
-            const paymentLink = 'رابط_بوابة_الدفع_الخاص_بـ_فـيـفـيـديـا';
-            window.location.href = paymentLink;
+        // دالة لتبديل القائمة في الموبايل
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
         }
     </script>
 </body>
