@@ -48,9 +48,7 @@
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 15px;
             padding: 12px; cursor: pointer; position: relative; transition: 0.3s;
         }
-        
         .dropdown-box.active { border: 1px solid #a855f7; box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
-
         .dropdown-box span { font-size: 0.7rem; color: var(--text-dim); display: block; }
         .dropdown-box strong { font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; }
 
@@ -83,7 +81,7 @@
         }
         .service-btn.active { background: var(--accent-gradient); border-color: transparent; color: white; }
         .service-btn i { font-size: 1.2rem; display: block; margin-bottom: 8px; }
-        .service-btn span { font-size: 0.75rem; font-weight: 500; }
+        .service-btn span { font-size: 0.7rem; font-weight: 500; }
 
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .btn-action {
@@ -109,8 +107,18 @@
 
         .community-section { width: 100%; margin-top: 20px; }
         .feed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .feed-item { background: #1a1a1a; border-radius: 12px; height: 180px; overflow: hidden; position: relative; }
-        .feed-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .feed-item { 
+            background: #1a1a1a; border-radius: 12px; height: 180px; overflow: hidden; 
+            position: relative; cursor: pointer; transition: 0.4s;
+        }
+        .feed-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+        .feed-item:hover img { transform: scale(1.1); opacity: 1; }
+        .feed-item::after {
+            content: "\f144"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 2rem; color: white; opacity: 0; transition: 0.3s;
+        }
+        .feed-item:hover::after { opacity: 0.8; }
 
         .nav-bar {
             position: fixed; bottom: 0; width: 100%; max-width: 500px;
@@ -123,23 +131,24 @@
         .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
         .nav-item span { font-size: 0.7rem; }
 
-        /* تجميل قائمة اللغات */
         .lang-menu { 
             position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); 
-            background: #111; border: 1px solid #a855f7; border-radius: 15px; 
-            display: none; padding: 10px; z-index: 1001; width: 120px;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            background: #111; border: 1.5px solid #a855f7; border-radius: 15px; 
+            display: none; padding: 10px; z-index: 1001; width: 140px;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
         }
-        .lang-opt { padding: 10px; cursor: pointer; font-size: 0.85rem; border-radius: 8px; text-align: center; transition: 0.2s; }
-        .lang-opt:hover { background: var(--accent-gradient); color: white; }
+        .lang-opt { padding: 12px; cursor: pointer; font-size: 0.85rem; border-radius: 8px; text-align: center; transition: 0.2s; color: white; }
+        .lang-opt:hover { background: var(--accent-gradient); }
 
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; }
         .modal-content { background: #1a1a1a; padding: 30px; border-radius: 25px; width: 85%; max-width: 400px; text-align: center; border: 1px solid var(--border); position: relative; }
         .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.5rem; color: var(--text-dim); }
-        
-        .footer-text { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 20px; padding-bottom: 120px; }
 
         #fileInput { display: none; }
+        
+        /* تأثير النبض للزر الديناميكي */
+        @keyframes pulse-white { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); } 70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+        .loading-btn { animation: pulse-white 1.5s infinite; pointer-events: none; opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -152,8 +161,8 @@
     <header class="header">
         <div class="vividia-logo">VIVIDIA AI</div>
         <div class="auth-buttons">
-            <button class="btn-auth" onclick="play(1)"><i class="fab fa-google"></i> Google</button>
-            <button class="btn-auth" onclick="play(1)"><i class="fas fa-envelope"></i> Email</button>
+            <button class="btn-auth" onclick="play(1)"><i class="fab fa-google"></i> <span id="btnGoogle">Google</span></button>
+            <button class="btn-auth" onclick="play(1)"><i class="fas fa-envelope"></i> <span id="btnEmail">Email</span></button>
         </div>
     </header>
 
@@ -166,7 +175,6 @@
                 <div id="mDrop" class="drop-menu">
                     <div class="drop-item" onclick="setV('mTxt', 'Vividia 3.0 Pro')">Vividia 3.0 Pro</div>
                     <div class="drop-item" onclick="setV('mTxt', 'Cinematic 8K')">Cinematic 8K</div>
-                    <div class="drop-item" onclick="setV('mTxt', 'Anime Master')">Anime Master</div>
                 </div>
             </div>
             <div class="dropdown-box" id="ratioBox" onclick="toggleDrop('rDrop', 'ratioBox')">
@@ -175,7 +183,6 @@
                 <div id="rDrop" class="drop-menu">
                     <div class="drop-item" onclick="setV('rTxt', '1:1 Square')">1:1 Square</div>
                     <div class="drop-item" onclick="setV('rTxt', '16:9 Wide')">16:9 Wide</div>
-                    <div class="drop-item" onclick="setV('rTxt', '9:16 Vertical')">9:16 Vertical</div>
                 </div>
             </div>
         </div>
@@ -188,10 +195,13 @@
         <div class="services-grid">
             <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span id="txtImg">Image</span></div>
             <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span id="txtVid">Video</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span id="txtMus">Music</span></div>
             <div class="service-btn" onclick="sel(this)"><i class="fas fa-microphone"></i><span id="txtVoi">Voice</span></div>
             <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span id="txtDub">Dubbing</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span id="txtMus">Music</span></div>
             <div class="service-btn" onclick="sel(this)"><i class="fas fa-wave-square"></i><span id="txtSfx">SFX</span></div>
+            <div class="service-btn" onclick="sel(this)" style="grid-column: span 3; margin-top: 5px; background: rgba(168,85,247,0.1); border: 1px dashed #a855f7;">
+                <i class="fas fa-grin-stars"></i><span id="txtLip">Lip Sync AI</span>
+            </div>
         </div>
 
         <div class="action-row">
@@ -199,7 +209,7 @@
             <button class="btn-action" onclick="triggerDownload()"><i class="fas fa-file-download"></i> <span id="btnDown">MP4 / HD</span></button>
         </div>
 
-        <button class="btn-generate" id="btnGen" onclick="play(2)">GENERATE MAGIC</button>
+        <button class="btn-generate" id="btnGen" onclick="simulateMagic()">GENERATE MAGIC</button>
 
         <div class="membership-card">
             <div style="font-size:0.9rem; font-weight:700; color:#a855f7" id="txtElite">ELITE MEMBERSHIP</div>
@@ -212,9 +222,9 @@
 
         <div class="community-section">
             <h3 style="font-size: 1rem; margin-bottom: 15px;"><i class="fas fa-fire" style="color:#ff4500"></i> <span id="txtFeed">Community Feed</span></h3>
-            <div class="feed-grid">
-                <div class="feed-item"><img src="https://picsum.photos/200/300?random=1"></div>
-                <div class="feed-item"><img src="https://picsum.photos/200/300?random=2"></div>
+            <div class="feed-grid" id="mainFeed">
+                <div class="feed-item" onclick="playFeed(this)"><img src="https://picsum.photos/400/600?random=10"></div>
+                <div class="feed-item" onclick="playFeed(this)"><img src="https://picsum.photos/400/600?random=11"></div>
             </div>
         </div>
         
@@ -238,8 +248,9 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('galleryModal')">&times;</span>
             <i class="fas fa-images fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
-            <h3 id="galTitle">Your Professional Gallery</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem;" id="galDesc">Redirecting to your creative workspace...</p>
+            <h3 id="galTitle">Professional Gallery</h3>
+            <div id="userCreations" style="display:none; grid-template-columns: 1fr 1fr; gap:10px;"></div>
+            <p style="color:var(--text-dim); font-size:0.9rem;" id="galDesc">No creations yet. Start generating!</p>
         </div>
     </div>
 
@@ -248,11 +259,8 @@
             <span class="close-modal" onclick="closeModal('helpModal')">&times;</span>
             <i class="fas fa-question-circle fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
             <h3 id="helpTitle">How Vividia Works</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem; text-align:right; line-height:1.6;" id="helpBody">
-                1. اكتب وصفك في المربع الأسود.<br>
-                2. استخدم الأيقونة السحرية لتحسين الوصف.<br>
-                3. اختر نوع المحتوى (فيديو، صورة، إلخ).<br>
-                4. اضغط على GENERATE MAGIC للبدء.
+            <p style="color:var(--text-dim); font-size:0.9rem; line-height:1.6;" id="helpBody">
+                1. Describe your idea.<br>2. Choose service.<br>3. Hit Generate.
             </p>
         </div>
     </div>
@@ -266,23 +274,15 @@
         function toggleDrop(menuId, boxId) {
             play(1);
             const menu = document.getElementById(menuId);
-            const box = document.getElementById(boxId);
             const isVisible = menu.style.display === 'block';
-            
             document.querySelectorAll('.drop-menu').forEach(m => m.style.display = 'none');
-            document.querySelectorAll('.dropdown-box').forEach(b => b.classList.remove('active'));
-
-            if (!isVisible) {
-                menu.style.display = 'block';
-                box.classList.add('active');
-            }
+            if (!isVisible) menu.style.display = 'block';
         }
 
         function setV(id, val) {
             play(2);
             document.getElementById(id).innerHTML = val + ' <i class="fas fa-chevron-down"></i>';
             document.querySelectorAll('.drop-menu').forEach(m => m.style.display = 'none');
-            document.querySelectorAll('.dropdown-box').forEach(b => b.classList.remove('active'));
         }
 
         function sel(btn) {
@@ -292,41 +292,58 @@
         }
 
         function toggleLang() {
-            play(1); // تم إضافة صوت النقرة هنا كما طلبت
+            play(1); // صوت النقرة للأيقونة كما طلبت
             const m = document.getElementById('lMenu');
             m.style.display = m.style.display === 'block' ? 'none' : 'block';
         }
 
-        function triggerUpload() {
-            play(2);
-            document.getElementById('fileInput').click();
-        }
-
+        function triggerUpload() { play(2); document.getElementById('fileInput').click(); }
+        
         function fileChosen() {
             const file = document.getElementById('fileInput').files[0];
-            if(file) alert("تم اختيار الملف بنجاح: " + file.name);
+            if(file) alert("File ready: " + file.name);
         }
 
         function triggerDownload() {
             play(2);
-            const link = document.createElement('a');
-            link.href = 'https://vividia-ai.vercel.app/sample.mp4'; 
-            link.download = 'Vividia_Masterpiece.mp4';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            alert("Preparing HD file for download...");
         }
 
         function handleSubscribe() {
-            play(2); // صوت النقرة
+            play(2);
             const btn = document.getElementById('btnSub');
-            btn.innerText = "Processing...";
-            btn.style.opacity = "0.7";
+            const originalText = btn.innerText;
+            btn.classList.add('loading-btn');
+            btn.innerText = "...";
+            
             setTimeout(() => {
-                alert("Redirecting to payment gateway...");
-                btn.innerText = "Subscribe Now";
-                btn.style.opacity = "1";
-            }, 1500);
+                btn.classList.remove('loading-btn');
+                btn.innerText = originalText;
+                alert("Redirecting to secure payment...");
+            }, 2000);
+        }
+
+        function playFeed(el) {
+            play(2);
+            el.style.transform = "scale(0.95)";
+            setTimeout(() => el.style.transform = "scale(1)", 200);
+        }
+
+        function simulateMagic() {
+            play(2);
+            const btn = document.getElementById('btnGen');
+            btn.innerText = "WEAVING MAGIC...";
+            
+            setTimeout(() => {
+                // محاكاة استبدال صور المجتمع عند إنتاج المستخدم لعمله
+                const feed = document.getElementById('mainFeed');
+                feed.innerHTML = `
+                    <div class="feed-item" style="border: 2px solid #a855f7;"><img src="https://picsum.photos/400/600?random=${Math.random()}"></div>
+                    <div class="feed-item"><img src="https://picsum.photos/400/600?random=${Math.random()}"></div>
+                `;
+                btn.innerText = "GENERATE MAGIC";
+                alert("Magic complete! Check Community Feed.");
+            }, 3000);
         }
 
         function setL(code, sign, price, dur) {
@@ -337,32 +354,65 @@
             document.getElementById('durTxt').innerText = dur;
             document.getElementById('lMenu').style.display = 'none';
             
-            // ترجمة ديناميكية لكافة العناصر
             const isAr = (code === 'AR');
+            const isFr = (code === 'FR');
             document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-            
-            document.getElementById('prompt').placeholder = isAr ? "أدخل وصفك الإبداعي..." : "Enter your creative prompt...";
-            document.getElementById('lblModel').innerText = isAr ? "اختيار النموذج" : "Model Selection";
-            document.getElementById('lblRatio').innerText = isAr ? "نسبة الأبعاد" : "Aspect Ratio";
-            document.getElementById('btnGen').innerText = isAr ? "إنتاج السحر" : "GENERATE MAGIC";
-            document.getElementById('btnUp').innerText = isAr ? "رفع" : "Upload";
-            document.getElementById('btnDown').innerText = isAr ? "تحميل" : "Download";
-            document.getElementById('btnSub').innerText = isAr ? "اشترك الآن" : "Subscribe Now";
-            document.getElementById('txtElite').innerText = isAr ? "عضوية النخبة" : "ELITE MEMBERSHIP";
-            
-            // ترجمة القائمة السفلية
-            document.getElementById('navHome').innerText = isAr ? "الرئيسية" : "Home";
-            document.getElementById('navGal').innerText = isAr ? "المعرض" : "Gallery";
-            document.getElementById('navHelp').innerText = isAr ? "المساعدة" : "Help";
+
+            // ترجمة شاملة (عربي، إنجليزي، فرنسي)
+            const trans = {
+                AR: {
+                    google: "جوجل", email: "ايميل", model: "النموذج", ratio: "الأبعاد",
+                    prompt: "أدخل وصفك الإبداعي...", gen: "إنتاج السحر", up: "رفع", down: "تحميل",
+                    img: "صور", vid: "فيديو", mus: "موسيقى", voi: "صوت", dub: "دبلجة", sfx: "مؤثرات",
+                    lip: "تحريك الشفاه", elite: "عضوية النخبة", sub: "اشترك الآن", feed: "آخر الأعمال",
+                    home: "الرئيسية", gal: "المعرض", help: "المساعدة", limits: "100 صورة | 10 فيديوهات | 20 ألف توكن"
+                },
+                EN: {
+                    google: "Google", email: "Email", model: "Model Selection", ratio: "Aspect Ratio",
+                    prompt: "Enter your creative prompt...", gen: "GENERATE MAGIC", up: "Upload", down: "Download",
+                    img: "Image", vid: "Video", mus: "Music", voi: "Voice", dub: "Dubbing", sfx: "SFX",
+                    lip: "Lip Sync", elite: "ELITE MEMBERSHIP", sub: "Subscribe Now", feed: "Community Feed",
+                    home: "Home", gal: "Gallery", help: "Help", limits: "100 Images | 10 Videos | 20k Tokens"
+                },
+                FR: {
+                    google: "Google", email: "Email", model: "Modèle AI", ratio: "Ratio",
+                    prompt: "Entrez votre idée...", gen: "CRÉER MAGIE", up: "Charger", down: "Télécharger",
+                    img: "Image", vid: "Vidéo", mus: "Musique", voi: "Voix", dub: "Doublage", sfx: "SFX",
+                    lip: "Sync Labiale", elite: "MEMBRE ÉLITE", sub: "S'abonner", feed: "Flux Communauté",
+                    home: "Accueil", gal: "Galerie", help: "Aide", limits: "100 Images | 10 Vidéos | 20k Tokens"
+                }
+            };
+
+            const t = trans[code];
+            document.getElementById('btnGoogle').innerText = t.google;
+            document.getElementById('btnEmail').innerText = t.email;
+            document.getElementById('lblModel').innerText = t.model;
+            document.getElementById('lblRatio').innerText = t.ratio;
+            document.getElementById('prompt').placeholder = t.prompt;
+            document.getElementById('btnGen').innerText = t.gen;
+            document.getElementById('btnUp').innerText = t.up;
+            document.getElementById('btnDown').innerText = t.down;
+            document.getElementById('txtImg').innerText = t.img;
+            document.getElementById('txtVid').innerText = t.vid;
+            document.getElementById('txtMus').innerText = t.mus;
+            document.getElementById('txtVoi').innerText = t.voi;
+            document.getElementById('txtDub').innerText = t.dub;
+            document.getElementById('txtSfx').innerText = t.sfx;
+            document.getElementById('txtLip').innerText = t.lip;
+            document.getElementById('txtElite').innerText = t.elite;
+            document.getElementById('btnSub').innerText = t.sub;
+            document.getElementById('txtFeed').innerText = t.feed;
+            document.getElementById('navHome').innerText = t.home;
+            document.getElementById('navGal').innerText = t.gal;
+            document.getElementById('navHelp').innerText = t.help;
+            document.getElementById('txtLimits').innerText = t.limits;
         }
 
         function openGallery() { play(2); document.getElementById('galleryModal').style.display = 'flex'; }
         function openHelp() { play(2); document.getElementById('helpModal').style.display = 'flex'; }
         function closeModal(m) { document.getElementById(m).style.display = 'none'; }
 
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal')) e.target.style.display = 'none';
-        }
+        window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
     </script>
 </body>
 </html>
