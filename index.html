@@ -26,7 +26,6 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
-        /* 1. Header with Google/Email Sign In */
         .header {
             width: 100%; max-width: 500px; padding: 20px;
             display: flex; justify-content: space-between; align-items: center;
@@ -42,36 +41,27 @@
         }
         .btn-auth:hover { background: var(--accent-gradient); border-color: transparent; }
 
-        /* Main Container */
         .app-container { width: 92%; max-width: 480px; padding-bottom: 120px; }
 
-        /* 2. Top Dropdowns (Model & Ratio) */
         .top-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .dropdown-box {
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 15px;
-            padding: 12px; cursor: pointer; position: relative;
-            transition: border-color 0.3s;
+            padding: 12px; cursor: pointer; position: relative; transition: 0.3s;
         }
         
-        /* تأثير احترافي عند فتح القائمة */
-        .dropdown-box.active {
-            border-image: var(--accent-gradient) 1;
-            border-style: solid;
-            border-width: 1px;
-        }
+        .dropdown-box.active { border: 1px solid #a855f7; box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
 
         .dropdown-box span { font-size: 0.7rem; color: var(--text-dim); display: block; }
         .dropdown-box strong { font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; }
 
         .drop-menu {
             position: absolute; top: 110%; left: 0; width: 100%; background: #181818;
-            border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 12px; display: none; z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #a855f7; border-radius: 12px; display: none; z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;
         }
-        .drop-item { padding: 12px; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
-        .drop-item:hover { background: var(--accent-gradient); }
+        .drop-item { padding: 12px; font-size: 0.8rem; border-bottom: 1px solid var(--border); transition: 0.2s; }
+        .drop-item:hover { background: var(--accent-gradient); color: white; }
 
-        /* 3. Single Smart Prompt (As requested) */
         .prompt-wrapper {
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 20px;
             padding: 20px; margin-bottom: 20px; position: relative;
@@ -86,33 +76,30 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* 4. Service Selector (Grid) */
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .service-btn {
             background: var(--btn-secondary); border: 1px solid var(--border); border-radius: 18px;
-            padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.3s;
+            padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.3s; color: var(--text-dim);
         }
-        .service-btn.active { background: var(--accent-gradient); border-color: transparent; }
+        .service-btn.active { background: var(--accent-gradient); border-color: transparent; color: white; }
         .service-btn i { font-size: 1.2rem; display: block; margin-bottom: 8px; }
         .service-btn span { font-size: 0.75rem; font-weight: 500; }
 
-        /* 5. Upload/Download Dynamic Buttons */
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .btn-action {
             padding: 15px; border-radius: 15px; border: none; font-weight: 700;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-            color: white; font-size: 0.85rem; background: #3b82f6; /* Blue for Upload/Download */
-            transition: background 0.3s;
+            color: white; font-size: 0.85rem; background: #3b82f6; transition: 0.3s;
         }
-        .btn-action:hover { background: #2563eb; }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
 
         .btn-generate {
             width: 100%; padding: 18px; border-radius: 20px; border: none;
             background: var(--accent-gradient); color: white; font-size: 1.1rem;
-            font-weight: 800; cursor: pointer; margin-bottom: 25px;
+            font-weight: 800; cursor: pointer; margin-bottom: 25px; transition: 0.3s;
         }
+        .btn-generate:active { transform: scale(0.98); }
 
-        /* 6. Elite Membership (Updated Price 7.60$) */
         .membership-card {
             background: linear-gradient(145deg, #1a1a1a, #000); border: 1px solid #333;
             border-radius: 25px; padding: 25px; text-align: center; margin-bottom: 40px;
@@ -120,14 +107,11 @@
         .price-tag { font-size: 2.2rem; font-weight: 800; margin: 10px 0; }
         .price-tag span { font-size: 1rem; color: var(--text-dim); }
 
-        /* 7. Global Feed (Community Gallery) */
         .community-section { width: 100%; margin-top: 20px; }
         .feed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .feed-item { background: #1a1a1a; border-radius: 12px; height: 180px; overflow: hidden; position: relative; }
         .feed-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-        .feed-badge { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; background: rgba(0,0,0,0.5); padding: 3px 7px; border-radius: 5px; }
 
-        /* Bottom Navigation */
         .nav-bar {
             position: fixed; bottom: 0; width: 100%; max-width: 500px;
             background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px);
@@ -139,25 +123,31 @@
         .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
         .nav-item span { font-size: 0.7rem; }
 
-        /* Language Price Table */
-        .lang-menu { position: absolute; bottom: 80px; right: 20px; background: #111; border: 1px solid var(--border); border-radius: 12px; display: none; padding: 10px; z-index: 1001;}
-        .lang-opt { padding: 8px 15px; cursor: pointer; font-size: 0.8rem; border-radius: 8px; margin-bottom: 2px; }
-        .lang-opt:hover { background: var(--accent-gradient); }
+        /* تجميل قائمة اللغات */
+        .lang-menu { 
+            position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); 
+            background: #111; border: 1px solid #a855f7; border-radius: 15px; 
+            display: none; padding: 10px; z-index: 1001; width: 120px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .lang-opt { padding: 10px; cursor: pointer; font-size: 0.85rem; border-radius: 8px; text-align: center; transition: 0.2s; }
+        .lang-opt:hover { background: var(--accent-gradient); color: white; }
 
-        /* Modals */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; border: 1px solid var(--border); }
-        .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.2rem; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 25px; width: 85%; max-width: 400px; text-align: center; border: 1px solid var(--border); position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.5rem; color: var(--text-dim); }
         
-        /* Footer */
-        .footer-text { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 20px; padding-bottom: 100px; }
+        .footer-text { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 20px; padding-bottom: 120px; }
 
+        #fileInput { display: none; }
     </style>
 </head>
 <body>
 
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
     <audio id="sndAction" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
+    <input type="file" id="fileInput" onchange="fileChosen()">
 
     <header class="header">
         <div class="vividia-logo">VIVIDIA AI</div>
@@ -171,7 +161,7 @@
         
         <div class="top-settings">
             <div class="dropdown-box" id="modelBox" onclick="toggleDrop('mDrop', 'modelBox')">
-                <span>Model Selection</span>
+                <span id="lblModel">Model Selection</span>
                 <strong id="mTxt">Vividia 3.0 Pro <i class="fas fa-chevron-down"></i></strong>
                 <div id="mDrop" class="drop-menu">
                     <div class="drop-item" onclick="setV('mTxt', 'Vividia 3.0 Pro')">Vividia 3.0 Pro</div>
@@ -180,7 +170,7 @@
                 </div>
             </div>
             <div class="dropdown-box" id="ratioBox" onclick="toggleDrop('rDrop', 'ratioBox')">
-                <span>Aspect Ratio</span>
+                <span id="lblRatio">Aspect Ratio</span>
                 <strong id="rTxt">16:9 Wide <i class="fas fa-chevron-down"></i></strong>
                 <div id="rDrop" class="drop-menu">
                     <div class="drop-item" onclick="setV('rTxt', '1:1 Square')">1:1 Square</div>
@@ -191,42 +181,40 @@
         </div>
 
         <div class="prompt-wrapper">
-            <textarea id="prompt" placeholder="Enter your creative prompt..."></textarea>
+            <textarea id="prompt" placeholder="أدخل وصفك الإبداعي..."></textarea>
             <i class="fas fa-wand-magic-sparkles magic-icon" onclick="play(2)"></i>
         </div>
 
         <div class="services-grid">
-            <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span>Image</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span>Video</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-microphone"></i><span>Voice</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span>Dubbing</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span>Music</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-wave-square"></i><span>SFX</span></div>
+            <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span id="txtImg">Image</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span id="txtVid">Video</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-microphone"></i><span id="txtVoi">Voice</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span id="txtDub">Dubbing</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span id="txtMus">Music</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-wave-square"></i><span id="txtSfx">SFX</span></div>
         </div>
 
         <div class="action-row">
-            <button class="btn-action" onclick="handleAction('upload')"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-            <button class="btn-action" onclick="handleAction('download')"><i class="fas fa-file-download"></i> MP4 / HD</button>
+            <button class="btn-action" onclick="triggerUpload()"><i class="fas fa-cloud-upload-alt"></i> <span id="btnUp">Upload</span></button>
+            <button class="btn-action" onclick="triggerDownload()"><i class="fas fa-file-download"></i> <span id="btnDown">MP4 / HD</span></button>
         </div>
 
-        <button class="btn-generate" onclick="play(2)">GENERATE MAGIC</button>
+        <button class="btn-generate" id="btnGen" onclick="play(2)">GENERATE MAGIC</button>
 
         <div class="membership-card">
-            <div style="font-size:0.9rem; font-weight:700; color:#a855f7">ELITE MEMBERSHIP</div>
-            <div class="price-tag"><span id="currSign">$</span><span id="priceVal">7.60</span><span>/<span id="durTxt">month</span></span></div>
-            <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:20px;">
+            <div style="font-size:0.9rem; font-weight:700; color:#a855f7" id="txtElite">ELITE MEMBERSHIP</div>
+            <div class="price-tag"><span id="currSign">SAR</span><span id="priceVal">28.50</span><span>/<span id="durTxt">شهرياً</span></span></div>
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:20px;" id="txtLimits">
                 Limits 100 Images | 10 Videos | 20k Voice Tokens
             </div>
-            <button class="btn-generate" style="margin:0; width:80%; padding:14px; font-size:0.9rem;">Subscribe Now</button>
+            <button class="btn-generate" id="btnSub" style="margin:0; width:80%; padding:14px; font-size:0.9rem;" onclick="handleSubscribe()">Subscribe Now</button>
         </div>
 
         <div class="community-section">
-            <h3 style="font-size: 1rem; margin-bottom: 15px;"><i class="fas fa-fire" style="color:#ff4500"></i> Community Feed</h3>
+            <h3 style="font-size: 1rem; margin-bottom: 15px;"><i class="fas fa-fire" style="color:#ff4500"></i> <span id="txtFeed">Community Feed</span></h3>
             <div class="feed-grid">
-                <div class="feed-item"><img src="https://picsum.photos/200/300?random=1"><span class="feed-badge">Video</span></div>
-                <div class="feed-item"><img src="https://picsum.photos/200/300?random=2"><span class="feed-badge">Image</span></div>
-                <div class="feed-item"><img src="https://picsum.photos/200/300?random=3"><span class="feed-badge">SFX</span></div>
-                <div class="feed-item"><img src="https://picsum.photos/200/300?random=4"><span class="feed-badge">Image</span></div>
+                <div class="feed-item"><img src="https://picsum.photos/200/300?random=1"></div>
+                <div class="feed-item"><img src="https://picsum.photos/200/300?random=2"></div>
             </div>
         </div>
         
@@ -234,16 +222,15 @@
     </main>
 
     <nav class="nav-bar">
-        <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item" onclick="openGallery()"><i class="fas fa-images"></i><span>Gallery</span></div>
-        <div class="nav-item" onclick="openHelp()"><i class="fas fa-question-circle"></i><span>Help</span></div>
-        <div class="nav-item" onclick="toggleLang()"><i class="fas fa-globe"></i><span id="langDisplay">EN</span></div>
+        <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span id="navHome">Home</span></div>
+        <div class="nav-item" onclick="openGallery()"><i class="fas fa-images"></i><span id="navGal">Gallery</span></div>
+        <div class="nav-item" onclick="openHelp()"><i class="fas fa-question-circle"></i><span id="navHelp">Help</span></div>
+        <div class="nav-item" onclick="toggleLang()"><i class="fas fa-globe"></i><span id="langDisplay">AR</span></div>
         
         <div id="lMenu" class="lang-menu">
             <div class="lang-opt" onclick="setL('AR', 'SAR', '28.50', 'شهرياً')">العربية</div>
             <div class="lang-opt" onclick="setL('EN', '$', '7.60', 'month')">English</div>
             <div class="lang-opt" onclick="setL('FR', '€', '7.10', 'mois')">Français</div>
-            <div class="lang-opt" onclick="setL('ES', '€', '7.10', 'mes')">Español</div>
         </div>
     </nav>
 
@@ -251,8 +238,8 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('galleryModal')">&times;</span>
             <i class="fas fa-images fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
-            <h3>Your Professional Gallery</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem;">View and manage all your generated AI masterpieces.</p>
+            <h3 id="galTitle">Your Professional Gallery</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem;" id="galDesc">Redirecting to your creative workspace...</p>
         </div>
     </div>
 
@@ -260,12 +247,12 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('helpModal')">&times;</span>
             <i class="fas fa-question-circle fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
-            <h3>How Vividia Works</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem; text-align:right;">
-                1. اكتب وصفك في المربع.<br>
+            <h3 id="helpTitle">How Vividia Works</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem; text-align:right; line-height:1.6;" id="helpBody">
+                1. اكتب وصفك في المربع الأسود.<br>
                 2. استخدم الأيقونة السحرية لتحسين الوصف.<br>
-                3. اختر نوع المحتوى (فيديو، صورة، موسيقى).<br>
-                4. اضغط على GENERATE MAGIC.
+                3. اختر نوع المحتوى (فيديو، صورة، إلخ).<br>
+                4. اضغط على GENERATE MAGIC للبدء.
             </p>
         </div>
     </div>
@@ -273,30 +260,21 @@
     <script>
         function play(s) {
             const a = document.getElementById(s === 1 ? 'sndClick' : 'sndAction');
-            if(a) { a.currentTime = 0; a.volume = 0.3; a.play(); }
+            if(a) { a.currentTime = 0; a.volume = 0.4; a.play(); }
         }
 
         function toggleDrop(menuId, boxId) {
             play(1);
             const menu = document.getElementById(menuId);
             const box = document.getElementById(boxId);
-            
-            // إغلاق أي قائمة أخرى
-            document.querySelectorAll('.drop-menu').forEach(m => {
-                if (m.id !== menuId) m.style.display = 'none';
-            });
-            document.querySelectorAll('.dropdown-box').forEach(b => {
-                if (b.id !== boxId) b.classList.remove('active');
-            });
-
-            // فتح/إغلاق القائمة الحالية
             const isVisible = menu.style.display === 'block';
-            menu.style.display = isVisible ? 'none' : 'block';
             
+            document.querySelectorAll('.drop-menu').forEach(m => m.style.display = 'none');
+            document.querySelectorAll('.dropdown-box').forEach(b => b.classList.remove('active'));
+
             if (!isVisible) {
+                menu.style.display = 'block';
                 box.classList.add('active');
-            } else {
-                box.classList.remove('active');
             }
         }
 
@@ -314,9 +292,41 @@
         }
 
         function toggleLang() {
-            play(1);
+            play(1); // تم إضافة صوت النقرة هنا كما طلبت
             const m = document.getElementById('lMenu');
             m.style.display = m.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function triggerUpload() {
+            play(2);
+            document.getElementById('fileInput').click();
+        }
+
+        function fileChosen() {
+            const file = document.getElementById('fileInput').files[0];
+            if(file) alert("تم اختيار الملف بنجاح: " + file.name);
+        }
+
+        function triggerDownload() {
+            play(2);
+            const link = document.createElement('a');
+            link.href = 'https://vividia-ai.vercel.app/sample.mp4'; 
+            link.download = 'Vividia_Masterpiece.mp4';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function handleSubscribe() {
+            play(2); // صوت النقرة
+            const btn = document.getElementById('btnSub');
+            btn.innerText = "Processing...";
+            btn.style.opacity = "0.7";
+            setTimeout(() => {
+                alert("Redirecting to payment gateway...");
+                btn.innerText = "Subscribe Now";
+                btn.style.opacity = "1";
+            }, 1500);
         }
 
         function setL(code, sign, price, dur) {
@@ -325,50 +335,33 @@
             document.getElementById('currSign').innerText = sign;
             document.getElementById('priceVal').innerText = price;
             document.getElementById('durTxt').innerText = dur;
-            document.documentElement.dir = (code === 'AR') ? 'rtl' : 'ltr';
-            document.documentElement.lang = code.toLowerCase();
             document.getElementById('lMenu').style.display = 'none';
             
-            // تحديث نصوص الموقع بناءً على اللغة
-            if(code === 'AR') {
-                document.getElementById('prompt').placeholder = "أدخل وصفك الإبداعي...";
-            } else {
-                document.getElementById('prompt').placeholder = "Enter your creative prompt...";
-            }
+            // ترجمة ديناميكية لكافة العناصر
+            const isAr = (code === 'AR');
+            document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+            
+            document.getElementById('prompt').placeholder = isAr ? "أدخل وصفك الإبداعي..." : "Enter your creative prompt...";
+            document.getElementById('lblModel').innerText = isAr ? "اختيار النموذج" : "Model Selection";
+            document.getElementById('lblRatio').innerText = isAr ? "نسبة الأبعاد" : "Aspect Ratio";
+            document.getElementById('btnGen').innerText = isAr ? "إنتاج السحر" : "GENERATE MAGIC";
+            document.getElementById('btnUp').innerText = isAr ? "رفع" : "Upload";
+            document.getElementById('btnDown').innerText = isAr ? "تحميل" : "Download";
+            document.getElementById('btnSub').innerText = isAr ? "اشترك الآن" : "Subscribe Now";
+            document.getElementById('txtElite').innerText = isAr ? "عضوية النخبة" : "ELITE MEMBERSHIP";
+            
+            // ترجمة القائمة السفلية
+            document.getElementById('navHome').innerText = isAr ? "الرئيسية" : "Home";
+            document.getElementById('navGal').innerText = isAr ? "المعرض" : "Gallery";
+            document.getElementById('navHelp').innerText = isAr ? "المساعدة" : "Help";
         }
 
-        // تفاعلية الأزرار
-        function handleAction(action) {
-            play(2);
-            if(action === 'upload') {
-                alert("Opening file uploader...");
-            } else {
-                alert("Downloading high-quality media...");
-            }
-        }
+        function openGallery() { play(2); document.getElementById('galleryModal').style.display = 'flex'; }
+        function openHelp() { play(2); document.getElementById('helpModal').style.display = 'flex'; }
+        function closeModal(m) { document.getElementById(m).style.display = 'none'; }
 
-        function openGallery() {
-            play(2);
-            document.getElementById('galleryModal').style.display = 'flex';
-        }
-
-        function openHelp() {
-            play(2);
-            document.getElementById('helpModal').style.display = 'flex';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item') && !event.target.classList.contains('modal-content')) {
-                document.querySelectorAll('.drop-menu, .lang-menu').forEach(m => m.style.display = 'none');
-                document.querySelectorAll('.dropdown-box').forEach(b => b.classList.remove('active'));
-            }
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) e.target.style.display = 'none';
         }
     </script>
 </body>
