@@ -23,214 +23,235 @@
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
         }
 
-        .vividia-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, var(--accent-purple), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 3px;
-        }
-
-        .header { width: 100%; max-width: 1200px; padding: 30px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+        /* Header & Logo */
+        .header { width: 100%; max-width: 1200px; padding: 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+        .vividia-logo { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, var(--accent-purple), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .auth-group { display: flex; gap: 15px; }
-        .btn { padding: 12px 26px; border-radius: 14px; cursor: pointer; border: none; font-weight: 700; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.9rem; }
-        .btn-primary { background: linear-gradient(to right, var(--accent-purple), var(--accent-pink)); color: white; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3); }
-        .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border-color); }
-        .btn:active { transform: scale(0.95); }
+        .top-controls { display: flex; align-items: center; gap: 20px; }
+        .dark-mode-toggle { cursor: pointer; color: var(--text-dim); font-size: 1.2rem; }
 
+        .btn { padding: 10px 22px; border-radius: 12px; cursor: pointer; border: none; font-weight: 700; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.85rem; }
+        .btn-primary { background: linear-gradient(to right, var(--accent-purple), var(--accent-pink)); color: white; }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border-color); }
+
+        /* Main Container */
         .creation-container {
-            width: 95%; max-width: 800px; margin-top: 10px;
+            width: 92%; max-width: 500px; margin-top: 10px;
             background: var(--panel-bg); border: 1px solid var(--border-color);
-            border-radius: 35px; padding: 35px; box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+            border-radius: 30px; padding: 25px; box-shadow: 0 40px 80px rgba(0,0,0,0.8);
             box-sizing: border-box; position: relative;
         }
 
-        /* Dropdown Aesthetics */
-        .settings-bar { display: flex; gap: 15px; margin-bottom: 25px; position: relative; }
+        /* Settings Dropdowns (Improved) */
+        .settings-bar { display: flex; gap: 10px; margin-bottom: 20px; position: relative; }
         .setting-item { 
-            cursor: pointer; font-size: 0.85rem; color: var(--text-dim); 
-            display: flex; align-items: center; gap: 8px; padding: 10px 18px; 
-            background: rgba(255,255,255,0.03); border-radius: 12px; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 1px solid var(--border-color);
+            flex: 1; cursor: pointer; font-size: 0.75rem; color: var(--text-dim); 
+            display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; 
+            background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid var(--border-color);
+            transition: 0.3s;
         }
-        .setting-item:hover { 
-            background: rgba(168, 85, 247, 0.1); color: white; 
-            border-color: var(--accent-purple); transform: translateY(-2px);
-        }
+        .setting-item:hover { border-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05); }
 
         .dropdown-content {
-            position: absolute; top: 60px; width: 220px;
-            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); 
-            border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 20px; 
-            padding: 12px; display: none; z-index: 5000;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(168, 85, 247, 0.1);
-            transform-origin: top; animation: slideDown 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            position: absolute; top: 75px; width: 200px;
+            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); 
+            border: 1px solid var(--accent-purple); border-radius: 18px; 
+            padding: 8px; display: none; z-index: 5000;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+            animation: slideDown 0.3s ease-out;
         }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
+        .dropdown-option { padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s; font-size: 0.85rem; color: var(--text-dim); }
+        .dropdown-option:hover { background: var(--accent-purple); color: white; }
 
-        .dropdown-option { 
-            padding: 12px 15px; border-radius: 12px; cursor: pointer; 
-            transition: 0.3s; font-size: 0.9rem; color: var(--text-dim);
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .dropdown-option:hover { 
-            background: linear-gradient(90deg, rgba(168, 85, 247, 0.2), transparent);
-            color: white; padding-right: 20px;
-        }
-
-        .prompt-wrapper { position: relative; background: #000; border: 1px solid var(--border-color); border-radius: 22px; padding: 20px; margin-bottom: 30px; }
-        textarea { width: 92%; background: transparent; border: none; color: white; font-size: 1.15rem; outline: none; resize: none; min-height: 110px; line-height: 1.6; }
+        /* Prompt Inputs (Image 1 Style) */
+        .prompt-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .input-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 15px; padding: 15px; position: relative; }
+        .input-box label { display: block; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 8px; }
+        textarea { width: 100%; background: transparent; border: none; color: white; font-size: 0.95rem; outline: none; resize: none; min-height: 60px; font-family: inherit; }
         
-        .magic-trigger {
-            position: absolute; bottom: 20px; left: 20px;
-            font-size: 1.6rem; cursor: pointer;
-            background: linear-gradient(45deg, var(--accent-purple), var(--accent-pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            transition: 0.5s;
-        }
+        .magic-btn { position: absolute; bottom: 10px; left: 10px; color: var(--accent-purple); cursor: pointer; font-size: 1.2rem; }
 
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 35px; }
+        /* Services Grid (Image 2 Style) */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
         .service-card {
-            background: rgba(255,255,255,0.02); padding: 25px; border-radius: 24px; text-align: center;
-            border: 1px solid var(--border-color); cursor: pointer; transition: 0.4s;
+            background: rgba(255,255,255,0.02); padding: 15px 5px; border-radius: 20px; text-align: center;
+            border: 1px solid var(--border-color); cursor: pointer; transition: 0.3s;
         }
-        .service-card.active { background: var(--accent-purple); border-color: transparent; box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4); }
-        .service-card i { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+        .service-card i { font-size: 1.4rem; margin-bottom: 8px; display: block; color: var(--text-dim); }
+        .service-card span { font-size: 0.75rem; color: var(--text-dim); }
+        .service-card.active { background: var(--accent-purple); border-color: transparent; box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
+        .service-card.active i, .service-card.active span { color: white; }
 
-        .footer-credits { margin-top: 40px; margin-bottom: 120px; text-align: center; color: var(--text-dim); font-size: 0.85rem; opacity: 0.6; }
+        /* Pricing Card (Image 1 & 2) */
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(168, 85, 247, 0.1), rgba(0,0,0,0.4));
+            border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 22px; padding: 20px; text-align: center; margin-bottom: 20px;
+        }
+        .price-val { font-size: 1.8rem; font-weight: 800; margin: 10px 0; }
+        .price-val span { font-size: 0.9rem; color: var(--text-dim); }
+        .limits-text { font-size: 0.7rem; color: var(--text-dim); margin-bottom: 15px; }
 
+        /* Bottom Nav */
         .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; max-width: 650px;
-            background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(20px);
-            display: flex; justify-content: space-around; padding: 25px 0; border-top: 1px solid var(--border-color);
-            z-index: 4000; border-radius: 30px 30px 0 0;
+            position: fixed; bottom: 0; width: 100%; max-width: 500px;
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-around; padding: 15px 0;
+            border-top: 1px solid var(--border-color); border-radius: 25px 25px 0 0; z-index: 4000;
         }
-        .nav-link { text-align: center; color: var(--text-dim); cursor: pointer; flex: 1; transition: 0.3s; }
-        .nav-link.active { color: var(--accent-purple); text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
-        .nav-link i { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+        .nav-link { text-align: center; color: var(--text-dim); cursor: pointer; flex: 1; font-size: 0.7rem; }
+        .nav-link i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+        .nav-link.active { color: var(--accent-purple); }
+
+        .footer-text { margin-top: 20px; margin-bottom: 100px; font-size: 0.75rem; color: var(--text-dim); opacity: 0.5; }
+
+        /* Modal How it Works */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; display: none; justify-content: center; align-items: center; }
+        .modal-card { background: #111; border: 1px solid var(--border-color); padding: 30px; border-radius: 25px; width: 85%; max-width: 400px; }
     </style>
 </head>
 <body>
 
-    <audio id="audioClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
-    <audio id="audioSelect" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+    <audio id="sndMagic" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 
     <header class="header">
         <div class="vividia-logo">VIVIDIA AI</div>
-        <div class="auth-group">
-            <button class="btn btn-secondary" onclick="playSound('click')">Sign In</button>
-            <button class="btn btn-primary" onclick="playSound('click')">Get Started</button>
+        <div class="top-controls">
+            <i class="fas fa-moon dark-mode-toggle"></i>
+            <button class="btn btn-primary" style="background: #a855f7;">Pro Upgrade</button>
         </div>
     </header>
 
     <main class="creation-container">
         <div class="settings-bar">
             <div class="setting-item" onclick="toggleDrop('modelDrop', event)">
-                <i class="fas fa-brain"></i> <span id="txtModel">Model: Vividia 3.0</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-right:5px;"></i>
+                <span>Model:</span>
+                <strong id="txtModel">Vividia 3.0</strong>
             </div>
-            
             <div class="setting-item" onclick="toggleDrop('ratioDrop', event)">
-                <i class="fas fa-expand"></i> <span id="txtRatio">Ratio: 16:9</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-right:5px;"></i>
+                <span>Ratio:</span>
+                <strong id="txtRatio">16:9</strong>
             </div>
             
             <div id="modelDrop" class="dropdown-content" style="right: 0;">
-                <div class="dropdown-option" onclick="applySet('txtModel', 'Vividia 3.0 Ultra')">Vividia 3.0 Ultra <i class="fas fa-check"></i></div>
-                <div class="dropdown-option" onclick="applySet('txtModel', 'Cinematic Pro')">Cinematic Pro <i class="fas fa-check"></i></div>
-                <div class="dropdown-option" onclick="applySet('txtModel', 'Anime V2')">Anime V2 <i class="fas fa-check"></i></div>
+                <div class="dropdown-option" onclick="setOpt('txtModel', 'Vividia 3.0 Ultra')">Vividia 3.0 Ultra</div>
+                <div class="dropdown-option" onclick="setOpt('txtModel', 'Leonardo Pro')">Leonardo Pro</div>
             </div>
-
-            <div id="ratioDrop" class="dropdown-content" style="right: 170px;">
-                <div class="dropdown-option" onclick="applySet('txtRatio', '1:1 Square')">1:1 Square <i class="fas fa-check"></i></div>
-                <div class="dropdown-option" onclick="applySet('txtRatio', '16:9 Cinema')">16:9 Cinema <i class="fas fa-check"></i></div>
-                <div class="dropdown-option" onclick="applySet('txtRatio', '9:16 Portrait')">9:16 Portrait <i class="fas fa-check"></i></div>
+            <div id="ratioDrop" class="dropdown-content" style="left: 0;">
+                <div class="dropdown-option" onclick="setOpt('txtRatio', '1:1 Square')">1:1 Square</div>
+                <div class="dropdown-option" onclick="setOpt('txtRatio', '16:9 Widescreen')">16:9 Widescreen</div>
             </div>
         </div>
 
-        <div class="prompt-wrapper">
-            <textarea id="promptIn" placeholder="Describe your masterpiece..."></textarea>
-            <i class="fas fa-wand-magic-sparkles magic-trigger" onclick="playSound('select')"></i>
+        <div class="prompt-section">
+            <div class="input-box">
+                <label>Leonardo Prompt:</label>
+                <textarea id="p1" placeholder="Type your prompt here..."></textarea>
+                <i class="fas fa-magic magic-btn" onclick="runMagic('p1')"></i>
+            </div>
+            <div class="input-box">
+                <label>Secondary Input:</label>
+                <textarea id="p2" placeholder="Enter voice or video prompt..."></textarea>
+            </div>
         </div>
 
         <div class="services-grid">
             <div class="service-card active" onclick="selMode(this)"><i class="fas fa-image"></i><span>Image</span></div>
             <div class="service-card" onclick="selMode(this)"><i class="fas fa-video"></i><span>Video</span></div>
+            <div class="service-card" onclick="selMode(this)"><i class="fas fa-microphone"></i><span>Voice</span></div>
+            <div class="service-card" onclick="selMode(this)"><i class="fas fa-language"></i><span>Dubbing</span></div>
             <div class="service-card" onclick="selMode(this)"><i class="fas fa-music"></i><span>Music</span></div>
+            <div class="service-card" onclick="selMode(this)"><i class="fas fa-wave-square"></i><span>SFX</span></div>
         </div>
 
-        <button class="btn btn-primary" style="width:100%; padding:22px; font-size:1.2rem;" onclick="playSound('click'); alert('Engine Started!')">GENERATE MAGIC</button>
+        <button class="btn btn-primary" style="width:100%; padding:18px; font-size:1.1rem; border-radius:20px;" onclick="playSnd('magic')">Create Magic</button>
+
+        <div class="pricing-card" style="margin-top:25px;">
+            <div style="font-size:0.9rem; font-weight:700;">Unlimited Power</div>
+            <div class="price-val">4.99$<span>/month</span></div>
+            <div class="limits-text">Limits 100 Images | 10 Videos | 20k Voice</div>
+            <button class="btn btn-primary" style="width:80%; border-radius:30px;">subscribe abn</button>
+        </div>
     </main>
 
-    <footer class="footer-credits">
-        <p>© 2026 VIVIDIA AI - Professional Creative Suite</p>
-    </footer>
+    <div class="footer-text">© 2026 VIVIDIA AI - Professional Edition</div>
 
     <nav class="bottom-nav">
-        <div class="nav-link active" onclick="playSound('click')"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-link" onclick="playSound('click')"><i class="fas fa-images"></i><span>Gallery</span></div>
-        <div class="nav-link" onclick="playSound('click')"><i class="fas fa-info-circle"></i><span>Help</span></div>
-        <div class="nav-link" onclick="cycleLang(); playSound('click')"><i class="fas fa-globe"></i><span id="langCode">EN</span></div>
+        <div class="nav-link active"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-link"><i class="fas fa-images"></i><span>Gallery</span></div>
+        <div class="nav-link" onclick="openHow()"><i class="fas fa-info-circle"></i><span id="txtHow">How it works</span></div>
+        <div class="nav-link" onclick="cycleLang()"><i class="fas fa-globe"></i><span id="langCode">EN</span></div>
     </nav>
 
+    <div id="howModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2 id="hTitle" style="color:var(--accent-purple); font-family:'Orbitron'; font-size:1.2rem;">How Vividia Works</h2>
+            <div id="hSteps" style="font-size:0.85rem; line-height:1.8; margin:20px 0; color:var(--text-dim);"></div>
+            <button class="btn btn-primary" style="width:100%;" onclick="closeHow()">Got it!</button>
+        </div>
+    </div>
+
     <script>
-        // Sound Management
-        function playSound(type) {
-            const click = document.getElementById('audioClick');
-            const select = document.getElementById('audioSelect');
-            if(type === 'click') {
-                click.currentTime = 0;
-                click.volume = 0.3;
-                click.play();
-            } else {
-                select.currentTime = 0;
-                select.volume = 0.4;
-                select.play();
-            }
+        const trans = {
+            'EN': { title: "How Vividia Works", steps: "1. Type prompt.<br>2. Use Magic icon.<br>3. Choose Service.<br>4. Click Create.", btn: "How it works" },
+            'AR': { title: "كيف يعمل فيفيديا", steps: "1. اكتب وصفك.<br>2. استخدم الأيقونة السحرية.<br>3. اختر الخدمة.<br>4. اضغط توليد.", btn: "إرشادات" }
+        };
+
+        let currLang = 'EN';
+
+        function playSnd(t) {
+            const s = document.getElementById(t === 'click' ? 'sndClick' : 'sndMagic');
+            s.currentTime = 0; s.volume = 0.3; s.play();
+        }
+
+        function cycleLang() {
+            playSnd('click');
+            currLang = currLang === 'EN' ? 'AR' : 'EN';
+            document.getElementById('langCode').innerText = currLang;
+            document.getElementById('txtHow').innerText = trans[currLang].btn;
+            document.dir = currLang === 'AR' ? 'rtl' : 'ltr';
         }
 
         function toggleDrop(id, e) {
             e.stopPropagation();
-            playSound('click');
-            const drop = document.getElementById(id);
-            const isVisible = drop.style.display === 'block';
-            
+            playSnd('click');
             document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
-            if(!isVisible) drop.style.display = 'block';
+            document.getElementById(id).style.display = 'block';
         }
 
-        function applySet(id, val) {
-            playSound('select');
+        function setOpt(id, val) {
+            playSnd('magic');
             document.getElementById(id).innerText = val;
-            const item = document.getElementById(id).parentElement;
-            item.style.transform = "scale(1.05)";
-            setTimeout(() => item.style.transform = "scale(1)", 200);
             document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
         }
-
-        window.onclick = function() {
-            document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
-        };
 
         function selMode(el) {
-            playSound('click');
+            playSnd('click');
             document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
         }
 
-        function cycleLang() {
-            const lbl = document.getElementById('langCode');
-            lbl.innerText = lbl.innerText === 'EN' ? 'AR' : 'EN';
-            document.documentElement.dir = lbl.innerText === 'AR' ? 'rtl' : 'ltr';
+        function openHow() {
+            const d = trans[currLang];
+            document.getElementById('hTitle').innerText = d.title;
+            document.getElementById('hSteps').innerHTML = d.steps;
+            document.getElementById('howModal').style.display = 'flex';
         }
+
+        function closeHow() { document.getElementById('howModal').style.display = 'none'; }
+
+        function runMagic(id) {
+            playSnd('magic');
+            const t = document.getElementById(id);
+            if(t.value) t.value = "Enhanced: " + t.value + " (Luxury, 8k)";
+        }
+
+        window.onclick = () => document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
     </script>
 </body>
 </html>
