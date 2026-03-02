@@ -16,8 +16,8 @@
             --text-dim: #9ca3af;
             --border: rgba(255, 255, 255, 0.1);
             --blue-action: #3b82f6;
-            --gold: #f59e0b;
-            --cyan-sfx: #06b6d4;
+            --green-dub: #10b981;
+            --gold-analysis: #f59e0b;
         }
 
         body {
@@ -35,33 +35,20 @@
             box-sizing: border-box;
         }
         .vividia-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 800; background: linear-gradient(to right, #fff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .auth-buttons { display: flex; gap: 8px; }
-        .btn-auth { 
-            padding: 8px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; 
-            cursor: pointer; border: 1px solid var(--border); transition: 0.3s;
-            display: flex; align-items: center; gap: 5px; background: var(--btn-secondary); color: white;
-        }
-        .btn-auth:hover { background: var(--accent-gradient); border-color: transparent; }
+        .vividia-year { font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; margin-top: -5px; display: block; }
 
         .app-container { width: 92%; max-width: 480px; padding-bottom: 120px; }
+
+        .page-section { display: none; width: 100%; }
+        .page-section.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .top-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .dropdown-box {
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 15px;
-            padding: 12px; cursor: pointer; position: relative; transition: 0.3s;
+            padding: 12px; cursor: pointer; position: relative;
         }
-        .dropdown-box.active { border: 1px solid #a855f7; box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
-        .dropdown-box span { font-size: 0.7rem; color: var(--text-dim); display: block; }
-        .dropdown-box strong { font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; }
-
-        .drop-menu {
-            position: absolute; top: 110%; left: 0; width: 100%; background: #181818;
-            border: 1px solid #a855f7; border-radius: 12px; display: none; z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;
-        }
-        .drop-item { padding: 12px; font-size: 0.8rem; border-bottom: 1px solid var(--border); transition: 0.2s; }
-        .drop-item:hover { background: var(--accent-gradient); color: white; }
 
         .prompt-wrapper {
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 20px;
@@ -71,73 +58,50 @@
             width: 100%; background: transparent; border: none; color: white;
             font-size: 1rem; outline: none; resize: none; min-height: 80px; font-family: inherit;
         }
-        .magic-icon {
-            position: absolute; bottom: 15px; left: 15px; font-size: 1.4rem;
-            cursor: pointer; background: var(--accent-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+
+        /* نظام تحليل المشهد - Scene Analysis */
+        #analysisStatus { display: none; align-items: center; gap: 8px; font-size: 0.7rem; color: var(--gold-analysis); margin-top: -10px; margin-bottom: 10px; padding: 0 5px; }
+        .keyword-suggestions { display: none; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; padding: 0 5px; }
+        .tag-chip {
+            background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--gold-analysis); padding: 5px 12px; border-radius: 20px; font-size: 0.65rem;
+            cursor: pointer; transition: 0.3s;
         }
+        .tag-chip:hover { background: var(--gold-analysis); color: black; }
 
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .service-btn {
             background: var(--btn-secondary); border: 1px solid var(--border); border-radius: 18px;
             padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.3s; color: var(--text-dim);
         }
-        .service-btn.active { background: var(--accent-gradient); border-color: transparent; color: white; }
-        .service-btn i { font-size: 1.2rem; display: block; margin-bottom: 8px; }
-        .service-btn span { font-size: 0.7rem; font-weight: 500; }
+        .service-btn.active-btn { background: var(--accent-gradient); color: white; border-color: transparent; }
 
-        /* الأقسام الذكية (صوت، موسيقى، مؤثرات) */
-        .smart-panel-section {
-            grid-column: span 3; background: rgba(168, 85, 247, 0.05); 
-            border: 1px dashed #a855f7; margin-top: 5px;
-            display: none; flex-direction: column; transition: 0.3s; border-radius: 15px; overflow: hidden;
+        .smart-panel {
+            grid-column: span 3; background: #141414; border: 1px solid #a855f7;
+            border-radius: 18px; padding: 15px; margin-bottom: 15px; display: none; flex-direction: column;
         }
-        .panel-options { padding: 15px; background: #141414; }
-        .section-label { font-size: 0.65rem; color: #a855f7; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; text-align: start; display: flex; justify-content: space-between; align-items: center; }
-        .preview-badge { font-size: 0.55rem; background: #a855f7; color: white; padding: 2px 6px; border-radius: 4px; cursor: pointer; }
+        .section-label { font-size: 0.7rem; color: #a855f7; margin-bottom: 10px; font-weight: bold; display: flex; justify-content: space-between; }
+        .v-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .v-opt { padding: 10px 5px; background: #1e1e1e; border-radius: 10px; font-size: 0.75rem; text-align: center; cursor: pointer; border: 1px solid transparent; }
+        .v-opt.selected { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
 
-        .v-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
-        .v-opt { padding: 8px 4px; font-size: 0.65rem; background: #222; border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; color: white; text-align: center;}
-        .v-opt:hover { border-color: #a855f7; }
-        .v-opt.active-v { background: var(--accent-gradient); border-color: transparent; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
-
-        .panel-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
-        .btn-util {
-            padding: 10px; border-radius: 10px; background: #1a1a1a; border: 1px solid var(--border);
-            color: white; font-size: 0.7rem; font-weight: 600; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-        }
-        .btn-util:hover { background: #222; border-color: #a855f7; }
-
-        .btn-main-dl {
-            width: 100%; padding: 12px; border-radius: 12px; background: #222; border: 1px solid rgba(168, 85, 247, 0.4);
-            color: white; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px;
-        }
-        .btn-main-dl:hover { background: #2a2a2a; border-color: #ec4899; box-shadow: 0 0 15px rgba(236, 72, 153, 0.2); }
-
-        /* تخصيص ألوان SFX */
-        #sfxPanel .section-label { color: var(--cyan-sfx); }
-        #sfxPanel .v-opt.active-v { background: var(--cyan-sfx); box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
-
-        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .btn-action {
-            padding: 15px; border-radius: 15px; border: none; font-weight: 700;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-            color: white; font-size: 0.85rem; background: var(--blue-action); transition: 0.4s;
+        .btn-main-action {
+            width: 100%; padding: 15px; border-radius: 15px; border: none;
+            background: var(--accent-gradient); color: white; font-weight: 800; cursor: pointer;
         }
 
-        .btn-generate {
-            width: 100%; padding: 18px; border-radius: 20px; border: none;
-            background: var(--accent-gradient); color: white; font-size: 1.1rem;
-            font-weight: 800; cursor: pointer; margin-bottom: 25px; transition: 0.3s;
+        /* Community Feed */
+        .community-feed { margin-top: 30px; }
+        .feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .feed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .feed-item { 
+            aspect-ratio: 2/3; background: #222; border-radius: 15px; overflow: hidden; position: relative;
+            border: 1px solid var(--border);
         }
+        .feed-item img { width: 100%; height: 100%; object-fit: cover; }
+        .feed-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 5px; font-size: 0.6rem; }
 
-        .membership-card {
-            background: linear-gradient(145deg, #1a1a1a, #000); border: 1px solid #333;
-            border-radius: 25px; padding: 25px; text-align: center; margin-bottom: 40px;
-        }
-        .price-tag { font-size: 2.2rem; font-weight: 800; margin: 10px 0; }
+        .content-card { background: var(--panel-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
 
         .nav-bar {
             position: fixed; bottom: 0; width: 100%; max-width: 500px;
@@ -145,338 +109,213 @@
             display: flex; justify-content: space-around; padding: 15px 0;
             border-top: 1px solid var(--border); border-radius: 20px 20px 0 0; z-index: 1000;
         }
-        .nav-item { text-align: center; color: var(--text-dim); cursor: pointer; flex: 1; }
+        .nav-item { text-align: center; color: var(--text-dim); cursor: pointer; flex: 1; transition: 0.3s; }
         .nav-item.active { color: #a855f7; }
         .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
         .nav-item span { font-size: 0.7rem; }
 
-        .lang-menu { 
-            position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); 
-            background: #111; border: 1.5px solid #a855f7; border-radius: 15px; 
-            display: none; padding: 10px; z-index: 1001; width: 140px;
-        }
-        .lang-opt { padding: 12px; cursor: pointer; font-size: 0.85rem; color: white; text-align: center; }
-
+        /* لرفع الملفات بشكل مخفي */
         #fileInput { display: none; }
-
-        @keyframes pulse-active { 0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(168, 85, 247, 0); } 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); } }
-        .preset-applied { animation: pulse-active 1s ease-out; }
     </style>
 </head>
 <body>
 
-    <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
-    <audio id="sndAction" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-    <audio id="sndPreview" src="https://assets.mixkit.co/active_storage/sfx/703/703-preview.mp3" preload="auto"></audio>
-
-    <input type="file" id="fileInput" onchange="fileChosen()">
-
     <header class="header">
-        <div class="vividia-logo">VIVIDIA AI</div>
-        <div class="auth-buttons">
-            <button class="btn-auth" onclick="play(1)"><i class="fab fa-google"></i> <span id="btnGoogle">Google</span></button>
-            <button class="btn-auth" onclick="play(1)"><i class="fas fa-envelope"></i> <span id="btnEmail">Email</span></button>
+        <div>
+            <div class="vividia-logo">VIVIDIA AI</div>
+            <span class="vividia-year">EST 2026 | PRO EDITION</span>
+        </div>
+        <div style="display:flex; gap:8px;">
+            <button class="service-btn" style="padding:5px 10px; font-size:0.6rem;">Email</button>
+            <button class="service-btn" style="padding:5px 10px; font-size:0.6rem;">Google</button>
         </div>
     </header>
 
     <main class="app-container">
         
-        <div class="top-settings">
-            <div class="dropdown-box" onclick="toggleDrop('mDrop')">
-                <span id="lblModel">Model Selection</span>
-                <strong id="mTxt">Vividia 3.0 Pro <i class="fas fa-chevron-down"></i></strong>
-                <div id="mDrop" class="drop-menu">
-                    <div class="drop-item" onclick="setV('mTxt', 'Vividia 3.0 Pro')">Vividia 3.0 Pro</div>
-                    <div class="drop-item" onclick="setV('mTxt', 'Cinematic 8K')">Cinematic 8K</div>
+        <section id="homePage" class="page-section active">
+            <div class="top-settings">
+                <div class="dropdown-box">
+                    <span style="font-size:0.6rem; color:var(--text-dim);">Model Selection</span>
+                    <strong style="font-size:0.8rem;">Vividia 3.0 Pro</strong>
                 </div>
-            </div>
-            <div class="dropdown-box" onclick="toggleDrop('rDrop')">
-                <span id="lblRatio">Aspect Ratio</span>
-                <strong id="rTxt">16:9 Wide <i class="fas fa-chevron-down"></i></strong>
-                <div id="rDrop" class="drop-menu">
-                    <div class="drop-item" onclick="setV('rTxt', '1:1 Square')">1:1 Square</div>
-                    <div class="drop-item" onclick="setV('rTxt', '16:9 Wide')">16:9 Wide</div>
-                    <div class="drop-item" onclick="setV('rTxt', '9:16 Vertical')">9:16 Vertical</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="prompt-wrapper">
-            <textarea id="prompt" placeholder="أدخل وصفك الإبداعي..."></textarea>
-            <i class="fas fa-wand-magic-sparkles magic-icon" onclick="play(2)"></i>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span id="txtImg">Image</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span id="txtVid">Video</span></div>
-            <div class="service-btn" id="btnSVoice" onclick="toggleSmartPanel('voicePanel')"><i class="fas fa-robot"></i><span id="txtSmartVoice">AI Voice</span></div>
-            
-            <div class="smart-panel-section" id="voicePanel">
-                <div class="panel-options">
-                    <div class="section-label">
-                        <span id="lblPersona">Persona</span>
-                        <span class="preview-badge" onclick="play(3)"><i class="fas fa-play"></i> <span id="txtPrev1">Preview</span></span>
-                    </div>
-                    <div class="v-grid" data-group="v_persona">
-                        <div class="v-opt" onclick="selV(this, 'man')">👨 <span id="vMan">Man</span></div>
-                        <div class="v-opt" onclick="selV(this, 'woman')">👩 <span id="vWoman">Woman</span></div>
-                        <div class="v-opt" onclick="selV(this, 'young')">🧒 <span id="vYoung">Young</span></div>
-                    </div>
-                    <div class="section-label"><span id="lblSpeed">Speed</span></div>
-                    <div class="v-grid" data-group="v_speed">
-                        <div class="v-opt" onclick="selV(this, 'slow')">🐢 <span id="sSlow">Slow</span></div>
-                        <div class="v-opt" onclick="selV(this, 'normal')">⚖️ <span id="sNormal">Normal</span></div>
-                        <div class="v-opt" onclick="selV(this, 'fast')">⚡ <span id="sFast">Fast</span></div>
-                    </div>
-                    <div class="panel-actions">
-                        <button class="btn-util" onclick="saveP('voice')"><i class="fas fa-save"></i> <span id="vSave">Save</span></button>
-                        <button class="btn-util" onclick="loadP('voice')"><i class="fas fa-sync"></i> <span id="vLoad">Load</span></button>
-                    </div>
-                    <button class="btn-main-dl" onclick="dl('Voice')"><i class="fas fa-download"></i> MP3</button>
+                <div class="dropdown-box">
+                    <span style="font-size:0.6rem; color:var(--text-dim);">Aspect Ratio</span>
+                    <strong style="font-size:0.8rem;">16:9 Wide</strong>
                 </div>
             </div>
 
-            <div class="service-btn" id="btnSMusic" onclick="toggleSmartPanel('musicPanel')"><i class="fas fa-music"></i><span id="txtMus">Music</span></div>
-            <div class="smart-panel-section" id="musicPanel">
-                <div class="panel-options">
-                    <div class="section-label">
-                        <span id="lblGenre">Genre</span>
-                        <span class="preview-badge" onclick="play(3)"><i class="fas fa-play"></i> <span id="txtPrev2">Preview</span></span>
+            <div class="prompt-wrapper">
+                <textarea id="mainPrompt" placeholder="أدخل وصفك الإبداعي هنا..."></textarea>
+                <i class="fas fa-wand-magic-sparkles" style="position:absolute; bottom:15px; left:15px; color:#a855f7; cursor:pointer;"></i>
+            </div>
+
+            <div id="analysisStatus"><i class="fas fa-spinner fa-spin"></i> Analyzing Scene...</div>
+            <div class="keyword-suggestions" id="suggestionsBox">
+                </div>
+
+            <div class="services-grid">
+                <div class="service-btn active-btn" onclick="toggleSmart('none', this)"><i class="fas fa-image"></i><span>Image</span></div>
+                <div class="service-btn" onclick="toggleSmart('none', this)"><i class="fas fa-video"></i><span>Video</span></div>
+                <div class="service-btn" onclick="toggleSmart('voicePanel', this)"><i class="fas fa-robot"></i><span>AI Voice</span></div>
+                
+                <div id="voicePanel" class="smart-panel">
+                    <div class="section-label"><span>Persona</span> <span style="color:var(--text-dim); cursor:pointer;" onclick="previewAlert()"><i class="fas fa-play"></i> Preview</span></div>
+                    <div class="v-grid">
+                        <div class="v-opt selected" onclick="selectOpt(this)">Young 👦</div>
+                        <div class="v-opt" onclick="selectOpt(this)">Woman 👩</div>
+                        <div class="v-opt" onclick="selectOpt(this)">Man 👨</div>
                     </div>
-                    <div class="v-grid" data-group="m_genre">
-                        <div class="v-opt" onclick="selV(this, 'lofi')">☕ <span id="gLofi">Lo-Fi</span></div>
-                        <div class="v-opt" onclick="selV(this, 'cine')">🎬 <span id="gCine">Epic</span></div>
-                        <div class="v-opt" onclick="selV(this, 'cyber')">🌃 <span id="gCyber">Cyber</span></div>
+                    <button class="btn-main-action">Save Voice Settings</button>
+                </div>
+
+                <div class="service-btn" onclick="toggleSmart('musicPanel', this)"><i class="fas fa-music"></i><span>Music</span></div>
+                
+                <div id="musicPanel" class="smart-panel">
+                    <div class="section-label"><span>Mood</span></div>
+                    <div class="v-grid">
+                        <div class="v-opt selected" onclick="selectOpt(this)">Cinematic 🎬</div>
+                        <div class="v-opt" onclick="selectOpt(this)">Lo-Fi ☕</div>
+                        <div class="v-opt" onclick="selectOpt(this)">Cyberpunk 🌃</div>
                     </div>
-                    <div class="section-label"><span id="lblMood">Mood</span></div>
-                    <div class="v-grid" data-group="m_mood">
-                        <div class="v-opt" onclick="selV(this, 'chill')">😌 <span id="mChill">Chill</span></div>
-                        <div class="v-opt" onclick="selV(this, 'energy')">🔥 <span id="mEnergy">High</span></div>
-                        <div class="v-opt" onclick="selV(this, 'dark')">🌑 <span id="mDark">Dark</span></div>
+                    <button class="btn-main-action">Generate Background Score</button>
+                </div>
+
+                <div class="service-btn" onclick="toggleSmart('dubPanel', this)"><i class="fas fa-language"></i><span>Dubbing</span></div>
+
+                <div id="dubPanel" class="smart-panel">
+                    <div class="section-label"><span>Target Language</span></div>
+                    <div class="v-grid">
+                        <div class="v-opt selected" onclick="selectOpt(this)">🇸🇦 AR</div>
+                        <div class="v-opt" onclick="selectOpt(this)">🇺🇸 EN</div>
+                        <div class="v-opt" onclick="selectOpt(this)">🇫🇷 FR</div>
                     </div>
-                    <div class="panel-actions">
-                        <button class="btn-util" onclick="saveP('music')"><i class="fas fa-save"></i> <span id="mSave">Save</span></button>
-                        <button class="btn-util" onclick="loadP('music')"><i class="fas fa-sync"></i> <span id="mLoad">Load</span></button>
+                    <button class="btn-main-action">Start AI Lip-Sync</button>
+                </div>
+
+                <div class="service-btn" onclick="toggleSmart('sfxPanel', this)"><i class="fas fa-wave-square"></i><span>SFX</span></div>
+
+                <div id="sfxPanel" class="smart-panel">
+                    <div class="section-label"><span>Environment</span></div>
+                    <div class="v-grid">
+                        <div class="v-opt selected" onclick="selectOpt(this)">Nature 🌲</div>
+                        <div class="v-opt" onclick="selectOpt(this)">Sci-Fi 🛰️</div>
+                        <div class="v-opt" onclick="selectOpt(this)">Urban 🏢</div>
                     </div>
-                    <button class="btn-main-dl" onclick="dl('Music')"><i class="fas fa-music"></i> <span id="dlMus">Export Music</span></button>
+                    <button class="btn-main-action">Apply Ambient SFX</button>
                 </div>
             </div>
 
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span id="txtDub">Dubbing</span></div>
-            
-            <div class="service-btn" id="btnSSfx" onclick="toggleSmartPanel('sfxPanel')"><i class="fas fa-wave-square"></i><span id="txtSfx">SFX</span></div>
-            <div class="smart-panel-section" id="sfxPanel">
-                <div class="panel-options">
-                    <div class="section-label">
-                        <span id="lblAmb">Ambient</span>
-                        <span class="preview-badge" onclick="play(3)"><i class="fas fa-play"></i> <span id="txtPrev3">Preview</span></span>
-                    </div>
-                    <div class="v-grid" data-group="s_amb">
-                        <div class="v-opt" onclick="selV(this, 'nature')">🌲 <span id="aNature">Nature</span></div>
-                        <div class="v-opt" onclick="selV(this, 'urban')">🏢 <span id="aUrban">Urban</span></div>
-                        <div class="v-opt" onclick="selV(this, 'space')">🛰️ <span id="aSpace">Sci-Fi</span></div>
-                    </div>
-                    <div class="section-label"><span id="lblInt">Intensity</span></div>
-                    <div class="v-grid" data-group="s_int">
-                        <div class="v-opt" onclick="selV(this, 'low')">🔈 <span id="iLow">Soft</span></div>
-                        <div class="v-opt" onclick="selV(this, 'mid')">🔉 <span id="iMid">Mid</span></div>
-                        <div class="v-opt" onclick="selV(this, 'high')">🔊 <span id="iHigh">Max</span></div>
-                    </div>
-                    <div class="panel-actions">
-                        <button class="btn-util" onclick="saveP('sfx')"><i class="fas fa-save"></i> <span id="sSave">Save</span></button>
-                        <button class="btn-util" onclick="loadP('sfx')"><i class="fas fa-sync"></i> <span id="sLoad">Load</span></button>
-                    </div>
-                    <button class="btn-main-dl" onclick="dl('SFX')"><i class="fas fa-wind"></i> <span id="dlSfx">Export SFX</span></button>
+            <input type="file" id="fileInput" onchange="startSceneAnalysis()">
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
+                <button class="service-btn" onclick="document.getElementById('fileInput').click()" style="background:var(--blue-action); color:white;"><i class="fas fa-upload"></i> Upload</button>
+                <button class="service-btn" style="background:#222; color:white;"><i class="fas fa-download"></i> MP4 / HD</button>
+            </div>
+
+            <button class="btn-main-action" style="padding:20px; font-size:1.1rem; margin-bottom:30px;">GENERATE MAGIC</button>
+
+            <div class="community-feed">
+                <div class="feed-header">
+                    <strong style="color:#a855f7;">Community Feed 🔥</strong>
+                    <span style="font-size:0.7rem; color:var(--text-dim);">View All</span>
+                </div>
+                <div class="feed-grid">
+                    <div class="feed-item"><img src="https://picsum.photos/id/101/400/600"><span class="feed-badge">Video</span></div>
+                    <div class="feed-item"><img src="https://picsum.photos/id/102/400/600"><span class="feed-badge">Image</span></div>
+                    <div class="feed-item"><img src="https://picsum.photos/id/103/400/600"><span class="feed-badge">Dubbed</span></div>
+                    <div class="feed-item"><img src="https://picsum.photos/id/104/400/600"><span class="feed-badge">Video</span></div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="action-row">
-            <button class="btn-action" onclick="triggerUpload()"><i class="fas fa-cloud-upload-alt"></i> <span id="btnUp">Upload</span></button>
-            <button class="btn-action" id="btnDown" onclick="dynamicDownload()"><i class="fas fa-file-download"></i> <span id="btnDownTxt">MP4 / HD</span></button>
-        </div>
+        <section id="galleryPage" class="page-section">
+            <h2 style="font-family:Orbitron;">Your Studio</h2>
+            <div class="content-card">
+                <p style="text-align:center; color:var(--text-dim);">لا يوجد مشاريع تم إنتاجها بعد.</p>
+            </div>
+        </section>
 
-        <button class="btn-generate" id="btnGen" onclick="simulateMagic()">GENERATE MAGIC</button>
+        <section id="helpPage" class="page-section">
+            <h2 style="font-family:Orbitron;">Vividia Support</h2>
+            <div class="content-card">
+                <strong style="color:#a855f7;">كيف يعمل تحليل المشهد؟</strong>
+                <p style="font-size:0.8rem; color:var(--text-dim);">بمجرد رفع ملف، يقوم الذكاء الاصطناعي بتحليل الإضاءة، العناصر، والمزاج العام ويقترح كلمات لمساعدتك.</p>
+            </div>
+        </section>
 
-        <div class="membership-card">
-            <div style="font-size:0.9rem; font-weight:700; color:#a855f7" id="txtElite">ELITE MEMBERSHIP</div>
-            <div class="price-tag"><span id="currSign">SAR</span><span id="priceVal">28.50</span><span>/<span id="durTxt">شهرياً</span></span></div>
-            <button class="btn-generate" style="margin:0; width:80%; padding:14px; font-size:0.9rem;" onclick="handleSubscribe()" id="btnSub">Subscribe Now</button>
-        </div>
     </main>
 
     <nav class="nav-bar">
-        <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span id="navHome">Home</span></div>
-        <div class="nav-item" onclick="play(2)"><i class="fas fa-images"></i><span id="navGal">Gallery</span></div>
-        <div class="nav-item" onclick="play(2)"><i class="fas fa-question-circle"></i><span id="navHelp">Help</span></div>
-        <div class="nav-item" onclick="toggleLang()"><i class="fas fa-globe"></i><span id="langDisplay">AR</span></div>
-        <div id="lMenu" class="lang-menu">
-            <div class="lang-opt" onclick="setL('AR', 'SAR', '28.50', 'شهرياً')">العربية</div>
-            <div class="lang-opt" onclick="setL('EN', '$', '7.60', 'month')">English</div>
-            <div class="lang-opt" onclick="setL('FR', '€', '7.10', 'mois')">Français</div>
-        </div>
+        <div class="nav-item active" onclick="showPage('homePage', this)"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" onclick="showPage('galleryPage', this)"><i class="fas fa-images"></i><span>Gallery</span></div>
+        <div class="nav-item" onclick="showPage('helpPage', this)"><i class="fas fa-question-circle"></i><span>Help</span></div>
+        <div class="nav-item"><i class="fas fa-globe"></i><span>AR</span></div>
     </nav>
 
     <script>
-        function play(s) {
-            const a = document.getElementById(s === 1 ? 'sndClick' : (s === 2 ? 'sndAction' : 'sndPreview'));
-            if(a) { a.currentTime = 0; a.volume = 0.5; a.play(); }
+        function showPage(pageId, navEl) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            navEl.classList.add('active');
+            window.scrollTo(0,0);
         }
 
-        function toggleDrop(id) {
-            play(1);
-            const m = document.getElementById(id);
-            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+        function toggleSmart(panelId, btn) {
+            const panels = document.querySelectorAll('.smart-panel');
+            const btns = document.querySelectorAll('.service-btn');
+            const target = document.getElementById(panelId);
+            const isVisible = target ? target.style.display === 'flex' : false;
+
+            panels.forEach(p => p.style.display = 'none');
+            btns.forEach(b => b.classList.remove('active-btn'));
+
+            if (!isVisible && target) {
+                target.style.display = 'flex';
+                btn.classList.add('active-btn');
+            } else {
+                btn.classList.add('active-btn');
+            }
         }
 
-        function setV(id, val) {
-            play(2);
-            document.getElementById(id).innerHTML = val + ' <i class="fas fa-chevron-down"></i>';
-            document.querySelectorAll('.drop-menu').forEach(dm => dm.style.display = 'none');
+        function selectOpt(el) {
+            el.parentElement.querySelectorAll('.v-opt').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
         }
 
-        function sel(btn) {
-            play(1);
-            document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            // إغلاق الألواح الذكية عند اختيار خدمة عادية
-            document.querySelectorAll('.smart-panel-section').forEach(p => p.style.display = 'none');
+        function previewAlert() {
+            alert("Vividia Studio: Previewing quality...");
         }
 
-        function toggleSmartPanel(panelId) {
-            play(1);
-            const panel = document.getElementById(panelId);
-            const isVisible = panel.style.display === 'flex';
-            document.querySelectorAll('.smart-panel-section').forEach(p => p.style.display = 'none');
-            panel.style.display = isVisible ? 'none' : 'flex';
-        }
+        // نظام تحليل المشهد الديناميكي
+        function startSceneAnalysis() {
+            const status = document.getElementById('analysisStatus');
+            const sugBox = document.getElementById('suggestionsBox');
+            const promptArea = document.getElementById('mainPrompt');
 
-        function selV(opt, val) {
-            play(3);
-            const parent = opt.parentElement;
-            parent.querySelectorAll('.v-opt').forEach(o => o.classList.remove('active-v'));
-            opt.classList.add('active-v');
-        }
+            status.style.display = 'flex';
+            sugBox.style.display = 'none';
+            sugBox.innerHTML = ''; // تنظيف الاقتراحات القديمة
 
-        function saveP(type) {
-            play(2);
-            alert((document.documentElement.lang === 'ar' ? "تم حفظ إعدادات " : "Saved ") + type);
-        }
+            // محاكاة تحليل الذكاء الاصطناعي
+            setTimeout(() => {
+                status.style.display = 'none';
+                sugBox.style.display = 'flex';
 
-        function loadP(type) {
-            play(2);
-            const p = document.getElementById(type + 'Panel');
-            p.classList.add('preset-applied');
-            setTimeout(() => p.classList.remove('preset-applied'), 800);
-            alert((document.documentElement.lang === 'ar' ? "تم استعادة إعدادات " : "Loaded ") + type);
-        }
-
-        function dl(type) {
-            play(2);
-            alert("Vividia Engine: Downloading " + type + "...");
-        }
-
-        function dynamicDownload() {
-            play(2);
-            alert("Preparing HD Export...");
-        }
-
-        function toggleLang() {
-            play(1);
-            const m = document.getElementById('lMenu');
-            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function setL(code, sign, price, dur) {
-            play(2);
-            document.getElementById('langDisplay').innerText = code;
-            document.getElementById('currSign').innerText = sign;
-            document.getElementById('priceVal').innerText = price;
-            document.getElementById('durTxt').innerText = dur;
-            document.getElementById('lMenu').style.display = 'none';
-            
-            const isAr = (code === 'AR');
-            document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-            document.documentElement.lang = code.toLowerCase();
-
-            const trans = {
-                AR: {
-                    google: "جوجل", email: "ايميل", model: "النموذج", ratio: "الأبعاد",
-                    prompt: "أدخل وصفك الإبداعي...", gen: "إنتاج السحر", up: "رفع", down: "تحميل HD",
-                    img: "صور", vid: "فيديو", svoice: "صوت AI", mus: "موسيقى", dub: "دبلجة", sfx: "مؤثرات",
-                    persona: "الشخصية", speed: "السرعة", genre: "النموذج الموسيقي", mood: "المزاج", amb: "المحيط", int: "الكثافة",
-                    prev: "معاينة", save: "حفظ", load: "استعادة", dlMus: "تصدير الموسيقى", dlSfx: "تصدير المؤثرات",
-                    elite: "عضوية النخبة", sub: "اشترك الآن", home: "الرئيسية", gal: "المعرض", help: "المساعدة"
-                },
-                EN: {
-                    google: "Google", email: "Email", model: "Model", ratio: "Ratio",
-                    prompt: "Creative prompt...", gen: "GENERATE MAGIC", up: "Upload", down: "MP4 / HD",
-                    img: "Image", vid: "Video", svoice: "AI Voice", mus: "Music", dub: "Dubbing", sfx: "SFX",
-                    persona: "Persona", speed: "Speed", genre: "Genre", mood: "Mood", amb: "Ambient", int: "Intensity",
-                    prev: "Preview", save: "Save", load: "Load", dlMus: "Export Music", dlSfx: "Export SFX",
-                    elite: "ELITE MEMBERSHIP", sub: "Subscribe Now", home: "Home", gal: "Gallery", help: "Help"
-                },
-                FR: {
-                    google: "Google", email: "Email", model: "Modèle", ratio: "Ratio",
-                    prompt: "Votre idée...", gen: "CRÉER MAGIE", up: "Charger", down: "Télécharger",
-                    img: "Image", vid: "Vidéo", svoice: "Voix AI", mus: "Musique", dub: "Doublage", sfx: "SFX",
-                    persona: "Personne", speed: "Vitesse", genre: "Genre", mood: "Mood", amb: "Ambiance", int: "Intensité",
-                    prev: "Aperçu", save: "Sauver", load: "Charger", dlMus: "Exporter Musique", dlSfx: "Exporter SFX",
-                    elite: "MEMBRE ÉLITE", sub: "S'abonner", home: "Accueil", gal: "Galerie", help: "Aide"
-                }
-            };
-
-            const t = trans[code];
-            // تطبيق الترجمات على الـ IDs (اختصاراً)
-            document.getElementById('btnGoogle').innerText = t.google;
-            document.getElementById('btnEmail').innerText = t.email;
-            document.getElementById('lblModel').innerText = t.model;
-            document.getElementById('lblRatio').innerText = t.ratio;
-            document.getElementById('prompt').placeholder = t.prompt;
-            document.getElementById('btnGen').innerText = t.gen;
-            document.getElementById('btnUp').innerText = t.up;
-            document.getElementById('btnDownTxt').innerText = t.down;
-            document.getElementById('txtImg').innerText = t.img;
-            document.getElementById('txtVid').innerText = t.vid;
-            document.getElementById('txtSmartVoice').innerText = t.svoice;
-            document.getElementById('txtMus').innerText = t.mus;
-            document.getElementById('txtDub').innerText = t.dub;
-            document.getElementById('txtSfx').innerText = t.sfx;
-            
-            // ترجمة تسميات اللوحات
-            document.getElementById('lblPersona').innerText = t.persona;
-            document.getElementById('lblSpeed').innerText = t.speed;
-            document.getElementById('lblGenre').innerText = t.genre;
-            document.getElementById('lblMood').innerText = t.mood;
-            document.getElementById('lblAmb').innerText = t.amb;
-            document.getElementById('lblInt').innerText = t.int;
-
-            document.getElementById('txtPrev1').innerText = t.prev;
-            document.getElementById('txtPrev2').innerText = t.prev;
-            document.getElementById('txtPrev3').innerText = t.prev;
-            
-            document.getElementById('vSave').innerText = t.save; document.getElementById('vLoad').innerText = t.load;
-            document.getElementById('mSave').innerText = t.save; document.getElementById('mLoad').innerText = t.load;
-            document.getElementById('sSave').innerText = t.save; document.getElementById('sLoad').innerText = t.load;
-
-            document.getElementById('dlMus').innerText = t.dlMus;
-            document.getElementById('dlSfx').innerText = t.dlSfx;
-
-            document.getElementById('txtElite').innerText = t.elite;
-            document.getElementById('btnSub').innerText = t.sub;
-            document.getElementById('navHome').innerText = t.home;
-            document.getElementById('navGal').innerText = t.gal;
-            document.getElementById('navHelp').innerText = t.help;
-        }
-
-        function triggerUpload() { play(2); document.getElementById('fileInput').click(); }
-        function fileChosen() { alert("File Ready."); }
-        function handleSubscribe() { play(2); alert("Elite Checkout..."); }
-        function simulateMagic() {
-            play(2);
-            const btn = document.getElementById('btnGen');
-            btn.innerText = "WEAVING...";
-            setTimeout(() => { btn.innerText = "GENERATE MAGIC"; alert("Vividia Creation Ready!"); }, 3000);
+                const keywords = ["Cinematic Lighting", "Cyberpunk Style", "Highly Detailed", "Epic Atmosphere", "8K Resolution"];
+                
+                keywords.forEach(word => {
+                    const chip = document.createElement('div');
+                    chip.className = 'tag-chip';
+                    chip.innerText = '+ ' + word;
+                    chip.onclick = () => {
+                        promptArea.value += (promptArea.value ? ", " : "") + word;
+                        chip.style.display = 'none'; // إخفاء الكلمة بعد اختيارها
+                    };
+                    sugBox.appendChild(chip);
+                });
+            }, 2000);
         }
     </script>
 </body>
