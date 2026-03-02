@@ -3,255 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIVIDIA AI | Elite Edition</title>
+    <title>VIVIDIA AI | Professional Edition 2026</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050505;
-            --panel-bg: rgba(15, 15, 15, 0.98);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --accent-purple: #a855f7;
-            --accent-pink: #ec4899;
+            --bg-dark: #0a0a0a;
+            --panel-bg: #121212;
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            --btn-secondary: #1e1e1e;
             --text-main: #ffffff;
             --text-dim: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center;
-            overflow-x: hidden;
+            min-height: 100vh; overflow-x: hidden;
         }
 
-        /* Header & Logo */
-        .header { width: 100%; max-width: 1200px; padding: 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
-        .vividia-logo { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, var(--accent-purple), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* 1. Header with Google/Email Sign In */
+        .header {
+            width: 100%; max-width: 500px; padding: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-sizing: border-box;
+        }
+        .vividia-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 800; background: linear-gradient(to right, #fff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .top-controls { display: flex; align-items: center; gap: 20px; }
-        .dark-mode-toggle { cursor: pointer; color: var(--text-dim); font-size: 1.2rem; }
-
-        .btn { padding: 10px 22px; border-radius: 12px; cursor: pointer; border: none; font-weight: 700; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.85rem; }
-        .btn-primary { background: linear-gradient(to right, var(--accent-purple), var(--accent-pink)); color: white; }
-        .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border-color); }
+        .auth-buttons { display: flex; gap: 8px; }
+        .btn-auth { 
+            padding: 8px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; 
+            cursor: pointer; border: 1px solid var(--border); transition: 0.3s;
+            display: flex; align-items: center; gap: 5px; background: var(--btn-secondary); color: white;
+        }
+        .btn-auth:hover { background: var(--accent-gradient); border-color: transparent; }
 
         /* Main Container */
-        .creation-container {
-            width: 92%; max-width: 500px; margin-top: 10px;
-            background: var(--panel-bg); border: 1px solid var(--border-color);
-            border-radius: 30px; padding: 25px; box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            box-sizing: border-box; position: relative;
+        .app-container { width: 92%; max-width: 480px; padding-bottom: 120px; }
+
+        /* 2. Top Dropdowns (Model & Ratio) */
+        .top-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .dropdown-box {
+            background: var(--panel-bg); border: 1px solid var(--border); border-radius: 15px;
+            padding: 12px; cursor: pointer; position: relative;
+        }
+        .dropdown-box span { font-size: 0.7rem; color: var(--text-dim); display: block; }
+        .dropdown-box strong { font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; }
+
+        .drop-menu {
+            position: absolute; top: 110%; left: 0; width: 100%; background: #181818;
+            border: 1px solid var(--accent-purple); border-radius: 12px; display: none; z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .drop-item { padding: 12px; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
+        .drop-item:hover { background: var(--accent-gradient); }
+
+        /* 3. Single Smart Prompt (As requested) */
+        .prompt-wrapper {
+            background: var(--panel-bg); border: 1px solid var(--border); border-radius: 20px;
+            padding: 20px; margin-bottom: 20px; position: relative;
+        }
+        textarea {
+            width: 100%; background: transparent; border: none; color: white;
+            font-size: 1rem; outline: none; resize: none; min-height: 80px; font-family: inherit;
+        }
+        .magic-icon {
+            position: absolute; bottom: 15px; left: 15px; font-size: 1.4rem;
+            cursor: pointer; background: var(--accent-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Settings Dropdowns (Improved) */
-        .settings-bar { display: flex; gap: 10px; margin-bottom: 20px; position: relative; }
-        .setting-item { 
-            flex: 1; cursor: pointer; font-size: 0.75rem; color: var(--text-dim); 
-            display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; 
-            background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid var(--border-color);
-            transition: 0.3s;
+        /* 4. Service Selector (Grid) */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .service-btn {
+            background: var(--btn-secondary); border: 1px solid var(--border); border-radius: 18px;
+            padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.3s;
         }
-        .setting-item:hover { border-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05); }
+        .service-btn.active { background: var(--accent-gradient); border-color: transparent; }
+        .service-btn i { font-size: 1.2rem; display: block; margin-bottom: 8px; }
+        .service-btn span { font-size: 0.75rem; font-weight: 500; }
 
-        .dropdown-content {
-            position: absolute; top: 75px; width: 200px;
-            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); 
-            border: 1px solid var(--accent-purple); border-radius: 18px; 
-            padding: 8px; display: none; z-index: 5000;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
-            animation: slideDown 0.3s ease-out;
+        /* 5. Upload/Download Dynamic Buttons */
+        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .btn-action {
+            padding: 15px; border-radius: 15px; border: none; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+            color: white; font-size: 0.85rem; background: #3b82f6; /* Blue for Upload/Download */
         }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .dropdown-option { padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.2s; font-size: 0.85rem; color: var(--text-dim); }
-        .dropdown-option:hover { background: var(--accent-purple); color: white; }
-
-        /* Prompt Inputs (Image 1 Style) */
-        .prompt-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-        .input-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 15px; padding: 15px; position: relative; }
-        .input-box label { display: block; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 8px; }
-        textarea { width: 100%; background: transparent; border: none; color: white; font-size: 0.95rem; outline: none; resize: none; min-height: 60px; font-family: inherit; }
-        
-        .magic-btn { position: absolute; bottom: 10px; left: 10px; color: var(--accent-purple); cursor: pointer; font-size: 1.2rem; }
-
-        /* Services Grid (Image 2 Style) */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
-        .service-card {
-            background: rgba(255,255,255,0.02); padding: 15px 5px; border-radius: 20px; text-align: center;
-            border: 1px solid var(--border-color); cursor: pointer; transition: 0.3s;
+        .btn-generate {
+            width: 100%; padding: 18px; border-radius: 20px; border: none;
+            background: var(--accent-gradient); color: white; font-size: 1.1rem;
+            font-weight: 800; cursor: pointer; margin-bottom: 25px;
         }
-        .service-card i { font-size: 1.4rem; margin-bottom: 8px; display: block; color: var(--text-dim); }
-        .service-card span { font-size: 0.75rem; color: var(--text-dim); }
-        .service-card.active { background: var(--accent-purple); border-color: transparent; box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
-        .service-card.active i, .service-card.active span { color: white; }
 
-        /* Pricing Card (Image 1 & 2) */
-        .pricing-card {
-            background: linear-gradient(145deg, rgba(168, 85, 247, 0.1), rgba(0,0,0,0.4));
-            border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 22px; padding: 20px; text-align: center; margin-bottom: 20px;
+        /* 6. Elite Membership (Updated Price 7.60$) */
+        .membership-card {
+            background: linear-gradient(145deg, #1a1a1a, #000); border: 1px solid #333;
+            border-radius: 25px; padding: 25px; text-align: center; margin-bottom: 40px;
         }
-        .price-val { font-size: 1.8rem; font-weight: 800; margin: 10px 0; }
-        .price-val span { font-size: 0.9rem; color: var(--text-dim); }
-        .limits-text { font-size: 0.7rem; color: var(--text-dim); margin-bottom: 15px; }
+        .price-tag { font-size: 2.2rem; font-weight: 800; margin: 10px 0; }
+        .price-tag span { font-size: 1rem; color: var(--text-dim); }
 
-        /* Bottom Nav */
-        .bottom-nav {
+        /* 7. Global Feed (Community Gallery) */
+        .community-section { width: 100%; margin-top: 20px; }
+        .feed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .feed-item { background: #1a1a1a; border-radius: 12px; height: 180px; overflow: hidden; position: relative; }
+        .feed-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .feed-badge { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; background: rgba(0,0,0,0.5); padding: 3px 7px; border-radius: 5px; }
+
+        /* Bottom Navigation */
+        .nav-bar {
             position: fixed; bottom: 0; width: 100%; max-width: 500px;
-            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px);
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px);
             display: flex; justify-content: space-around; padding: 15px 0;
-            border-top: 1px solid var(--border-color); border-radius: 25px 25px 0 0; z-index: 4000;
+            border-top: 1px solid var(--border); border-radius: 20px 20px 0 0; z-index: 1000;
         }
-        .nav-link { text-align: center; color: var(--text-dim); cursor: pointer; flex: 1; font-size: 0.7rem; }
-        .nav-link i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
-        .nav-link.active { color: var(--accent-purple); }
+        .nav-item { text-align: center; color: var(--text-dim); cursor: pointer; flex: 1; transition: 0.3s; }
+        .nav-item.active { color: #a855f7; }
+        .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+        .nav-item span { font-size: 0.7rem; }
 
-        .footer-text { margin-top: 20px; margin-bottom: 100px; font-size: 0.75rem; color: var(--text-dim); opacity: 0.5; }
+        /* Language Price Table */
+        .lang-menu { position: absolute; bottom: 80px; right: 20px; background: #111; border: 1px solid var(--border); border-radius: 12px; display: none; padding: 10px; }
+        .lang-opt { padding: 8px 15px; cursor: pointer; font-size: 0.8rem; border-radius: 8px; margin-bottom: 2px; }
+        .lang-opt:hover { background: var(--accent-gradient); }
 
-        /* Modal How it Works */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; display: none; justify-content: center; align-items: center; }
-        .modal-card { background: #111; border: 1px solid var(--border-color); padding: 30px; border-radius: 25px; width: 85%; max-width: 400px; }
     </style>
 </head>
 <body>
 
     <audio id="sndClick" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
-    <audio id="sndMagic" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    <audio id="sndAction" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 
     <header class="header">
         <div class="vividia-logo">VIVIDIA AI</div>
-        <div class="top-controls">
-            <i class="fas fa-moon dark-mode-toggle"></i>
-            <button class="btn btn-primary" style="background: #a855f7;">Pro Upgrade</button>
+        <div class="auth-buttons">
+            <button class="btn-auth" onclick="play(1)"><i class="fab fa-google"></i> Google</button>
+            <button class="btn-auth" onclick="play(1)"><i class="fas fa-envelope"></i> Email</button>
         </div>
     </header>
 
-    <main class="creation-container">
-        <div class="settings-bar">
-            <div class="setting-item" onclick="toggleDrop('modelDrop', event)">
-                <span>Model:</span>
-                <strong id="txtModel">Vividia 3.0</strong>
+    <main class="app-container">
+        
+        <div class="top-settings">
+            <div class="dropdown-box" onclick="toggleDrop('mDrop')">
+                <span>Model Selection</span>
+                <strong id="mTxt">Vividia 3.0 Pro <i class="fas fa-chevron-down"></i></strong>
+                <div id="mDrop" class="drop-menu">
+                    <div class="drop-item" onclick="setV('mTxt', 'Vividia 3.0 Pro')">Vividia 3.0 Pro</div>
+                    <div class="drop-item" onclick="setV('mTxt', 'Cinematic 8K')">Cinematic 8K</div>
+                    <div class="drop-item" onclick="setV('mTxt', 'Anime Master')">Anime Master</div>
+                </div>
             </div>
-            <div class="setting-item" onclick="toggleDrop('ratioDrop', event)">
-                <span>Ratio:</span>
-                <strong id="txtRatio">16:9</strong>
-            </div>
-            
-            <div id="modelDrop" class="dropdown-content" style="right: 0;">
-                <div class="dropdown-option" onclick="setOpt('txtModel', 'Vividia 3.0 Ultra')">Vividia 3.0 Ultra</div>
-                <div class="dropdown-option" onclick="setOpt('txtModel', 'Leonardo Pro')">Leonardo Pro</div>
-            </div>
-            <div id="ratioDrop" class="dropdown-content" style="left: 0;">
-                <div class="dropdown-option" onclick="setOpt('txtRatio', '1:1 Square')">1:1 Square</div>
-                <div class="dropdown-option" onclick="setOpt('txtRatio', '16:9 Widescreen')">16:9 Widescreen</div>
+            <div class="dropdown-box" onclick="toggleDrop('rDrop')">
+                <span>Aspect Ratio</span>
+                <strong id="rTxt">16:9 Wide <i class="fas fa-chevron-down"></i></strong>
+                <div id="rDrop" class="drop-menu">
+                    <div class="drop-item" onclick="setV('rTxt', '1:1 Square')">1:1 Square</div>
+                    <div class="drop-item" onclick="setV('rTxt', '16:9 Wide')">16:9 Wide</div>
+                    <div class="drop-item" onclick="setV('rTxt', '9:16 Vertical')">9:16 Vertical</div>
+                </div>
             </div>
         </div>
 
-        <div class="prompt-section">
-            <div class="input-box">
-                <label>Leonardo Prompt:</label>
-                <textarea id="p1" placeholder="Type your prompt here..."></textarea>
-                <i class="fas fa-magic magic-btn" onclick="runMagic('p1')"></i>
-            </div>
-            <div class="input-box">
-                <label>Secondary Input:</label>
-                <textarea id="p2" placeholder="Enter voice or video prompt..."></textarea>
-            </div>
+        <div class="prompt-wrapper">
+            <textarea id="prompt" placeholder="Enter your creative prompt..."></textarea>
+            <i class="fas fa-wand-magic-sparkles magic-icon" onclick="play(2)"></i>
         </div>
 
         <div class="services-grid">
-            <div class="service-card active" onclick="selMode(this)"><i class="fas fa-image"></i><span>Image</span></div>
-            <div class="service-card" onclick="selMode(this)"><i class="fas fa-video"></i><span>Video</span></div>
-            <div class="service-card" onclick="selMode(this)"><i class="fas fa-microphone"></i><span>Voice</span></div>
-            <div class="service-card" onclick="selMode(this)"><i class="fas fa-language"></i><span>Dubbing</span></div>
-            <div class="service-card" onclick="selMode(this)"><i class="fas fa-music"></i><span>Music</span></div>
-            <div class="service-card" onclick="selMode(this)"><i class="fas fa-wave-square"></i><span>SFX</span></div>
+            <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span>Image</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span>Video</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-microphone"></i><span>Voice</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span>Dubbing</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span>Music</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-wave-square"></i><span>SFX</span></div>
         </div>
 
-        <button class="btn btn-primary" style="width:100%; padding:18px; font-size:1.1rem; border-radius:20px;" onclick="playSnd('magic')">Create Magic</button>
+        <div class="action-row">
+            <button class="btn-action" onclick="play(1)"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            <button class="btn-action" onclick="play(2)"><i class="fas fa-file-download"></i> MP4 / HD</button>
+        </div>
 
-        <div class="pricing-card" style="margin-top:25px;">
-            <div style="font-size:0.9rem; font-weight:700;">Unlimited Power</div>
-            <div class="price-val">4.99$<span>/month</span></div>
-            <div class="limits-text">Limits 100 Images | 10 Videos | 20k Voice</div>
-            <button class="btn btn-primary" style="width:80%; border-radius:30px;">subscribe abn</button>
+        <button class="btn-generate" onclick="play(2)">GENERATE MAGIC</button>
+
+        <div class="membership-card">
+            <div style="font-size:0.9rem; font-weight:700; color:#a855f7">ELITE MEMBERSHIP</div>
+            <div class="price-tag"><span id="currSign">$</span><span id="priceVal">7.60</span><span>/<span id="durTxt">month</span></span></div>
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:20px;">
+                Limits 100 Images | 10 Videos | 20k Voice Tokens
+            </div>
+            <button class="btn-generate" style="margin:0; width:80%; padding:14px; font-size:0.9rem;">Subscribe Now</button>
+        </div>
+
+        <div class="community-section">
+            <h3 style="font-size: 1rem; margin-bottom: 15px;"><i class="fas fa-fire" style="color:#ff4500"></i> Community Feed</h3>
+            <div class="feed-grid">
+                <div class="feed-item"><img src="https://picsum.photos/200/300?random=1"><span class="feed-badge">Video</span></div>
+                <div class="feed-item"><img src="https://picsum.photos/200/300?random=2"><span class="feed-badge">Image</span></div>
+                <div class="feed-item"><img src="https://picsum.photos/200/300?random=3"><span class="feed-badge">SFX</span></div>
+                <div class="feed-item"><img src="https://picsum.photos/200/300?random=4"><span class="feed-badge">Image</span></div>
+            </div>
         </div>
     </main>
 
-    <div class="footer-text">© 2026 VIVIDIA AI - Professional Edition</div>
-
-    <nav class="bottom-nav">
-        <div class="nav-link active"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-link"><i class="fas fa-images"></i><span>Gallery</span></div>
-        <div class="nav-link" onclick="openHow()"><i class="fas fa-info-circle"></i><span id="txtHow">How it works</span></div>
-        <div class="nav-link" onclick="cycleLang()"><i class="fas fa-globe"></i><span id="langCode">EN</span></div>
+    <nav class="nav-bar">
+        <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" onclick="openGallery()"><i class="fas fa-images"></i><span>Gallery</span></div>
+        <div class="nav-item" onclick="play(1)"><i class="fas fa-question-circle"></i><span>Help</span></div>
+        <div class="nav-item" onclick="toggleLang()"><i class="fas fa-globe"></i><span id="langDisplay">EN</span></div>
+        
+        <div id="lMenu" class="lang-menu">
+            <div class="lang-opt" onclick="setL('AR', 'SAR', '28.50', 'شهرياً')">العربية</div>
+            <div class="lang-opt" onclick="setL('EN', '$', '7.60', 'month')">English</div>
+            <div class="lang-opt" onclick="setL('FR', '€', '7.10', 'mois')">Français</div>
+            <div class="lang-opt" onclick="setL('ES', '€', '7.10', 'mes')">Español</div>
+        </div>
     </nav>
 
-    <div id="howModal" class="modal-overlay">
-        <div class="modal-card">
-            <h2 id="hTitle" style="color:var(--accent-purple); font-family:'Orbitron'; font-size:1.2rem;">How Vividia Works</h2>
-            <div id="hSteps" style="font-size:0.85rem; line-height:1.8; margin:20px 0; color:var(--text-dim);"></div>
-            <button class="btn btn-primary" style="width:100%;" onclick="closeHow()">Got it!</button>
-        </div>
-    </div>
-
     <script>
-        const trans = {
-            'EN': { title: "How Vividia Works", steps: "1. Type prompt.<br>2. Use Magic icon.<br>3. Choose Service.<br>4. Click Create.", btn: "How it works" },
-            'AR': { title: "كيف يعمل فيفيديا", steps: "1. اكتب وصفك.<br>2. استخدم الأيقونة السحرية.<br>3. اختر الخدمة.<br>4. اضغط توليد.", btn: "إرشادات" }
-        };
-
-        let currLang = 'EN';
-
-        function playSnd(t) {
-            const s = document.getElementById(t === 'click' ? 'sndClick' : 'sndMagic');
-            s.currentTime = 0; s.volume = 0.3; s.play();
+        function play(s) {
+            const a = document.getElementById(s === 1 ? 'sndClick' : 'sndAction');
+            a.currentTime = 0; a.volume = 0.3; a.play();
         }
 
-        function cycleLang() {
-            playSnd('click');
-            currLang = currLang === 'EN' ? 'AR' : 'EN';
-            document.getElementById('langCode').innerText = currLang;
-            document.getElementById('txtHow').innerText = trans[currLang].btn;
-            document.dir = currLang === 'AR' ? 'rtl' : 'ltr';
+        function toggleDrop(id) {
+            play(1);
+            const d = document.getElementById(id);
+            d.style.display = d.style.display === 'block' ? 'none' : 'block';
         }
 
-        function toggleDrop(id, e) {
-            e.stopPropagation();
-            playSnd('click');
-            document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
+        function setV(id, val) {
+            play(2);
+            document.getElementById(id).innerHTML = val + ' <i class="fas fa-chevron-down"></i>';
+            document.querySelectorAll('.drop-menu').forEach(m => m.style.display = 'none');
         }
 
-        function setOpt(id, val) {
-            playSnd('magic');
-            document.getElementById(id).innerText = val;
-            document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
+        function sel(btn) {
+            play(1);
+            document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
 
-        function selMode(el) {
-            playSnd('click');
-            document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
+        function toggleLang() {
+            play(1);
+            const m = document.getElementById('lMenu');
+            m.style.display = m.style.display === 'block' ? 'none' : 'block';
         }
 
-        function openHow() {
-            const d = trans[currLang];
-            document.getElementById('hTitle').innerText = d.title;
-            document.getElementById('hSteps').innerHTML = d.steps;
-            document.getElementById('howModal').style.display = 'flex';
+        function setL(code, sign, price, dur) {
+            play(2);
+            document.getElementById('langDisplay').innerText = code;
+            document.getElementById('currSign').innerText = sign;
+            document.getElementById('priceVal').innerText = price;
+            document.getElementById('durTxt').innerText = dur;
+            document.documentElement.dir = (code === 'AR') ? 'rtl' : 'ltr';
+            document.getElementById('lMenu').style.display = 'none';
         }
 
-        function closeHow() { document.getElementById('howModal').style.display = 'none'; }
-
-        function runMagic(id) {
-            playSnd('magic');
-            const t = document.getElementById(id);
-            if(t.value) t.value = "Enhanced: " + t.value + " (Luxury, 8k)";
+        function openGallery() {
+            play(2);
+            alert("Redirecting to Your Professional Gallery...");
         }
 
-        window.onclick = () => document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
+        window.onclick = function(event) {
+            if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item')) {
+                document.querySelectorAll('.drop-menu, .lang-menu').forEach(m => m.style.display = 'none');
+            }
+        }
     </script>
 </body>
 </html>
+
