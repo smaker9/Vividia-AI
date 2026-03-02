@@ -15,7 +15,6 @@
             --text-main: #ffffff;
             --text-dim: #9ca3af;
             --border: rgba(255, 255, 255, 0.1);
-            --accent-purple: #a855f7;
         }
 
         body {
@@ -24,7 +23,7 @@
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh;
+            min-height: 100vh; overflow-x: hidden;
         }
 
         /* 1. Header with Google/Email Sign In */
@@ -44,7 +43,7 @@
         .btn-auth:hover { background: var(--accent-gradient); border-color: transparent; }
 
         /* Main Container */
-        .app-container { width: 92%; max-width: 480px; padding-bottom: 150px; }
+        .app-container { width: 92%; max-width: 480px; padding-bottom: 120px; }
 
         /* 2. Top Dropdowns (Model & Ratio) */
         .top-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
@@ -63,7 +62,7 @@
         .drop-item { padding: 12px; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
         .drop-item:hover { background: var(--accent-gradient); }
 
-        /* 3. Single Smart Prompt */
+        /* 3. Single Smart Prompt (As requested) */
         .prompt-wrapper {
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 20px;
             padding: 20px; margin-bottom: 20px; position: relative;
@@ -93,7 +92,7 @@
         .btn-action {
             padding: 15px; border-radius: 15px; border: none; font-weight: 700;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-            color: white; font-size: 0.85rem; background: #3b82f6; 
+            color: white; font-size: 0.85rem; background: #3b82f6; /* Blue for Upload/Download */
         }
         .btn-generate {
             width: 100%; padding: 18px; border-radius: 20px; border: none;
@@ -101,15 +100,15 @@
             font-weight: 800; cursor: pointer; margin-bottom: 25px;
         }
 
-        /* 6. Elite Membership */
+        /* 6. Elite Membership (Updated Price 7.60$) */
         .membership-card {
             background: linear-gradient(145deg, #1a1a1a, #000); border: 1px solid #333;
-            border-radius: 25px; padding: 25px; text-align: center; margin-bottom: 30px;
+            border-radius: 25px; padding: 25px; text-align: center; margin-bottom: 40px;
         }
         .price-tag { font-size: 2.2rem; font-weight: 800; margin: 10px 0; }
         .price-tag span { font-size: 1rem; color: var(--text-dim); }
 
-        /* 7. Community Feed */
+        /* 7. Global Feed (Community Gallery) */
         .community-section { width: 100%; margin-top: 20px; }
         .feed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .feed-item { background: #1a1a1a; border-radius: 12px; height: 180px; overflow: hidden; position: relative; }
@@ -128,35 +127,11 @@
         .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
         .nav-item span { font-size: 0.7rem; }
 
-        /* Language Menu */
-        .lang-menu { position: absolute; bottom: 80px; right: 20px; background: #111; border: 1px solid var(--border); border-radius: 12px; display: none; padding: 10px; z-index: 1001;}
+        /* Language Price Table */
+        .lang-menu { position: absolute; bottom: 80px; right: 20px; background: #111; border: 1px solid var(--border); border-radius: 12px; display: none; padding: 10px; }
         .lang-opt { padding: 8px 15px; cursor: pointer; font-size: 0.8rem; border-radius: 8px; margin-bottom: 2px; }
         .lang-opt:hover { background: var(--accent-gradient); }
 
-        /* 8. AI Chatbot Widget */
-        .chat-widget { position: fixed; bottom: 90px; right: 20px; z-index: 2000; }
-        .chat-bubble { width: 60px; height: 60px; background: var(--accent-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: 0.3s; font-size: 1.5rem; color: white; }
-        .chat-bubble:hover { transform: scale(1.1); }
-        
-        .chat-box { display: none; width: 320px; height: 450px; background: #1a1a1a; border: 1px solid var(--border); border-radius: 20px; position: absolute; bottom: 70px; right: 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); flex-direction: column; }
-        .chat-header { background: #111; padding: 15px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-        .chat-content { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; }
-        .chat-input-area { padding: 10px; background: #111; display: flex; gap: 5px; }
-        .chat-input { flex: 1; background: #222; border: none; padding: 10px; border-radius: 10px; color: white; font-size: 0.8rem; outline: none; }
-        .chat-msg { margin-bottom: 10px; padding: 8px 12px; border-radius: 10px; max-width: 80%; }
-        .chat-msg.ai { background: var(--btn-secondary); align-self: flex-start; }
-        .chat-msg.user { background: var(--accent-gradient); align-self: flex-end; margin-left: auto; }
-
-        /* 9. Footer */
-        .site-footer { width: 100%; text-align: center; padding: 20px; font-size: 0.75rem; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: auto; }
-        .social-icons { margin-top: 10px; display: flex; justify-content: center; gap: 15px; }
-        .social-icons a { color: var(--text-dim); transition: 0.3s; }
-        .social-icons a:hover { color: var(--accent-purple); }
-
-        /* Modals */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; width: 80%; max-width: 400px; text-align: center; border: 1px solid var(--border); }
-        .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -167,8 +142,8 @@
     <header class="header">
         <div class="vividia-logo">VIVIDIA AI</div>
         <div class="auth-buttons">
-            <button class="btn-auth" onclick="play(1)"><i class="fab fa-google"></i> <span class="lang-auth">Google</span></button>
-            <button class="btn-auth" onclick="play(1)"><i class="fas fa-envelope"></i> <span class="lang-auth">Email</span></button>
+            <button class="btn-auth" onclick="play(1)"><i class="fab fa-google"></i> Google</button>
+            <button class="btn-auth" onclick="play(1)"><i class="fas fa-envelope"></i> Email</button>
         </div>
     </header>
 
@@ -176,7 +151,7 @@
         
         <div class="top-settings">
             <div class="dropdown-box" onclick="toggleDrop('mDrop')">
-                <span class="lang-model-title">Model Selection</span>
+                <span>Model Selection</span>
                 <strong id="mTxt">Vividia 3.0 Pro <i class="fas fa-chevron-down"></i></strong>
                 <div id="mDrop" class="drop-menu">
                     <div class="drop-item" onclick="setV('mTxt', 'Vividia 3.0 Pro')">Vividia 3.0 Pro</div>
@@ -185,7 +160,7 @@
                 </div>
             </div>
             <div class="dropdown-box" onclick="toggleDrop('rDrop')">
-                <span class="lang-ratio-title">Aspect Ratio</span>
+                <span>Aspect Ratio</span>
                 <strong id="rTxt">16:9 Wide <i class="fas fa-chevron-down"></i></strong>
                 <div id="rDrop" class="drop-menu">
                     <div class="drop-item" onclick="setV('rTxt', '1:1 Square')">1:1 Square</div>
@@ -196,37 +171,37 @@
         </div>
 
         <div class="prompt-wrapper">
-            <textarea id="prompt" placeholder="Describe your masterpiece..."></textarea>
+            <textarea id="prompt" placeholder="Enter your creative prompt..."></textarea>
             <i class="fas fa-wand-magic-sparkles magic-icon" onclick="play(2)"></i>
         </div>
 
         <div class="services-grid">
-            <div class="service-btn active" onclick="sel(this)" data-service="image"><i class="fas fa-image"></i><span class="lang-serv-img">Image</span></div>
-            <div class="service-btn" onclick="sel(this)" data-service="video"><i class="fas fa-video"></i><span class="lang-serv-vid">Video</span></div>
-            <div class="service-btn" onclick="sel(this)" data-service="voice"><i class="fas fa-microphone"></i><span class="lang-serv-voice">Voice</span></div>
-            <div class="service-btn" onclick="sel(this)" data-service="dubbing"><i class="fas fa-language"></i><span class="lang-serv-dub">Dubbing</span></div>
-            <div class="service-btn" onclick="sel(this)" data-service="music"><i class="fas fa-music"></i><span class="lang-serv-music">Music</span></div>
-            <div class="service-btn" onclick="sel(this)" data-service="sfx"><i class="fas fa-wave-square"></i><span class="lang-serv-sfx">SFX</span></div>
+            <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span>Image</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span>Video</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-microphone"></i><span>Voice</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span>Dubbing</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span>Music</span></div>
+            <div class="service-btn" onclick="sel(this)"><i class="fas fa-wave-square"></i><span>SFX</span></div>
         </div>
 
         <div class="action-row">
-            <button class="btn-action" onclick="play(1)"><i class="fas fa-cloud-upload-alt"></i> <span class="lang-upload">Upload</span></button>
-            <button class="btn-action" onclick="play(2)"><i class="fas fa-file-download"></i> <span class="lang-download">MP4 / HD</span></button>
+            <button class="btn-action" onclick="play(1)"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            <button class="btn-action" onclick="play(2)"><i class="fas fa-file-download"></i> MP4 / HD</button>
         </div>
 
-        <button class="btn-generate" onclick="generateContent()"><span class="lang-generate">GENERATE MAGIC</span></button>
+        <button class="btn-generate" onclick="play(2)">GENERATE MAGIC</button>
 
         <div class="membership-card">
-            <div style="font-size:0.9rem; font-weight:700; color:#a855f7" class="lang-elite">ELITE MEMBERSHIP</div>
+            <div style="font-size:0.9rem; font-weight:700; color:#a855f7">ELITE MEMBERSHIP</div>
             <div class="price-tag"><span id="currSign">$</span><span id="priceVal">7.60</span><span>/<span id="durTxt">month</span></span></div>
-            <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:20px;" class="lang-limits">
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:20px;">
                 Limits 100 Images | 10 Videos | 20k Voice Tokens
             </div>
-            <button class="btn-generate" style="margin:0; width:80%; padding:14px; font-size:0.9rem;"><span class="lang-subscribe">Subscribe Now</span></button>
+            <button class="btn-generate" style="margin:0; width:80%; padding:14px; font-size:0.9rem;">Subscribe Now</button>
         </div>
 
         <div class="community-section">
-            <h3 style="font-size: 1rem; margin-bottom: 15px;"><i class="fas fa-fire" style="color:#ff4500"></i> <span class="lang-community">Community Feed</span></h3>
+            <h3 style="font-size: 1rem; margin-bottom: 15px;"><i class="fas fa-fire" style="color:#ff4500"></i> Community Feed</h3>
             <div class="feed-grid">
                 <div class="feed-item"><img src="https://picsum.photos/200/300?random=1"><span class="feed-badge">Video</span></div>
                 <div class="feed-item"><img src="https://picsum.photos/200/300?random=2"><span class="feed-badge">Image</span></div>
@@ -236,19 +211,10 @@
         </div>
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 VIVIDIA AI. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-discord"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-    </footer>
-
     <nav class="nav-bar">
-        <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span class="lang-nav-home">Home</span></div>
-        <div class="nav-item" onclick="openGallery()"><i class="fas fa-images"></i><span class="lang-nav-gallery">Gallery</span></div>
-        <div class="nav-item" onclick="openHelp()"><i class="fas fa-question-circle"></i><span class="lang-nav-help">Help</span></div>
+        <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" onclick="openGallery()"><i class="fas fa-images"></i><span>Gallery</span></div>
+        <div class="nav-item" onclick="play(1)"><i class="fas fa-question-circle"></i><span>Help</span></div>
         <div class="nav-item" onclick="toggleLang()"><i class="fas fa-globe"></i><span id="langDisplay">EN</span></div>
         
         <div id="lMenu" class="lang-menu">
@@ -259,95 +225,10 @@
         </div>
     </nav>
 
-    <div class="chat-widget">
-        <div class="chat-box" id="chatBox">
-            <div class="chat-header">
-                <span class="lang-chat-title">Vividia AI Assistant</span>
-                <i class="fas fa-times" style="cursor:pointer;" onclick="toggleChat()"></i>
-            </div>
-            <div class="chat-content" id="chatContent">
-                <div class="chat-msg ai lang-chat-welcome">مرحباً! كيف يمكنني مساعدتك في مشروع Vividia الخاص بك اليوم؟</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" class="chat-input" id="chatInput" placeholder="اكتب سؤالك...">
-                <i class="fas fa-paper-plane" style="color:var(--accent-purple); cursor:pointer; padding:10px;" onclick="sendMessage()"></i>
-            </div>
-        </div>
-        <div class="chat-bubble" onclick="toggleChat()">
-            <i class="fas fa-robot"></i>
-        </div>
-    </div>
-
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('helpModal')">&times;</span>
-            <i class="fas fa-question-circle fa-3x" style="color:var(--accent-purple); margin-bottom:15px;"></i>
-            <h3 class="lang-help-title">Vividia Help Center</h3>
-            <p class="lang-help-body">Get started with our AI tools. Create images, videos, and more using the main panel.</p>
-        </div>
-    </div>
-
-    <div id="galleryModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('galleryModal')">&times;</span>
-            <i class="fas fa-images fa-3x" style="color:var(--accent-purple); margin-bottom:15px;"></i>
-            <h3 class="lang-gallery-title">Your Gallery</h3>
-            <p class="lang-gallery-body">Manage your generated media here.</p>
-        </div>
-    </div>
-
     <script>
-        // Localization Data
-        const langData = {
-            'AR': {
-                auth: ['جوجل', 'البريد'], modelTitle: 'اختيار النموذج', ratioTitle: 'نسبة الأبعاد',
-                serv: ['صورة', 'فيديو', 'صوت', 'دبلجة', 'موسيقى', 'مؤثرات'],
-                upload: 'رفع', download: 'تحميل', generate: 'إنتاج السحر', elite: 'العضوية النخبوية',
-                limits: 'حدود 100 صورة | 10 فيديوهات | 20 ألف رمز صوتي', subscribe: 'اشترك الآن',
-                community: 'تغذية المجتمع', nav: ['الرئيسية', 'المعرض', 'المساعدة'],
-                chatTitle: 'مساعد Vividia الذكي', chatWelcome: 'مرحباً! كيف يمكنني مساعدتك في مشروع Vividia الخاص بك اليوم؟',
-                chatPlaceholder: 'اكتب سؤالك...', chatProc: 'جارٍ معالجة طلبك: "',
-                helpTitle: 'مركز المساعدة', helpBody: 'ابدأ باستخدام أدواتنا الذكية. قم بإنشاء الصور والفيديوهات من اللوحة الرئيسية.',
-                galleryTitle: 'معرض الصور', galleryBody: 'إدارة الوسائط الخاصة بك هنا.'
-            },
-            'EN': {
-                auth: ['Google', 'Email'], modelTitle: 'Model Selection', ratioTitle: 'Aspect Ratio',
-                serv: ['Image', 'Video', 'Voice', 'Dubbing', 'Music', 'SFX'],
-                upload: 'Upload', download: 'Download', generate: 'GENERATE MAGIC', elite: 'ELITE MEMBERSHIP',
-                limits: 'Limits 100 Images | 10 Videos | 20k Voice Tokens', subscribe: 'Subscribe Now',
-                community: 'Community Feed', nav: ['Home', 'Gallery', 'Help'],
-                chatTitle: 'Vividia AI Assistant', chatWelcome: 'Hello! How can I help with your Vividia project today?',
-                chatPlaceholder: 'Type your question...', chatProc: 'Processing your request: "',
-                helpTitle: 'Vividia Help Center', helpBody: 'Get started with our AI tools. Create images, videos, and more using the main panel.',
-                galleryTitle: 'Your Gallery', galleryBody: 'Manage your generated media here.'
-            },
-            'FR': {
-                auth: ['Google', 'E-mail'], modelTitle: 'Sélection du modèle', ratioTitle: 'Ratio d\'aspect',
-                serv: ['Image', 'Vidéo', 'Voix', 'Doublage', 'Musique', 'SFX'],
-                upload: 'Télécharger', download: 'Télécharger', generate: 'GÉNÉRER LA MAGIE', elite: 'ADHÉSION ÉLITE',
-                limits: 'Limites 100 images | 10 vidéos | 20k jetons vocaux', subscribe: 'Abonnez-vous',
-                community: 'Fil de la communauté', nav: ['Accueil', 'Galerie', 'Aide'],
-                chatTitle: 'Assistant Vividia AI', chatWelcome: 'Bonjour! Comment puis-je aider avec votre projet Vividia aujourd\'hui?',
-                chatPlaceholder: 'Tapez votre question...', chatProc: 'Traitement de votre demande: "',
-                helpTitle: 'Centre d\'aide', helpBody: 'Commencez avec nos outils IA. Créez des images, des vidéos et plus encore.',
-                galleryTitle: 'Votre Galerie', galleryBody: 'Gérez vos médias générés ici.'
-            },
-            'ES': {
-                auth: ['Google', 'Correo'], modelTitle: 'Selección de modelo', ratioTitle: 'Relación de aspecto',
-                serv: ['Imagen', 'Video', 'Voz', 'Doblaje', 'Música', 'SFX'],
-                upload: 'Subir', download: 'Descargar', generate: 'GENERAR MAGIA', elite: 'MEMBRESÍA ELITE',
-                limits: 'Límites 100 imágenes | 10 videos | 20k tokens de voz', subscribe: 'Suscribirse',
-                community: 'Feed de la comunidad', nav: ['Inicio', 'Galería', 'Ayuda'],
-                chatTitle: 'Asistente Vividia AI', chatWelcome: '¡Hola! ¿Cómo puedo ayudar con su proyecto Vividia hoy?',
-                chatPlaceholder: 'Escriba su pregunta...', chatProc: 'Procesando su solicitud: "',
-                helpTitle: 'Centro de Ayuda', helpBody: 'Comience con nuestras herramientas de IA. Cree imágenes, videos y más.',
-                galleryTitle: 'Tu Galería', galleryBody: 'Gestiona tus medios generados aquí.'
-            }
-        };
-
         function play(s) {
             const a = document.getElementById(s === 1 ? 'sndClick' : 'sndAction');
-            if(a) { a.currentTime = 0; a.volume = 0.3; a.play(); }
+            a.currentTime = 0; a.volume = 0.3; a.play();
         }
 
         function toggleDrop(id) {
@@ -381,133 +262,19 @@
             document.getElementById('priceVal').innerText = price;
             document.getElementById('durTxt').innerText = dur;
             document.documentElement.dir = (code === 'AR') ? 'rtl' : 'ltr';
-            document.documentElement.lang = code.toLowerCase();
             document.getElementById('lMenu').style.display = 'none';
-
-            if(langData[code]) {
-                const data = langData[code];
-                document.querySelectorAll('.lang-auth').forEach((el, i) => el.innerText = data.auth[i]);
-                document.querySelector('.lang-model-title').innerText = data.modelTitle;
-                document.querySelector('.lang-ratio-title').innerText = data.ratioTitle;
-                
-                const servItems = document.querySelectorAll('.service-btn span');
-                servItems.forEach((el, i) => el.innerText = data.serv[i]);
-
-                document.querySelector('.lang-upload').innerText = data.upload;
-                document.querySelector('.lang-download').innerText = data.download;
-                document.querySelector('.lang-generate').innerText = data.generate;
-                document.querySelector('.lang-elite').innerText = data.elite;
-                document.querySelector('.lang-limits').innerText = data.limits;
-                document.querySelector('.lang-subscribe').innerText = data.subscribe;
-                document.querySelector('.lang-community').innerText = data.community;
-                
-                const navItems = document.querySelectorAll('.nav-item span:not(#langDisplay)');
-                navItems.forEach((el, i) => el.innerText = data.nav[i]);
-
-                document.querySelector('.lang-chat-title').innerText = data.chatTitle;
-                document.querySelector('.lang-chat-welcome').innerText = data.chatWelcome;
-                document.getElementById('chatInput').placeholder = data.chatPlaceholder;
-                document.querySelector('.lang-help-title').innerText = data.helpTitle;
-                document.querySelector('.lang-help-body').innerText = data.helpBody;
-                document.querySelector('.lang-gallery-title').innerText = data.galleryTitle;
-                document.querySelector('.lang-gallery-body').innerText = data.galleryBody;
-            }
         }
 
-        // Feature Actions
         function openGallery() {
             play(2);
-            document.getElementById('galleryModal').style.display = 'flex';
-        }
-
-        function openHelp() {
-            play(2);
-            document.getElementById('helpModal').style.display = 'flex';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Chatbot Logic
-        function toggleChat() {
-            play(1);
-            const box = document.getElementById('chatBox');
-            box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const content = document.getElementById('chatContent');
-            const userMsg = input.value.trim();
-            if(userMsg === "") return;
-
-            content.innerHTML += `<div class="chat-msg user">${userMsg}</div>`;
-            play(2);
-            input.value = "";
-            content.scrollTop = content.scrollHeight;
-            
-            // Simulation
-            setTimeout(() => {
-                let aiResponse = "Vividia AI ready!";
-                const lang = document.getElementById('langDisplay').innerText;
-                const data = langData[lang];
-                const msgLower = userMsg.toLowerCase();
-
-                if(msgLower.includes('صورة') || msgLower.includes('image')) aiResponse = data.chatProc + userMsg + '"... Generating with Leonardo.ai!";
-                else if(msgLower.includes('صوت') || msgLower.includes('voice') || msgLower.includes('دبلجة')) aiResponse = data.chatProc + userMsg + '"... Processing with ElevenLabs!';
-                else if(msgLower.includes('فيديو') || msgLower.includes('video')) aiResponse = data.chatProc + userMsg + '"... Creating video...';
-                else aiResponse = data.chatWelcome;
-
-                content.innerHTML += `<div class="chat-msg ai">${aiResponse}</div>`;
-                content.scrollTop = content.scrollHeight;
-            }, 1000);
-        }
-
-        // =============================================
-        // 🔥 الديناميكية الحقيقية (Real API Connection)
-        // =============================================
-        async function generateContent() {
-            play(2);
-            const prompt = document.getElementById('prompt').value;
-            const activeService = document.querySelector('.service-btn.active').getAttribute('data-service');
-            
-            if(!prompt) { alert("الرجاء كتابة وصف!"); return; }
-
-            // إظهار تحميل
-            const btn = document.querySelector('.btn-generate');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            btn.disabled = true;
-
-            try {
-                // هذا هو الرابط الذي سيتم ربطه بـ Backend في Vercel
-                const response = await fetch('/api/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, service: activeService })
-                });
-                
-                const data = await response.json();
-                alert("تم إرسال الطلب بنجاح إلى Vercel Function! " + data.message);
-                
-            } catch (error) {
-                console.error(error);
-                alert("حدث خطأ في الاتصال بالـ API.");
-            } finally {
-                // إعادة الزر
-                btn.innerHTML = '<span class="lang-generate">GENERATE MAGIC</span>';
-                btn.disabled = false;
-            }
+            alert("Redirecting to Your Professional Gallery...");
         }
 
         window.onclick = function(event) {
-            if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item') && !event.target.closest('.chat-widget')) {
+            if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item')) {
                 document.querySelectorAll('.drop-menu, .lang-menu').forEach(m => m.style.display = 'none');
-            }
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
             }
         }
     </script>
 </body>
-</html>
+                    </html>
