@@ -149,6 +149,14 @@
 
         /* 9. Footer */
         .site-footer { width: 100%; text-align: center; padding: 20px; font-size: 0.75rem; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: auto; }
+        .social-icons { margin-top: 10px; display: flex; justify-content: center; gap: 15px; }
+        .social-icons a { color: var(--text-dim); transition: 0.3s; }
+        .social-icons a:hover { color: var(--accent-purple); }
+
+        /* Modals */
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; width: 80%; max-width: 400px; text-align: center; border: 1px solid var(--border); }
+        .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -206,7 +214,7 @@
             <button class="btn-action" onclick="play(2)"><i class="fas fa-file-download"></i> <span class="lang-download">MP4 / HD</span></button>
         </div>
 
-        <button class="btn-generate" onclick="play(2)"><span class="lang-generate">GENERATE MAGIC</span></button>
+        <button class="btn-generate" onclick="generateContent()"><span class="lang-generate">GENERATE MAGIC</span></button>
 
         <div class="membership-card">
             <div style="font-size:0.9rem; font-weight:700; color:#a855f7" class="lang-elite">ELITE MEMBERSHIP</div>
@@ -230,6 +238,11 @@
 
     <footer class="site-footer">
         <p>&copy; 2026 VIVIDIA AI. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
     </footer>
 
     <nav class="nav-bar">
@@ -265,6 +278,24 @@
         </div>
     </div>
 
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('helpModal')">&times;</span>
+            <i class="fas fa-question-circle fa-3x" style="color:var(--accent-purple); margin-bottom:15px;"></i>
+            <h3 class="lang-help-title">Vividia Help Center</h3>
+            <p class="lang-help-body">Get started with our AI tools. Create images, videos, and more using the main panel.</p>
+        </div>
+    </div>
+
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('galleryModal')">&times;</span>
+            <i class="fas fa-images fa-3x" style="color:var(--accent-purple); margin-bottom:15px;"></i>
+            <h3 class="lang-gallery-title">Your Gallery</h3>
+            <p class="lang-gallery-body">Manage your generated media here.</p>
+        </div>
+    </div>
+
     <script>
         // Localization Data
         const langData = {
@@ -275,7 +306,9 @@
                 limits: 'حدود 100 صورة | 10 فيديوهات | 20 ألف رمز صوتي', subscribe: 'اشترك الآن',
                 community: 'تغذية المجتمع', nav: ['الرئيسية', 'المعرض', 'المساعدة'],
                 chatTitle: 'مساعد Vividia الذكي', chatWelcome: 'مرحباً! كيف يمكنني مساعدتك في مشروع Vividia الخاص بك اليوم؟',
-                chatPlaceholder: 'اكتب سؤالك...', chatProc: 'جارٍ معالجة طلبك: "'
+                chatPlaceholder: 'اكتب سؤالك...', chatProc: 'جارٍ معالجة طلبك: "',
+                helpTitle: 'مركز المساعدة', helpBody: 'ابدأ باستخدام أدواتنا الذكية. قم بإنشاء الصور والفيديوهات من اللوحة الرئيسية.',
+                galleryTitle: 'معرض الصور', galleryBody: 'إدارة الوسائط الخاصة بك هنا.'
             },
             'EN': {
                 auth: ['Google', 'Email'], modelTitle: 'Model Selection', ratioTitle: 'Aspect Ratio',
@@ -284,7 +317,9 @@
                 limits: 'Limits 100 Images | 10 Videos | 20k Voice Tokens', subscribe: 'Subscribe Now',
                 community: 'Community Feed', nav: ['Home', 'Gallery', 'Help'],
                 chatTitle: 'Vividia AI Assistant', chatWelcome: 'Hello! How can I help with your Vividia project today?',
-                chatPlaceholder: 'Type your question...', chatProc: 'Processing your request: "'
+                chatPlaceholder: 'Type your question...', chatProc: 'Processing your request: "',
+                helpTitle: 'Vividia Help Center', helpBody: 'Get started with our AI tools. Create images, videos, and more using the main panel.',
+                galleryTitle: 'Your Gallery', galleryBody: 'Manage your generated media here.'
             },
             'FR': {
                 auth: ['Google', 'E-mail'], modelTitle: 'Sélection du modèle', ratioTitle: 'Ratio d\'aspect',
@@ -293,7 +328,9 @@
                 limits: 'Limites 100 images | 10 vidéos | 20k jetons vocaux', subscribe: 'Abonnez-vous',
                 community: 'Fil de la communauté', nav: ['Accueil', 'Galerie', 'Aide'],
                 chatTitle: 'Assistant Vividia AI', chatWelcome: 'Bonjour! Comment puis-je aider avec votre projet Vividia aujourd\'hui?',
-                chatPlaceholder: 'Tapez votre question...', chatProc: 'Traitement de votre demande: "'
+                chatPlaceholder: 'Tapez votre question...', chatProc: 'Traitement de votre demande: "',
+                helpTitle: 'Centre d\'aide', helpBody: 'Commencez avec nos outils IA. Créez des images, des vidéos et plus encore.',
+                galleryTitle: 'Votre Galerie', galleryBody: 'Gérez vos médias générés ici.'
             },
             'ES': {
                 auth: ['Google', 'Correo'], modelTitle: 'Selección de modelo', ratioTitle: 'Relación de aspecto',
@@ -302,7 +339,9 @@
                 limits: 'Límites 100 imágenes | 10 videos | 20k tokens de voz', subscribe: 'Suscribirse',
                 community: 'Feed de la comunidad', nav: ['Inicio', 'Galería', 'Ayuda'],
                 chatTitle: 'Asistente Vividia AI', chatWelcome: '¡Hola! ¿Cómo puedo ayudar con su proyecto Vividia hoy?',
-                chatPlaceholder: 'Escriba su pregunta...', chatProc: 'Procesando su solicitud: "'
+                chatPlaceholder: 'Escriba su pregunta...', chatProc: 'Procesando su solicitud: "',
+                helpTitle: 'Centro de Ayuda', helpBody: 'Comience con nuestras herramientas de IA. Cree imágenes, videos y más.',
+                galleryTitle: 'Tu Galería', galleryBody: 'Gestiona tus medios generados aquí.'
             }
         };
 
@@ -345,7 +384,6 @@
             document.documentElement.lang = code.toLowerCase();
             document.getElementById('lMenu').style.display = 'none';
 
-            // Apply translations
             if(langData[code]) {
                 const data = langData[code];
                 document.querySelectorAll('.lang-auth').forEach((el, i) => el.innerText = data.auth[i]);
@@ -369,18 +407,26 @@
                 document.querySelector('.lang-chat-title').innerText = data.chatTitle;
                 document.querySelector('.lang-chat-welcome').innerText = data.chatWelcome;
                 document.getElementById('chatInput').placeholder = data.chatPlaceholder;
+                document.querySelector('.lang-help-title').innerText = data.helpTitle;
+                document.querySelector('.lang-help-body').innerText = data.helpBody;
+                document.querySelector('.lang-gallery-title').innerText = data.galleryTitle;
+                document.querySelector('.lang-gallery-body').innerText = data.galleryBody;
             }
         }
 
         // Feature Actions
         function openGallery() {
             play(2);
-            alert("Redirecting to Your Professional Gallery...");
+            document.getElementById('galleryModal').style.display = 'flex';
         }
 
         function openHelp() {
             play(2);
-            alert("Vividia Help Center: How to use the app.");
+            document.getElementById('helpModal').style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
         // Chatbot Logic
@@ -393,25 +439,48 @@
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const content = document.getElementById('chatContent');
-            if(input.value.trim() === "") return;
+            const userMsg = input.value.trim();
+            if(userMsg === "") return;
 
-            content.innerHTML += `<div class="chat-msg user">${input.value}</div>`;
+            content.innerHTML += `<div class="chat-msg user">${userMsg}</div>`;
             play(2);
-            
-            setTimeout(() => {
-                const lang = document.getElementById('langDisplay').innerText;
-                const procText = langData[lang] ? langData[lang].chatProc : 'Processing: "';
-                content.innerHTML += `<div class="chat-msg ai">${procText}${input.value}"... Vividia AI ready!</div>`;
-                content.scrollTop = content.scrollHeight;
-            }, 1000);
-
             input.value = "";
             content.scrollTop = content.scrollHeight;
+            
+            // Intelligent Simulated Response
+            setTimeout(() => {
+                let aiResponse = "Vividia AI ready!";
+                const lang = document.getElementById('langDisplay').innerText;
+                const data = langData[lang];
+                const msgLower = userMsg.toLowerCase();
+
+                if(msgLower.includes('صورة') || msgLower.includes('image')) aiResponse = data.chatProc + userMsg + '"... Generating with Leonardo.ai!";
+                else if(msgLower.includes('صوت') || msgLower.includes('voice') || msgLower.includes('دبلجة')) aiResponse = data.chatProc + userMsg + '"... Processing with ElevenLabs!';
+                else if(msgLower.includes('فيديو') || msgLower.includes('video')) aiResponse = data.chatProc + userMsg + '"... Creating video...';
+                else if(msgLower.includes('خلفية') || msgLower.includes('background')) aiResponse = data.chatProc + userMsg + '"... Removing background...';
+                else aiResponse = data.chatWelcome;
+
+                content.innerHTML += `<div class="chat-msg ai">${aiResponse}</div>`;
+                content.scrollTop = content.scrollHeight;
+            }, 1000);
+        }
+
+        // Vercel / API Integration Structure
+        function generateContent() {
+            play(2);
+            const prompt = document.getElementById('prompt').value;
+            const activeService = document.querySelector('.service-btn.active span').innerText;
+            
+            alert(`API CALL: Generating ${activeService} with prompt: "${prompt}"... (Connect to Vercel/Leonardo/ElevenLabs here)`);
+            // Example: fetch('/api/generate', {method: 'POST', body: ...})
         }
 
         window.onclick = function(event) {
             if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item') && !event.target.closest('.chat-widget')) {
                 document.querySelectorAll('.drop-menu, .lang-menu').forEach(m => m.style.display = 'none');
+            }
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
         }
     </script>
