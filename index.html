@@ -201,12 +201,12 @@
         </div>
 
         <div class="services-grid">
-            <div class="service-btn active" onclick="sel(this)"><i class="fas fa-image"></i><span class="lang-serv-img">Image</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-video"></i><span class="lang-serv-vid">Video</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-microphone"></i><span class="lang-serv-voice">Voice</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-language"></i><span class="lang-serv-dub">Dubbing</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-music"></i><span class="lang-serv-music">Music</span></div>
-            <div class="service-btn" onclick="sel(this)"><i class="fas fa-wave-square"></i><span class="lang-serv-sfx">SFX</span></div>
+            <div class="service-btn active" onclick="sel(this)" data-service="image"><i class="fas fa-image"></i><span class="lang-serv-img">Image</span></div>
+            <div class="service-btn" onclick="sel(this)" data-service="video"><i class="fas fa-video"></i><span class="lang-serv-vid">Video</span></div>
+            <div class="service-btn" onclick="sel(this)" data-service="voice"><i class="fas fa-microphone"></i><span class="lang-serv-voice">Voice</span></div>
+            <div class="service-btn" onclick="sel(this)" data-service="dubbing"><i class="fas fa-language"></i><span class="lang-serv-dub">Dubbing</span></div>
+            <div class="service-btn" onclick="sel(this)" data-service="music"><i class="fas fa-music"></i><span class="lang-serv-music">Music</span></div>
+            <div class="service-btn" onclick="sel(this)" data-service="sfx"><i class="fas fa-wave-square"></i><span class="lang-serv-sfx">SFX</span></div>
         </div>
 
         <div class="action-row">
@@ -347,7 +347,7 @@
 
         function play(s) {
             const a = document.getElementById(s === 1 ? 'sndClick' : 'sndAction');
-            a.currentTime = 0; a.volume = 0.3; a.play();
+            if(a) { a.currentTime = 0; a.volume = 0.3; a.play(); }
         }
 
         function toggleDrop(id) {
@@ -447,7 +447,7 @@
             input.value = "";
             content.scrollTop = content.scrollHeight;
             
-            // Intelligent Simulated Response
+            // Simulation
             setTimeout(() => {
                 let aiResponse = "Vividia AI ready!";
                 const lang = document.getElementById('langDisplay').innerText;
@@ -457,7 +457,6 @@
                 if(msgLower.includes('صورة') || msgLower.includes('image')) aiResponse = data.chatProc + userMsg + '"... Generating with Leonardo.ai!";
                 else if(msgLower.includes('صوت') || msgLower.includes('voice') || msgLower.includes('دبلجة')) aiResponse = data.chatProc + userMsg + '"... Processing with ElevenLabs!';
                 else if(msgLower.includes('فيديو') || msgLower.includes('video')) aiResponse = data.chatProc + userMsg + '"... Creating video...';
-                else if(msgLower.includes('خلفية') || msgLower.includes('background')) aiResponse = data.chatProc + userMsg + '"... Removing background...';
                 else aiResponse = data.chatWelcome;
 
                 content.innerHTML += `<div class="chat-msg ai">${aiResponse}</div>`;
@@ -465,14 +464,40 @@
             }, 1000);
         }
 
-        // Vercel / API Integration Structure
-        function generateContent() {
+        // =============================================
+        // 🔥 الديناميكية الحقيقية (Real API Connection)
+        // =============================================
+        async function generateContent() {
             play(2);
             const prompt = document.getElementById('prompt').value;
-            const activeService = document.querySelector('.service-btn.active span').innerText;
+            const activeService = document.querySelector('.service-btn.active').getAttribute('data-service');
             
-            alert(`API CALL: Generating ${activeService} with prompt: "${prompt}"... (Connect to Vercel/Leonardo/ElevenLabs here)`);
-            // Example: fetch('/api/generate', {method: 'POST', body: ...})
+            if(!prompt) { alert("الرجاء كتابة وصف!"); return; }
+
+            // إظهار تحميل
+            const btn = document.querySelector('.btn-generate');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+
+            try {
+                // هذا هو الرابط الذي سيتم ربطه بـ Backend في Vercel
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, service: activeService })
+                });
+                
+                const data = await response.json();
+                alert("تم إرسال الطلب بنجاح إلى Vercel Function! " + data.message);
+                
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ في الاتصال بالـ API.");
+            } finally {
+                // إعادة الزر
+                btn.innerHTML = '<span class="lang-generate">GENERATE MAGIC</span>';
+                btn.disabled = false;
+            }
         }
 
         window.onclick = function(event) {
