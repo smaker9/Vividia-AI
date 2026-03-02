@@ -128,9 +128,14 @@
         .nav-item span { font-size: 0.7rem; }
 
         /* Language Price Table */
-        .lang-menu { position: absolute; bottom: 80px; right: 20px; background: #111; border: 1px solid var(--border); border-radius: 12px; display: none; padding: 10px; }
+        .lang-menu { position: absolute; bottom: 80px; right: 20px; background: #111; border: 1px solid var(--border); border-radius: 12px; display: none; padding: 10px; z-index: 1001;}
         .lang-opt { padding: 8px 15px; cursor: pointer; font-size: 0.8rem; border-radius: 8px; margin-bottom: 2px; }
         .lang-opt:hover { background: var(--accent-gradient); }
+
+        /* Modals for Dynamic Interaction */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; border: 1px solid var(--border); }
+        .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.2rem; }
 
     </style>
 </head>
@@ -214,7 +219,7 @@
     <nav class="nav-bar">
         <div class="nav-item active" onclick="play(1)"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item" onclick="openGallery()"><i class="fas fa-images"></i><span>Gallery</span></div>
-        <div class="nav-item" onclick="play(1)"><i class="fas fa-question-circle"></i><span>Help</span></div>
+        <div class="nav-item" onclick="openHelp()"><i class="fas fa-question-circle"></i><span>Help</span></div>
         <div class="nav-item" onclick="toggleLang()"><i class="fas fa-globe"></i><span id="langDisplay">EN</span></div>
         
         <div id="lMenu" class="lang-menu">
@@ -225,10 +230,28 @@
         </div>
     </nav>
 
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('galleryModal')">&times;</span>
+            <i class="fas fa-images fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
+            <h3>Your Professional Gallery</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem;">View and manage all your generated AI masterpieces.</p>
+        </div>
+    </div>
+
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('helpModal')">&times;</span>
+            <i class="fas fa-question-circle fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
+            <h3>Vividia Help Center</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem;">Need assistance? Check our guides or contact support.</p>
+        </div>
+    </div>
+
     <script>
         function play(s) {
             const a = document.getElementById(s === 1 ? 'sndClick' : 'sndAction');
-            a.currentTime = 0; a.volume = 0.3; a.play();
+            if(a) { a.currentTime = 0; a.volume = 0.3; a.play(); }
         }
 
         function toggleDrop(id) {
@@ -265,16 +288,29 @@
             document.getElementById('lMenu').style.display = 'none';
         }
 
+        // Dynamic Modals Logic
         function openGallery() {
             play(2);
-            alert("Redirecting to Your Professional Gallery...");
+            document.getElementById('galleryModal').style.display = 'flex';
+        }
+
+        function openHelp() {
+            play(2);
+            document.getElementById('helpModal').style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
         window.onclick = function(event) {
-            if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item')) {
+            if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item') && !event.target.classList.contains('modal-content')) {
                 document.querySelectorAll('.drop-menu, .lang-menu').forEach(m => m.style.display = 'none');
+            }
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
         }
     </script>
 </body>
-                    </html>
+</html>
