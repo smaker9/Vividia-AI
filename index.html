@@ -50,13 +50,22 @@
         .dropdown-box {
             background: var(--panel-bg); border: 1px solid var(--border); border-radius: 15px;
             padding: 12px; cursor: pointer; position: relative;
+            transition: border-color 0.3s;
         }
+        
+        /* تأثير احترافي عند فتح القائمة */
+        .dropdown-box.active {
+            border-image: var(--accent-gradient) 1;
+            border-style: solid;
+            border-width: 1px;
+        }
+
         .dropdown-box span { font-size: 0.7rem; color: var(--text-dim); display: block; }
         .dropdown-box strong { font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; }
 
         .drop-menu {
             position: absolute; top: 110%; left: 0; width: 100%; background: #181818;
-            border: 1px solid var(--accent-purple); border-radius: 12px; display: none; z-index: 100;
+            border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 12px; display: none; z-index: 100;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .drop-item { padding: 12px; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
@@ -93,7 +102,10 @@
             padding: 15px; border-radius: 15px; border: none; font-weight: 700;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
             color: white; font-size: 0.85rem; background: #3b82f6; /* Blue for Upload/Download */
+            transition: background 0.3s;
         }
+        .btn-action:hover { background: #2563eb; }
+
         .btn-generate {
             width: 100%; padding: 18px; border-radius: 20px; border: none;
             background: var(--accent-gradient); color: white; font-size: 1.1rem;
@@ -132,10 +144,13 @@
         .lang-opt { padding: 8px 15px; cursor: pointer; font-size: 0.8rem; border-radius: 8px; margin-bottom: 2px; }
         .lang-opt:hover { background: var(--accent-gradient); }
 
-        /* Modals for Dynamic Interaction */
+        /* Modals */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
         .modal-content { background: #1a1a1a; padding: 30px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; border: 1px solid var(--border); }
         .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.2rem; }
+        
+        /* Footer */
+        .footer-text { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 20px; padding-bottom: 100px; }
 
     </style>
 </head>
@@ -155,7 +170,7 @@
     <main class="app-container">
         
         <div class="top-settings">
-            <div class="dropdown-box" onclick="toggleDrop('mDrop')">
+            <div class="dropdown-box" id="modelBox" onclick="toggleDrop('mDrop', 'modelBox')">
                 <span>Model Selection</span>
                 <strong id="mTxt">Vividia 3.0 Pro <i class="fas fa-chevron-down"></i></strong>
                 <div id="mDrop" class="drop-menu">
@@ -164,7 +179,7 @@
                     <div class="drop-item" onclick="setV('mTxt', 'Anime Master')">Anime Master</div>
                 </div>
             </div>
-            <div class="dropdown-box" onclick="toggleDrop('rDrop')">
+            <div class="dropdown-box" id="ratioBox" onclick="toggleDrop('rDrop', 'ratioBox')">
                 <span>Aspect Ratio</span>
                 <strong id="rTxt">16:9 Wide <i class="fas fa-chevron-down"></i></strong>
                 <div id="rDrop" class="drop-menu">
@@ -190,8 +205,8 @@
         </div>
 
         <div class="action-row">
-            <button class="btn-action" onclick="play(1)"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-            <button class="btn-action" onclick="play(2)"><i class="fas fa-file-download"></i> MP4 / HD</button>
+            <button class="btn-action" onclick="handleAction('upload')"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            <button class="btn-action" onclick="handleAction('download')"><i class="fas fa-file-download"></i> MP4 / HD</button>
         </div>
 
         <button class="btn-generate" onclick="play(2)">GENERATE MAGIC</button>
@@ -214,6 +229,8 @@
                 <div class="feed-item"><img src="https://picsum.photos/200/300?random=4"><span class="feed-badge">Image</span></div>
             </div>
         </div>
+        
+        <div class="footer-text">Vividia AI 2026 - All Rights Reserved</div>
     </main>
 
     <nav class="nav-bar">
@@ -243,8 +260,13 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('helpModal')">&times;</span>
             <i class="fas fa-question-circle fa-3x" style="color:#a855f7; margin-bottom:15px;"></i>
-            <h3>Vividia Help Center</h3>
-            <p style="color:var(--text-dim); font-size:0.9rem;">Need assistance? Check our guides or contact support.</p>
+            <h3>How Vividia Works</h3>
+            <p style="color:var(--text-dim); font-size:0.9rem; text-align:right;">
+                1. اكتب وصفك في المربع.<br>
+                2. استخدم الأيقونة السحرية لتحسين الوصف.<br>
+                3. اختر نوع المحتوى (فيديو، صورة، موسيقى).<br>
+                4. اضغط على GENERATE MAGIC.
+            </p>
         </div>
     </div>
 
@@ -254,16 +276,35 @@
             if(a) { a.currentTime = 0; a.volume = 0.3; a.play(); }
         }
 
-        function toggleDrop(id) {
+        function toggleDrop(menuId, boxId) {
             play(1);
-            const d = document.getElementById(id);
-            d.style.display = d.style.display === 'block' ? 'none' : 'block';
+            const menu = document.getElementById(menuId);
+            const box = document.getElementById(boxId);
+            
+            // إغلاق أي قائمة أخرى
+            document.querySelectorAll('.drop-menu').forEach(m => {
+                if (m.id !== menuId) m.style.display = 'none';
+            });
+            document.querySelectorAll('.dropdown-box').forEach(b => {
+                if (b.id !== boxId) b.classList.remove('active');
+            });
+
+            // فتح/إغلاق القائمة الحالية
+            const isVisible = menu.style.display === 'block';
+            menu.style.display = isVisible ? 'none' : 'block';
+            
+            if (!isVisible) {
+                box.classList.add('active');
+            } else {
+                box.classList.remove('active');
+            }
         }
 
         function setV(id, val) {
             play(2);
             document.getElementById(id).innerHTML = val + ' <i class="fas fa-chevron-down"></i>';
             document.querySelectorAll('.drop-menu').forEach(m => m.style.display = 'none');
+            document.querySelectorAll('.dropdown-box').forEach(b => b.classList.remove('active'));
         }
 
         function sel(btn) {
@@ -285,10 +326,27 @@
             document.getElementById('priceVal').innerText = price;
             document.getElementById('durTxt').innerText = dur;
             document.documentElement.dir = (code === 'AR') ? 'rtl' : 'ltr';
+            document.documentElement.lang = code.toLowerCase();
             document.getElementById('lMenu').style.display = 'none';
+            
+            // تحديث نصوص الموقع بناءً على اللغة
+            if(code === 'AR') {
+                document.getElementById('prompt').placeholder = "أدخل وصفك الإبداعي...";
+            } else {
+                document.getElementById('prompt').placeholder = "Enter your creative prompt...";
+            }
         }
 
-        // Dynamic Modals Logic
+        // تفاعلية الأزرار
+        function handleAction(action) {
+            play(2);
+            if(action === 'upload') {
+                alert("Opening file uploader...");
+            } else {
+                alert("Downloading high-quality media...");
+            }
+        }
+
         function openGallery() {
             play(2);
             document.getElementById('galleryModal').style.display = 'flex';
@@ -306,6 +364,7 @@
         window.onclick = function(event) {
             if (!event.target.closest('.dropdown-box') && !event.target.closest('.nav-item') && !event.target.classList.contains('modal-content')) {
                 document.querySelectorAll('.drop-menu, .lang-menu').forEach(m => m.style.display = 'none');
+                document.querySelectorAll('.dropdown-box').forEach(b => b.classList.remove('active'));
             }
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
