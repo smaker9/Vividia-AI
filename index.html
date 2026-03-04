@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vividia AI - Next‑Gen Animation Studio</title>
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         * {
             margin: 0;
@@ -21,7 +23,7 @@
             --primary-dark: #4F46E5;
             --secondary: #8B5CF6;
             --accent: #EC4899;
-            --bg-dark: #0B0B1A;
+            --bg-dark: #0A0A1A;
             --bg-card: #12122A;
             --bg-sidebar: #0C0C20;
             --border: #1E1E3A;
@@ -33,14 +35,83 @@
             background: var(--bg-dark);
             color: var(--text);
             overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* ===== LANDING PAGE ===== */
-        .landing-page {
-            min-height: 100vh;
-            background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15), transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15), transparent 40%),
-                        var(--bg-dark);
+        /* RTL Support */
+        body[dir="rtl"] {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .navbar {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="rtl"] .features {
+            direction: rtl;
+        }
+
+        body[dir="rtl"] .footer {
+            direction: rtl;
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(18, 18, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 16px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-top: 8px;
+            min-width: 180px;
+            display: none;
+            z-index: 1001;
+        }
+
+        .lang-selector:hover .lang-dropdown {
+            display: block;
+        }
+
+        .lang-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lang-item:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .lang-item.active {
+            background: rgba(99, 102, 241, 0.3);
+            color: var(--primary);
         }
 
         /* Navbar */
@@ -59,7 +130,6 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
         }
 
         .nav-buttons {
@@ -99,22 +169,19 @@
             box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             max-width: 1200px;
-            margin: 60px auto;
+            margin: 40px auto;
             padding: 0 48px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 64px;
+            font-size: 56px;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 24px;
-            background: linear-gradient(135deg, white, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .hero h1 span {
@@ -124,13 +191,13 @@
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 40px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Main Card (like in your screenshot) */
+        /* Main Card (Tools First) */
         .main-card {
             background: rgba(18, 18, 42, 0.8);
             backdrop-filter: blur(10px);
@@ -142,7 +209,7 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
 
-        .signin-header {
+        .tools-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -151,27 +218,29 @@
             gap: 20px;
         }
 
-        .signin-header h2 {
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .get-started-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 16px 32px;
-            border-radius: 60px;
+        .tools-title {
+            font-size: 24px;
             font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-            transition: 0.3s;
+            color: var(--text-muted);
         }
 
-        .get-started-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 20px;
+            cursor: pointer;
         }
 
         .prompt-box {
@@ -180,16 +249,28 @@
             border-radius: 60px;
             padding: 20px 30px;
             margin: 30px 0;
-            font-size: 18px;
-            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
+        .prompt-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 18px;
+            width: 100%;
+            outline: none;
+        }
+
+        .prompt-box input::placeholder {
+            color: var(--text-muted);
+        }
+
         .prompt-box i {
             color: var(--primary);
             font-size: 24px;
+            cursor: pointer;
         }
 
         .ai-badge {
@@ -200,12 +281,11 @@
             display: inline-block;
             margin-bottom: 30px;
             color: var(--primary);
-            font-weight: 500;
         }
 
         .media-types {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             margin: 30px 0;
             flex-wrap: wrap;
@@ -213,22 +293,41 @@
 
         .media-type {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
             border-radius: 40px;
             padding: 12px 30px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .media-type::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .media-type:hover::before {
+            left: 100%;
         }
 
         .media-type:hover {
             background: rgba(99, 102, 241, 0.2);
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .media-type.active {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
+            color: white;
         }
 
         .generate-btn {
@@ -244,6 +343,10 @@
             margin: 30px 0;
             transition: 0.3s;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
         .generate-btn:hover {
@@ -251,6 +354,48 @@
             box-shadow: 0 25px 50px rgba(99, 102, 241, 0.5);
         }
 
+        .generate-btn i {
+            font-size: 24px;
+        }
+
+        /* Output Area (شغالة فعلياً) */
+        .output-area {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            margin: 30px 0;
+            min-height: 100px;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .output-content {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Membership Card */
         .membership-card {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
             border: 1px solid rgba(99, 102, 241, 0.4);
@@ -298,14 +443,14 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             max-width: 1200px;
-            margin: 80px auto;
+            margin: 60px auto;
             padding: 0 48px;
         }
 
         .feature-card {
             background: rgba(18, 18, 42, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--border);
             border-radius: 30px;
             padding: 30px;
             text-align: center;
@@ -321,14 +466,6 @@
             justify-content: center;
             margin: 0 auto 20px;
             font-size: 24px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 12px;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
         }
 
         /* Footer */
@@ -361,132 +498,7 @@
             color: var(--primary);
         }
 
-        /* ===== STUDIO PAGE (AFTER LOGIN) ===== */
-        .studio-page {
-            display: none;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .studio-container {
-            display: flex;
-            height: 100vh;
-            width: 100%;
-        }
-
-        .studio-sidebar {
-            width: 280px;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            padding: 24px 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .studio-logo {
-            padding: 0 20px 24px 20px;
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .studio-user {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .studio-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .studio-user-info {
-            flex: 1;
-        }
-
-        .studio-user-name {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .studio-user-email {
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        .studio-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .studio-nav-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-            color: white;
-        }
-
-        .studio-nav-item.active {
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), transparent);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-        }
-
-        .studio-main {
-            flex: 1;
-            padding: 32px;
-            overflow-y: auto;
-            background: radial-gradient(circle at 70% 20%, rgba(99, 102, 241, 0.08), transparent 40%);
-        }
-
-        .studio-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .save-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            padding: 12px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-        }
-
-        .save-btn:hover {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: var(--primary);
-        }
-
-        .studio-workspace {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 24px;
-            min-height: 400px;
-        }
-
-        /* ===== AUTH MODAL ===== */
+        /* Auth Modal */
         .auth-modal {
             position: fixed;
             top: 0;
@@ -500,11 +512,13 @@
             justify-content: center;
             z-index: 2000;
             transition: 0.3s;
-        }
-
-        .auth-modal.hidden {
             opacity: 0;
             pointer-events: none;
+        }
+
+        .auth-modal.show {
+            opacity: 1;
+            pointer-events: all;
         }
 
         .auth-card {
@@ -514,16 +528,6 @@
             padding: 40px;
             width: 90%;
             max-width: 420px;
-        }
-
-        .auth-logo {
-            font-size: 32px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .google-btn {
@@ -540,38 +544,7 @@
             justify-content: center;
             gap: 12px;
             margin-bottom: 20px;
-            transition: 0.2s;
         }
-
-        .google-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        }
-
-        .google-btn i {
-            color: #4285F4;
-            font-size: 20px;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 20px 0;
-            color: var(--text-muted);
-            position: relative;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
 
         .auth-input {
             width: 100%;
@@ -582,11 +555,6 @@
             color: white;
             font-size: 16px;
             margin-bottom: 16px;
-            outline: none;
-        }
-
-        .auth-input:focus {
-            border-color: var(--primary);
         }
 
         .auth-switch {
@@ -598,21 +566,22 @@
         .auth-switch span {
             color: var(--primary);
             cursor: pointer;
-            font-weight: 600;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
                 padding: 20px;
+                flex-direction: column;
+                gap: 20px;
             }
             
             .hero h1 {
-                font-size: 40px;
+                font-size: 36px;
             }
             
             .main-card {
-                padding: 30px;
+                padding: 24px;
             }
             
             .membership-card {
@@ -622,208 +591,188 @@
         }
     </style>
 </head>
-<body>
-    <!-- Landing Page -->
-    <div class="landing-page" id="landingPage">
-        <nav class="navbar">
-            <div class="logo">VIVIDIA AI</div>
-            <div class="nav-buttons">
-                <button class="btn btn-outline" onclick="showAuthModal('login')">Login</button>
-                <button class="btn btn-primary" onclick="showAuthModal('signup')">Sign Up</button>
+<body dir="ltr">
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <img src="https://flagcdn.com/w20/us.png" class="lang-flag" alt="English">
+        <span id="currentLang">English</span>
+        <i class="fas fa-chevron-down" style="color: var(--text-muted); font-size: 12px;"></i>
+        
+        <div class="lang-dropdown">
+            <div class="lang-item active" onclick="changeLanguage('en', 'us', 'English', '$')">
+                <img src="https://flagcdn.com/w20/us.png" class="lang-flag" alt="English">
+                <span>English</span>
             </div>
-        </nav>
-
-        <div class="hero">
-            <h1>Create <span>Cinematic Masterpieces</span><br>with AI</h1>
-            <p>Turn your ideas into stunning 4K animations, films, and characters using next‑gen artificial intelligence</p>
+            <div class="lang-item" onclick="changeLanguage('ar', 'sa', 'العربية', '﷼')">
+                <img src="https://flagcdn.com/w20/sa.png" class="lang-flag" alt="Arabic">
+                <span>العربية</span>
+            </div>
+            <div class="lang-item" onclick="changeLanguage('fr', 'fr', 'Français', '€')">
+                <img src="https://flagcdn.com/w20/fr.png" class="lang-flag" alt="French">
+                <span>Français</span>
+            </div>
+            <div class="lang-item" onclick="changeLanguage('es', 'es', 'Español', '€')">
+                <img src="https://flagcdn.com/w20/es.png" class="lang-flag" alt="Spanish">
+                <span>Español</span>
+            </div>
+            <div class="lang-item" onclick="changeLanguage('de', 'de', 'Deutsch', '€')">
+                <img src="https://flagcdn.com/w20/de.png" class="lang-flag" alt="German">
+                <span>Deutsch</span>
+            </div>
+            <div class="lang-item" onclick="changeLanguage('ja', 'jp', '日本語', '¥')">
+                <img src="https://flagcdn.com/w20/jp.png" class="lang-flag" alt="Japanese">
+                <span>日本語</span>
+            </div>
         </div>
+    </div>
 
-        <!-- Main Card (like your screenshot) -->
-        <div class="main-card">
-            <div class="signin-header">
-                <h2>Sign In</h2>
-                <button class="get-started-btn" onclick="showAuthModal('signup')">Get Started →</button>
-            </div>
-
-            <div class="prompt-box">
-                <span>Describe your masterpiece...</span>
-                <i class="fas fa-magic"></i>
-            </div>
-
-            <div class="ai-badge">
-                <i class="fas fa-robot"></i> AI Intelligent Engine
-            </div>
-
-            <div class="media-types">
-                <div class="media-type active">IMAGE</div>
-                <div class="media-type">VIDEO</div>
-                <div class="media-type">MUSIC</div>
-                <div class="media-type">VOICE</div>
-            </div>
-
-            <button class="generate-btn" onclick="showAuthModal('login')">
-                <i class="fas fa-wand-magic"></i> GENERATE MAGIC
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">VIVIDIA AI</div>
+        <div class="nav-buttons">
+            <button class="btn btn-outline" onclick="showAuthModal('login')">
+                <i class="fas fa-sign-in-alt"></i> <span class="login-text">Login</span>
             </button>
+            <button class="btn btn-primary" onclick="showAuthModal('signup')">
+                <i class="fas fa-user-plus"></i> <span class="signup-text">Sign Up</span>
+            </button>
+        </div>
+    </nav>
 
-            <div class="membership-card">
-                <div>
-                    <div style="color: var(--text-muted); margin-bottom: 8px;">Elite Membership</div>
-                    <div class="membership-price">$7.60 <small>/month</small></div>
-                </div>
-                <button class="membership-btn" onclick="showAuthModal('signup')">
-                    <i class="fas fa-crown"></i> Full Access to All AI Models
+    <!-- Hero -->
+    <div class="hero">
+        <h1><span class="hero-create">Create</span> <span class="hero-cinematic">Cinematic</span><br><span class="hero-masterpieces">Masterpieces</span> <span class="hero-with">with</span> <span class="hero-ai">AI</span></h1>
+        <p class="hero-desc">Turn your ideas into stunning 4K animations, films, and characters using next‑gen artificial intelligence</p>
+    </div>
+
+    <!-- Main Card (Tools First) -->
+    <div class="main-card">
+        <div class="tools-header">
+            <div class="tools-title">
+                <i class="fas fa-wand-magic" style="color: var(--primary);"></i> 
+                <span class="tools-text">AI Creation Tools</span>
+            </div>
+            <div class="user-status" id="userStatus">
+                <div class="user-avatar" onclick="showAuthModal('login')" id="userAvatar" style="display: none;">👤</div>
+                <button class="btn btn-outline" onclick="showAuthModal('login')" id="guestBtn">
+                    <i class="fas fa-user"></i> <span class="guest-text">Continue as Guest</span>
                 </button>
             </div>
         </div>
 
-        <!-- Features -->
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-film"></i></div>
-                <h3>4K Cinematic</h3>
-                <p>Generate Hollywood‑quality films in minutes</p>
+        <!-- Prompt Box -->
+        <div class="prompt-box">
+            <input type="text" id="promptInput" class="prompt-placeholder" placeholder="Describe your masterpiece...">
+            <i class="fas fa-magic" onclick="processPrompt()"></i>
+        </div>
+
+        <!-- AI Badge -->
+        <div class="ai-badge">
+            <i class="fas fa-robot"></i> <span class="ai-text">AI Intelligent Engine</span>
+        </div>
+
+        <!-- Media Types -->
+        <div class="media-types">
+            <div class="media-type active" onclick="selectMedia('image')">
+                <i class="fas fa-image"></i> <span class="media-image">IMAGE</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-robot"></i></div>
-                <h3>AI Characters</h3>
-                <p>Create and animate unique characters</p>
+            <div class="media-type" onclick="selectMedia('video')">
+                <i class="fas fa-video"></i> <span class="media-video">VIDEO</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-language"></i></div>
-                <h3>Lip Sync</h3>
-                <p>Multi‑language support with automatic lip movement</p>
+            <div class="media-type" onclick="selectMedia('music')">
+                <i class="fas fa-music"></i> <span class="media-music">MUSIC</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-cloud"></i></div>
-                <h3>Cloud Storage</h3>
-                <p>Save and access your projects anywhere</p>
+            <div class="media-type" onclick="selectMedia('voice')">
+                <i class="fas fa-microphone"></i> <span class="media-voice">VOICE</span>
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <div class="logo" style="font-size: 20px;">VIVIDIA AI</div>
-            <div class="footer-links">
-                <a onclick="showPage('pricing')">Pricing</a>
-                <a onclick="showPage('careers')">Careers</a>
-                <a onclick="showPage('faq')">FAQ</a>
-                <a onclick="showPage('blog')">Blog</a>
-                <a onclick="showPage('privacy')">Privacy</a>
+        <!-- Output Area (يشوف النتيجة فوراً) -->
+        <div class="output-area" id="outputArea">
+            <div class="output-header">
+                <span><i class="fas fa-terminal"></i> <span class="output-text">OUTPUT</span></span>
+                <span id="outputStatus">ready</span>
             </div>
-            <div>© 2026 Vividia AI. All rights reserved.</div>
+            <div class="output-content" id="outputContent">
+                👋 <span class="welcome-text">Welcome to Vividia AI. Describe your idea and click GENERATE!</span>
+            </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button class="generate-btn" onclick="generateWithAI()">
+            <i class="fas fa-wand-magic"></i> <span class="generate-text">GENERATE MAGIC</span>
+        </button>
+
+        <!-- Membership Card (السعر يتغير مع اللغة) -->
+        <div class="membership-card">
+            <div>
+                <div style="color: var(--text-muted); margin-bottom: 8px;">
+                    <i class="fas fa-crown" style="color: gold;"></i> <span class="membership-title">Elite Membership</span>
+                </div>
+                <div class="membership-price" id="membershipPrice">$7.60 <small class="membership-period">/month</small></div>
+            </div>
+            <button class="membership-btn" onclick="showAuthModal('signup')">
+                <i class="fas fa-crown"></i> <span class="membership-btn-text">Full Access to All AI Models</span>
+            </button>
         </div>
     </div>
 
-    <!-- Studio Page (After Login) -->
-    <div class="studio-page" id="studioPage">
-        <div class="studio-container">
-            <!-- Sidebar -->
-            <div class="studio-sidebar">
-                <div class="studio-logo">🎬 VIVIDIA AI</div>
-                
-                <div class="studio-user" id="studioUser">
-                    <div class="studio-avatar" id="studioAvatar">J</div>
-                    <div class="studio-user-info">
-                        <div class="studio-user-name" id="studioName">Johnathan</div>
-                        <div class="studio-user-email" id="studioEmail">john@example.com</div>
-                    </div>
-                </div>
-
-                <div class="studio-nav-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </div>
-                <div class="studio-nav-item">
-                    <i class="fas fa-film"></i>
-                    <span>My Projects</span>
-                </div>
-                <div class="studio-nav-item">
-                    <i class="fas fa-robot"></i>
-                    <span>Characters</span>
-                </div>
-                <div class="studio-nav-item">
-                    <i class="fas fa-music"></i>
-                    <span>Audio</span>
-                </div>
-                <div class="studio-nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </div>
-
-                <div style="margin-top: auto; padding: 20px;">
-                    <div class="studio-nav-item" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Logout</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Content -->
-            <div class="studio-main">
-                <div class="studio-header">
-                    <h1>Welcome back, <span id="welcomeName">Johnathan</span>!</h1>
-                    <button class="save-btn" onclick="saveProject()">
-                        <i class="fas fa-save"></i> Save Project
-                    </button>
-                </div>
-
-                <!-- Studio Workspace (same as previous studio) -->
-                <div class="studio-workspace">
-                    <div style="margin-bottom: 20px;">
-                        <h2>Current Project: Untitled</h2>
-                    </div>
-                    
-                    <div class="prompt-input-wrapper" style="display: flex; gap: 12px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 16px; padding: 8px 8px 8px 20px; margin-bottom: 20px;">
-                        <input type="text" style="flex: 1; background: transparent; border: none; color: white; padding: 12px 0; outline: none;" placeholder="Steampunk warrior, cinematic lighting, 4K" value="Steampunk warrior, cinematic lighting, 4K">
-                        <button style="background: var(--bg-dark); border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer;">
-                            <i class="fas fa-upload"></i> Upload
-                        </button>
-                    </div>
-
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
-                        <button class="btn btn-primary" style="padding: 12px 24px;" onclick="generateFilm()">
-                            <i class="fas fa-film"></i> Generate Film
-                        </button>
-                        <button class="btn btn-outline" style="padding: 12px 24px;" onclick="createAnimation()">
-                            <i class="fas fa-play"></i> Animation
-                        </button>
-                        <button class="btn btn-outline" style="padding: 12px 24px;" onclick="animateCharacter()">
-                            <i class="fas fa-robot"></i> Animate
-                        </button>
-                        <button class="btn btn-outline" style="padding: 12px 24px;" onclick="lipSync()">
-                            <i class="fas fa-microphone"></i> Lip Sync
-                        </button>
-                    </div>
-
-                    <div style="background: var(--bg-dark); border: 1px solid var(--border); border-radius: 16px; padding: 20px; min-height: 200px;">
-                        <div style="color: var(--text-muted); margin-bottom: 10px;">Output Preview</div>
-                        <div id="studioOutput">Ready to generate...</div>
-                    </div>
-                </div>
-            </div>
+    <!-- Features -->
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-film"></i></div>
+            <h3 class="feature-4k">4K Cinematic</h3>
+            <p class="feature-4k-desc">Generate Hollywood‑quality films in minutes</p>
         </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-robot"></i></div>
+            <h3 class="feature-characters">AI Characters</h3>
+            <p class="feature-characters-desc">Create and animate unique characters</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-language"></i></div>
+            <h3 class="feature-lipsync">Lip Sync</h3>
+            <p class="feature-lipsync-desc">Multi‑language support with automatic lip movement</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+            <h3 class="feature-cloud">Cloud Storage</h3>
+            <p class="feature-cloud-desc">Save and access your projects anywhere</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="logo" style="font-size: 20px;">VIVIDIA AI</div>
+        <div class="footer-links">
+            <a onclick="showPage('pricing')" class="footer-pricing">Pricing</a>
+            <a onclick="showPage('careers')" class="footer-careers">Careers</a>
+            <a onclick="showPage('faq')" class="footer-faq">FAQ</a>
+            <a onclick="showPage('blog')" class="footer-blog">Blog</a>
+            <a onclick="showPage('privacy')" class="footer-privacy">Privacy</a>
+        </div>
+        <div><span class="footer-copyright">© 2026 Vividia AI. All rights reserved.</span></div>
     </div>
 
     <!-- Auth Modal -->
     <div class="auth-modal" id="authModal">
         <div class="auth-card">
-            <div class="auth-logo">VIVIDIA AI</div>
+            <div class="logo" style="font-size: 32px; text-align: center; margin-bottom: 30px;">VIVIDIA AI</div>
 
-            <!-- Google Sign In -->
             <button class="google-btn" onclick="googleSignIn()">
-                <i class="fab fa-google"></i>
-                Continue with Google
+                <i class="fab fa-google"></i> <span class="google-text">Continue with Google</span>
             </button>
 
-            <div class="divider">or</div>
+            <div style="text-align: center; margin: 20px 0; color: var(--text-muted);">— <span class="or-text">or</span> —</div>
 
-            <!-- Email/Password Forms -->
             <div id="loginForm">
                 <input type="email" class="auth-input" id="loginEmail" placeholder="Email" value="john@example.com">
                 <input type="password" class="auth-input" id="loginPassword" placeholder="Password" value="password123">
-                <button class="btn btn-primary" style="width: 100%;" onclick="login()">Login</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="login()">
+                    <span class="login-btn">Login</span>
+                </button>
                 <div class="auth-switch">
-                    Don't have an account? <span onclick="switchAuthForm('signup')">Sign up</span>
+                    <span class="no-account">Don't have an account?</span> <span onclick="switchAuthForm('signup')" class="signup-link">Sign up</span>
                 </div>
             </div>
 
@@ -831,197 +780,160 @@
                 <input type="text" class="auth-input" id="signupName" placeholder="Full Name">
                 <input type="email" class="auth-input" id="signupEmail" placeholder="Email">
                 <input type="password" class="auth-input" id="signupPassword" placeholder="Password">
-                <button class="btn btn-primary" style="width: 100%;" onclick="signup()">Create Account</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="signup()">
+                    <span class="signup-btn">Create Account</span>
+                </button>
                 <div class="auth-switch">
-                    Already have an account? <span onclick="switchAuthForm('login')">Login</span>
+                    <span class="have-account">Already have an account?</span> <span onclick="switchAuthForm('login')" class="login-link">Login</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== AUTH STATE ====================
-        let currentUser = null;
-        let projects = JSON.parse(localStorage.getItem('vividia_projects')) || [];
-
-        // Check saved session
-        window.onload = function() {
-            const savedUser = localStorage.getItem('vividia_user');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showStudio();
-            }
-        };
-
-        // ==================== AUTH FUNCTIONS ====================
-        function showAuthModal(type) {
-            document.getElementById('authModal').classList.remove('hidden');
-            switchAuthForm(type);
-        }
-
-        function switchAuthForm(type) {
-            if (type === 'login') {
-                document.getElementById('loginForm').style.display = 'block';
-                document.getElementById('signupForm').style.display = 'none';
-            } else {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('signupForm').style.display = 'block';
-            }
-        }
-
-        // Google Sign In (simulated)
-        function googleSignIn() {
-            // Simulate Google login - in real app, use Firebase or OAuth
-            const googleUser = {
-                name: 'Johnathan',
-                email: 'john@gmail.com',
-                avatar: 'J',
-                provider: 'google'
-            };
-            
-            currentUser = googleUser;
-            localStorage.setItem('vividia_user', JSON.stringify(googleUser));
-            
-            document.getElementById('authModal').classList.add('hidden');
-            showStudio();
-            showNotification('Successfully signed in with Google!');
-        }
-
-        function login() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            if (!email || !password) {
-                alert('Please enter email and password');
-                return;
-            }
-
-            // Simulate login
-            currentUser = {
-                name: email.split('@')[0],
-                email: email,
-                avatar: email.charAt(0).toUpperCase()
-            };
-
-            localStorage.setItem('vividia_user', JSON.stringify(currentUser));
-            document.getElementById('authModal').classList.add('hidden');
-            showStudio();
-            showNotification('Login successful!');
-        }
-
-        function signup() {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-
-            if (!name || !email || !password) {
-                alert('Please fill all fields');
-                return;
-            }
-
-            currentUser = {
-                name: name,
-                email: email,
-                avatar: name.charAt(0).toUpperCase()
-            };
-
-            localStorage.setItem('vividia_user', JSON.stringify(currentUser));
-            document.getElementById('authModal').classList.add('hidden');
-            showStudio();
-            showNotification('Account created successfully!');
-        }
-
-        function logout() {
-            localStorage.removeItem('vividia_user');
-            currentUser = null;
-            document.getElementById('studioPage').style.display = 'none';
-            document.getElementById('landingPage').style.display = 'block';
-            showNotification('Logged out successfully');
-        }
-
-        function showStudio() {
-            document.getElementById('landingPage').style.display = 'none';
-            document.getElementById('studioPage').style.display = 'block';
-            
-            // Update user info in studio
-            if (currentUser) {
-                document.getElementById('studioName').textContent = currentUser.name;
-                document.getElementById('studioEmail').textContent = currentUser.email;
-                document.getElementById('studioAvatar').textContent = currentUser.avatar;
-                document.getElementById('welcomeName').textContent = currentUser.name.split(' ')[0];
-            }
-        }
-
-        // ==================== STUDIO FUNCTIONS ====================
-        function saveProject() {
-            if (!currentUser) {
-                showAuthModal('login');
-                return;
-            }
-
-            const project = {
-                id: Date.now(),
-                name: 'Project ' + (projects.length + 1),
-                date: new Date().toLocaleDateString(),
-                user: currentUser.email
-            };
-
-            projects.push(project);
-            localStorage.setItem('vividia_projects', JSON.stringify(projects));
-            showNotification('Project saved successfully!');
-        }
-
-        function generateFilm() {
-            if (!currentUser) {
-                showAuthModal('login');
-                return;
-            }
-            document.getElementById('studioOutput').innerHTML = '🎬 Generating film... Please wait...';
-            setTimeout(() => {
-                document.getElementById('studioOutput').innerHTML = '✅ Film generated successfully! Preview ready.';
-            }, 2000);
-        }
-
-        function createAnimation() {
-            if (!currentUser) {
-                showAuthModal('login');
-                return;
-            }
-            document.getElementById('studioOutput').innerHTML = '🔄 Creating animation...';
-        }
-
-        function animateCharacter() {
-            if (!currentUser) {
-                showAuthModal('login');
-                return;
-            }
-            document.getElementById('studioOutput').innerHTML = '🤖 Animating character...';
-        }
-
-        function lipSync() {
-            if (!currentUser) {
-                showAuthModal('login');
-                return;
-            }
-            document.getElementById('studioOutput').innerHTML = '🎤 Lip sync ready - Arabic, English supported';
-        }
-
-        // ==================== UTILITIES ====================
-        function showNotification(message) {
-            // Simple alert for now - can be replaced with toast
-            alert(message);
-        }
-
-        function showPage(page) {
-            alert('Page: ' + page + ' - Coming soon!');
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('authModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.add('hidden');
-            }
-        });
-    </script>
-</body>
-</html>
+        // ==================== MULTI-LANGUAGE SUPPORT ====================
+        const translations = {
+            en: {
+                // Navigation
+                'login': 'Login',
+                'signup': 'Sign Up',
+                'continue_as_guest': 'Continue as Guest',
+                
+                // Hero
+                'hero_create': 'Create',
+                'hero_cinematic': 'Cinematic',
+                'hero_masterpieces': 'Masterpieces',
+                'hero_with': 'with',
+                'hero_ai': 'AI',
+                'hero_desc': 'Turn your ideas into stunning 4K animations, films, and characters using next‑gen artificial intelligence',
+                
+                // Tools
+                'tools_text': 'AI Creation Tools',
+                'prompt_placeholder': 'Describe your masterpiece...',
+                'ai_text': 'AI Intelligent Engine',
+                'media_image': 'IMAGE',
+                'media_video': 'VIDEO',
+                'media_music': 'MUSIC',
+                'media_voice': 'VOICE',
+                'output_text': 'OUTPUT',
+                'welcome_text': 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
+                'generate_text': 'GENERATE MAGIC',
+                
+                // Membership
+                'membership_title': 'Elite Membership',
+                'membership_period': '/month',
+                'membership_btn': 'Full Access to All AI Models',
+                
+                // Features
+                'feature_4k': '4K Cinematic',
+                'feature_4k_desc': 'Generate Hollywood‑quality films in minutes',
+                'feature_characters': 'AI Characters',
+                'feature_characters_desc': 'Create and animate unique characters',
+                'feature_lipsync': 'Lip Sync',
+                'feature_lipsync_desc': 'Multi‑language support with automatic lip movement',
+                'feature_cloud': 'Cloud Storage',
+                'feature_cloud_desc': 'Save and access your projects anywhere',
+                
+                // Footer
+                'footer_pricing': 'Pricing',
+                'footer_careers': 'Careers',
+                'footer_faq': 'FAQ',
+                'footer_blog': 'Blog',
+                'footer_privacy': 'Privacy',
+                'footer_copyright': '© 2026 Vividia AI. All rights reserved.',
+                
+                // Auth
+                'google_text': 'Continue with Google',
+                'or_text': 'or',
+                'no_account': "Don't have an account?",
+                'have_account': 'Already have an account?',
+                'signup_link': 'Sign up',
+                'login_link': 'Login',
+                'login_btn': 'Login',
+                'signup_btn': 'Create Account'
+            },
+            ar: {
+                // Navigation
+                'login': 'تسجيل الدخول',
+                'signup': 'إنشاء حساب',
+                'continue_as_guest': 'متابعة كزائر',
+                
+                // Hero
+                'hero_create': 'اصنع',
+                'hero_cinematic': 'أفلاماً سينمائية',
+                'hero_masterpieces': 'روائع',
+                'hero_with': 'بواسطة',
+                'hero_ai': 'الذكاء الاصطناعي',
+                'hero_desc': 'حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K باستخدام أحدث تقنيات الذكاء الاصطناعي',
+                
+                // Tools
+                'tools_text': 'أدوات الإبداع بالذكاء الاصطناعي',
+                'prompt_placeholder': 'صف تحفتك الفنية...',
+                'ai_text': 'محرك الذكاء الاصطناعي',
+                'media_image': 'صورة',
+                'media_video': 'فيديو',
+                'media_music': 'موسيقى',
+                'media_voice': 'صوت',
+                'output_text': 'النتيجة',
+                'welcome_text': 'مرحباً بك في Vividia AI. صف فكرتك وانقر على "توليد"!',
+                'generate_text': 'توليد الإبداع',
+                
+                // Membership
+                'membership_title': 'عضوية النخبة',
+                'membership_period': '/شهر',
+                'membership_btn': 'وصول كامل لجميع نماذج الذكاء الاصطناعي',
+                
+                // Features
+                'feature_4k': 'سينما 4K',
+                'feature_4k_desc': 'أنتج أفلاماً بجودة هوليوود في دقائق',
+                'feature_characters': 'شخصيات ذكية',
+                'feature_characters_desc': 'اصنع وحرك شخصيات فريدة',
+                'feature_lipsync': 'مزامنة الشفاه',
+                'feature_lipsync_desc': 'دعم متعدد اللغات مع حركة شفاه تلقائية',
+                'feature_cloud': 'تخزين سحابي',
+                'feature_cloud_desc': 'احفظ مشاريعك وصول إليها من أي مكان',
+                
+                // Footer
+                'footer_pricing': 'الأسعار',
+                'footer_careers': 'وظائف',
+                'footer_faq': 'أسئلة شائعة',
+                'footer_blog': 'مدونة',
+                'footer_privacy': 'خصوصية',
+                'footer_copyright': '© 2026 Vividia AI. جميع الحقوق محفوظة',
+                
+                // Auth
+                'google_text': 'المتابعة مع Google',
+                'or_text': 'أو',
+                'no_account': 'ليس لديك حساب؟',
+                'have_account': 'لديك حساب بالفعل؟',
+                'signup_link': 'سجل الآن',
+                'login_link': 'تسجيل الدخول',
+                'login_btn': 'تسجيل الدخول',
+                'signup_btn': 'إنشاء حساب'
+            },
+            fr: {
+                'login': 'Connexion',
+                'signup': 'Inscription',
+                'continue_as_guest': 'Continuer comme invité',
+                'hero_create': 'Créez',
+                'hero_cinematic': 'des chefs-d\'œuvre',
+                'hero_masterpieces': 'cinématographiques',
+                'hero_with': 'avec',
+                'hero_ai': 'l\'IA',
+                'hero_desc': 'Transformez vos idées en animations, films et personnages 4K époustouflants grâce à l\'IA de nouvelle génération',
+                'prompt_placeholder': 'Décrivez votre chef-d\'œuvre...',
+                'generate_text': 'GÉNÉRER MAGIQUE',
+                'membership_title': 'Abonnement Elite',
+                'membership_period': '/mois',
+                'footer_copyright': '© 2026 Vividia AI. Tous droits réservés'
+            },
+            es: {
+                'login': 'Iniciar sesión',
+                'signup': 'Registrarse',
+                'continue_as_guest': 'Continuar como invitado',
+                'hero_create': 'Crea',
+                'hero_cinematic': 'obras maestras',
+                'hero_masterpieces': 'cinematográficas',
+                'hero_with': 'con',
+                'hero_ai': 'IA',
+                'hero_desc': 'Convierte
