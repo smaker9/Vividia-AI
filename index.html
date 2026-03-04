@@ -2,157 +2,226 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurora AI - Your Intelligent Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Vividia AI - Professional Animation Platform</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         body {
-            background: #0A0A0F;
+            background: #0B0B15;
             color: #FFFFFF;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
         }
 
-        /* Main Container */
+        /* ========== MAIN CONTAINER ========== */
         .container {
             display: flex;
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* ========== LEFT SIDEBAR ========== */
+        /* ========== LEFT SIDEBAR (DESKTOP) ========== */
         .sidebar {
-            width: 260px;
-            background: #0F0F15;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 24px 0;
+            width: 280px;
+            background: #0E0E1A;
+            border-right: 1px solid rgba(138, 92, 246, 0.15);
+            padding: 28px 0;
             display: flex;
             flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        /* Mobile Menu Toggle (Hidden on Desktop) */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .logo-area {
-            padding: 0 20px 20px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 20px;
+            padding: 0 24px 24px 24px;
+            border-bottom: 1px solid rgba(138, 92, 246, 0.2);
+            margin-bottom: 24px;
         }
 
         .logo {
-            font-size: 20px;
-            font-weight: 600;
-            background: linear-gradient(135deg, #A78BFA 0%, #60A5FA 100%);
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF, #C084FC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 20px rgba(138, 92, 246, 0.3);
         }
 
         .nav-menu {
             flex: 1;
-            padding: 0 12px;
+            padding: 0 16px;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: #9CA3AF;
-            font-size: 14px;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #9AA1B9;
+            font-size: 15px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             margin-bottom: 4px;
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(90deg, rgba(138, 92, 246, 0.1), rgba(74, 122, 255, 0.05));
             color: #FFFFFF;
+            transform: translateX(5px);
         }
 
         .nav-item.active {
-            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(96, 165, 250, 0.1));
-            color: #A78BFA;
-            border-left: 2px solid #A78BFA;
+            background: linear-gradient(90deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.1));
+            color: #8A5CF6;
+            border-left: 3px solid #8A5CF6;
+            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.2);
         }
 
         .nav-icon {
-            font-size: 18px;
-            width: 24px;
+            font-size: 20px;
+            width: 28px;
             text-align: center;
+            filter: drop-shadow(0 0 5px rgba(138, 92, 246, 0.5));
         }
 
         .nav-divider {
             height: 1px;
-            background: rgba(255, 255, 255, 0.05);
-            margin: 16px 0;
+            background: linear-gradient(90deg, transparent, rgba(138, 92, 246, 0.3), transparent);
+            margin: 20px 0;
         }
 
         .nav-section-title {
-            padding: 8px 12px;
-            font-size: 11px;
+            padding: 8px 16px;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #6B7280;
+            letter-spacing: 1px;
+            color: #5D6883;
+            font-weight: 600;
         }
 
         /* ========== MAIN CONTENT ========== */
         .main-content {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+            margin-left: 280px;
             padding: 32px 48px;
-            background: #0A0A0F;
+            background: radial-gradient(circle at top right, rgba(138, 92, 246, 0.05), transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(74, 122, 255, 0.05), transparent 50%),
+                        #0B0B15;
+            min-height: 100vh;
+            width: calc(100% - 280px);
         }
 
-        /* Header/Greeting */
+        /* Greeting Section */
         .greeting {
             margin-bottom: 40px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .greeting h1 {
-            font-size: 32px;
-            font-weight: 500;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 600;
             color: #FFFFFF;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         .greeting .highlight {
-            background: linear-gradient(135deg, #A78BFA 0%, #60A5FA 100%);
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF, #C084FC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: 600;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .greeting .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8A5CF6, transparent);
+            border-radius: 2px;
         }
 
         .greeting p {
-            color: #9CA3AF;
-            font-size: 16px;
-            margin-top: 8px;
+            color: #9AA1B9;
+            font-size: clamp(14px, 2vw, 18px);
+            margin-top: 12px;
+            letter-spacing: 0.3px;
         }
 
         /* Prompt Area */
         .prompt-area {
-            background: #14141C;
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 28px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(138, 92, 246, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 92, 246, 0.1);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .prompt-input {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 12px 16px;
-            background: #1A1A24;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
+            background: rgba(10, 10, 20, 0.8);
+            border-radius: 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .prompt-input:focus-within {
+            border-color: #8A5CF6;
+            box-shadow: 0 0 30px rgba(138, 92, 246, 0.3);
+            transform: scale(1.02);
         }
 
         .prompt-input input {
@@ -160,29 +229,36 @@
             background: transparent;
             border: none;
             color: #FFFFFF;
-            font-size: 16px;
+            font-size: clamp(14px, 2vw, 18px);
             outline: none;
         }
 
         .prompt-input input::placeholder {
-            color: #4B5563;
+            color: #3A4058;
+            font-weight: 400;
         }
 
         .upload-btn {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            color: #9CA3AF;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.2));
+            border-radius: 30px;
+            color: #FFFFFF;
             font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 10px;
+            border: 1px solid rgba(138, 92, 246, 0.4);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .upload-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.4);
         }
 
         /* Model Selector */
@@ -190,23 +266,27 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .model-badge {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: #1A1A24;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #9CA3AF;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 10px;
+            background: rgba(10, 10, 20, 0.8);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #9AA1B9;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .model-badge span {
-            color: #A78BFA;
+            color: #8A5CF6;
+            font-weight: 600;
         }
 
         /* Action Buttons */
@@ -217,160 +297,305 @@
         }
 
         .action-btn {
-            padding: 10px 20px;
-            background: #1A1A24;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 30px;
+            padding: 12px 24px;
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            border-radius: 40px;
             color: #FFFFFF;
-            font-size: 14px;
+            font-size: clamp(13px, 1.5vw, 15px);
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
+            gap: 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .action-btn:hover {
-            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(96, 165, 250, 0.1));
-            border-color: rgba(167, 139, 250, 0.3);
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.2));
+            border-color: #8A5CF6;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.3);
         }
 
         .action-btn.primary {
-            background: linear-gradient(135deg, #A78BFA, #60A5FA);
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF, #C084FC);
             border: none;
             color: white;
+            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.4);
         }
 
         .action-btn.primary:hover {
-            opacity: 0.9;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(138, 92, 246, 0.6);
         }
 
-        /* Latest Requests Section */
+        /* Latest Requests */
         .latest-requests {
-            margin-top: 32px;
+            margin-top: 48px;
+            animation: fadeIn 1s ease;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .section-header h2 {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 600;
             color: #FFFFFF;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .section-header a {
-            color: #A78BFA;
-            font-size: 13px;
+            color: #8A5CF6;
+            font-size: 14px;
             text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: rgba(138, 92, 246, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .section-header a:hover {
+            background: rgba(138, 92, 246, 0.2);
+            transform: translateX(5px);
         }
 
         .requests-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
         }
 
         .request-card {
-            background: #14141C;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 16px;
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 92, 246, 0.15);
+            border-radius: 20px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
         .request-card:hover {
-            background: #1A1A24;
-            border-color: rgba(167, 139, 250, 0.3);
+            background: rgba(30, 30, 45, 0.8);
+            border-color: #8A5CF6;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(138, 92, 246, 0.3);
         }
 
         .request-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.2));
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #A78BFA;
+            color: #8A5CF6;
+            font-size: 24px;
+            border: 1px solid rgba(138, 92, 246, 0.3);
         }
 
         .request-text {
             flex: 1;
             font-size: 14px;
             color: #FFFFFF;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-weight: 500;
         }
 
         .request-time {
-            font-size: 11px;
-            color: #6B7280;
-            margin-top: 4px;
+            font-size: 12px;
+            color: #5D6883;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* Footer Links */
+        /* Footer */
         .footer-links {
-            margin-top: 48px;
+            margin-top: 60px;
             display: flex;
-            gap: 24px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(138, 92, 246, 0.2);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .footer-links a {
-            color: #6B7280;
-            font-size: 13px;
+            color: #5D6883;
+            font-size: 14px;
+            font-weight: 500;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 5px 10px;
+            border-radius: 8px;
         }
 
         .footer-links a:hover {
-            color: #A78BFA;
+            color: #8A5CF6;
+            background: rgba(138, 92, 246, 0.1);
+            transform: translateY(-2px);
         }
 
-        /* Scrollbar Styling */
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            color: #3A4058;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .copyright span {
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        /* ========== MOBILE RESPONSIVE ========== */
+        @media screen and (max-width: 1024px) {
+            .main-content {
+                padding: 24px 32px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.4s ease;
+                box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 80px 20px 30px 20px;
+            }
+
+            .greeting {
+                text-align: center;
+            }
+
+            .prompt-input {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .upload-btn {
+                justify-content: center;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .action-btn {
+                flex: 1 1 calc(50% - 6px);
+                justify-content: center;
+            }
+
+            .requests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                gap: 15px;
+                justify-content: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .main-content {
+                padding: 80px 15px 20px 15px;
+            }
+
+            .prompt-area {
+                padding: 20px;
+            }
+
+            .action-btn {
+                flex: 1 1 100%;
+            }
+
+            .model-selector {
+                justify-content: center;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #0F0F15;
+            background: #0E0E1A;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #2A2A35;
+            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #3A3A45;
-        }
-
-        /* Icons (simple text emojis for simplicity - replace with FontAwesome later) */
-        .icon {
-            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #9A6CFF, #5A8AFF);
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleMenu()">
+        <span style="color: white; font-size: 24px;">☰</span>
+    </div>
+
     <div class="container">
         <!-- Left Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="logo-area">
-                <div class="logo">✨ aurora AI</div>
+                <div class="logo">🎬 VIVIDIA AI</div>
             </div>
             
             <div class="nav-menu">
                 <div class="nav-item active">
-                    <span class="nav-icon">📋</span>
+                    <span class="nav-icon">✨</span>
                     <span>Create</span>
                 </div>
                 <div class="nav-item">
@@ -390,16 +615,16 @@
                     <span>Search</span>
                 </div>
                 <div class="nav-item">
-                    <span class="nav-icon">✨</span>
+                    <span class="nav-icon">🆕</span>
                     <span>What's New</span>
                 </div>
                 
                 <div class="nav-divider"></div>
                 
-                <div class="nav-section-title">My Library</div>
+                <div class="nav-section-title">MY LIBRARY</div>
                 
                 <div class="nav-item">
-                    <span class="nav-icon">📁</span>
+                    <span class="nav-icon">🎬</span>
                     <span>Projects</span>
                 </div>
                 <div class="nav-item">
@@ -408,7 +633,11 @@
                 </div>
                 <div class="nav-item">
                     <span class="nav-icon">🤖</span>
-                    <span>Models</span>
+                    <span>Characters</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🎨</span>
+                    <span>Animations</span>
                 </div>
             </div>
         </div>
@@ -418,70 +647,73 @@
             <!-- Greeting -->
             <div class="greeting">
                 <h1>Hey <span class="highlight">Johnathan</span></h1>
-                <p>How can Aurora help you today?</p>
+                <p>How can Vividia AI help you create today?</p>
             </div>
 
             <!-- Prompt Area -->
             <div class="prompt-area">
                 <div class="prompt-input">
-                    <input type="text" placeholder="Steampunk warrior" value="Steampunk warrior">
+                    <input type="text" placeholder="Steampunk warrior, cinematic lighting, 4K" value="Steampunk warrior, cinematic lighting, 4K">
                     <div class="upload-btn">
-                        <span>📤</span> Upload photo
+                        <span>📤</span> Upload
                     </div>
                 </div>
                 
                 <div class="model-selector">
                     <div class="model-badge">
-                        <span>✨</span> Model: <span>Aurora 1.4</span>
+                        <span>⚡</span> Model: <span>Vividia Pro 2.0</span>
+                    </div>
+                    <div class="model-badge">
+                        <span>🎯</span> Quality: <span>4K Cinematic</span>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="action-btn primary">✨ Write code</button>
-                    <button class="action-btn">🎨 Generate image</button>
-                    <button class="action-btn">✏️ Modify image</button>
-                    <button class="action-btn">🔍 Upscale video</button>
-                    <button class="action-btn">📝 Make a plan</button>
+                    <button class="action-btn primary">✨ Generate Film</button>
+                    <button class="action-btn">🎨 Create Animation</button>
+                    <button class="action-btn">🎬 Animate Character</button>
+                    <button class="action-btn">🔊 Lip Sync</button>
+                    <button class="action-btn">🎞️ Scene Builder</button>
                 </div>
             </div>
 
             <!-- Latest Requests -->
             <div class="latest-requests">
                 <div class="section-header">
-                    <h2>LATEST REQUESTS</h2>
-                    <a href="#">SEE ALL</a>
+                    <h2>RECENT PRODUCTIONS</h2>
+                    <a href="#">VIEW ALL</a>
                 </div>
                 
                 <div class="requests-grid">
                     <div class="request-card">
-                        <div class="request-icon">📋</div>
+                        <div class="request-icon">🎬</div>
                         <div class="request-text">
-                            Write a to-do list for a personal project
-                            <div class="request-time">2 hours ago</div>
+                            Create 30s anime trailer with cyberpunk theme
+                            <div class="request-time">⚡ 2 hours ago • 4K</div>
                         </div>
                     </div>
                     
                     <div class="request-card">
-                        <div class="request-icon">📧</div>
+                        <div class="request-icon">🗣️</div>
                         <div class="request-text">
-                            Generate an email to reply to a job offer
-                            <div class="request-time">5 hours ago</div>
+                            Add lip sync to character dialogue (Arabic)
+                            <div class="request-time">⚡ 5 hours ago • Completed</div>
                         </div>
                     </div>
                     
                     <div class="request-card">
-                        <div class="request-icon">📄</div>
+                        <div class="request-icon">🌄</div>
                         <div class="request-text">
-                            Summarize this article in one paragraph
-                            <div class="request-time">Yesterday</div>
+                            Generate fantasy forest background with lighting
+                            <div class="request-time">⚡ Yesterday • 4K</div>
                         </div>
                     </div>
                     
                     <div class="request-card">
-                        <div class="request-icon">💻</div>
+                        <div class="request-icon">🤖</div>
                         <div class="request-text">
-                            Write code for a simple function
-                            <div class="request-time">Yesterday</div>
+                            Auto-rig robot character for animation
+                            <div class="request-time">⚡ Yesterday • Processing</div>
                         </div>
                     </div>
                 </div>
@@ -494,8 +726,42 @@
                 <a href="#">FAQ</a>
                 <a href="#">Blog</a>
                 <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="copyright">
+                © <span>Vividia AI</span> 2026 • Next‑Gen Animation Studio
             </div>
         </div>
     </div>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Close menu when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target) && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
