@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - منصة الرسوم المتحركة بالذكاء الاصطناعي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Vividia AI - Animation Studio</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -14,12 +14,45 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #8B5CF6;
+            --accent: #EC4899;
+            --bg-dark: #0A0A1A;
+            --bg-card: #12122A;
+            --border: #1E1E3A;
+            --text: #FFFFFF;
+            --text-muted: #9CA3AF;
+        }
+
         body {
-            background: #0A0A1A;
-            color: white;
+            background: var(--bg-dark);
+            color: var(--text);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* RTL Support */
+        body[dir="rtl"] {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .header {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="rtl"] .tools-header {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="rtl"] .prompt-box i {
+            transform: scaleX(-1);
+        }
+
+        body[dir="rtl"] .media-types {
+            direction: rtl;
         }
 
         /* Header */
@@ -28,90 +61,139 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 50px;
-            border-bottom: 1px solid #1E1E3A;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo {
             font-size: 28px;
             font-weight: bold;
-            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .lang-selector {
-            background: #12122A;
-            border: 1px solid #1E1E3A;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 30px;
             padding: 8px 20px;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            position: relative;
         }
 
-        /* Hero Section */
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-top: 8px;
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .lang-selector:hover .lang-dropdown {
+            display: block;
+        }
+
+        .lang-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lang-item:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .lang-item.active {
+            background: rgba(99, 102, 241, 0.3);
+            color: var(--primary);
+        }
+
+        /* Hero */
         .hero {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: clamp(28px, 5vw, 48px);
+            margin-bottom: 15px;
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899);
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            color: #9CA3AF;
-            font-size: 18px;
+            color: var(--text-muted);
+            font-size: clamp(14px, 3vw, 18px);
             max-width: 700px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         /* Main Card */
         .main-card {
-            background: #12122A;
-            border: 1px solid #1E1E3A;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 30px;
-            padding: 40px;
-            max-width: 900px;
-            margin: 0 auto 50px;
+            padding: clamp(20px, 4vw, 40px);
+            max-width: 1000px;
+            margin: 0 auto 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            width: 95%;
         }
 
         .tools-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .tools-title {
-            color: #9CA3AF;
-            font-size: 20px;
+            color: var(--text-muted);
+            font-size: clamp(16px, 3vw, 20px);
         }
 
         .guest-btn {
             background: transparent;
-            border: 1px solid #1E1E3A;
+            border: 1px solid var(--border);
             color: white;
             padding: 10px 20px;
             border-radius: 30px;
             cursor: pointer;
+            font-size: clamp(12px, 2.5vw, 14px);
+            transition: 0.3s;
+        }
+
+        .guest-btn:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
         }
 
         .prompt-box {
-            background: #0A0A1A;
-            border: 1px solid #1E1E3A;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             border-radius: 50px;
-            padding: 15px 25px;
-            margin: 30px 0;
+            padding: 12px 20px;
+            margin: 20px 0;
             display: flex;
             align-items: center;
         }
@@ -120,80 +202,99 @@
             background: transparent;
             border: none;
             color: white;
-            font-size: 16px;
+            font-size: clamp(14px, 2.5vw, 16px);
             width: 100%;
             outline: none;
         }
 
+        .prompt-box input::placeholder {
+            color: var(--text-muted);
+        }
+
         .prompt-box i {
-            color: #6366F1;
+            color: var(--primary);
             font-size: 20px;
             cursor: pointer;
+            min-width: 40px;
+            text-align: center;
         }
 
         .ai-badge {
             background: rgba(99, 102, 241, 0.2);
-            border: 1px solid #6366F1;
+            border: 1px solid var(--primary);
             border-radius: 30px;
             padding: 5px 15px;
             display: inline-block;
-            color: #6366F1;
-            margin-bottom: 30px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: clamp(12px, 2.5vw, 14px);
         }
 
         .media-types {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
-            margin: 30px 0;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
 
         .media-type {
-            background: #0A0A1A;
-            border: 1px solid #1E1E3A;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             border-radius: 30px;
-            padding: 10px 25px;
+            padding: 8px 20px;
             cursor: pointer;
             transition: 0.3s;
+            font-size: clamp(12px, 2.5vw, 14px);
+            flex: 0 1 auto;
         }
 
         .media-type:hover {
-            background: #6366F1;
-            border-color: #6366F1;
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
         }
 
         .media-type.active {
-            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
         }
 
         .output-area {
-            background: #0A0A1A;
-            border: 1px solid #1E1E3A;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 20px;
-            margin: 30px 0;
+            padding: 15px;
+            margin: 20px 0;
         }
 
         .output-header {
             display: flex;
             justify-content: space-between;
-            color: #9CA3AF;
+            color: var(--text-muted);
             margin-bottom: 10px;
+            font-size: clamp(12px, 2.5vw, 14px);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .output-content {
+            color: white;
+            line-height: 1.6;
+            font-size: clamp(13px, 2.5vw, 15px);
+            word-break: break-word;
         }
 
         .generate-btn {
-            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 20px 40px;
+            padding: 15px 30px;
             border-radius: 50px;
-            font-size: 20px;
+            font-size: clamp(16px, 3vw, 20px);
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            margin: 30px 0;
+            margin: 20px 0;
             transition: 0.3s;
         }
 
@@ -202,71 +303,99 @@
             box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
         }
 
+        .generate-btn i {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
         .membership-card {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-            border: 1px solid #6366F1;
+            border: 1px solid var(--primary);
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
+        }
+
+        .membership-info {
+            flex: 1;
+            min-width: 200px;
         }
 
         .membership-price {
-            font-size: 36px;
+            font-size: clamp(24px, 5vw, 36px);
             font-weight: bold;
         }
 
         .membership-price small {
-            font-size: 16px;
-            color: #9CA3AF;
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: var(--text-muted);
         }
 
         .membership-btn {
-            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 30px;
             cursor: pointer;
+            font-size: clamp(12px, 2.5vw, 14px);
+            white-space: nowrap;
+        }
+
+        .membership-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
 
         /* Features */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             max-width: 1200px;
-            margin: 50px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
         .feature-card {
-            background: #12122A;
-            border: 1px solid #1E1E3A;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px 20px;
             text-align: center;
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 24px;
+            margin: 0 auto 15px;
+            font-size: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: clamp(16px, 3vw, 18px);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: clamp(12px, 2.5vw, 14px);
+            line-height: 1.5;
         }
 
         /* Footer */
         .footer {
-            border-top: 1px solid #1E1E3A;
-            padding: 40px;
+            border-top: 1px solid var(--border);
+            padding: 30px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -277,115 +406,143 @@
 
         .footer-links {
             display: flex;
-            gap: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .footer-links a {
-            color: #9CA3AF;
+            color: var(--text-muted);
             text-decoration: none;
             cursor: pointer;
+            font-size: clamp(12px, 2.5vw, 14px);
         }
 
         .footer-links a:hover {
-            color: #6366F1;
+            color: var(--primary);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        .copyright {
+            color: var(--text-muted);
+            font-size: clamp(11px, 2vw, 13px);
+        }
+
+        /* Mobile Specific */
+        @media (max-width: 480px) {
             .header {
-                padding: 20px;
+                padding: 15px;
+            }
+            
+            .tools-header {
                 flex-direction: column;
-                gap: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 32px;
-            }
-            
-            .main-card {
-                padding: 20px;
+                align-items: flex-start;
             }
             
             .membership-card {
                 flex-direction: column;
                 text-align: center;
             }
+            
+            .membership-btn {
+                width: 100%;
+            }
+            
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
-<body>
+<body dir="ltr">
     <!-- Header -->
     <div class="header">
         <div class="logo">VIVIDIA AI</div>
         <div class="lang-selector">
-            <span>🇺🇸</span>
-            <span>English</span>
+            <span id="currentLang">🇺🇸 English</span>
             <i class="fas fa-chevron-down"></i>
+            <div class="lang-dropdown">
+                <div class="lang-item active" onclick="changeLanguage('en', '🇺🇸', 'English', '$', 7.99)">
+                    <span>🇺🇸 English</span>
+                </div>
+                <div class="lang-item" onclick="changeLanguage('ar', '🇸🇦', 'العربية', '﷼', 29.99)">
+                    <span>🇸🇦 العربية</span>
+                </div>
+                <div class="lang-item" onclick="changeLanguage('fr', '🇫🇷', 'Français', '€', 7.99)">
+                    <span>🇫🇷 Français</span>
+                </div>
+                <div class="lang-item" onclick="changeLanguage('es', '🇪🇸', 'Español', '€', 7.99)">
+                    <span>🇪🇸 Español</span>
+                </div>
+                <div class="lang-item" onclick="changeLanguage('de', '🇩🇪', 'Deutsch', '€', 7.99)">
+                    <span>🇩🇪 Deutsch</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Hero -->
     <div class="hero">
-        <h1>Create <span>Cinematic Masterpieces</span><br>with AI</h1>
-        <p>Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence</p>
+        <h1 id="heroTitle">Create <span>Cinematic Masterpieces</span><br>with AI</h1>
+        <p id="heroDesc">Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence</p>
     </div>
 
     <!-- Main Card -->
     <div class="main-card">
         <div class="tools-header">
-            <div class="tools-title">
-                <i class="fas fa-wand-magic" style="color: #6366F1;"></i> AI Creation Tools
+            <div class="tools-title" id="toolsTitle">
+                <i class="fas fa-wand-magic" style="color: var(--primary);"></i> AI Creation Tools
             </div>
-            <button class="guest-btn">
-                <i class="fas fa-user"></i> Continue as Guest
+            <button class="guest-btn" id="guestBtn">
+                <i class="fas fa-user"></i> <span id="guestText">Continue as Guest</span>
             </button>
         </div>
 
         <!-- Prompt Box -->
         <div class="prompt-box">
-            <input type="text" placeholder="Describe your masterpiece..." value="Steampunk warrior, cinematic lighting, 4K">
-            <i class="fas fa-magic"></i>
+            <input type="text" id="promptInput" value="Steampunk warrior, cinematic lighting, 4K">
+            <i class="fas fa-magic" id="magicBtn" onclick="enhancePrompt()"></i>
         </div>
 
         <!-- AI Badge -->
-        <div class="ai-badge">
+        <div class="ai-badge" id="aiBadge">
             <i class="fas fa-robot"></i> AI Intelligent Engine
         </div>
 
         <!-- Media Types -->
         <div class="media-types">
-            <div class="media-type active">IMAGE</div>
-            <div class="media-type">VIDEO</div>
-            <div class="media-type">MUSIC</div>
-            <div class="media-type">VOICE</div>
+            <div class="media-type active" onclick="selectMedia('image')" id="mediaImage">IMAGE</div>
+            <div class="media-type" onclick="selectMedia('video')" id="mediaVideo">VIDEO</div>
+            <div class="media-type" onclick="selectMedia('music')" id="mediaMusic">MUSIC</div>
+            <div class="media-type" onclick="selectMedia('voice')" id="mediaVoice">VOICE</div>
         </div>
 
         <!-- Output Area -->
         <div class="output-area">
             <div class="output-header">
-                <span><i class="fas fa-terminal"></i> OUTPUT</span>
-                <span>ready</span>
+                <span><i class="fas fa-terminal"></i> <span id="outputLabel">OUTPUT</span></span>
+                <span id="outputStatus">ready</span>
             </div>
-            <div class="output-content">
-                👋 Welcome to Vividia AI. Describe your idea and click GENERATE!
+            <div class="output-content" id="outputContent">
+                👋 <span id="welcomeText">Welcome to Vividia AI. Describe your idea and click GENERATE!</span>
             </div>
         </div>
 
         <!-- Generate Button -->
-        <button class="generate-btn">
-            <i class="fas fa-wand-magic"></i> GENERATE MAGIC
+        <button class="generate-btn" id="generateBtn" onclick="generateMagic()">
+            <i class="fas fa-wand-magic"></i> <span id="generateText">GENERATE MAGIC</span> <i class="fas fa-arrow-right"></i>
         </button>
 
         <!-- Membership Card -->
         <div class="membership-card">
-            <div>
-                <div style="color: #9CA3AF; margin-bottom: 5px;">
-                    <i class="fas fa-crown" style="color: gold;"></i> Elite Membership
+            <div class="membership-info">
+                <div style="color: var(--text-muted); margin-bottom: 5px;">
+                    <i class="fas fa-crown" style="color: gold;"></i> <span id="membershipTitle">Elite Membership</span>
                 </div>
-                <div class="membership-price">$7.99 <small>/month</small></div>
+                <div class="membership-price" id="membershipPrice">$7.99 <small id="membershipPeriod">/month</small></div>
             </div>
-            <button class="membership-btn">
-                <i class="fas fa-crown"></i> Full Access to All AI Models
+            <button class="membership-btn" id="membershipBtn" onclick="showPayment()">
+                <i class="fas fa-crown"></i> <span id="membershipBtnText">Full Access to All AI Models</span>
             </button>
         </div>
     </div>
@@ -394,37 +551,316 @@
     <div class="features">
         <div class="feature-card">
             <div class="feature-icon"><i class="fas fa-film"></i></div>
-            <h3>4K Cinematic</h3>
-            <p style="color: #9CA3AF;">Generate Hollywood‑quality films in minutes</p>
+            <h3 id="feature1Title">4K Cinematic</h3>
+            <p id="feature1Desc">Generate Hollywood‑quality films in minutes</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon"><i class="fas fa-robot"></i></div>
-            <h3>AI Characters</h3>
-            <p style="color: #9CA3AF;">Create and animate unique characters</p>
+            <h3 id="feature2Title">AI Characters</h3>
+            <p id="feature2Desc">Create and animate unique characters</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon"><i class="fas fa-language"></i></div>
-            <h3>Lip Sync</h3>
-            <p style="color: #9CA3AF;">Multi‑language support with automatic lip movement</p>
+            <h3 id="feature3Title">Lip Sync</h3>
+            <p id="feature3Desc">Multi‑language support with automatic lip movement</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon"><i class="fas fa-cloud"></i></div>
-            <h3>Cloud Storage</h3>
-            <p style="color: #9CA3AF;">Save and access your projects anywhere</p>
+            <h3 id="feature4Title">Cloud Storage</h3>
+            <p id="feature4Desc">Save and access your projects anywhere</p>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-        <div class="logo">VIVIDIA AI</div>
+        <div class="logo" style="font-size: 20px;">VIVIDIA AI</div>
         <div class="footer-links">
-            <a>Pricing</a>
-            <a>Careers</a>
-            <a>FAQ</a>
-            <a>Blog</a>
-            <a>Privacy</a>
+            <a id="footerPricing">Pricing</a>
+            <a id="footerCareers">Careers</a>
+            <a id="footerFAQ">FAQ</a>
+            <a id="footerBlog">Blog</a>
+            <a id="footerPrivacy">Privacy</a>
         </div>
-        <div>© 2026 Vividia AI. All rights reserved.</div>
+        <div class="copyright" id="copyright">© 2026 Vividia AI. All rights reserved.</div>
     </div>
+
+    <script>
+        // ==================== LANGUAGE TRANSLATIONS ====================
+        const translations = {
+            en: {
+                heroTitle: 'Create <span>Cinematic Masterpieces</span><br>with AI',
+                heroDesc: 'Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence',
+                toolsTitle: 'AI Creation Tools',
+                guestText: 'Continue as Guest',
+                aiBadge: 'AI Intelligent Engine',
+                mediaImage: 'IMAGE',
+                mediaVideo: 'VIDEO',
+                mediaMusic: 'MUSIC',
+                mediaVoice: 'VOICE',
+                outputLabel: 'OUTPUT',
+                welcomeText: 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
+                generateText: 'GENERATE MAGIC',
+                membershipTitle: 'Elite Membership',
+                membershipPeriod: '/month',
+                membershipBtnText: 'Full Access to All AI Models',
+                feature1Title: '4K Cinematic',
+                feature1Desc: 'Generate Hollywood‑quality films in minutes',
+                feature2Title: 'AI Characters',
+                feature2Desc: 'Create and animate unique characters',
+                feature3Title: 'Lip Sync',
+                feature3Desc: 'Multi‑language support with automatic lip movement',
+                feature4Title: 'Cloud Storage',
+                feature4Desc: 'Save and access your projects anywhere',
+                footerPricing: 'Pricing',
+                footerCareers: 'Careers',
+                footerFAQ: 'FAQ',
+                footerBlog: 'Blog',
+                footerPrivacy: 'Privacy',
+                copyright: '© 2026 Vividia AI. All rights reserved.'
+            },
+            ar: {
+                heroTitle: 'اصنع <span>روائع سينمائية</span><br>بالذكاء الاصطناعي',
+                heroDesc: 'حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K باستخدام أحدث تقنيات الذكاء الاصطناعي',
+                toolsTitle: 'أدوات الإبداع بالذكاء الاصطناعي',
+                guestText: 'متابعة كزائر',
+                aiBadge: 'محرك الذكاء الاصطناعي',
+                mediaImage: 'صورة',
+                mediaVideo: 'فيديو',
+                mediaMusic: 'موسيقى',
+                mediaVoice: 'صوت',
+                outputLabel: 'النتيجة',
+                welcomeText: 'مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!',
+                generateText: 'توليد الإبداع',
+                membershipTitle: 'عضوية النخبة',
+                membershipPeriod: '/شهر',
+                membershipBtnText: 'وصول كامل لجميع نماذج الذكاء الاصطناعي',
+                feature1Title: 'سينما 4K',
+                feature1Desc: 'أنتج أفلاماً بجودة هوليوود في دقائق',
+                feature2Title: 'شخصيات ذكية',
+                feature2Desc: 'اصنع وحرك شخصيات فريدة',
+                feature3Title: 'مزامنة الشفاه',
+                feature3Desc: 'دعم متعدد اللغات مع حركة شفاه تلقائية',
+                feature4Title: 'تخزين سحابي',
+                feature4Desc: 'احفظ مشاريعك وصول إليها من أي مكان',
+                footerPricing: 'الأسعار',
+                footerCareers: 'وظائف',
+                footerFAQ: 'أسئلة شائعة',
+                footerBlog: 'مدونة',
+                footerPrivacy: 'خصوصية',
+                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة'
+            },
+            fr: {
+                heroTitle: 'Créez des <span>chefs-d\'œuvre cinématographiques</span><br>avec l\'IA',
+                heroDesc: 'Transformez vos idées en animations, films et personnages 4K époustouflants grâce à l\'IA de nouvelle génération',
+                toolsTitle: 'Outils de création IA',
+                guestText: 'Continuer en tant qu\'invité',
+                aiBadge: 'Moteur intelligent IA',
+                mediaImage: 'IMAGE',
+                mediaVideo: 'VIDÉO',
+                mediaMusic: 'MUSIQUE',
+                mediaVoice: 'VOIX',
+                outputLabel: 'SORTIE',
+                welcomeText: 'Bienvenue sur Vividia AI. Décrivez votre idée et cliquez sur GÉNÉRER!',
+                generateText: 'GÉNÉRER MAGIQUE',
+                membershipTitle: 'Adhésion Elite',
+                membershipPeriod: '/mois',
+                membershipBtnText: 'Accès complet à tous les modèles IA',
+                feature1Title: 'Cinéma 4K',
+                feature1Desc: 'Générez des films de qualité Hollywood en quelques minutes',
+                feature2Title: 'Personnages IA',
+                feature2Desc: 'Créez et animez des personnages uniques',
+                feature3Title: 'Syncho labiale',
+                feature3Desc: 'Support multilingue avec mouvement labial automatique',
+                feature4Title: 'Stockage Cloud',
+                feature4Desc: 'Sauvegardez et accédez à vos projets partout',
+                footerPricing: 'Tarifs',
+                footerCareers: 'Carrières',
+                footerFAQ: 'FAQ',
+                footerBlog: 'Blog',
+                footerPrivacy: 'Confidentialité',
+                copyright: '© 2026 Vividia AI. Tous droits réservés.'
+            },
+            es: {
+                heroTitle: 'Crea <span>obras maestras cinematográficas</span><br>con IA',
+                heroDesc: 'Convierte tus ideas en impresionantes animaciones, películas y personajes 4K con inteligencia artificial de última generación',
+                toolsTitle: 'Herramientas de creación IA',
+                guestText: 'Continuar como invitado',
+                aiBadge: 'Motor inteligente IA',
+                mediaImage: 'IMAGEN',
+                mediaVideo: 'VIDEO',
+                mediaMusic: 'MÚSICA',
+                mediaVoice: 'VOZ',
+                outputLabel: 'SALIDA',
+                welcomeText: 'Bienvenido a Vividia AI. ¡Describe tu idea y haz clic en GENERAR!',
+                generateText: 'GENERAR MAGIA',
+                membershipTitle: 'Membresía Elite',
+                membershipPeriod: '/mes',
+                membershipBtnText: 'Acceso completo a todos los modelos IA',
+                feature1Title: 'Cinematografía 4K',
+                feature1Desc: 'Genera películas de calidad Hollywood en minutos',
+                feature2Title: 'Personajes IA',
+                feature2Desc: 'Crea y anima personajes únicos',
+                feature3Title: 'Sincronía labial',
+                feature3Desc: 'Soporte multilingüe con movimiento labial automático',
+                feature4Title: 'Almacenamiento en la nube',
+                feature4Desc: 'Guarda y accede a tus proyectos desde cualquier lugar',
+                footerPricing: 'Precios',
+                footerCareers: 'Empleos',
+                footerFAQ: 'Preguntas',
+                footerBlog: 'Blog',
+                footerPrivacy: 'Privacidad',
+                copyright: '© 2026 Vividia AI. Todos los derechos reservados.'
+            },
+            de: {
+                heroTitle: 'Erstelle <span>filmische Meisterwerke</span><br>mit KI',
+                heroDesc: 'Verwandle deine Ideen in atemberaubende 4K-Animationen, Filme und Charaktere mit modernster künstlicher Intelligenz',
+                toolsTitle: 'KI-Kreativtools',
+                guestText: 'Als Gast fortfahren',
+                aiBadge: 'KI-Intelligenz-Motor',
+                mediaImage: 'BILD',
+                mediaVideo: 'VIDEO',
+                mediaMusic: 'MUSIK',
+                mediaVoice: 'STIMME',
+                outputLabel: 'AUSGABE',
+                welcomeText: 'Willkommen bei Vividia AI. Beschreibe deine Idee und klicke auf GENERIEREN!',
+                generateText: 'MAGIE GENERIEREN',
+                membershipTitle: 'Elite-Mitgliedschaft',
+                membershipPeriod: '/Monat',
+                membershipBtnText: 'Voller Zugriff auf alle KI-Modelle',
+                feature1Title: '4K-Kinematografie',
+                feature1Desc: 'Generiere Hollywood-Filme in Minuten',
+                feature2Title: 'KI-Charaktere',
+                feature2Desc: 'Erstelle und animiere einzigartige Charaktere',
+                feature3Title: 'Lippensynchronisation',
+                feature3Desc: 'Mehrsprachige Unterstützung mit automatischer Lippenbewegung',
+                feature4Title: 'Cloud-Speicher',
+                feature4Desc: 'Speichere und greife überall auf deine Projekte zu',
+                footerPricing: 'Preise',
+                footerCareers: 'Karriere',
+                footerFAQ: 'FAQ',
+                footerBlog: 'Blog',
+                footerPrivacy: 'Datenschutz',
+                copyright: '© 2026 Vividia AI. Alle Rechte vorbehalten.'
+            }
+        };
+
+        // ==================== STATE ====================
+        let currentMedia = 'image';
+        let currentLang = 'en';
+
+        // ==================== LANGUAGE FUNCTIONS ====================
+        function changeLanguage(lang, flag, name, currency, price) {
+            currentLang = lang;
+            
+            // Update direction
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update language selector
+            document.getElementById('currentLang').innerHTML = `${flag} ${name}`;
+            
+            // Update all text elements
+            const t = translations[lang];
+            
+            document.getElementById('heroTitle').innerHTML = t.heroTitle;
+            document.getElementById('heroDesc').textContent = t.heroDesc;
+            document.getElementById('toolsTitle').innerHTML = `<i class="fas fa-wand-magic" style="color: var(--primary);"></i> ${t.toolsTitle}`;
+            document.getElementById('guestText').textContent = t.guestText;
+            document.getElementById('aiBadge').innerHTML = `<i class="fas fa-robot"></i> ${t.aiBadge}`;
+            document.getElementById('mediaImage').textContent = t.mediaImage;
+            document.getElementById('mediaVideo').textContent = t.mediaVideo;
+            document.getElementById('mediaMusic').textContent = t.mediaMusic;
+            document.getElementById('mediaVoice').textContent = t.mediaVoice;
+            document.getElementById('outputLabel').textContent = t.outputLabel;
+            document.getElementById('welcomeText').textContent = t.welcomeText;
+            document.getElementById('generateText').textContent = t.generateText;
+            document.getElementById('membershipTitle').textContent = t.membershipTitle;
+            document.getElementById('membershipPeriod').textContent = t.membershipPeriod;
+            document.getElementById('membershipBtnText').textContent = t.membershipBtnText;
+            document.getElementById('feature1Title').textContent = t.feature1Title;
+            document.getElementById('feature1Desc').textContent = t.feature1Desc;
+            document.getElementById('feature2Title').textContent = t.feature2Title;
+            document.getElementById('feature2Desc').textContent = t.feature2Desc;
+            document.getElementById('feature3Title').textContent = t.feature3Title;
+            document.getElementById('feature3Desc').textContent = t.feature3Desc;
+            document.getElementById('feature4Title').textContent = t.feature4Title;
+            document.getElementById('feature4Desc').textContent = t.feature4Desc;
+            document.getElementById('footerPricing').textContent = t.footerPricing;
+            document.getElementById('footerCareers').textContent = t.footerCareers;
+            document.getElementById('footerFAQ').textContent = t.footerFAQ;
+            document.getElementById('footerBlog').textContent = t.footerBlog;
+            document.getElementById('footerPrivacy').textContent = t.footerPrivacy;
+            document.getElementById('copyright').textContent = t.copyright;
+            
+            // Update price
+            document.getElementById('membershipPrice').innerHTML = `${currency}${price} <small>${t.membershipPeriod}</small>`;
+            
+            // Update active language in dropdown
+            document.querySelectorAll('.lang-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        // ==================== MEDIA FUNCTIONS ====================
+        function selectMedia(media) {
+            currentMedia = media;
+            
+            // Update active class
+            document.querySelectorAll('.media-type').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(`media${media.charAt(0).toUpperCase() + media.slice(1)}`).classList.add('active');
+            
+            // Update output
+            const t = translations[currentLang];
+            document.getElementById('outputContent').innerHTML = `🎬 ${media.toUpperCase()} mode activated. ${t.welcomeText}`;
+        }
+
+        // ==================== AI FUNCTIONS ====================
+        function enhancePrompt() {
+            const input = document.getElementById('promptInput');
+            const currentPrompt = input.value;
+            const enhancements = [
+                'cinematic lighting, 4K, photorealistic',
+                'dramatic atmosphere, ultra detailed, HDR',
+                'animated style, vibrant colors, high quality',
+                'professional grade, studio quality, 8K'
+            ];
+            const randomEnhance = enhancements[Math.floor(Math.random() * enhancements.length)];
+            input.value = `${currentPrompt}, ${randomEnhance}`;
+            
+            // Show feedback
+            document.getElementById('outputContent').innerHTML = '✨ Prompt enhanced with AI!';
+            setTimeout(() => {
+                const t = translations[currentLang];
+                document.getElementById('outputContent').innerHTML = `👋 ${t.welcomeText}`;
+            }, 2000);
+        }
+
+        function generateMagic() {
+            const output = document.getElementById('outputContent');
+            const status = document.getElementById('outputStatus');
+            
+            status.innerHTML = 'processing...';
+            output.innerHTML = '🎨 AI is creating your masterpiece...';
+            
+            setTimeout(() => {
+                status.innerHTML = 'ready';
+                const media = currentMedia;
+                const results = {
+                    image: '✅ Image generated! Resolution: 4K, Style: Cinematic',
+                    video: '✅ Video created! Duration: 30s, 4K, 60fps',
+                    music: '✅ Music composed! 2 minutes, Epic orchestral',
+                    voice: '✅ Voice generated! Natural, emotional, lip-sync ready'
+                };
+                output.innerHTML = results[media] || results.image;
+            }, 3000);
+        }
+
+        function showPayment() {
+            const t = translations[currentLang];
+            alert(`💳 ${t.membershipBtnText}\n\nPrice: ${document.getElementById('membershipPrice').textContent}`);
+        }
+    </script>
 </body>
 </html>
