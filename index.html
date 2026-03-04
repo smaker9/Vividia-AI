@@ -3,33 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI Studio - Professional Animation Platform</title>
+    <title>Vividia AI - Next‑Gen Animation Studio</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         :root {
-            --primary: #8B5CF6;
-            --primary-light: #A78BFA;
-            --secondary: #3B82F6;
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #8B5CF6;
             --accent: #EC4899;
-            --bg-dark: #0B0B15;
-            --bg-card: #12121A;
-            --bg-sidebar: #0C0C15;
-            --border: #1E1E2E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #9CA3AF;
-            --text-muted: #6B7280;
+            --bg-dark: #0B0B1A;
+            --bg-card: #12122A;
+            --bg-sidebar: #0C0C20;
+            --border: #1E1E3A;
+            --text: #FFFFFF;
+            --text-muted: #9CA3AF;
         }
 
         body {
             background: var(--bg-dark);
-            color: var(--text-primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== LANDING PAGE ===== */
+        .landing-page {
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15), transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15), transparent 40%),
+                        var(--bg-dark);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 48px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, white, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Main Card (like in your screenshot) */
+        .main-card {
+            background: rgba(18, 18, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 48px;
+            padding: 48px;
+            max-width: 1000px;
+            margin: 40px auto;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .signin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .signin-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .get-started-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+            transition: 0.3s;
+        }
+
+        .get-started-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .prompt-box {
+            background: rgba(10, 10, 30, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 60px;
+            padding: 20px 30px;
+            margin: 30px 0;
+            font-size: 18px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .prompt-box i {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .ai-badge {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 40px;
+            padding: 8px 20px;
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .media-types {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .media-type {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 12px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .media-type:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .media-type.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 50px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+            margin: 30px 0;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.5);
+        }
+
+        .membership-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 30px;
+            padding: 30px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .membership-price {
+            font-size: 48px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .membership-price small {
+            font-size: 18px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .membership-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .membership-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 48px;
+        }
+
+        .feature-card {
+            background: rgba(18, 18, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== STUDIO PAGE (AFTER LOGIN) ===== */
+        .studio-page {
+            display: none;
+            height: 100vh;
             overflow: hidden;
+        }
+
+        .studio-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .studio-sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .studio-logo {
+            padding: 0 20px 24px 20px;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .studio-user {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .studio-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .studio-user-info {
+            flex: 1;
+        }
+
+        .studio-user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .studio-user-email {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .studio-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .studio-nav-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: white;
+        }
+
+        .studio-nav-item.active {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), transparent);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        .studio-main {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+            background: radial-gradient(circle at 70% 20%, rgba(99, 102, 241, 0.08), transparent 40%);
+        }
+
+        .studio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .save-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .save-btn:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .studio-workspace {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            min-height: 400px;
         }
 
         /* ===== AUTH MODAL ===== */
@@ -39,13 +493,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2000;
-            transition: opacity 0.3s;
+            transition: 0.3s;
         }
 
         .auth-modal.hidden {
@@ -60,58 +514,64 @@
             padding: 40px;
             width: 90%;
             max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            animation: modalSlide 0.4s ease;
-        }
-
-        @keyframes modalSlide {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .auth-logo {
             font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-align: center;
-            margin-bottom: 30px;
         }
 
-        .auth-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            background: var(--bg-dark);
-            padding: 6px;
-            border-radius: 60px;
-            border: 1px solid var(--border);
-        }
-
-        .auth-tab {
-            flex: 1;
-            text-align: center;
-            padding: 12px;
-            border-radius: 60px;
+        .google-btn {
+            width: 100%;
+            padding: 16px;
+            background: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
             transition: 0.2s;
-            color: var(--text-secondary);
-            font-weight: 500;
         }
 
-        .auth-tab.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+        .google-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
         }
 
-        .auth-form {
-            display: block;
+        .google-btn i {
+            color: #4285F4;
+            font-size: 20px;
         }
 
-        .auth-form.hidden {
-            display: none;
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-muted);
+            position: relative;
         }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
 
         .auth-input {
             width: 100%;
@@ -119,865 +579,334 @@
             background: var(--bg-dark);
             border: 1px solid var(--border);
             border-radius: 16px;
-            color: var(--text-primary);
+            color: white;
             font-size: 16px;
             margin-bottom: 16px;
             outline: none;
-            transition: 0.2s;
         }
 
         .auth-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 16px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
         }
 
         .auth-switch {
             text-align: center;
             margin-top: 20px;
-            color: var(--text-secondary);
-            font-size: 14px;
+            color: var(--text-muted);
         }
 
         .auth-switch span {
             color: var(--primary);
             cursor: pointer;
-            font-weight: 500;
-        }
-
-        .auth-switch span:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== MAIN APP (HIDDEN UNTIL LOGIN) ===== */
-        .app-container {
-            display: flex;
-            height: 100vh;
-            width: 100%;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s;
-        }
-
-        .app-container.visible {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            padding: 24px 0;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 100;
-        }
-
-        .sidebar-header {
-            padding: 0 20px 24px 20px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .sidebar-logo {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 20px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-weight: 600;
-            font-size: 18px;
-        }
-
-        .user-info {
-            flex: 1;
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-email {
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: 0.2s;
-            margin: 2px 8px;
-            border-radius: 8px;
-        }
-
-        .nav-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-            color: white;
-        }
-
-        .nav-item.active {
-            background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), transparent);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-        }
-
-        .nav-icon {
-            width: 24px;
-            text-align: center;
-        }
-
-        .logout-btn {
-            margin-top: auto;
-            padding: 16px 20px;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-top: 1px solid var(--border);
-            transition: 0.2s;
-        }
-
-        .logout-btn:hover {
-            color: #EF4444;
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 32px 48px;
-            overflow-y: auto;
-            background: radial-gradient(circle at 70% 20%, rgba(139, 92, 246, 0.08), transparent 40%);
-        }
-
-        /* Greeting */
-        .greeting {
-            margin-bottom: 32px;
-            animation: fadeIn 0.8s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .greeting h1 {
-            font-size: 36px;
-            font-weight: 500;
-        }
-
-        .greeting span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-        }
-
-        .greeting p {
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        /* Balance Card */
-        .balance-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .balance-label {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .balance-amount {
-            font-size: 32px;
-            font-weight: 700;
-            color: white;
-        }
-
-        .balance-amount small {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .add-credits {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .add-credits:hover {
-            background: rgba(139, 92, 246, 0.3);
-            border-color: var(--primary);
-        }
-
-        /* Prompt Area */
-        .prompt-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .prompt-input-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 8px 8px 8px 20px;
-            margin-bottom: 20px;
-        }
-
-        .prompt-input-wrapper:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
-        }
-
-        .prompt-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 16px;
-            padding: 12px 0;
-            outline: none;
-        }
-
-        .prompt-input::placeholder {
-            color: #4A4A5A;
-        }
-
-        .upload-btn {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .upload-btn:hover {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: var(--primary);
-        }
-
-        .model-info {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .model-badge {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 14px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .model-badge span {
-            color: var(--text-secondary);
-        }
-
-        /* Action Buttons */
-        .action-grid {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-            flex: 1 1 auto;
-            min-width: 140px;
-            justify-content: center;
-        }
-
-        .action-btn:hover {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .action-btn.primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            font-weight: 500;
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
-        }
-
-        .action-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
-        }
-
-        /* Output Area */
-        .output-area {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 24px 0;
-            min-height: 120px;
-        }
-
-        .output-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .output-content {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        .output-content strong {
-            color: white;
-        }
-
-        /* Recent Requests */
-        .recent-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 24px 0 16px;
-        }
-
-        .recent-header h3 {
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .recent-header a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .requests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
-        }
-
-        .request-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .request-card:hover {
-            border-color: var(--primary);
-            background: rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .request-title {
-            color: white;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .request-meta {
-            color: var(--text-muted);
-            font-size: 12px;
-            display: flex;
-            gap: 12px;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 40px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .footer a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13px;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .footer a:hover {
-            color: var(--primary);
-        }
-
-        .copyright {
-            margin-top: 16px;
-            color: var(--text-muted);
-            font-size: 12px;
-            text-align: center;
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
-            padding: 16px 24px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transform: translateX(400px);
-            transition: transform 0.3s;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            transform: translateX(0);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -280px;
-                height: 100vh;
-                z-index: 1000;
-                transition: left 0.3s;
-            }
-            
-            .sidebar.active {
-                left: 0;
-            }
-            
-            .main-content {
+            .navbar {
                 padding: 20px;
             }
             
-            .action-btn {
-                min-width: 100%;
+            .hero h1 {
+                font-size: 40px;
             }
             
-            .greeting h1 {
-                font-size: 28px;
+            .main-card {
+                padding: 30px;
             }
             
-            .balance-card {
+            .membership-card {
                 flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <nav class="navbar">
+            <div class="logo">VIVIDIA AI</div>
+            <div class="nav-buttons">
+                <button class="btn btn-outline" onclick="showAuthModal('login')">Login</button>
+                <button class="btn btn-primary" onclick="showAuthModal('signup')">Sign Up</button>
+            </div>
+        </nav>
 
-    <!-- Auth Modal -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-card">
-            <div class="auth-logo">🎬 VIVIDIA AI</div>
-            
-            <div class="auth-tabs">
-                <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
-                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
-            </div>
-
-            <!-- Login Form -->
-            <div class="auth-form" id="loginForm">
-                <input type="email" class="auth-input" id="loginEmail" placeholder="Email" value="john@example.com">
-                <input type="password" class="auth-input" id="loginPassword" placeholder="Password" value="password123">
-                <button class="auth-btn" onclick="login()">Login</button>
-                <div class="auth-switch">
-                    Don't have an account? <span onclick="switchAuthTab('signup')">Sign up</span>
-                </div>
-            </div>
-
-            <!-- Signup Form -->
-            <div class="auth-form hidden" id="signupForm">
-                <input type="text" class="auth-input" id="signupName" placeholder="Full Name">
-                <input type="email" class="auth-input" id="signupEmail" placeholder="Email">
-                <input type="password" class="auth-input" id="signupPassword" placeholder="Password">
-                <button class="auth-btn" onclick="signup()">Create Account</button>
-                <div class="auth-switch">
-                    Already have an account? <span onclick="switchAuthTab('login')">Login</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main App (Hidden until login) -->
-    <div class="app-container" id="appContainer">
-        <!-- Mobile Menu Toggle -->
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">🎬 VIVIDIA AI</div>
-            </div>
-
-            <!-- User Profile (dynamic) -->
-            <div class="user-profile" id="userProfile">
-                <div class="user-avatar" id="userAvatar">J</div>
-                <div class="user-info">
-                    <div class="user-name" id="userName">Johnathan</div>
-                    <div class="user-email" id="userEmail">john@example.com</div>
-                </div>
-            </div>
-
-            <!-- Navigation -->
-            <div class="nav-item active" onclick="switchPage('create')">
-                <span class="nav-icon">✨</span>
-                <span>Create</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('library')">
-                <span class="nav-icon">📚</span>
-                <span>Library</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('explore')">
-                <span class="nav-icon">🔍</span>
-                <span>Explore</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('trending')">
-                <span class="nav-icon">📈</span>
-                <span>Trending</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('search')">
-                <span class="nav-icon">🔎</span>
-                <span>Search</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('whatsnew')">
-                <span class="nav-icon">🆕</span>
-                <span>What's New</span>
-            </div>
-
-            <div style="padding: 8px 20px; color: var(--text-muted); font-size: 12px;">MY LIBRARY</div>
-
-            <div class="nav-item" onclick="switchPage('projects')">
-                <span class="nav-icon">🎬</span>
-                <span>Projects</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('assets')">
-                <span class="nav-icon">🖼️</span>
-                <span>Assets</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('characters')">
-                <span class="nav-icon">🤖</span>
-                <span>Characters</span>
-            </div>
-            <div class="nav-item" onclick="switchPage('animations')">
-                <span class="nav-icon">🎨</span>
-                <span>Animations</span>
-            </div>
-
-            <!-- Logout Button -->
-            <div class="logout-btn" onclick="logout()">
-                <span class="nav-icon">🚪</span>
-                <span>Logout</span>
-            </div>
+        <div class="hero">
+            <h1>Create <span>Cinematic Masterpieces</span><br>with AI</h1>
+            <p>Turn your ideas into stunning 4K animations, films, and characters using next‑gen artificial intelligence</p>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Greeting (dynamic) -->
-            <div class="greeting" id="greeting">
-                <h1>Hey <span id="greetingName">Johnathan</span></h1>
-                <p>How can Vividia AI help you create today?</p>
+        <!-- Main Card (like your screenshot) -->
+        <div class="main-card">
+            <div class="signin-header">
+                <h2>Sign In</h2>
+                <button class="get-started-btn" onclick="showAuthModal('signup')">Get Started →</button>
             </div>
 
-            <!-- Balance Card -->
-            <div class="balance-card">
+            <div class="prompt-box">
+                <span>Describe your masterpiece...</span>
+                <i class="fas fa-magic"></i>
+            </div>
+
+            <div class="ai-badge">
+                <i class="fas fa-robot"></i> AI Intelligent Engine
+            </div>
+
+            <div class="media-types">
+                <div class="media-type active">IMAGE</div>
+                <div class="media-type">VIDEO</div>
+                <div class="media-type">MUSIC</div>
+                <div class="media-type">VOICE</div>
+            </div>
+
+            <button class="generate-btn" onclick="showAuthModal('login')">
+                <i class="fas fa-wand-magic"></i> GENERATE MAGIC
+            </button>
+
+            <div class="membership-card">
                 <div>
-                    <div class="balance-label">Available Credits</div>
-                    <div class="balance-amount" id="userCredits">1,250 <small>credits</small></div>
+                    <div style="color: var(--text-muted); margin-bottom: 8px;">Elite Membership</div>
+                    <div class="membership-price">$7.60 <small>/month</small></div>
                 </div>
-                <div class="add-credits" onclick="addCredits()">
-                    ➕ Add Credits
-                </div>
+                <button class="membership-btn" onclick="showAuthModal('signup')">
+                    <i class="fas fa-crown"></i> Full Access to All AI Models
+                </button>
             </div>
+        </div>
 
-            <!-- Prompt Area -->
-            <div class="prompt-container">
-                <div class="prompt-input-wrapper">
-                    <input type="text" class="prompt-input" id="promptInput" placeholder="Steampunk warrior, cinematic lighting, 4K" value="Steampunk warrior, cinematic lighting, 4K">
-                    <div class="upload-btn" onclick="simulateUpload()">
-                        📤 Upload
-                    </div>
-                </div>
-
-                <div class="model-info">
-                    <div class="model-badge">
-                        ⚡ <span>Model:</span> Vividia Pro 2.0
-                    </div>
-                    <div class="model-badge">
-                        🎯 <span>Quality:</span> 4K Cinematic
-                    </div>
-                    <div class="model-badge">
-                        💰 <span>Cost:</span> 50 credits
-                    </div>
-                </div>
-
-                <div class="action-grid">
-                    <button class="action-btn primary" onclick="generateFilm()">
-                        ✨ Generate Film
-                    </button>
-                    <button class="action-btn" onclick="createAnimation()">
-                        🎨 Create Animation
-                    </button>
-                    <button class="action-btn" onclick="animateCharacter()">
-                        🎬 Animate Character
-                    </button>
-                    <button class="action-btn" onclick="lipSync()">
-                        🔊 Lip Sync
-                    </button>
-                    <button class="action-btn" onclick="sceneBuilder()">
-                        🎞️ Scene Builder
-                    </button>
-                </div>
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-film"></i></div>
+                <h3>4K Cinematic</h3>
+                <p>Generate Hollywood‑quality films in minutes</p>
             </div>
-
-            <!-- Output Area -->
-            <div class="output-area" id="outputArea">
-                <div class="output-header">
-                    <span>✨ OUTPUT</span>
-                    <span id="outputStatus">ready</span>
-                </div>
-                <div class="output-content" id="outputContent">
-                    👋 Welcome to Vividia AI. Click any button to start creating...
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI Characters</h3>
+                <p>Create and animate unique characters</p>
             </div>
-
-            <!-- Recent Requests -->
-            <div class="recent-header">
-                <h3>RECENT PRODUCTIONS</h3>
-                <a onclick="showAll()">VIEW ALL</a>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-language"></i></div>
+                <h3>Lip Sync</h3>
+                <p>Multi‑language support with automatic lip movement</p>
             </div>
-
-            <div class="requests-grid" id="requestsGrid">
-                <div class="request-card" onclick="loadRequest('Create 30s anime trailer with cyberpunk theme')">
-                    <div class="request-title">Create 30s anime trailer with cyberpunk theme</div>
-                    <div class="request-meta">⚡ 2 hours ago • 4K • 50 credits</div>
-                </div>
-                <div class="request-card" onclick="loadRequest('Add lip sync to character dialogue (Arabic)')">
-                    <div class="request-title">Add lip sync to character dialogue (Arabic)</div>
-                    <div class="request-meta">⚡ 5 hours ago • Completed • 30 credits</div>
-                </div>
-                <div class="request-card" onclick="loadRequest('Generate fantasy forest background with lighting')">
-                    <div class="request-title">Generate fantasy forest background with lighting</div>
-                    <div class="request-meta">⚡ Yesterday • 4K • 40 credits</div>
-                </div>
-                <div class="request-card" onclick="loadRequest('Auto-rig robot character for animation')">
-                    <div class="request-title">Auto-rig robot character for animation</div>
-                    <div class="request-meta">⚡ Yesterday • Processing • 25 credits</div>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                <h3>Cloud Storage</h3>
+                <p>Save and access your projects anywhere</p>
             </div>
+        </div>
 
-            <!-- Footer -->
-            <div class="footer">
+        <!-- Footer -->
+        <div class="footer">
+            <div class="logo" style="font-size: 20px;">VIVIDIA AI</div>
+            <div class="footer-links">
                 <a onclick="showPage('pricing')">Pricing</a>
                 <a onclick="showPage('careers')">Careers</a>
                 <a onclick="showPage('faq')">FAQ</a>
                 <a onclick="showPage('blog')">Blog</a>
                 <a onclick="showPage('privacy')">Privacy</a>
-                <a onclick="showPage('terms')">Terms</a>
-                <a onclick="showPage('contact')">Contact</a>
             </div>
-            
-            <div class="copyright">
-                © Vividia AI 2026 • Next‑Gen Animation Studio
+            <div>© 2026 Vividia AI. All rights reserved.</div>
+        </div>
+    </div>
+
+    <!-- Studio Page (After Login) -->
+    <div class="studio-page" id="studioPage">
+        <div class="studio-container">
+            <!-- Sidebar -->
+            <div class="studio-sidebar">
+                <div class="studio-logo">🎬 VIVIDIA AI</div>
+                
+                <div class="studio-user" id="studioUser">
+                    <div class="studio-avatar" id="studioAvatar">J</div>
+                    <div class="studio-user-info">
+                        <div class="studio-user-name" id="studioName">Johnathan</div>
+                        <div class="studio-user-email" id="studioEmail">john@example.com</div>
+                    </div>
+                </div>
+
+                <div class="studio-nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="studio-nav-item">
+                    <i class="fas fa-film"></i>
+                    <span>My Projects</span>
+                </div>
+                <div class="studio-nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>Characters</span>
+                </div>
+                <div class="studio-nav-item">
+                    <i class="fas fa-music"></i>
+                    <span>Audio</span>
+                </div>
+                <div class="studio-nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+
+                <div style="margin-top: auto; padding: 20px;">
+                    <div class="studio-nav-item" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="studio-main">
+                <div class="studio-header">
+                    <h1>Welcome back, <span id="welcomeName">Johnathan</span>!</h1>
+                    <button class="save-btn" onclick="saveProject()">
+                        <i class="fas fa-save"></i> Save Project
+                    </button>
+                </div>
+
+                <!-- Studio Workspace (same as previous studio) -->
+                <div class="studio-workspace">
+                    <div style="margin-bottom: 20px;">
+                        <h2>Current Project: Untitled</h2>
+                    </div>
+                    
+                    <div class="prompt-input-wrapper" style="display: flex; gap: 12px; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 16px; padding: 8px 8px 8px 20px; margin-bottom: 20px;">
+                        <input type="text" style="flex: 1; background: transparent; border: none; color: white; padding: 12px 0; outline: none;" placeholder="Steampunk warrior, cinematic lighting, 4K" value="Steampunk warrior, cinematic lighting, 4K">
+                        <button style="background: var(--bg-dark); border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer;">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+                        <button class="btn btn-primary" style="padding: 12px 24px;" onclick="generateFilm()">
+                            <i class="fas fa-film"></i> Generate Film
+                        </button>
+                        <button class="btn btn-outline" style="padding: 12px 24px;" onclick="createAnimation()">
+                            <i class="fas fa-play"></i> Animation
+                        </button>
+                        <button class="btn btn-outline" style="padding: 12px 24px;" onclick="animateCharacter()">
+                            <i class="fas fa-robot"></i> Animate
+                        </button>
+                        <button class="btn btn-outline" style="padding: 12px 24px;" onclick="lipSync()">
+                            <i class="fas fa-microphone"></i> Lip Sync
+                        </button>
+                    </div>
+
+                    <div style="background: var(--bg-dark); border: 1px solid var(--border); border-radius: 16px; padding: 20px; min-height: 200px;">
+                        <div style="color: var(--text-muted); margin-bottom: 10px;">Output Preview</div>
+                        <div id="studioOutput">Ready to generate...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-card">
+            <div class="auth-logo">VIVIDIA AI</div>
+
+            <!-- Google Sign In -->
+            <button class="google-btn" onclick="googleSignIn()">
+                <i class="fab fa-google"></i>
+                Continue with Google
+            </button>
+
+            <div class="divider">or</div>
+
+            <!-- Email/Password Forms -->
+            <div id="loginForm">
+                <input type="email" class="auth-input" id="loginEmail" placeholder="Email" value="john@example.com">
+                <input type="password" class="auth-input" id="loginPassword" placeholder="Password" value="password123">
+                <button class="btn btn-primary" style="width: 100%;" onclick="login()">Login</button>
+                <div class="auth-switch">
+                    Don't have an account? <span onclick="switchAuthForm('signup')">Sign up</span>
+                </div>
+            </div>
+
+            <div id="signupForm" style="display: none;">
+                <input type="text" class="auth-input" id="signupName" placeholder="Full Name">
+                <input type="email" class="auth-input" id="signupEmail" placeholder="Email">
+                <input type="password" class="auth-input" id="signupPassword" placeholder="Password">
+                <button class="btn btn-primary" style="width: 100%;" onclick="signup()">Create Account</button>
+                <div class="auth-switch">
+                    Already have an account? <span onclick="switchAuthForm('login')">Login</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== AUTHENTICATION SYSTEM ====================
+        // ==================== AUTH STATE ====================
         let currentUser = null;
-        let userCredits = 1250;
+        let projects = JSON.parse(localStorage.getItem('vividia_projects')) || [];
 
-        // Check if user is already logged in
+        // Check saved session
         window.onload = function() {
             const savedUser = localStorage.getItem('vividia_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
-                showApp();
+                showStudio();
             }
         };
 
-        function switchAuthTab(tab) {
-            if (tab === 'login') {
-                document.querySelectorAll('.auth-tab')[0].classList.add('active');
-                document.querySelectorAll('.auth-tab')[1].classList.remove('active');
-                document.getElementById('loginForm').classList.remove('hidden');
-                document.getElementById('signupForm').classList.add('hidden');
+        // ==================== AUTH FUNCTIONS ====================
+        function showAuthModal(type) {
+            document.getElementById('authModal').classList.remove('hidden');
+            switchAuthForm(type);
+        }
+
+        function switchAuthForm(type) {
+            if (type === 'login') {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('signupForm').style.display = 'none';
             } else {
-                document.querySelectorAll('.auth-tab')[1].classList.add('active');
-                document.querySelectorAll('.auth-tab')[0].classList.remove('active');
-                document.getElementById('signupForm').classList.remove('hidden');
-                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('signupForm').style.display = 'block';
             }
+        }
+
+        // Google Sign In (simulated)
+        function googleSignIn() {
+            // Simulate Google login - in real app, use Firebase or OAuth
+            const googleUser = {
+                name: 'Johnathan',
+                email: 'john@gmail.com',
+                avatar: 'J',
+                provider: 'google'
+            };
+            
+            currentUser = googleUser;
+            localStorage.setItem('vividia_user', JSON.stringify(googleUser));
+            
+            document.getElementById('authModal').classList.add('hidden');
+            showStudio();
+            showNotification('Successfully signed in with Google!');
         }
 
         function login() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
-            // Simple validation
             if (!email || !password) {
-                showToast('Please enter email and password');
+                alert('Please enter email and password');
                 return;
             }
 
-            // Simulate login (in real app, this would call an API)
-            const userName = email.split('@')[0];
+            // Simulate login
             currentUser = {
-                name: userName,
+                name: email.split('@')[0],
                 email: email,
-                avatar: userName.charAt(0).toUpperCase()
+                avatar: email.charAt(0).toUpperCase()
             };
 
-            // Save to localStorage
             localStorage.setItem('vividia_user', JSON.stringify(currentUser));
-
-            showToast('Login successful! Welcome back, ' + userName);
-            showApp();
+            document.getElementById('authModal').classList.add('hidden');
+            showStudio();
+            showNotification('Login successful!');
         }
 
         function signup() {
@@ -986,7 +915,7 @@
             const password = document.getElementById('signupPassword').value;
 
             if (!name || !email || !password) {
-                showToast('Please fill all fields');
+                alert('Please fill all fields');
                 return;
             }
 
@@ -997,90 +926,102 @@
             };
 
             localStorage.setItem('vividia_user', JSON.stringify(currentUser));
-
-            showToast('Account created successfully! Welcome, ' + name);
-            showApp();
+            document.getElementById('authModal').classList.add('hidden');
+            showStudio();
+            showNotification('Account created successfully!');
         }
 
         function logout() {
             localStorage.removeItem('vividia_user');
             currentUser = null;
-            document.getElementById('authModal').classList.remove('hidden');
-            document.getElementById('appContainer').classList.remove('visible');
-            showToast('Logged out successfully');
+            document.getElementById('studioPage').style.display = 'none';
+            document.getElementById('landingPage').style.display = 'block';
+            showNotification('Logged out successfully');
         }
 
-        function showApp() {
+        function showStudio() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('studioPage').style.display = 'block';
+            
+            // Update user info in studio
             if (currentUser) {
-                document.getElementById('authModal').classList.add('hidden');
-                document.getElementById('appContainer').classList.add('visible');
-                
-                // Update user info in UI
-                document.getElementById('userName').textContent = currentUser.name;
-                document.getElementById('userEmail').textContent = currentUser.email;
-                document.getElementById('userAvatar').textContent = currentUser.avatar;
-                document.getElementById('greetingName').textContent = currentUser.name.split(' ')[0];
+                document.getElementById('studioName').textContent = currentUser.name;
+                document.getElementById('studioEmail').textContent = currentUser.email;
+                document.getElementById('studioAvatar').textContent = currentUser.avatar;
+                document.getElementById('welcomeName').textContent = currentUser.name.split(' ')[0];
             }
         }
 
-        // ==================== UI FUNCTIONS ====================
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
+        // ==================== STUDIO FUNCTIONS ====================
+        function saveProject() {
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+
+            const project = {
+                id: Date.now(),
+                name: 'Project ' + (projects.length + 1),
+                date: new Date().toLocaleDateString(),
+                user: currentUser.email
+            };
+
+            projects.push(project);
+            localStorage.setItem('vividia_projects', JSON.stringify(projects));
+            showNotification('Project saved successfully!');
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // ==================== AI FUNCTIONS (SIMULATED) ====================
         function generateFilm() {
-            if (!checkCredits(50)) return;
-            
-            const prompt = document.getElementById('promptInput').value;
-            const output = document.getElementById('outputContent');
-            
-            // Show loading
-            document.getElementById('outputStatus').innerHTML = '<span class="loading-spinner"></span> processing...';
-            
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+            document.getElementById('studioOutput').innerHTML = '🎬 Generating film... Please wait...';
             setTimeout(() => {
-                output.innerHTML = `🎬 <strong>Film Generated Successfully!</strong><br><br>`;
-                output.innerHTML += `📝 <strong>Prompt:</strong> "${prompt}"<br><br>`;
-                output.innerHTML += `⏱️ <strong>Duration:</strong> 30 seconds<br>`;
-                output.innerHTML += `🎨 <strong>Style:</strong> Cinematic 4K<br>`;
-                output.innerHTML += `🤖 <strong>Characters:</strong> Steampunk warrior, mechanical creatures<br>`;
-                output.innerHTML += `🌄 <strong>Scenes:</strong> 5 scenes generated<br>`;
-                output.innerHTML += `💰 <strong>Credits used:</strong> 50<br><br>`;
-                output.innerHTML += `✅ <strong>Preview ready:</strong> <a href="#" style="color: #8B5CF6;">Click here to view</a>`;
-                
-                document.getElementById('outputStatus').innerHTML = 'completed';
-                
-                // Deduct credits
-                userCredits -= 50;
-                document.getElementById('userCredits').innerHTML = userCredits.toLocaleString() + ' <small>credits</small>';
-                
-                addToHistory('Generated film: ' + prompt.substring(0, 30) + '...');
+                document.getElementById('studioOutput').innerHTML = '✅ Film generated successfully! Preview ready.';
             }, 2000);
         }
 
         function createAnimation() {
-            if (!checkCredits(40)) return;
-            
-            const prompt = document.getElementById('promptInput').value;
-            const output = document.getElementById('outputContent');
-            
-            document.getElementById('outputStatus').innerHTML = '<span class="loading-spinner"></span> processing...';
-            
-            setTimeout(() => {
-                output.innerHTML = `🔄 <strong>Animation Created Successfully!</strong><br><br>`;
-                output.innerHTML += `📝 <strong>Animation:</strong> "${prompt}"<br><br>`;
-                output.innerHTML += `⏱️ <strong>Duration:</strong> 15 seconds<br>`;
-                output.innerHTML += `🎭 <strong>Frames:</strong> 360 frames (24fps)<br>`;
-                output.innerHTML += `✨ <strong>Effects:</strong> Motion blur, depth of field<br>`;
-                output.innerHTML += `💰 <strong>Credits used:</strong> 40<br><br>`;
-                output.innerHTML += `✅ <strong>Export
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+            document.getElementById('studioOutput').innerHTML = '🔄 Creating animation...';
+        }
+
+        function animateCharacter() {
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+            document.getElementById('studioOutput').innerHTML = '🤖 Animating character...';
+        }
+
+        function lipSync() {
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+            document.getElementById('studioOutput').innerHTML = '🎤 Lip sync ready - Arabic, English supported';
+        }
+
+        // ==================== UTILITIES ====================
+        function showNotification(message) {
+            // Simple alert for now - can be replaced with toast
+            alert(message);
+        }
+
+        function showPage(page) {
+            alert('Page: ' + page + ' - Coming soon!');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
