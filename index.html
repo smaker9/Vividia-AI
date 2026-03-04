@@ -2,643 +2,452 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Vividia AI - Professional Animation Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vividia AI Studio - Professional Animation Platform</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background: #0B0B15;
-            color: #FFFFFF;
-            min-height: 100vh;
-            display: flex;
+            background: #0A0A0F;
+            color: white;
+            overflow: hidden;
         }
 
-        /* ========== MAIN CONTAINER ========== */
         .container {
             display: flex;
+            height: 100vh;
             width: 100%;
-            min-height: 100vh;
-            position: relative;
         }
 
-        /* ========== LEFT SIDEBAR (DESKTOP) ========== */
+        /* ===== LEFT SIDEBAR ===== */
         .sidebar {
             width: 280px;
-            background: #0E0E1A;
-            border-right: 1px solid rgba(138, 92, 246, 0.15);
-            padding: 28px 0;
+            background: #0C0C15;
+            border-right: 1px solid #1E1E2A;
+            padding: 24px 0;
             display: flex;
             flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-
-        /* Mobile Menu Toggle (Hidden on Desktop) */
-        .mobile-menu-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
-            width: 50px;
-            height: 50px;
-            border-radius: 15px;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .logo-area {
-            padding: 0 24px 24px 24px;
-            border-bottom: 1px solid rgba(138, 92, 246, 0.2);
-            margin-bottom: 24px;
+            transition: all 0.3s;
         }
 
         .logo {
-            font-size: 24px;
+            padding: 0 20px 24px 20px;
+            font-size: 22px;
             font-weight: 700;
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF, #C084FC);
+            background: linear-gradient(135deg, #A478E8, #6B8CFF);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-            text-shadow: 0 0 20px rgba(138, 92, 246, 0.3);
-        }
-
-        .nav-menu {
-            flex: 1;
-            padding: 0 16px;
+            border-bottom: 1px solid #1E1E2A;
+            margin-bottom: 20px;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            color: #9AA1B9;
-            font-size: 15px;
-            font-weight: 500;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #8A8A9E;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 4px;
+            transition: 0.2s;
+            margin: 2px 8px;
+            border-radius: 8px;
         }
 
         .nav-item:hover {
-            background: linear-gradient(90deg, rgba(138, 92, 246, 0.1), rgba(74, 122, 255, 0.05));
-            color: #FFFFFF;
-            transform: translateX(5px);
+            background: #1A1A24;
+            color: white;
         }
 
         .nav-item.active {
-            background: linear-gradient(90deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.1));
-            color: #8A5CF6;
-            border-left: 3px solid #8A5CF6;
-            box-shadow: 0 5px 15px rgba(138, 92, 246, 0.2);
+            background: linear-gradient(90deg, #2A1A3A, #1A1A24);
+            color: #A478E8;
+            border-left: 3px solid #A478E8;
         }
 
         .nav-icon {
-            font-size: 20px;
-            width: 28px;
+            width: 24px;
             text-align: center;
-            filter: drop-shadow(0 0 5px rgba(138, 92, 246, 0.5));
         }
 
-        .nav-divider {
+        .divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(138, 92, 246, 0.3), transparent);
-            margin: 20px 0;
+            background: #1E1E2A;
+            margin: 16px 0;
         }
 
-        .nav-section-title {
-            padding: 8px 16px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #5D6883;
-            font-weight: 600;
-        }
-
-        /* ========== MAIN CONTENT ========== */
+        /* ===== MAIN CONTENT ===== */
         .main-content {
             flex: 1;
-            margin-left: 280px;
+            display: flex;
+            flex-direction: column;
             padding: 32px 48px;
-            background: radial-gradient(circle at top right, rgba(138, 92, 246, 0.05), transparent 50%),
-                        radial-gradient(circle at bottom left, rgba(74, 122, 255, 0.05), transparent 50%),
-                        #0B0B15;
-            min-height: 100vh;
-            width: calc(100% - 280px);
+            overflow-y: auto;
+            background: radial-gradient(circle at 70% 20%, rgba(164, 120, 232, 0.08), transparent 40%);
         }
 
-        /* Greeting Section */
+        /* Header */
         .greeting {
-            margin-bottom: 40px;
-            animation: fadeIn 0.8s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            margin-bottom: 32px;
         }
 
         .greeting h1 {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 600;
-            color: #FFFFFF;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            font-size: 36px;
+            font-weight: 500;
+            color: white;
         }
 
-        .greeting .highlight {
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF, #C084FC);
+        .greeting span {
+            background: linear-gradient(135deg, #A478E8, #6B8CFF);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .greeting .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, #8A5CF6, transparent);
-            border-radius: 2px;
+            font-weight: 600;
         }
 
         .greeting p {
-            color: #9AA1B9;
-            font-size: clamp(14px, 2vw, 18px);
-            margin-top: 12px;
-            letter-spacing: 0.3px;
+            color: #8A8A9E;
+            margin-top: 8px;
+            font-size: 16px;
         }
 
         /* Prompt Area */
-        .prompt-area {
-            background: rgba(20, 20, 35, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 32px;
-            padding: 28px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(138, 92, 246, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 92, 246, 0.1);
-            animation: slideUp 0.6s ease;
+        .prompt-container {
+            background: #0C0C15;
+            border: 1px solid #1E1E2A;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .prompt-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0A0A0F;
+            border: 1px solid #2A2A35;
+            border-radius: 16px;
+            padding: 8px 8px 8px 20px;
+            margin-bottom: 20px;
+        }
+
+        .prompt-input-wrapper:focus-within {
+            border-color: #A478E8;
+            box-shadow: 0 0 0 2px rgba(164, 120, 232, 0.2);
         }
 
         .prompt-input {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 20px;
-            background: rgba(10, 10, 20, 0.8);
-            border-radius: 20px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .prompt-input:focus-within {
-            border-color: #8A5CF6;
-            box-shadow: 0 0 30px rgba(138, 92, 246, 0.3);
-            transform: scale(1.02);
-        }
-
-        .prompt-input input {
             flex: 1;
             background: transparent;
             border: none;
-            color: #FFFFFF;
-            font-size: clamp(14px, 2vw, 18px);
+            color: white;
+            font-size: 16px;
+            padding: 12px 0;
             outline: none;
         }
 
-        .prompt-input input::placeholder {
-            color: #3A4058;
-            font-weight: 400;
+        .prompt-input::placeholder {
+            color: #4A4A5A;
         }
 
         .upload-btn {
-            padding: 10px 22px;
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.2));
+            background: #1A1A24;
+            border: 1px solid #2A2A35;
+            color: white;
+            padding: 10px 20px;
             border-radius: 30px;
-            color: #FFFFFF;
-            font-size: 14px;
-            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(138, 92, 246, 0.4);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            gap: 8px;
+            font-size: 14px;
+            transition: 0.2s;
         }
 
         .upload-btn:hover {
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.4);
+            background: #2A2A35;
+            border-color: #A478E8;
         }
 
-        /* Model Selector */
-        .model-selector {
+        .model-info {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 28px;
+            gap: 16px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
-            gap: 15px;
         }
 
         .model-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(10, 10, 20, 0.8);
-            padding: 8px 18px;
+            background: #1A1A24;
+            border: 1px solid #2A2A35;
+            padding: 6px 16px;
             border-radius: 30px;
             font-size: 14px;
-            color: #9AA1B9;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            backdrop-filter: blur(5px);
+            color: #A478E8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .model-badge span {
-            color: #8A5CF6;
-            font-weight: 600;
+            color: #8A8A9E;
         }
 
         /* Action Buttons */
-        .action-buttons {
+        .action-grid {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
 
         .action-btn {
+            background: #1A1A24;
+            border: 1px solid #2A2A35;
+            color: white;
             padding: 12px 24px;
-            background: rgba(10, 10, 20, 0.8);
-            border: 1px solid rgba(138, 92, 246, 0.3);
             border-radius: 40px;
-            color: #FFFFFF;
-            font-size: clamp(13px, 1.5vw, 15px);
-            font-weight: 500;
+            font-size: 15px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            gap: 8px;
+            transition: 0.2s;
+            flex: 1 1 auto;
+            min-width: 140px;
+            justify-content: center;
         }
 
         .action-btn:hover {
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.2));
-            border-color: #8A5CF6;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.3);
+            background: #2A2A35;
+            border-color: #A478E8;
+            transform: translateY(-2px);
         }
 
         .action-btn.primary {
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF, #C084FC);
+            background: linear-gradient(135deg, #A478E8, #6B8CFF);
             border: none;
-            color: white;
-            box-shadow: 0 10px 25px rgba(138, 92, 246, 0.4);
+            font-weight: 500;
+            box-shadow: 0 10px 20px rgba(164, 120, 232, 0.3);
         }
 
         .action-btn.primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(138, 92, 246, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(164, 120, 232, 0.4);
         }
 
-        /* Latest Requests */
-        .latest-requests {
-            margin-top: 48px;
-            animation: fadeIn 1s ease;
+        /* Output Area */
+        .output-area {
+            background: #0C0C15;
+            border: 1px solid #1E1E2A;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 32px 0;
+            min-height: 100px;
         }
 
-        .section-header {
+        .output-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .section-header h2 {
-            font-size: clamp(16px, 2vw, 18px);
-            font-weight: 600;
-            color: #FFFFFF;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-header a {
-            color: #8A5CF6;
+            margin-bottom: 16px;
+            color: #8A8A9E;
             font-size: 14px;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            background: rgba(138, 92, 246, 0.1);
-            border-radius: 30px;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-            transition: all 0.3s ease;
         }
 
-        .section-header a:hover {
-            background: rgba(138, 92, 246, 0.2);
-            transform: translateX(5px);
+        .output-content {
+            color: #D0D0E0;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* Recent Requests */
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 32px 0 16px;
+        }
+
+        .recent-header h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .recent-header a {
+            color: #A478E8;
+            text-decoration: none;
+            font-size: 14px;
         }
 
         .requests-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
         }
 
         .request-card {
-            background: rgba(20, 20, 35, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(138, 92, 246, 0.15);
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            background: #0C0C15;
+            border: 1px solid #1E1E2A;
+            border-radius: 16px;
+            padding: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.2s;
         }
 
         .request-card:hover {
-            background: rgba(30, 30, 45, 0.8);
-            border-color: #8A5CF6;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(138, 92, 246, 0.3);
-        }
-
-        .request-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, rgba(138, 92, 246, 0.2), rgba(74, 122, 255, 0.2));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8A5CF6;
-            font-size: 24px;
-            border: 1px solid rgba(138, 92, 246, 0.3);
-        }
-
-        .request-text {
-            flex: 1;
-            font-size: 14px;
-            color: #FFFFFF;
-            line-height: 1.5;
-            font-weight: 500;
-        }
-
-        .request-time {
-            font-size: 12px;
-            color: #5D6883;
-            margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Footer */
-        .footer-links {
-            margin-top: 60px;
-            display: flex;
-            gap: 30px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(138, 92, 246, 0.2);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .footer-links a {
-            color: #5D6883;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            padding: 5px 10px;
-            border-radius: 8px;
-        }
-
-        .footer-links a:hover {
-            color: #8A5CF6;
-            background: rgba(138, 92, 246, 0.1);
+            border-color: #A478E8;
+            background: #12121A;
             transform: translateY(-2px);
         }
 
-        .copyright {
-            text-align: center;
-            margin-top: 20px;
-            padding-bottom: 20px;
-            color: #3A4058;
+        .request-title {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .request-meta {
+            color: #5A5A6E;
+            font-size: 12px;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #1E1E2A;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: #5A5A6E;
+            text-decoration: none;
             font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            transition: 0.2s;
         }
 
-        .copyright span {
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
+        .footer a:hover {
+            color: #A478E8;
         }
 
-        /* ========== MOBILE RESPONSIVE ========== */
-        @media screen and (max-width: 1024px) {
-            .main-content {
-                padding: 24px 32px;
-            }
+        .copyright {
+            margin-top: 16px;
+            color: #3A3A4A;
+            font-size: 12px;
+            text-align: center;
         }
 
-        @media screen and (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
+        /* Responsive */
+        @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.4s ease;
-                box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+                position: fixed;
+                left: -280px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s;
             }
-
+            
             .sidebar.active {
-                transform: translateX(0);
+                left: 0;
             }
-
+            
             .main-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 80px 20px 30px 20px;
-            }
-
-            .greeting {
-                text-align: center;
-            }
-
-            .prompt-input {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .upload-btn {
-                justify-content: center;
-            }
-
-            .action-buttons {
-                justify-content: center;
-            }
-
-            .action-btn {
-                flex: 1 1 calc(50% - 6px);
-                justify-content: center;
-            }
-
-            .requests-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
-                gap: 15px;
-                justify-content: center;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .main-content {
-                padding: 80px 15px 20px 15px;
-            }
-
-            .prompt-area {
                 padding: 20px;
             }
-
+            
             .action-btn {
-                flex: 1 1 100%;
+                min-width: 100%;
             }
-
-            .model-selector {
-                justify-content: center;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+            
+            .greeting h1 {
+                font-size: 28px;
             }
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #1A1A24;
+            border: 1px solid #2A2A35;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #0E0E1A;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #8A5CF6, #4A7AFF);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #9A6CFF, #5A8AFF);
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Toggle -->
-    <div class="mobile-menu-toggle" onclick="toggleMenu()">
-        <span style="color: white; font-size: 24px;">☰</span>
-    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
     <div class="container">
-        <!-- Left Sidebar -->
+        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
-            <div class="logo-area">
-                <div class="logo">🎬 VIVIDIA AI</div>
+            <div class="logo">🎬 VIVIDIA AI</div>
+            
+            <div class="nav-item active" onclick="switchPage('create')">
+                <span class="nav-icon">✨</span>
+                <span>Create</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('library')">
+                <span class="nav-icon">📚</span>
+                <span>Library</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('explore')">
+                <span class="nav-icon">🔍</span>
+                <span>Explore</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('trending')">
+                <span class="nav-icon">📈</span>
+                <span>Trending</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('search')">
+                <span class="nav-icon">🔎</span>
+                <span>Search</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('whatsnew')">
+                <span class="nav-icon">🆕</span>
+                <span>What's New</span>
             </div>
             
-            <div class="nav-menu">
-                <div class="nav-item active">
-                    <span class="nav-icon">✨</span>
-                    <span>Create</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">📚</span>
-                    <span>Library</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🔍</span>
-                    <span>Explore</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">📈</span>
-                    <span>Trending</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🔎</span>
-                    <span>Search</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🆕</span>
-                    <span>What's New</span>
-                </div>
-                
-                <div class="nav-divider"></div>
-                
-                <div class="nav-section-title">MY LIBRARY</div>
-                
-                <div class="nav-item">
-                    <span class="nav-icon">🎬</span>
-                    <span>Projects</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🖼️</span>
-                    <span>Assets</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🤖</span>
-                    <span>Characters</span>
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🎨</span>
-                    <span>Animations</span>
-                </div>
+            <div class="divider"></div>
+            
+            <div style="padding: 8px 20px; color: #5A5A6E; font-size: 12px;">MY LIBRARY</div>
+            
+            <div class="nav-item" onclick="switchPage('projects')">
+                <span class="nav-icon">🎬</span>
+                <span>Projects</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('assets')">
+                <span class="nav-icon">🖼️</span>
+                <span>Assets</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('characters')">
+                <span class="nav-icon">🤖</span>
+                <span>Characters</span>
+            </div>
+            <div class="nav-item" onclick="switchPage('animations')">
+                <span class="nav-icon">🎨</span>
+                <span>Animations</span>
             </div>
         </div>
 
@@ -646,81 +455,85 @@
         <div class="main-content">
             <!-- Greeting -->
             <div class="greeting">
-                <h1>Hey <span class="highlight">Johnathan</span></h1>
+                <h1>Hey <span>Johnathan</span></h1>
                 <p>How can Vividia AI help you create today?</p>
             </div>
 
             <!-- Prompt Area -->
-            <div class="prompt-area">
-                <div class="prompt-input">
-                    <input type="text" placeholder="Steampunk warrior, cinematic lighting, 4K" value="Steampunk warrior, cinematic lighting, 4K">
-                    <div class="upload-btn">
-                        <span>📤</span> Upload
-                    </div>
-                </div>
-                
-                <div class="model-selector">
-                    <div class="model-badge">
-                        <span>⚡</span> Model: <span>Vividia Pro 2.0</span>
-                    </div>
-                    <div class="model-badge">
-                        <span>🎯</span> Quality: <span>4K Cinematic</span>
+            <div class="prompt-container">
+                <div class="prompt-input-wrapper">
+                    <input type="text" class="prompt-input" id="promptInput" placeholder="Steampunk warrior, cinematic lighting, 4K" value="Steampunk warrior, cinematic lighting, 4K">
+                    <div class="upload-btn" onclick="simulateUpload()">
+                        📤 Upload
                     </div>
                 </div>
 
-                <div class="action-buttons">
-                    <button class="action-btn primary">✨ Generate Film</button>
-                    <button class="action-btn">🎨 Create Animation</button>
-                    <button class="action-btn">🎬 Animate Character</button>
-                    <button class="action-btn">🔊 Lip Sync</button>
-                    <button class="action-btn">🎞️ Scene Builder</button>
+                <div class="model-info">
+                    <div class="model-badge">
+                        ⚡ <span>Model:</span> Vividia Pro 2.0
+                    </div>
+                    <div class="model-badge">
+                        🎯 <span>Quality:</span> 4K Cinematic
+                    </div>
+                </div>
+
+                <div class="action-grid">
+                    <button class="action-btn primary" onclick="generateFilm()">
+                        ✨ Generate Film
+                    </button>
+                    <button class="action-btn" onclick="createAnimation()">
+                        🎨 Create Animation
+                    </button>
+                    <button class="action-btn" onclick="animateCharacter()">
+                        🎬 Animate Character
+                    </button>
+                    <button class="action-btn" onclick="lipSync()">
+                        🔊 Lip Sync
+                    </button>
+                    <button class="action-btn" onclick="sceneBuilder()">
+                        🎞️ Scene Builder
+                    </button>
                 </div>
             </div>
 
-            <!-- Latest Requests -->
-            <div class="latest-requests">
-                <div class="section-header">
-                    <h2>RECENT PRODUCTIONS</h2>
-                    <a href="#">VIEW ALL</a>
+            <!-- Output Area (نتيجة الأزرار) -->
+            <div class="output-area" id="outputArea">
+                <div class="output-header">
+                    <span>✨ OUTPUT</span>
+                    <span>ready</span>
                 </div>
-                
-                <div class="requests-grid">
-                    <div class="request-card">
-                        <div class="request-icon">🎬</div>
-                        <div class="request-text">
-                            Create 30s anime trailer with cyberpunk theme
-                            <div class="request-time">⚡ 2 hours ago • 4K</div>
-                        </div>
-                    </div>
-                    
-                    <div class="request-card">
-                        <div class="request-icon">🗣️</div>
-                        <div class="request-text">
-                            Add lip sync to character dialogue (Arabic)
-                            <div class="request-time">⚡ 5 hours ago • Completed</div>
-                        </div>
-                    </div>
-                    
-                    <div class="request-card">
-                        <div class="request-icon">🌄</div>
-                        <div class="request-text">
-                            Generate fantasy forest background with lighting
-                            <div class="request-time">⚡ Yesterday • 4K</div>
-                        </div>
-                    </div>
-                    
-                    <div class="request-card">
-                        <div class="request-icon">🤖</div>
-                        <div class="request-text">
-                            Auto-rig robot character for animation
-                            <div class="request-time">⚡ Yesterday • Processing</div>
-                        </div>
-                    </div>
+                <div class="output-content" id="outputContent">
+                    👋 Welcome to Vividia AI. Click any button to start creating...
+                </div>
+            </div>
+
+            <!-- Recent Requests -->
+            <div class="recent-header">
+                <h3>RECENT PRODUCTIONS</h3>
+                <a href="#" onclick="showAll()">VIEW ALL</a>
+            </div>
+
+            <div class="requests-grid">
+                <div class="request-card" onclick="loadRequest('Create 30s anime trailer with cyberpunk theme')">
+                    <div class="request-title">Create 30s anime trailer with cyberpunk theme</div>
+                    <div class="request-meta">⚡ 2 hours ago • 4K</div>
+                </div>
+                <div class="request-card" onclick="loadRequest('Add lip sync to character dialogue (Arabic)')">
+                    <div class="request-title">Add lip sync to character dialogue (Arabic)</div>
+                    <div class="request-meta">⚡ 5 hours ago • Completed</div>
+                </div>
+                <div class="request-card" onclick="loadRequest('Generate fantasy forest background with lighting')">
+                    <div class="request-title">Generate fantasy forest background with lighting</div>
+                    <div class="request-meta">⚡ Yesterday • 4K</div>
+                </div>
+                <div class="request-card" onclick="loadRequest('Auto-rig robot character for animation')">
+                    <div class="request-title">Auto-rig robot character for animation</div>
+                    <div class="request-meta">⚡ Yesterday • Processing</div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="footer-links">
+            <div class="footer">
                 <a href="#">Pricing</a>
                 <a href="#">Careers</a>
                 <a href="#">FAQ</a>
@@ -730,23 +543,135 @@
                 <a href="#">Contact</a>
             </div>
             
-            <!-- Copyright -->
             <div class="copyright">
-                © <span>Vividia AI</span> 2026 • Next‑Gen Animation Studio
+                © Vividia AI 2026 • Next‑Gen Animation Studio
             </div>
         </div>
     </div>
 
-    <!-- Mobile Menu Script -->
     <script>
+        // متغيرات عامة
+        let currentPage = 'create';
+        let promptHistory = [];
+
+        // ===== وظائف القائمة الجانبية =====
+        function switchPage(page) {
+            currentPage = page;
+            
+            // تحديث شكل القائمة
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // عرض رسالة حسب الصفحة
+            let output = document.getElementById('outputContent');
+            output.innerHTML = `📂 You are now in <strong>${page}</strong> section. This feature is ready for integration.`;
+            
+            // إغلاق القائمة في الجوال
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        // ===== وظائف الأزرار =====
+        function generateFilm() {
+            let prompt = document.getElementById('promptInput').value;
+            let output = document.getElementById('outputContent');
+            
+            output.innerHTML = `🎬 <strong>Generating film:</strong> "${prompt}"<br><br>`;
+            output.innerHTML += `⏳ Processing... Analyzing scene structure...<br>`;
+            output.innerHTML += `🎨 Creating characters...<br>`;
+            output.innerHTML += `🌄 Building environment...<br>`;
+            output.innerHTML += `✨ Applying cinematic lighting...<br><br>`;
+            output.innerHTML += `✅ Film generated successfully! Ready for export.`;
+            
+            addToHistory('Generate Film: ' + prompt);
+        }
+
+        function createAnimation() {
+            let prompt = document.getElementById('promptInput').value;
+            let output = document.getElementById('outputContent');
+            
+            output.innerHTML = `🔄 <strong>Creating animation:</strong> "${prompt}"<br><br>`;
+            output.innerHTML += `⏳ Setting up keyframes...<br>`;
+            output.innerHTML += `🤖 Rigging characters...<br>`;
+            output.innerHTML += `🎬 Animating motion...<br><br>`;
+            output.innerHTML += `✅ Animation complete! Preview available.`;
+            
+            addToHistory('Create Animation: ' + prompt);
+        }
+
+        function animateCharacter() {
+            let output = document.getElementById('outputContent');
+            output.innerHTML = `🎭 <strong>Character Animation</strong><br><br>`;
+            output.innerHTML += `Select a character to animate:<br>`;
+            output.innerHTML += `• 🤖 Robot (ready)<br>`;
+            output.innerHTML += `• 🧝 Elf (ready)<br>`;
+            output.innerHTML += `• 🦸 Hero (ready)<br>`;
+            output.innerHTML += `• 🐉 Dragon (ready)<br><br>`;
+            output.innerHTML += `Click on any character to start animation.`;
+        }
+
+        function lipSync() {
+            let output = document.getElementById('outputContent');
+            output.innerHTML = `🗣️ <strong>AI Lip Sync</strong><br><br>`;
+            output.innerHTML += `Supported languages:<br>`;
+            output.innerHTML += `• العربية (Arabic)<br>`;
+            output.innerHTML += `• English<br>`;
+            output.innerHTML += `• Français<br>`;
+            output.innerHTML += `• Español<br><br>`;
+            output.innerHTML += `Upload audio file or type text to sync.`;
+        }
+
+        function sceneBuilder() {
+            let prompt = document.getElementById('promptInput').value;
+            let output = document.getElementById('outputContent');
+            
+            output.innerHTML = `🏗️ <strong>Building scene:</strong> "${prompt}"<br><br>`;
+            output.innerHTML += `⏳ Generating environment...<br>`;
+            output.innerHTML += `💡 Adding lights...<br>`;
+            output.innerHTML += `📷 Setting camera angles...<br>`;
+            output.innerHTML += `🎭 Placing objects...<br><br>`;
+            output.innerHTML += `✅ Scene ready! Resolution: 4K.`;
+        }
+
+        function simulateUpload() {
+            alert('📤 Upload feature ready for integration with your storage service');
+        }
+
+        // ===== وظائف إضافية =====
+        function loadRequest(text) {
+            document.getElementById('promptInput').value = text;
+            document.getElementById('outputContent').innerHTML = `📋 Loaded request: "${text}"<br><br>Click any button to process.`;
+        }
+
+        function showAll() {
+            let output = document.getElementById('outputContent');
+            output.innerHTML = `📋 <strong>All Recent Productions</strong><br><br>`;
+            output.innerHTML += `1. Create 30s anime trailer with cyberpunk theme (4K)<br>`;
+            output.innerHTML += `2. Add lip sync to character dialogue (Arabic)<br>`;
+            output.innerHTML += `3. Generate fantasy forest background with lighting<br>`;
+            output.innerHTML += `4. Auto-rig robot character for animation<br>`;
+            output.innerHTML += `5. Create cinematic intro with space theme<br>`;
+            output.innerHTML += `6. Animate dragon flying sequence<br><br>`;
+            output.innerHTML += `Total: 12 productions this month`;
+        }
+
+        function addToHistory(item) {
+            promptHistory.push(item);
+            console.log('History:', promptHistory);
+        }
+
+        // ===== وظائف القائمة للجوال =====
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // Close menu when clicking outside on mobile
+        // إغلاق القائمة عند النقر خارجها
         document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.mobile-menu-toggle');
+            let sidebar = document.getElementById('sidebar');
+            let toggle = document.querySelector('.menu-toggle');
             
             if (window.innerWidth <= 768) {
                 if (!sidebar.contains(event.target) && !toggle.contains(event.target) && sidebar.classList.contains('active')) {
@@ -755,13 +680,15 @@
             }
         });
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            const sidebar = document.getElementById('sidebar');
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('active');
-            }
+        // تحديث حقل الإدخال عند الكتابة
+        document.getElementById('promptInput').addEventListener('input', function(e) {
+            // يمكن إضافة وظائف هنا لاحقاً
         });
+
+        // رسالة ترحيب عند تحميل الصفحة
+        window.onload = function() {
+            console.log('Vividia AI Studio loaded successfully');
+        };
     </script>
 </body>
 </html>
