@@ -66,12 +66,24 @@
             gap: 15px;
         }
 
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+        }
+
         .logo {
             font-size: 28px;
             font-weight: bold;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
         }
 
         .lang-selector {
@@ -84,6 +96,13 @@
             gap: 10px;
             cursor: pointer;
             position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .lang-selector {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
         }
 
         .lang-dropdown {
@@ -127,9 +146,16 @@
             padding: 40px 20px;
         }
 
+        @media (max-width: 768px) {
+            .hero {
+                padding: 30px 15px;
+            }
+        }
+
         .hero h1 {
             font-size: clamp(28px, 5vw, 48px);
             margin-bottom: 15px;
+            line-height: 1.3;
         }
 
         .hero h1 span {
@@ -144,6 +170,7 @@
             max-width: 700px;
             margin: 0 auto;
             padding: 0 20px;
+            line-height: 1.6;
         }
 
         /* Main Card */
@@ -158,6 +185,13 @@
             width: 95%;
         }
 
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 15px;
+                width: 98%;
+            }
+        }
+
         .tools-header {
             display: flex;
             justify-content: space-between;
@@ -165,6 +199,13 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .tools-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
         .tools-title {
@@ -183,6 +224,13 @@
             transition: 0.3s;
         }
 
+        @media (max-width: 480px) {
+            .guest-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
         .guest-btn:hover {
             border-color: var(--primary);
             background: rgba(99, 102, 241, 0.1);
@@ -196,6 +244,12 @@
             margin: 20px 0;
             display: flex;
             align-items: center;
+        }
+
+        @media (max-width: 480px) {
+            .prompt-box {
+                padding: 10px 15px;
+            }
         }
 
         .prompt-box input {
@@ -249,6 +303,14 @@
             flex: 0 1 auto;
         }
 
+        @media (max-width: 480px) {
+            .media-type {
+                padding: 6px 15px;
+                flex: 1 1 calc(50% - 10px);
+                text-align: center;
+            }
+        }
+
         .media-type:hover {
             background: rgba(99, 102, 241, 0.2);
             border-color: var(--primary);
@@ -298,6 +360,12 @@
             transition: 0.3s;
         }
 
+        @media (max-width: 480px) {
+            .generate-btn {
+                padding: 12px 20px;
+            }
+        }
+
         .generate-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
@@ -318,6 +386,13 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .membership-card {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         .membership-info {
@@ -346,6 +421,13 @@
             white-space: nowrap;
         }
 
+        @media (max-width: 480px) {
+            .membership-btn {
+                width: 100%;
+                white-space: normal;
+            }
+        }
+
         .membership-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
@@ -359,6 +441,13 @@
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
+        }
+
+        @media (max-width: 480px) {
+            .features {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
         }
 
         .feature-card {
@@ -404,6 +493,14 @@
             margin-top: auto;
         }
 
+        @media (max-width: 480px) {
+            .footer {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 15px;
+            }
+        }
+
         .footer-links {
             display: flex;
             gap: 20px;
@@ -411,15 +508,38 @@
             justify-content: center;
         }
 
+        @media (max-width: 480px) {
+            .footer-links {
+                gap: 15px;
+            }
+        }
+
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
             cursor: pointer;
             font-size: clamp(12px, 2.5vw, 14px);
+            padding: 5px 0;
+            position: relative;
         }
 
         .footer-links a:hover {
             color: var(--primary);
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
         }
 
         .copyright {
@@ -427,30 +547,93 @@
             font-size: clamp(11px, 2vw, 13px);
         }
 
-        /* Mobile Specific */
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlide 0.3s ease;
+        }
+
         @media (max-width: 480px) {
-            .header {
-                padding: 15px;
+            .modal-content {
+                padding: 20px;
+                width: 95%;
             }
-            
-            .tools-header {
-                flex-direction: column;
-                align-items: flex-start;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
             }
-            
-            .membership-card {
-                flex-direction: column;
-                text-align: center;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
-            
-            .membership-btn {
-                width: 100%;
-            }
-            
-            .footer {
-                flex-direction: column;
-                text-align: center;
-            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            color: var(--text);
+        }
+
+        .close-btn {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .modal-body h3 {
+            color: var(--text);
+            margin: 20px 0 10px;
         }
     </style>
 </head>
@@ -575,13 +758,103 @@
     <div class="footer">
         <div class="logo" style="font-size: 20px;">VIVIDIA AI</div>
         <div class="footer-links">
-            <a id="footerPricing">Pricing</a>
-            <a id="footerCareers">Careers</a>
-            <a id="footerFAQ">FAQ</a>
-            <a id="footerBlog">Blog</a>
-            <a id="footerPrivacy">Privacy</a>
+            <a onclick="showModal('privacy')" id="footerPrivacy">Privacy</a>
+            <a onclick="showModal('terms')" id="footerTerms">Terms</a>
+            <a onclick="showModal('support')" id="footerSupport">Support</a>
         </div>
         <div class="copyright" id="copyright">© 2026 Vividia AI. All rights reserved.</div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="privacyTitle">Privacy Policy</h2>
+                <span class="close-btn" onclick="closeModal('privacy')">&times;</span>
+            </div>
+            <div class="modal-body" id="privacyContent">
+                <p>At Vividia AI, we take your privacy seriously. This policy describes how we collect, use, and protect your information.</p>
+                
+                <h3>Information We Collect</h3>
+                <p>We collect information you provide directly, such as your name and email when you create an account. We also collect data about your usage of our AI tools to improve our services.</p>
+                
+                <h3>How We Use Your Information</h3>
+                <p>Your information is used to provide and improve our services, personalize your experience, and communicate with you about updates and offers.</p>
+                
+                <h3>Data Security</h3>
+                <p>We implement industry-standard security measures to protect your data. All information is encrypted and stored securely.</p>
+                
+                <h3>Your Rights</h3>
+                <p>You have the right to access, correct, or delete your personal information at any time through your account settings.</p>
+                
+                <p>Last updated: March 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="termsTitle">Terms of Service</h2>
+                <span class="close-btn" onclick="closeModal('terms')">&times;</span>
+            </div>
+            <div class="modal-body" id="termsContent">
+                <p>By using Vividia AI, you agree to these terms. Please read them carefully.</p>
+                
+                <h3>Account Registration</h3>
+                <p>You must be 13 or older to use our service. You are responsible for maintaining the security of your account.</p>
+                
+                <h3>Usage Guidelines</h3>
+                <p>Our AI tools are for creating original content. You may not use them to generate harmful, illegal, or infringing material.</p>
+                
+                <h3>Intellectual Property</h3>
+                <p>You own the content you create with Vividia AI. We claim no ownership over your creations.</p>
+                
+                <h3>Subscription and Payments</h3>
+                <p>Membership fees are billed monthly. You can cancel anytime through your account settings.</p>
+                
+                <h3>Termination</h3>
+                <p>We reserve the right to terminate accounts that violate these terms or engage in abusive behavior.</p>
+                
+                <p>Last updated: March 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div class="modal" id="supportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="supportTitle">Support Center</h2>
+                <span class="close-btn" onclick="closeModal('support')">&times;</span>
+            </div>
+            <div class="modal-body" id="supportContent">
+                <h3>How can we help you?</h3>
+                
+                <p><strong>📧 Email Support</strong><br>
+                support@vividia-ai.com<br>
+                Response time: 24-48 hours</p>
+                
+                <p><strong>💬 Live Chat</strong><br>
+                Available Monday-Friday<br>
+                9 AM - 6 PM (EST)</p>
+                
+                <p><strong>📚 FAQ</strong></p>
+                
+                <p><strong>Q: How do I create an account?</strong><br>
+                A: Click "Continue as Guest" or "Sign Up" to get started.</p>
+                
+                <p><strong>Q: What payment methods do you accept?</strong><br>
+                A: We accept credit cards, PayPal, and cryptocurrency.</p>
+                
+                <p><strong>Q: Can I cancel my membership?</strong><br>
+                A: Yes, anytime through your account settings.</p>
+                
+                <p><strong>Q: Is my content private?</strong><br>
+                A: Yes, your projects are private and secure.</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -611,12 +884,13 @@
                 feature3Desc: 'Multi‑language support with automatic lip movement',
                 feature4Title: 'Cloud Storage',
                 feature4Desc: 'Save and access your projects anywhere',
-                footerPricing: 'Pricing',
-                footerCareers: 'Careers',
-                footerFAQ: 'FAQ',
-                footerBlog: 'Blog',
                 footerPrivacy: 'Privacy',
-                copyright: '© 2026 Vividia AI. All rights reserved.'
+                footerTerms: 'Terms',
+                footerSupport: 'Support',
+                copyright: '© 2026 Vividia AI. All rights reserved.',
+                privacyTitle: 'Privacy Policy',
+                termsTitle: 'Terms of Service',
+                supportTitle: 'Support Center'
             },
             ar: {
                 heroTitle: 'اصنع <span>روائع سينمائية</span><br>بالذكاء الاصطناعي',
@@ -642,12 +916,13 @@
                 feature3Desc: 'دعم متعدد اللغات مع حركة شفاه تلقائية',
                 feature4Title: 'تخزين سحابي',
                 feature4Desc: 'احفظ مشاريعك وصول إليها من أي مكان',
-                footerPricing: 'الأسعار',
-                footerCareers: 'وظائف',
-                footerFAQ: 'أسئلة شائعة',
-                footerBlog: 'مدونة',
-                footerPrivacy: 'خصوصية',
-                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة'
+                footerPrivacy: 'الخصوصية',
+                footerTerms: 'الشروط',
+                footerSupport: 'الدعم',
+                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة',
+                privacyTitle: 'سياسة الخصوصية',
+                termsTitle: 'شروط الخدمة',
+                supportTitle: 'مركز الدعم'
             },
             fr: {
                 heroTitle: 'Créez des <span>chefs-d\'œuvre cinématographiques</span><br>avec l\'IA',
@@ -673,12 +948,13 @@
                 feature3Desc: 'Support multilingue avec mouvement labial automatique',
                 feature4Title: 'Stockage Cloud',
                 feature4Desc: 'Sauvegardez et accédez à vos projets partout',
-                footerPricing: 'Tarifs',
-                footerCareers: 'Carrières',
-                footerFAQ: 'FAQ',
-                footerBlog: 'Blog',
                 footerPrivacy: 'Confidentialité',
-                copyright: '© 2026 Vividia AI. Tous droits réservés.'
+                footerTerms: 'Conditions',
+                footerSupport: 'Assistance',
+                copyright: '© 2026 Vividia AI. Tous droits réservés.',
+                privacyTitle: 'Politique de confidentialité',
+                termsTitle: 'Conditions d\'utilisation',
+                supportTitle: 'Centre d\'aide'
             },
             es: {
                 heroTitle: 'Crea <span>obras maestras cinematográficas</span><br>con IA',
@@ -701,166 +977,4 @@
                 feature2Title: 'Personajes IA',
                 feature2Desc: 'Crea y anima personajes únicos',
                 feature3Title: 'Sincronía labial',
-                feature3Desc: 'Soporte multilingüe con movimiento labial automático',
-                feature4Title: 'Almacenamiento en la nube',
-                feature4Desc: 'Guarda y accede a tus proyectos desde cualquier lugar',
-                footerPricing: 'Precios',
-                footerCareers: 'Empleos',
-                footerFAQ: 'Preguntas',
-                footerBlog: 'Blog',
-                footerPrivacy: 'Privacidad',
-                copyright: '© 2026 Vividia AI. Todos los derechos reservados.'
-            },
-            de: {
-                heroTitle: 'Erstelle <span>filmische Meisterwerke</span><br>mit KI',
-                heroDesc: 'Verwandle deine Ideen in atemberaubende 4K-Animationen, Filme und Charaktere mit modernster künstlicher Intelligenz',
-                toolsTitle: 'KI-Kreativtools',
-                guestText: 'Als Gast fortfahren',
-                aiBadge: 'KI-Intelligenz-Motor',
-                mediaImage: 'BILD',
-                mediaVideo: 'VIDEO',
-                mediaMusic: 'MUSIK',
-                mediaVoice: 'STIMME',
-                outputLabel: 'AUSGABE',
-                welcomeText: 'Willkommen bei Vividia AI. Beschreibe deine Idee und klicke auf GENERIEREN!',
-                generateText: 'MAGIE GENERIEREN',
-                membershipTitle: 'Elite-Mitgliedschaft',
-                membershipPeriod: '/Monat',
-                membershipBtnText: 'Voller Zugriff auf alle KI-Modelle',
-                feature1Title: '4K-Kinematografie',
-                feature1Desc: 'Generiere Hollywood-Filme in Minuten',
-                feature2Title: 'KI-Charaktere',
-                feature2Desc: 'Erstelle und animiere einzigartige Charaktere',
-                feature3Title: 'Lippensynchronisation',
-                feature3Desc: 'Mehrsprachige Unterstützung mit automatischer Lippenbewegung',
-                feature4Title: 'Cloud-Speicher',
-                feature4Desc: 'Speichere und greife überall auf deine Projekte zu',
-                footerPricing: 'Preise',
-                footerCareers: 'Karriere',
-                footerFAQ: 'FAQ',
-                footerBlog: 'Blog',
-                footerPrivacy: 'Datenschutz',
-                copyright: '© 2026 Vividia AI. Alle Rechte vorbehalten.'
-            }
-        };
-
-        // ==================== STATE ====================
-        let currentMedia = 'image';
-        let currentLang = 'en';
-
-        // ==================== LANGUAGE FUNCTIONS ====================
-        function changeLanguage(lang, flag, name, currency, price) {
-            currentLang = lang;
-            
-            // Update direction
-            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            
-            // Update language selector
-            document.getElementById('currentLang').innerHTML = `${flag} ${name}`;
-            
-            // Update all text elements
-            const t = translations[lang];
-            
-            document.getElementById('heroTitle').innerHTML = t.heroTitle;
-            document.getElementById('heroDesc').textContent = t.heroDesc;
-            document.getElementById('toolsTitle').innerHTML = `<i class="fas fa-wand-magic" style="color: var(--primary);"></i> ${t.toolsTitle}`;
-            document.getElementById('guestText').textContent = t.guestText;
-            document.getElementById('aiBadge').innerHTML = `<i class="fas fa-robot"></i> ${t.aiBadge}`;
-            document.getElementById('mediaImage').textContent = t.mediaImage;
-            document.getElementById('mediaVideo').textContent = t.mediaVideo;
-            document.getElementById('mediaMusic').textContent = t.mediaMusic;
-            document.getElementById('mediaVoice').textContent = t.mediaVoice;
-            document.getElementById('outputLabel').textContent = t.outputLabel;
-            document.getElementById('welcomeText').textContent = t.welcomeText;
-            document.getElementById('generateText').textContent = t.generateText;
-            document.getElementById('membershipTitle').textContent = t.membershipTitle;
-            document.getElementById('membershipPeriod').textContent = t.membershipPeriod;
-            document.getElementById('membershipBtnText').textContent = t.membershipBtnText;
-            document.getElementById('feature1Title').textContent = t.feature1Title;
-            document.getElementById('feature1Desc').textContent = t.feature1Desc;
-            document.getElementById('feature2Title').textContent = t.feature2Title;
-            document.getElementById('feature2Desc').textContent = t.feature2Desc;
-            document.getElementById('feature3Title').textContent = t.feature3Title;
-            document.getElementById('feature3Desc').textContent = t.feature3Desc;
-            document.getElementById('feature4Title').textContent = t.feature4Title;
-            document.getElementById('feature4Desc').textContent = t.feature4Desc;
-            document.getElementById('footerPricing').textContent = t.footerPricing;
-            document.getElementById('footerCareers').textContent = t.footerCareers;
-            document.getElementById('footerFAQ').textContent = t.footerFAQ;
-            document.getElementById('footerBlog').textContent = t.footerBlog;
-            document.getElementById('footerPrivacy').textContent = t.footerPrivacy;
-            document.getElementById('copyright').textContent = t.copyright;
-            
-            // Update price
-            document.getElementById('membershipPrice').innerHTML = `${currency}${price} <small>${t.membershipPeriod}</small>`;
-            
-            // Update active language in dropdown
-            document.querySelectorAll('.lang-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-        }
-
-        // ==================== MEDIA FUNCTIONS ====================
-        function selectMedia(media) {
-            currentMedia = media;
-            
-            // Update active class
-            document.querySelectorAll('.media-type').forEach(el => {
-                el.classList.remove('active');
-            });
-            document.getElementById(`media${media.charAt(0).toUpperCase() + media.slice(1)}`).classList.add('active');
-            
-            // Update output
-            const t = translations[currentLang];
-            document.getElementById('outputContent').innerHTML = `🎬 ${media.toUpperCase()} mode activated. ${t.welcomeText}`;
-        }
-
-        // ==================== AI FUNCTIONS ====================
-        function enhancePrompt() {
-            const input = document.getElementById('promptInput');
-            const currentPrompt = input.value;
-            const enhancements = [
-                'cinematic lighting, 4K, photorealistic',
-                'dramatic atmosphere, ultra detailed, HDR',
-                'animated style, vibrant colors, high quality',
-                'professional grade, studio quality, 8K'
-            ];
-            const randomEnhance = enhancements[Math.floor(Math.random() * enhancements.length)];
-            input.value = `${currentPrompt}, ${randomEnhance}`;
-            
-            // Show feedback
-            document.getElementById('outputContent').innerHTML = '✨ Prompt enhanced with AI!';
-            setTimeout(() => {
-                const t = translations[currentLang];
-                document.getElementById('outputContent').innerHTML = `👋 ${t.welcomeText}`;
-            }, 2000);
-        }
-
-        function generateMagic() {
-            const output = document.getElementById('outputContent');
-            const status = document.getElementById('outputStatus');
-            
-            status.innerHTML = 'processing...';
-            output.innerHTML = '🎨 AI is creating your masterpiece...';
-            
-            setTimeout(() => {
-                status.innerHTML = 'ready';
-                const media = currentMedia;
-                const results = {
-                    image: '✅ Image generated! Resolution: 4K, Style: Cinematic',
-                    video: '✅ Video created! Duration: 30s, 4K, 60fps',
-                    music: '✅ Music composed! 2 minutes, Epic orchestral',
-                    voice: '✅ Voice generated! Natural, emotional, lip-sync ready'
-                };
-                output.innerHTML = results[media] || results.image;
-            }, 3000);
-        }
-
-        function showPayment() {
-            const t = translations[currentLang];
-            alert(`💳 ${t.membershipBtnText}\n\nPrice: ${document.getElementById('membershipPrice').textContent}`);
-        }
-    </script>
-</body>
-</html>
+                feature3
