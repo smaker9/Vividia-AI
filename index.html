@@ -12,38 +12,239 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
+        :root {
+            --primary: #8B5CF6;
+            --primary-light: #A78BFA;
+            --secondary: #3B82F6;
+            --accent: #EC4899;
+            --bg-dark: #0B0B15;
+            --bg-card: #12121A;
+            --bg-sidebar: #0C0C15;
+            --border: #1E1E2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+        }
+
         body {
-            background: #0A0A0F;
-            color: white;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             overflow: hidden;
         }
 
-        .container {
+        /* ===== AUTH MODAL ===== */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity 0.3s;
+        }
+
+        .auth-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .auth-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: modalSlide 0.4s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .auth-logo {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: var(--bg-dark);
+            padding: 6px;
+            border-radius: 60px;
+            border: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .auth-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .auth-form {
+            display: block;
+        }
+
+        .auth-form.hidden {
+            display: none;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 16px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .auth-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .auth-switch span {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .auth-switch span:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== MAIN APP (HIDDEN UNTIL LOGIN) ===== */
+        .app-container {
             display: flex;
             height: 100vh;
             width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
         }
 
-        /* ===== LEFT SIDEBAR ===== */
+        .app-container.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== SIDEBAR ===== */
         .sidebar {
             width: 280px;
-            background: #0C0C15;
-            border-right: 1px solid #1E1E2A;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
             padding: 24px 0;
             display: flex;
             flex-direction: column;
             transition: all 0.3s;
+            position: relative;
+            z-index: 100;
         }
 
-        .logo {
+        .sidebar-header {
             padding: 0 20px 24px 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo {
             font-size: 22px;
             font-weight: 700;
-            background: linear-gradient(135deg, #A478E8, #6B8CFF);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            border-bottom: 1px solid #1E1E2A;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-email {
+            color: var(--text-muted);
+            font-size: 12px;
         }
 
         .nav-item {
@@ -51,7 +252,7 @@
             align-items: center;
             gap: 12px;
             padding: 12px 20px;
-            color: #8A8A9E;
+            color: var(--text-secondary);
             cursor: pointer;
             transition: 0.2s;
             margin: 2px 8px;
@@ -59,14 +260,14 @@
         }
 
         .nav-item:hover {
-            background: #1A1A24;
+            background: rgba(139, 92, 246, 0.1);
             color: white;
         }
 
         .nav-item.active {
-            background: linear-gradient(90deg, #2A1A3A, #1A1A24);
-            color: #A478E8;
-            border-left: 3px solid #A478E8;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), transparent);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
         }
 
         .nav-icon {
@@ -74,10 +275,21 @@
             text-align: center;
         }
 
-        .divider {
-            height: 1px;
-            background: #1E1E2A;
-            margin: 16px 0;
+        .logout-btn {
+            margin-top: auto;
+            padding: 16px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid var(--border);
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            color: #EF4444;
+            background: rgba(239, 68, 68, 0.1);
         }
 
         /* ===== MAIN CONTENT ===== */
@@ -87,40 +299,90 @@
             flex-direction: column;
             padding: 32px 48px;
             overflow-y: auto;
-            background: radial-gradient(circle at 70% 20%, rgba(164, 120, 232, 0.08), transparent 40%);
+            background: radial-gradient(circle at 70% 20%, rgba(139, 92, 246, 0.08), transparent 40%);
         }
 
-        /* Header */
+        /* Greeting */
         .greeting {
             margin-bottom: 32px;
+            animation: fadeIn 0.8s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .greeting h1 {
             font-size: 36px;
             font-weight: 500;
-            color: white;
         }
 
         .greeting span {
-            background: linear-gradient(135deg, #A478E8, #6B8CFF);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 600;
         }
 
         .greeting p {
-            color: #8A8A9E;
+            color: var(--text-secondary);
             margin-top: 8px;
-            font-size: 16px;
+        }
+
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .balance-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .balance-amount small {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .add-credits {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .add-credits:hover {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: var(--primary);
         }
 
         /* Prompt Area */
         .prompt-container {
-            background: #0C0C15;
-            border: 1px solid #1E1E2A;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 24px;
             padding: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
@@ -128,16 +390,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #0A0A0F;
-            border: 1px solid #2A2A35;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 8px 8px 8px 20px;
             margin-bottom: 20px;
         }
 
         .prompt-input-wrapper:focus-within {
-            border-color: #A478E8;
-            box-shadow: 0 0 0 2px rgba(164, 120, 232, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
 
         .prompt-input {
@@ -155,8 +417,8 @@
         }
 
         .upload-btn {
-            background: #1A1A24;
-            border: 1px solid #2A2A35;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             color: white;
             padding: 10px 20px;
             border-radius: 30px;
@@ -169,31 +431,31 @@
         }
 
         .upload-btn:hover {
-            background: #2A2A35;
-            border-color: #A478E8;
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--primary);
         }
 
         .model-info {
             display: flex;
             gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
         .model-badge {
-            background: #1A1A24;
-            border: 1px solid #2A2A35;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             padding: 6px 16px;
             border-radius: 30px;
             font-size: 14px;
-            color: #A478E8;
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
         .model-badge span {
-            color: #8A8A9E;
+            color: var(--text-secondary);
         }
 
         /* Action Buttons */
@@ -204,8 +466,8 @@
         }
 
         .action-btn {
-            background: #1A1A24;
-            border: 1px solid #2A2A35;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
             color: white;
             padding: 12px 24px;
             border-radius: 40px;
@@ -221,31 +483,31 @@
         }
 
         .action-btn:hover {
-            background: #2A2A35;
-            border-color: #A478E8;
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--primary);
             transform: translateY(-2px);
         }
 
         .action-btn.primary {
-            background: linear-gradient(135deg, #A478E8, #6B8CFF);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
             font-weight: 500;
-            box-shadow: 0 10px 20px rgba(164, 120, 232, 0.3);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
         }
 
         .action-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(164, 120, 232, 0.4);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
         }
 
         /* Output Area */
         .output-area {
-            background: #0C0C15;
-            border: 1px solid #1E1E2A;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 20px;
             padding: 20px;
-            margin: 32px 0;
-            min-height: 100px;
+            margin: 24px 0;
+            min-height: 120px;
         }
 
         .output-header {
@@ -253,14 +515,18 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
-            color: #8A8A9E;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
         .output-content {
-            color: #D0D0E0;
+            color: var(--text-secondary);
             line-height: 1.6;
             font-size: 15px;
+        }
+
+        .output-content strong {
+            color: white;
         }
 
         /* Recent Requests */
@@ -268,7 +534,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 32px 0 16px;
+            margin: 24px 0 16px;
         }
 
         .recent-header h3 {
@@ -278,9 +544,10 @@
         }
 
         .recent-header a {
-            color: #A478E8;
+            color: var(--primary);
             text-decoration: none;
             font-size: 14px;
+            cursor: pointer;
         }
 
         .requests-grid {
@@ -290,8 +557,8 @@
         }
 
         .request-card {
-            background: #0C0C15;
-            border: 1px solid #1E1E2A;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 16px;
             cursor: pointer;
@@ -299,8 +566,8 @@
         }
 
         .request-card:hover {
-            border-color: #A478E8;
-            background: #12121A;
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.1);
             transform: translateY(-2px);
         }
 
@@ -311,7 +578,7 @@
         }
 
         .request-meta {
-            color: #5A5A6E;
+            color: var(--text-muted);
             font-size: 12px;
             display: flex;
             gap: 12px;
@@ -321,28 +588,66 @@
         .footer {
             margin-top: 40px;
             padding-top: 24px;
-            border-top: 1px solid #1E1E2A;
+            border-top: 1px solid var(--border);
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
         }
 
         .footer a {
-            color: #5A5A6E;
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 13px;
             transition: 0.2s;
+            cursor: pointer;
         }
 
         .footer a:hover {
-            color: #A478E8;
+            color: var(--primary);
         }
 
         .copyright {
             margin-top: 16px;
-            color: #3A3A4A;
+            color: var(--text-muted);
             font-size: 12px;
             text-align: center;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
         }
 
         /* Responsive */
@@ -370,6 +675,11 @@
             .greeting h1 {
                 font-size: 28px;
             }
+            
+            .balance-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
         .menu-toggle {
@@ -378,8 +688,8 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #1A1A24;
-            border: 1px solid #2A2A35;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             color: white;
             width: 50px;
             height: 50px;
@@ -397,13 +707,63 @@
     </style>
 </head>
 <body>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
 
-    <div class="container">
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-card">
+            <div class="auth-logo">🎬 VIVIDIA AI</div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <input type="email" class="auth-input" id="loginEmail" placeholder="Email" value="john@example.com">
+                <input type="password" class="auth-input" id="loginPassword" placeholder="Password" value="password123">
+                <button class="auth-btn" onclick="login()">Login</button>
+                <div class="auth-switch">
+                    Don't have an account? <span onclick="switchAuthTab('signup')">Sign up</span>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="auth-form hidden" id="signupForm">
+                <input type="text" class="auth-input" id="signupName" placeholder="Full Name">
+                <input type="email" class="auth-input" id="signupEmail" placeholder="Email">
+                <input type="password" class="auth-input" id="signupPassword" placeholder="Password">
+                <button class="auth-btn" onclick="signup()">Create Account</button>
+                <div class="auth-switch">
+                    Already have an account? <span onclick="switchAuthTab('login')">Login</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App (Hidden until login) -->
+    <div class="app-container" id="appContainer">
+        <!-- Mobile Menu Toggle -->
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
-            <div class="logo">🎬 VIVIDIA AI</div>
-            
+            <div class="sidebar-header">
+                <div class="sidebar-logo">🎬 VIVIDIA AI</div>
+            </div>
+
+            <!-- User Profile (dynamic) -->
+            <div class="user-profile" id="userProfile">
+                <div class="user-avatar" id="userAvatar">J</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">Johnathan</div>
+                    <div class="user-email" id="userEmail">john@example.com</div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
             <div class="nav-item active" onclick="switchPage('create')">
                 <span class="nav-icon">✨</span>
                 <span>Create</span>
@@ -428,11 +788,9 @@
                 <span class="nav-icon">🆕</span>
                 <span>What's New</span>
             </div>
-            
-            <div class="divider"></div>
-            
-            <div style="padding: 8px 20px; color: #5A5A6E; font-size: 12px;">MY LIBRARY</div>
-            
+
+            <div style="padding: 8px 20px; color: var(--text-muted); font-size: 12px;">MY LIBRARY</div>
+
             <div class="nav-item" onclick="switchPage('projects')">
                 <span class="nav-icon">🎬</span>
                 <span>Projects</span>
@@ -449,14 +807,31 @@
                 <span class="nav-icon">🎨</span>
                 <span>Animations</span>
             </div>
+
+            <!-- Logout Button -->
+            <div class="logout-btn" onclick="logout()">
+                <span class="nav-icon">🚪</span>
+                <span>Logout</span>
+            </div>
         </div>
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Greeting -->
-            <div class="greeting">
-                <h1>Hey <span>Johnathan</span></h1>
+            <!-- Greeting (dynamic) -->
+            <div class="greeting" id="greeting">
+                <h1>Hey <span id="greetingName">Johnathan</span></h1>
                 <p>How can Vividia AI help you create today?</p>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div>
+                    <div class="balance-label">Available Credits</div>
+                    <div class="balance-amount" id="userCredits">1,250 <small>credits</small></div>
+                </div>
+                <div class="add-credits" onclick="addCredits()">
+                    ➕ Add Credits
+                </div>
             </div>
 
             <!-- Prompt Area -->
@@ -474,6 +849,9 @@
                     </div>
                     <div class="model-badge">
                         🎯 <span>Quality:</span> 4K Cinematic
+                    </div>
+                    <div class="model-badge">
+                        💰 <span>Cost:</span> 50 credits
                     </div>
                 </div>
 
@@ -496,11 +874,11 @@
                 </div>
             </div>
 
-            <!-- Output Area (نتيجة الأزرار) -->
+            <!-- Output Area -->
             <div class="output-area" id="outputArea">
                 <div class="output-header">
                     <span>✨ OUTPUT</span>
-                    <span>ready</span>
+                    <span id="outputStatus">ready</span>
                 </div>
                 <div class="output-content" id="outputContent">
                     👋 Welcome to Vividia AI. Click any button to start creating...
@@ -510,37 +888,37 @@
             <!-- Recent Requests -->
             <div class="recent-header">
                 <h3>RECENT PRODUCTIONS</h3>
-                <a href="#" onclick="showAll()">VIEW ALL</a>
+                <a onclick="showAll()">VIEW ALL</a>
             </div>
 
-            <div class="requests-grid">
+            <div class="requests-grid" id="requestsGrid">
                 <div class="request-card" onclick="loadRequest('Create 30s anime trailer with cyberpunk theme')">
                     <div class="request-title">Create 30s anime trailer with cyberpunk theme</div>
-                    <div class="request-meta">⚡ 2 hours ago • 4K</div>
+                    <div class="request-meta">⚡ 2 hours ago • 4K • 50 credits</div>
                 </div>
                 <div class="request-card" onclick="loadRequest('Add lip sync to character dialogue (Arabic)')">
                     <div class="request-title">Add lip sync to character dialogue (Arabic)</div>
-                    <div class="request-meta">⚡ 5 hours ago • Completed</div>
+                    <div class="request-meta">⚡ 5 hours ago • Completed • 30 credits</div>
                 </div>
                 <div class="request-card" onclick="loadRequest('Generate fantasy forest background with lighting')">
                     <div class="request-title">Generate fantasy forest background with lighting</div>
-                    <div class="request-meta">⚡ Yesterday • 4K</div>
+                    <div class="request-meta">⚡ Yesterday • 4K • 40 credits</div>
                 </div>
                 <div class="request-card" onclick="loadRequest('Auto-rig robot character for animation')">
                     <div class="request-title">Auto-rig robot character for animation</div>
-                    <div class="request-meta">⚡ Yesterday • Processing</div>
+                    <div class="request-meta">⚡ Yesterday • Processing • 25 credits</div>
                 </div>
             </div>
 
             <!-- Footer -->
             <div class="footer">
-                <a href="#">Pricing</a>
-                <a href="#">Careers</a>
-                <a href="#">FAQ</a>
-                <a href="#">Blog</a>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Contact</a>
+                <a onclick="showPage('pricing')">Pricing</a>
+                <a onclick="showPage('careers')">Careers</a>
+                <a onclick="showPage('faq')">FAQ</a>
+                <a onclick="showPage('blog')">Blog</a>
+                <a onclick="showPage('privacy')">Privacy</a>
+                <a onclick="showPage('terms')">Terms</a>
+                <a onclick="showPage('contact')">Contact</a>
             </div>
             
             <div class="copyright">
@@ -550,145 +928,159 @@
     </div>
 
     <script>
-        // متغيرات عامة
-        let currentPage = 'create';
-        let promptHistory = [];
+        // ==================== AUTHENTICATION SYSTEM ====================
+        let currentUser = null;
+        let userCredits = 1250;
 
-        // ===== وظائف القائمة الجانبية =====
-        function switchPage(page) {
-            currentPage = page;
-            
-            // تحديث شكل القائمة
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-            
-            // عرض رسالة حسب الصفحة
-            let output = document.getElementById('outputContent');
-            output.innerHTML = `📂 You are now in <strong>${page}</strong> section. This feature is ready for integration.`;
-            
-            // إغلاق القائمة في الجوال
-            if (window.innerWidth <= 768) {
-                document.getElementById('sidebar').classList.remove('active');
+        // Check if user is already logged in
+        window.onload = function() {
+            const savedUser = localStorage.getItem('vividia_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showApp();
+            }
+        };
+
+        function switchAuthTab(tab) {
+            if (tab === 'login') {
+                document.querySelectorAll('.auth-tab')[0].classList.add('active');
+                document.querySelectorAll('.auth-tab')[1].classList.remove('active');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('signupForm').classList.add('hidden');
+            } else {
+                document.querySelectorAll('.auth-tab')[1].classList.add('active');
+                document.querySelectorAll('.auth-tab')[0].classList.remove('active');
+                document.getElementById('signupForm').classList.remove('hidden');
+                document.getElementById('loginForm').classList.add('hidden');
             }
         }
 
-        // ===== وظائف الأزرار =====
-        function generateFilm() {
-            let prompt = document.getElementById('promptInput').value;
-            let output = document.getElementById('outputContent');
-            
-            output.innerHTML = `🎬 <strong>Generating film:</strong> "${prompt}"<br><br>`;
-            output.innerHTML += `⏳ Processing... Analyzing scene structure...<br>`;
-            output.innerHTML += `🎨 Creating characters...<br>`;
-            output.innerHTML += `🌄 Building environment...<br>`;
-            output.innerHTML += `✨ Applying cinematic lighting...<br><br>`;
-            output.innerHTML += `✅ Film generated successfully! Ready for export.`;
-            
-            addToHistory('Generate Film: ' + prompt);
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Simple validation
+            if (!email || !password) {
+                showToast('Please enter email and password');
+                return;
+            }
+
+            // Simulate login (in real app, this would call an API)
+            const userName = email.split('@')[0];
+            currentUser = {
+                name: userName,
+                email: email,
+                avatar: userName.charAt(0).toUpperCase()
+            };
+
+            // Save to localStorage
+            localStorage.setItem('vividia_user', JSON.stringify(currentUser));
+
+            showToast('Login successful! Welcome back, ' + userName);
+            showApp();
         }
 
-        function createAnimation() {
-            let prompt = document.getElementById('promptInput').value;
-            let output = document.getElementById('outputContent');
-            
-            output.innerHTML = `🔄 <strong>Creating animation:</strong> "${prompt}"<br><br>`;
-            output.innerHTML += `⏳ Setting up keyframes...<br>`;
-            output.innerHTML += `🤖 Rigging characters...<br>`;
-            output.innerHTML += `🎬 Animating motion...<br><br>`;
-            output.innerHTML += `✅ Animation complete! Preview available.`;
-            
-            addToHistory('Create Animation: ' + prompt);
+        function signup() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (!name || !email || !password) {
+                showToast('Please fill all fields');
+                return;
+            }
+
+            currentUser = {
+                name: name,
+                email: email,
+                avatar: name.charAt(0).toUpperCase()
+            };
+
+            localStorage.setItem('vividia_user', JSON.stringify(currentUser));
+
+            showToast('Account created successfully! Welcome, ' + name);
+            showApp();
         }
 
-        function animateCharacter() {
-            let output = document.getElementById('outputContent');
-            output.innerHTML = `🎭 <strong>Character Animation</strong><br><br>`;
-            output.innerHTML += `Select a character to animate:<br>`;
-            output.innerHTML += `• 🤖 Robot (ready)<br>`;
-            output.innerHTML += `• 🧝 Elf (ready)<br>`;
-            output.innerHTML += `• 🦸 Hero (ready)<br>`;
-            output.innerHTML += `• 🐉 Dragon (ready)<br><br>`;
-            output.innerHTML += `Click on any character to start animation.`;
+        function logout() {
+            localStorage.removeItem('vividia_user');
+            currentUser = null;
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('appContainer').classList.remove('visible');
+            showToast('Logged out successfully');
         }
 
-        function lipSync() {
-            let output = document.getElementById('outputContent');
-            output.innerHTML = `🗣️ <strong>AI Lip Sync</strong><br><br>`;
-            output.innerHTML += `Supported languages:<br>`;
-            output.innerHTML += `• العربية (Arabic)<br>`;
-            output.innerHTML += `• English<br>`;
-            output.innerHTML += `• Français<br>`;
-            output.innerHTML += `• Español<br><br>`;
-            output.innerHTML += `Upload audio file or type text to sync.`;
+        function showApp() {
+            if (currentUser) {
+                document.getElementById('authModal').classList.add('hidden');
+                document.getElementById('appContainer').classList.add('visible');
+                
+                // Update user info in UI
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = currentUser.avatar;
+                document.getElementById('greetingName').textContent = currentUser.name.split(' ')[0];
+            }
         }
 
-        function sceneBuilder() {
-            let prompt = document.getElementById('promptInput').value;
-            let output = document.getElementById('outputContent');
-            
-            output.innerHTML = `🏗️ <strong>Building scene:</strong> "${prompt}"<br><br>`;
-            output.innerHTML += `⏳ Generating environment...<br>`;
-            output.innerHTML += `💡 Adding lights...<br>`;
-            output.innerHTML += `📷 Setting camera angles...<br>`;
-            output.innerHTML += `🎭 Placing objects...<br><br>`;
-            output.innerHTML += `✅ Scene ready! Resolution: 4K.`;
-        }
-
-        function simulateUpload() {
-            alert('📤 Upload feature ready for integration with your storage service');
-        }
-
-        // ===== وظائف إضافية =====
-        function loadRequest(text) {
-            document.getElementById('promptInput').value = text;
-            document.getElementById('outputContent').innerHTML = `📋 Loaded request: "${text}"<br><br>Click any button to process.`;
-        }
-
-        function showAll() {
-            let output = document.getElementById('outputContent');
-            output.innerHTML = `📋 <strong>All Recent Productions</strong><br><br>`;
-            output.innerHTML += `1. Create 30s anime trailer with cyberpunk theme (4K)<br>`;
-            output.innerHTML += `2. Add lip sync to character dialogue (Arabic)<br>`;
-            output.innerHTML += `3. Generate fantasy forest background with lighting<br>`;
-            output.innerHTML += `4. Auto-rig robot character for animation<br>`;
-            output.innerHTML += `5. Create cinematic intro with space theme<br>`;
-            output.innerHTML += `6. Animate dragon flying sequence<br><br>`;
-            output.innerHTML += `Total: 12 productions this month`;
-        }
-
-        function addToHistory(item) {
-            promptHistory.push(item);
-            console.log('History:', promptHistory);
-        }
-
-        // ===== وظائف القائمة للجوال =====
+        // ==================== UI FUNCTIONS ====================
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener('click', function(event) {
-            let sidebar = document.getElementById('sidebar');
-            let toggle = document.querySelector('.menu-toggle');
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
             
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(event.target) && !toggle.contains(event.target) && sidebar.classList.contains('active')) {
-                    sidebar.classList.remove('active');
-                }
-            }
-        });
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-        // تحديث حقل الإدخال عند الكتابة
-        document.getElementById('promptInput').addEventListener('input', function(e) {
-            // يمكن إضافة وظائف هنا لاحقاً
-        });
+        // ==================== AI FUNCTIONS (SIMULATED) ====================
+        function generateFilm() {
+            if (!checkCredits(50)) return;
+            
+            const prompt = document.getElementById('promptInput').value;
+            const output = document.getElementById('outputContent');
+            
+            // Show loading
+            document.getElementById('outputStatus').innerHTML = '<span class="loading-spinner"></span> processing...';
+            
+            setTimeout(() => {
+                output.innerHTML = `🎬 <strong>Film Generated Successfully!</strong><br><br>`;
+                output.innerHTML += `📝 <strong>Prompt:</strong> "${prompt}"<br><br>`;
+                output.innerHTML += `⏱️ <strong>Duration:</strong> 30 seconds<br>`;
+                output.innerHTML += `🎨 <strong>Style:</strong> Cinematic 4K<br>`;
+                output.innerHTML += `🤖 <strong>Characters:</strong> Steampunk warrior, mechanical creatures<br>`;
+                output.innerHTML += `🌄 <strong>Scenes:</strong> 5 scenes generated<br>`;
+                output.innerHTML += `💰 <strong>Credits used:</strong> 50<br><br>`;
+                output.innerHTML += `✅ <strong>Preview ready:</strong> <a href="#" style="color: #8B5CF6;">Click here to view</a>`;
+                
+                document.getElementById('outputStatus').innerHTML = 'completed';
+                
+                // Deduct credits
+                userCredits -= 50;
+                document.getElementById('userCredits').innerHTML = userCredits.toLocaleString() + ' <small>credits</small>';
+                
+                addToHistory('Generated film: ' + prompt.substring(0, 30) + '...');
+            }, 2000);
+        }
 
-        // رسالة ترحيب عند تحميل الصفحة
-        window.onload = function() {
-            console.log('Vividia AI Studio loaded successfully');
-        };
-    </script>
-</body>
-</html>
+        function createAnimation() {
+            if (!checkCredits(40)) return;
+            
+            const prompt = document.getElementById('promptInput').value;
+            const output = document.getElementById('outputContent');
+            
+            document.getElementById('outputStatus').innerHTML = '<span class="loading-spinner"></span> processing...';
+            
+            setTimeout(() => {
+                output.innerHTML = `🔄 <strong>Animation Created Successfully!</strong><br><br>`;
+                output.innerHTML += `📝 <strong>Animation:</strong> "${prompt}"<br><br>`;
+                output.innerHTML += `⏱️ <strong>Duration:</strong> 15 seconds<br>`;
+                output.innerHTML += `🎭 <strong>Frames:</strong> 360 frames (24fps)<br>`;
+                output.innerHTML += `✨ <strong>Effects:</strong> Motion blur, depth of field<br>`;
+                output.innerHTML += `💰 <strong>Credits used:</strong> 40<br><br>`;
+                output.innerHTML += `✅ <strong>Export
