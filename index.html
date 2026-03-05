@@ -114,7 +114,7 @@
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: 20px;
-            min-width: 180px;
+            min-width: 200px;
             display: none;
             z-index: 100;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
@@ -637,7 +637,7 @@
 
             <div class="prompt-box">
                 <input type="text" id="promptInput" value="Steampunk warrior, cinematic lighting, 4K" placeholder="Describe your masterpiece...">
-                <i class="fas fa-magic"></i>
+                <i class="fas fa-magic" id="magicWand"></i>
             </div>
 
             <div class="ai-badge" id="aiBadge">
@@ -716,22 +716,22 @@
 
         <!-- Features -->
         <section class="features">
-            <div class="feature-card">
+            <div class="feature-card" id="feature1">
                 <div class="feature-icon"><i class="fas fa-film"></i></div>
                 <h3 id="feature1Title">4K Cinematic</h3>
                 <p id="feature1Desc">Generate Hollywood‑quality films in minutes</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" id="feature2">
                 <div class="feature-icon"><i class="fas fa-robot"></i></div>
                 <h3 id="feature2Title">AI Characters</h3>
                 <p id="feature2Desc">Create and animate unique characters</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" id="feature3">
                 <div class="feature-icon"><i class="fas fa-language"></i></div>
                 <h3 id="feature3Title">Lip Sync</h3>
                 <p id="feature3Desc">Multi‑language support with automatic lip movement</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" id="feature4">
                 <div class="feature-icon"><i class="fas fa-cloud"></i></div>
                 <h3 id="feature4Title">Cloud Storage</h3>
                 <p id="feature4Desc">Save and access your projects anywhere</p>
@@ -822,10 +822,12 @@
     </div>
 
     <script>
-        // ==================== MULTI-LANGUAGE DYNAMIC SYSTEM ====================
+        // ==================== COMPLETE MULTI-LANGUAGE SYSTEM ====================
+        
+        // Current language
         let currentLang = 'en';
         
-        // Translations for all languages
+        // All translations
         const translations = {
             en: {
                 heroTitle: 'Create <span>Cinematic Masterpieces</span> with AI',
@@ -889,4 +891,7 @@
                 proFeatures: ['كل مميزات النخبة', '🎙️ 60 دقيقة ElevenLabs', 'دبلجة غير محدودة', 'رخصة تجارية', 'API خاص'],
                 starterBtn: 'ابدأ مجاناً',
                 eliteBtn: 'اشترك الآن',
-                pro
+                proBtn: 'اشترك في برو',
+                popularBadge: 'الأكثر طلباً',
+                feature1Title: 'سينما 4K',
+                feature1Desc: 'أنتج أفلاماً بج
