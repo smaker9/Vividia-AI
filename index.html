@@ -623,7 +623,7 @@
 
             <div class="prompt-box">
                 <input type="text" id="promptInput" value="Steampunk warrior, cinematic lighting, 4K" placeholder="Describe your masterpiece...">
-                <i class="fas fa-magic" onclick="enhancePrompt()"></i>
+                <i class="fas fa-magic"></i>
             </div>
 
             <div class="ai-badge" id="aiBadge">
@@ -631,10 +631,10 @@
             </div>
 
             <div class="media-types">
-                <div class="media-type active" onclick="setActiveMedia('image')" id="mediaImage"><i class="fas fa-image"></i> IMAGE</div>
-                <div class="media-type" onclick="setActiveMedia('video')" id="mediaVideo"><i class="fas fa-video"></i> VIDEO</div>
-                <div class="media-type" onclick="setActiveMedia('music')" id="mediaMusic"><i class="fas fa-music"></i> MUSIC</div>
-                <div class="media-type" onclick="setActiveMedia('voice')" id="mediaVoice"><i class="fas fa-microphone"></i> VOICE</div>
+                <div class="media-type" id="mediaImage"><i class="fas fa-image"></i> IMAGE</div>
+                <div class="media-type" id="mediaVideo"><i class="fas fa-video"></i> VIDEO</div>
+                <div class="media-type" id="mediaMusic"><i class="fas fa-music"></i> MUSIC</div>
+                <div class="media-type" id="mediaVoice"><i class="fas fa-microphone"></i> VOICE</div>
             </div>
 
             <div class="output-area">
@@ -647,7 +647,7 @@
                 </div>
             </div>
 
-            <button class="generate-btn" onclick="generateMagic()">
+            <button class="generate-btn" id="generateBtn">
                 <i class="fas fa-wand-magic"></i> <span id="generateText">GENERATE MAGIC</span>
             </button>
         </main>
@@ -667,7 +667,7 @@
                         <li><i class="fas fa-check-circle"></i> SD quality</li>
                         <li><i class="fas fa-check-circle"></i> Community access</li>
                     </ul>
-                    <button class="pricing-btn" onclick="selectPlan('starter')" id="starterBtn">Get Started</button>
+                    <button class="pricing-btn" id="starterBtn">Get Started</button>
                 </div>
 
                 <!-- Elite Plan (Most Popular) -->
@@ -681,7 +681,7 @@
                         <li><i class="fas fa-check-circle"></i> No watermark</li>
                         <li><i class="fas fa-check-circle"></i> Priority processing</li>
                     </ul>
-                    <button class="pricing-btn popular-btn" onclick="selectPlan('elite')" id="eliteBtn">Get Elite</button>
+                    <button class="pricing-btn popular-btn" id="eliteBtn">Get Elite</button>
                 </div>
 
                 <!-- Pro Studio Plan -->
@@ -695,7 +695,7 @@
                         <li><i class="fas fa-check-circle"></i> Commercial license</li>
                         <li><i class="fas fa-check-circle"></i> Custom API access</li>
                     </ul>
-                    <button class="pricing-btn" onclick="selectPlan('pro')" id="proBtn">Get Pro</button>
+                    <button class="pricing-btn" id="proBtn">Get Pro</button>
                 </div>
             </div>
         </section>
@@ -807,106 +807,61 @@
         </div>
     </div>
 
-    <!-- ==================== MEDIA BUTTONS FUNCTIONALITY (ADDED WITHOUT DELETING ANYTHING) ==================== -->
     <script>
-        (function() {
-            // Wait for page to load
-            document.addEventListener('DOMContentLoaded', function() {
-                // Get all media buttons
-                const mediaButtons = document.querySelectorAll('.media-type');
-                const outputContent = document.getElementById('outputContent');
-                const outputStatus = document.getElementById('outputStatus');
-                const promptInput = document.getElementById('promptInput');
-                const generateBtn = document.querySelector('.generate-btn');
-                const guestBtn = document.querySelector('.guest-btn');
-                const magicBtn = document.querySelector('.prompt-box i');
-                
-                // Get current language from translations if available
-                let currentLang = 'en';
-                if (typeof translations !== 'undefined' && translations) {
-                    // Use existing translations
-                }
-                
-                // 1. Media buttons functionality
-                if (mediaButtons.length > 0) {
-                    mediaButtons.forEach(button => {
-                        button.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            
-                            // Remove active class from all buttons
-                            mediaButtons.forEach(btn => btn.classList.remove('active'));
-                            
-                            // Add active class to clicked button
-                            this.classList.add('active');
-                            
-                            // Get media type (remove icon text if exists)
-                            let mediaType = this.textContent.replace(/[🔹🔸🔶🔷]/g, '').trim();
-                            if (mediaType.includes('IMAGE')) mediaType = 'IMAGE';
-                            else if (mediaType.includes('VIDEO')) mediaType = 'VIDEO';
-                            else if (mediaType.includes('MUSIC')) mediaType = 'MUSIC';
-                            else if (mediaType.includes('VOICE')) mediaType = 'VOICE';
-                            
-                            // Update output
-                            if (outputContent) {
-                                outputContent.innerHTML = `🎬 ${mediaType} mode activated`;
-                                
-                                // Reset after 2 seconds
-                                setTimeout(() => {
-                                    if (typeof translations !== 'undefined' && translations[currentLang]) {
-                                        outputContent.innerHTML = `👋 ${translations[currentLang].welcomeText || 'Welcome to Vividia AI. Describe your idea and click GENERATE!'}`;
-                                    } else {
-                                        outputContent.innerHTML = `👋 Welcome to Vividia AI. Describe your idea and click GENERATE!`;
-                                    }
-                                }, 2000);
-                            }
-                        });
-                    });
-                }
-                
-                // 2. Generate button functionality
-                if (generateBtn) {
-                    generateBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        
-                        if (outputStatus) outputStatus.innerText = 'processing...';
-                        if (outputContent) outputContent.innerHTML = '🎨 AI is creating your masterpiece...';
-                        
-                        // Simulate AI processing
-                        setTimeout(() => {
-                            if (outputStatus) outputStatus.innerText = 'ready';
-                            if (outputContent) outputContent.innerHTML = '✅ Generation complete! (4K ready)';
-                            
-                            // Reset after 3 seconds
-                            setTimeout(() => {
-                                if (typeof translations !== 'undefined' && translations[currentLang]) {
-                                    if (outputContent) outputContent.innerHTML = `👋 ${translations[currentLang].welcomeText || 'Welcome to Vividia AI. Describe your idea and click GENERATE!'}`;
-                                } else {
-                                    if (outputContent) outputContent.innerHTML = `👋 Welcome to Vividia AI. Describe your idea and click GENERATE!`;
-                                }
-                            }, 3000);
-                        }, 2000);
-                    });
-                }
-                
-                // 3. Guest button functionality
-                if (guestBtn) {
-                    guestBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        alert('👋 You are now in guest mode. Some features are limited.\n\nSign up to unlock: Unlimited 8K generation, ElevenLabs voice, and more!');
-                    });
-                }
-                
-                // 4. Magic wand functionality
-                if (magicBtn) {
-                    magicBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        
-                        if (promptInput) {
-                            promptInput.value += ', enhanced by AI, 8K quality, cinematic lighting';
-                            
-                            if (outputContent) {
-                                outputContent.innerHTML = '✨ Prompt enhanced!';
-                                
-                                setTimeout(() => {
-                                    if (typeof translations !== 'undefined' && translations[currentLang]) {
-                                        if (outputContent) outputContent.innerHTML
+        // ==================== GLOBAL STATE ====================
+        let currentLang = 'en';
+        let activeMedia = 'image';
+
+        // ==================== PRICE CONFIGURATION ====================
+        const prices = {
+            en: { starter: 0, elite: 7.99, pro: 24.99, currency: '$' },
+            ar: { starter: 0, elite: 29.99, pro: 94.99, currency: '﷼' },
+            fr: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
+            es: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
+            de: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' }
+        };
+
+        // ==================== TRANSLATIONS ====================
+        const translations = {
+            en: {
+                heroTitle: 'Create <span>Cinematic Masterpieces</span> with AI',
+                heroDesc: 'Turn your ideas into stunning 4K animations, films, and characters using next‑gen artificial intelligence',
+                toolsTitle: 'AI Creation Tools',
+                guestText: 'Continue as Guest',
+                aiBadge: 'AI Intelligent Engine',
+                mediaImage: 'IMAGE', mediaVideo: 'VIDEO', mediaMusic: 'MUSIC', mediaVoice: 'VOICE',
+                outputLabel: 'OUTPUT',
+                welcomeText: 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
+                generateText: 'GENERATE MAGIC',
+                pricingTitle: 'Choose Your Plan',
+                pricingSubtitle: 'Flexible plans for every creator',
+                starterName: 'Starter', eliteName: 'Elite', proName: 'Pro Studio',
+                starterFeatures: ['5 images per day (Vividia 3.0)', 'SD quality', 'Community access'],
+                eliteFeatures: ['Unlimited 8K images', '🎙️ 10 min ElevenLabs voice', 'No watermark', 'Priority processing'],
+                proFeatures: ['Everything in Elite', '🎙️ 60 min ElevenLabs voice', 'Unlimited dubbing', 'Commercial license', 'Custom API access'],
+                starterBtn: 'Get Started', eliteBtn: 'Get Elite', proBtn: 'Get Pro',
+                popularBadge: 'Most Popular',
+                feature1Title: '4K Cinematic', feature1Desc: 'Generate Hollywood‑quality films in minutes',
+                feature2Title: 'AI Characters', feature2Desc: 'Create and animate unique characters',
+                feature3Title: 'Lip Sync', feature3Desc: 'Multi‑language support with automatic lip movement',
+                feature4Title: 'Cloud Storage', feature4Desc: 'Save and access your projects anywhere',
+                footerPrivacy: 'Privacy', footerTerms: 'Terms', footerSupport: 'Support',
+                copyright: '© 2026 Vividia AI. All rights reserved.',
+                period: '/month'
+            },
+            ar: {
+                heroTitle: 'اصنع <span>روائع سينمائية</span> بالذكاء الاصطناعي',
+                heroDesc: 'حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K باستخدام أحدث تقنيات الذكاء الاصطناعي',
+                toolsTitle: 'أدوات الإبداع بالذكاء الاصطناعي',
+                guestText: 'متابعة كزائر',
+                aiBadge: 'محرك الذكاء الاصطناعي',
+                mediaImage: 'صورة', mediaVideo: 'فيديو', mediaMusic: 'موسيقى', mediaVoice: 'صوت',
+                outputLabel: 'النتيجة',
+                welcomeText: 'مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!',
+                generateText: 'توليد الإبداع',
+                pricingTitle: 'اختر خطتك',
+                pricingSubtitle: 'خطط مرنة لكل مبدع',
+                starterName: 'المبتدئ', eliteName: 'النخبة', proName: 'برو ستوديو',
+                starterFeatures: ['5 صور يومياً (Vividia 3.0)', 'جودة عادية', 'وصول للمجتمع'],
+                eliteFeatures: ['صور غير محدودة 8K', '🎙️ 10 دقائق ElevenLabs', 'بدون علامة مائية', 'معالجة أولوية'],
+                proFeatures: ['كل مميزات النخبة', '🎙️ 60 دقيقة ElevenLabs', 'دبلجة غير محدودة', 'رخصة
