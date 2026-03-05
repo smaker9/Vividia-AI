@@ -25,6 +25,8 @@
             --border: #374151;
             --text: #f9fafb;
             --text-muted: #9ca3af;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
 
         body {
@@ -40,12 +42,12 @@
         body[dir="rtl"] {
             text-align: right;
         }
-        body[dir="rtl"] .tools-header,
-        body[dir="rtl"] .media-types,
+        body[dir="rtl"] .header,
+        body[dir="rtl"] .pricing-cards,
         body[dir="rtl"] .footer-links {
             direction: rtl;
         }
-         body[dir="rtl"] .prompt-box i {
+        body[dir="rtl"] .prompt-box i {
             transform: scaleX(-1);
         }
 
@@ -297,8 +299,8 @@
             min-height: 60px;
         }
 
-        /* Buttons */
-        .generate-btn, .membership-btn {
+        /* Generate Button */
+        .generate-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
@@ -310,8 +312,6 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-        }
-        .generate-btn {
             width: 100%;
             padding: 18px 30px;
             font-size: 18px;
@@ -321,45 +321,115 @@
             transform: translateY(-2px);
             box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.4);
         }
-        .membership-btn {
-            padding: 12px 25px;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-        .membership-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3);
-        }
 
-        /* Membership Card */
-        .membership-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
-            border: 1px solid var(--primary);
-            border-radius: 24px;
-            padding: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+        /* Pricing Section */
+        .pricing-section {
+            margin: 60px 0;
         }
-        .membership-price {
+        .pricing-title {
+            text-align: center;
             font-size: 32px;
-            font-weight: 800;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
-        .membership-price small {
+        .pricing-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 32px 24px;
+            transition: 0.3s;
+            position: relative;
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.3);
+        }
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4px 20px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .pricing-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .pricing-price {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .pricing-price small {
             font-size: 16px;
             color: var(--text-muted);
             font-weight: 400;
         }
-        @media (max-width: 480px) {
-            .membership-card {
-                flex-direction: column;
-                text-align: center;
-            }
-            .membership-btn {
-                width: 100%;
-            }
+        .pricing-period {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .pricing-features i {
+            color: var(--success);
+            min-width: 20px;
+        }
+        .pricing-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .pricing-btn:hover {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .pricing-btn.popular-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+        }
+        .pricing-btn.popular-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3);
         }
 
         /* Features */
@@ -517,19 +587,19 @@
                 <span id="currentLang">🇺🇸 English</span>
                 <i class="fas fa-chevron-down"></i>
                 <div class="lang-dropdown">
-                    <div class="lang-item" onclick="switchLanguage('en', '🇺🇸', 'English', '$', 7.99)">
+                    <div class="lang-item" onclick="switchLanguage('en', '🇺🇸', 'English', '$', 7.99, 29.99, 24.99)">
                         <span>🇺🇸 English</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('ar', '🇸🇦', 'Arabic', '﷼', 29.99)">
+                    <div class="lang-item" onclick="switchLanguage('ar', '🇸🇦', 'Arabic', '﷼', 29.99, 99.99, 94.99)">
                         <span>🇸🇦 Arabic</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('fr', '🇫🇷', 'Français', '€', 7.99)">
+                    <div class="lang-item" onclick="switchLanguage('fr', '🇫🇷', 'Français', '€', 7.99, 29.99, 24.99)">
                         <span>🇫🇷 Français</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('es', '🇪🇸', 'Español', '€', 7.99)">
+                    <div class="lang-item" onclick="switchLanguage('es', '🇪🇸', 'Español', '€', 7.99, 29.99, 24.99)">
                         <span>🇪🇸 Español</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('de', '🇩🇪', 'Deutsch', '€', 7.99)">
+                    <div class="lang-item" onclick="switchLanguage('de', '🇩🇪', 'Deutsch', '€', 7.99, 29.99, 24.99)">
                         <span>🇩🇪 Deutsch</span>
                     </div>
                 </div>
@@ -580,15 +650,55 @@
             <button class="generate-btn" onclick="generateMagic()">
                 <i class="fas fa-wand-magic"></i> <span id="generateText">GENERATE MAGIC</span>
             </button>
-
-            <div class="membership-card">
-                <div>
-                    <div style="color:var(--text-muted); margin-bottom:4px;"><i class="fas fa-crown" style="color:gold"></i> <span id="membershipTitle">Elite Membership</span></div>
-                    <div class="membership-price" id="membershipPrice">$7.99 <small id="membershipPeriod">/month</small></div>
-                </div>
-                <button class="membership-btn" onclick="showPayment()"><i class="fas fa-crown"></i> <span id="membershipBtnText">Full Access to All AI Models</span></button>
-            </div>
         </main>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <h2 class="pricing-title" id="pricingTitle">Choose Your Plan</h2>
+            <p class="pricing-subtitle" id="pricingSubtitle">Flexible plans for every creator</p>
+            
+            <div class="pricing-cards">
+                <!-- Starter Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-name" id="starterName">Starter</div>
+                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/month</small></div>
+                    <ul class="pricing-features" id="starterFeatures">
+                        <li><i class="fas fa-check-circle"></i> 5 images per day (Vividia 3.0)</li>
+                        <li><i class="fas fa-check-circle"></i> SD quality</li>
+                        <li><i class="fas fa-check-circle"></i> Community access</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="selectPlan('starter')" id="starterBtn">Get Started</button>
+                </div>
+
+                <!-- Elite Plan (Most Popular) -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge" id="popularBadge">Most Popular</div>
+                    <div class="pricing-name" id="eliteName">Elite</div>
+                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/month</small></div>
+                    <ul class="pricing-features" id="eliteFeatures">
+                        <li><i class="fas fa-check-circle"></i> Unlimited 8K images</li>
+                        <li><i class="fas fa-check-circle"></i> 🎙️ 10 min ElevenLabs voice</li>
+                        <li><i class="fas fa-check-circle"></i> No watermark</li>
+                        <li><i class="fas fa-check-circle"></i> Priority processing</li>
+                    </ul>
+                    <button class="pricing-btn popular-btn" onclick="selectPlan('elite')" id="eliteBtn">Get Elite</button>
+                </div>
+
+                <!-- Pro Studio Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-name" id="proName">Pro Studio</div>
+                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/month</small></div>
+                    <ul class="pricing-features" id="proFeatures">
+                        <li><i class="fas fa-check-circle"></i> Everything in Elite</li>
+                        <li><i class="fas fa-check-circle"></i> 🎙️ 60 min ElevenLabs voice</li>
+                        <li><i class="fas fa-check-circle"></i> Unlimited dubbing</li>
+                        <li><i class="fas fa-check-circle"></i> Commercial license</li>
+                        <li><i class="fas fa-check-circle"></i> Custom API access</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="selectPlan('pro')" id="proBtn">Get Pro</button>
+                </div>
+            </div>
+        </section>
 
         <!-- Features -->
         <section class="features">
@@ -626,85 +736,27 @@
         </footer>
     </div>
 
-    <!-- Privacy Modal -->
-    <div class="modal" id="privacyModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalPrivacyTitle">🔒 Privacy Policy</h2>
-                <span class="close-btn" onclick="closeModal('privacy')">&times;</span>
-            </div>
-            <div class="modal-body" id="privacyContent">
-                <h3>1. Information We Collect</h3>
-                <p>We collect basic account details (name, email) and usage data to improve our AI services. Your creations remain yours.</p>
-                <h3>2. How We Use Data</h3>
-                <p>Data is used solely for operating and improving Vividia AI. We never sell your personal information.</p>
-                <h3>3. Security</h3>
-                <p>All data is encrypted using industry‑standard AES‑256. Our servers are secured 24/7.</p>
-                <h3>4. Contact</h3>
-                <p>privacy@vividia-ai.com</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms Modal -->
-    <div class="modal" id="termsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTermsTitle">📜 Terms of Service</h2>
-                <span class="close-btn" onclick="closeModal('terms')">&times;</span>
-            </div>
-            <div class="modal-body" id="termsContent">
-                <h3>1. Account</h3>
-                <p>You must be 13+ to use Vividia AI. You are responsible for your account security.</p>
-                <h3>2. Content Ownership</h3>
-                <p>You own everything you create. We claim no rights over your work.</p>
-                <h3>3. Acceptable Use</h3>
-                <p>Do not generate illegal, harmful, or infringing content. We reserve the right to terminate accounts that violate this rule.</p>
-                <h3>4. Payments</h3>
-                <p>Memberships are billed monthly. Cancel anytime from your account settings.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Support Modal -->
-    <div class="modal" id="supportModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalSupportTitle">🆘 Support Center</h2>
-                <span class="close-btn" onclick="closeModal('support')">&times;</span>
-            </div>
-            <div class="modal-body" id="supportContent">
-                <h3>📧 Email</h3>
-                <p><a href="mailto:support@vividia-ai.com" style="color:var(--primary)">support@vividia-ai.com</a> – reply within 24h</p>
-                <h3>💬 Live Chat</h3>
-                <p>Mon–Fri, 9am–6pm (your local time)</p>
-                <h3>❓ FAQ</h3>
-                <p><strong>How do I start?</strong> Just type a description and click GENERATE.</p>
-                <p><strong>Payment methods?</strong> Cards, PayPal, crypto (BTC, ETH).</p>
-                <p><strong>Can I cancel?</strong> Yes, instantly from your dashboard.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Feature Modal -->
-    <div class="modal" id="featureModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="featureModalTitle">Feature</h2>
-                <span class="close-btn" onclick="closeFeatureModal()">&times;</span>
-            </div>
-            <div class="modal-body" id="featureModalContent"></div>
-        </div>
-    </div>
+    <!-- Modals (Privacy, Terms, Support) -->
+    <div class="modal" id="privacyModal">...</div>
+    <div class="modal" id="termsModal">...</div>
+    <div class="modal" id="supportModal">...</div>
+    <div class="modal" id="featureModal">...</div>
 
     <script>
-        // -------------------- STATE --------------------
+        // ==================== STATE ====================
         let currentLang = 'en';
-        let currentCurrency = '$';
-        let currentPrice = 7.99;
         let activeMedia = 'image';
 
-        // -------------------- TRANSLATIONS --------------------
+        // ==================== PRICE CONFIGURATION ====================
+        const prices = {
+            en: { starter: 0, elite: 7.99, pro: 24.99, currency: '$' },
+            ar: { starter: 0, elite: 29.99, pro: 94.99, currency: '﷼' },
+            fr: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
+            es: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
+            de: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' }
+        };
+
+        // ==================== TRANSLATIONS ====================
         const translations = {
             en: {
                 heroTitle: 'Create <span>Cinematic Masterpieces</span> with AI',
@@ -716,15 +768,21 @@
                 outputLabel: 'OUTPUT',
                 welcomeText: 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
                 generateText: 'GENERATE MAGIC',
-                membershipTitle: 'Elite Membership',
-                membershipPeriod: '/month',
-                membershipBtnText: 'Full Access to All AI Models',
+                pricingTitle: 'Choose Your Plan',
+                pricingSubtitle: 'Flexible plans for every creator',
+                starterName: 'Starter', eliteName: 'Elite', proName: 'Pro Studio',
+                starterFeatures: ['5 images per day (Vividia 3.0)', 'SD quality', 'Community access'],
+                eliteFeatures: ['Unlimited 8K images', '🎙️ 10 min ElevenLabs voice', 'No watermark', 'Priority processing'],
+                proFeatures: ['Everything in Elite', '🎙️ 60 min ElevenLabs voice', 'Unlimited dubbing', 'Commercial license', 'Custom API access'],
+                starterBtn: 'Get Started', eliteBtn: 'Get Elite', proBtn: 'Get Pro',
+                popularBadge: 'Most Popular',
                 feature1Title: '4K Cinematic', feature1Desc: 'Generate Hollywood‑quality films in minutes',
                 feature2Title: 'AI Characters', feature2Desc: 'Create and animate unique characters',
                 feature3Title: 'Lip Sync', feature3Desc: 'Multi‑language support with automatic lip movement',
                 feature4Title: 'Cloud Storage', feature4Desc: 'Save and access your projects anywhere',
                 footerPrivacy: 'Privacy', footerTerms: 'Terms', footerSupport: 'Support',
-                copyright: '© 2026 Vividia AI. All rights reserved.'
+                copyright: '© 2026 Vividia AI. All rights reserved.',
+                period: '/month'
             },
             ar: {
                 heroTitle: 'اصنع <span>روائع سينمائية</span> بالذكاء الاصطناعي',
@@ -736,26 +794,32 @@
                 outputLabel: 'النتيجة',
                 welcomeText: 'مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!',
                 generateText: 'توليد الإبداع',
-                membershipTitle: 'عضوية النخبة',
-                membershipPeriod: '/شهر',
-                membershipBtnText: 'وصول كامل لجميع نماذج الذكاء الاصطناعي',
+                pricingTitle: 'اختر خطتك',
+                pricingSubtitle: 'خطط مرنة لكل مبدع',
+                starterName: 'المبتدئ', eliteName: 'النخبة', proName: 'برو ستوديو',
+                starterFeatures: ['5 صور يومياً (Vividia 3.0)', 'جودة عادية', 'وصول للمجتمع'],
+                eliteFeatures: ['صور غير محدودة 8K', '🎙️ 10 دقائق ElevenLabs', 'بدون علامة مائية', 'معالجة أولوية'],
+                proFeatures: ['كل مميزات النخبة', '🎙️ 60 دقيقة ElevenLabs', 'دبلجة غير محدودة', 'رخصة تجارية', 'API خاص'],
+                starterBtn: 'ابدأ مجاناً', eliteBtn: 'اشترك الآن', proBtn: 'اشترك في برو',
+                popularBadge: 'الأكثر طلباً',
                 feature1Title: 'سينما 4K', feature1Desc: 'أنتج أفلاماً بجودة هوليوود في دقائق',
                 feature2Title: 'شخصيات ذكية', feature2Desc: 'اصنع وحرك شخصيات فريدة',
                 feature3Title: 'مزامنة الشفاه', feature3Desc: 'دعم متعدد اللغات مع حركة شفاه تلقائية',
                 feature4Title: 'تخزين سحابي', feature4Desc: 'احفظ مشاريعك وصول إليها من أي مكان',
                 footerPrivacy: 'الخصوصية', footerTerms: 'الشروط', footerSupport: 'الدعم',
-                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة'
+                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة',
+                period: '/شهر'
             }
         };
 
-        // -------------------- LANGUAGE --------------------
-        function switchLanguage(lang, flag, name, currency, price) {
+        // ==================== LANGUAGE SWITCHER ====================
+        function switchLanguage(lang, flag, name, currency, elitePrice, proPrice) {
             currentLang = lang;
-            currentCurrency = currency;
-            currentPrice = price;
             document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
             document.getElementById('currentLang').innerHTML = `${flag} ${name}`;
-            const t = translations[lang] || translations.en;
+
+            const t = translations[lang];
+            const p = prices[lang];
 
             // Update texts
             document.getElementById('heroTitle').innerHTML = t.heroTitle;
@@ -770,85 +834,8 @@
             document.getElementById('outputLabel').innerText = t.outputLabel;
             document.getElementById('welcomeText').innerText = t.welcomeText;
             document.getElementById('generateText').innerText = t.generateText;
-            document.getElementById('membershipTitle').innerText = t.membershipTitle;
-            document.getElementById('membershipPeriod').innerText = t.membershipPeriod;
-            document.getElementById('membershipBtnText').innerText = t.membershipBtnText;
-            document.getElementById('feature1Title').innerText = t.feature1Title;
-            document.getElementById('feature1Desc').innerText = t.feature1Desc;
-            document.getElementById('feature2Title').innerText = t.feature2Title;
-            document.getElementById('feature2Desc').innerText = t.feature2Desc;
-            document.getElementById('feature3Title').innerText = t.feature3Title;
-            document.getElementById('feature3Desc').innerText = t.feature3Desc;
-            document.getElementById('feature4Title').innerText = t.feature4Title;
-            document.getElementById('feature4Desc').innerText = t.feature4Desc;
-            document.getElementById('footerPrivacy').innerText = t.footerPrivacy;
-            document.getElementById('footerTerms').innerText = t.footerTerms;
-            document.getElementById('footerSupport').innerText = t.footerSupport;
-            document.getElementById('copyright').innerText = t.copyright;
-
-            // Update price
-            document.getElementById('membershipPrice').innerHTML = `${currency}${price} <small>${t.membershipPeriod}</small>`;
-
-            // Mark active language
-            document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-
-        // -------------------- MEDIA --------------------
-        function setActiveMedia(media) {
-            activeMedia = media;
-            document.querySelectorAll('.media-type').forEach(el => el.classList.remove('active'));
-            document.getElementById(`media${media.charAt(0).toUpperCase()+media.slice(1)}`).classList.add('active');
-            document.getElementById('outputContent').innerHTML = `🎬 ${media.toUpperCase()} mode selected.`;
-        }
-
-        // -------------------- AI ACTIONS --------------------
-        function enhancePrompt() {
-            const input = document.getElementById('promptInput');
-            input.value += ', enhanced by AI, 8K, cinematic';
-            document.getElementById('outputContent').innerHTML = '✨ Prompt enhanced!';
-            setTimeout(() => {
-                const t = translations[currentLang];
-                document.getElementById('outputContent').innerHTML = `👋 ${t.welcomeText}`;
-            }, 1500);
-        }
-
-        function generateMagic() {
-            const output = document.getElementById('outputContent');
-            const status = document.getElementById('outputStatus');
-            status.innerText = 'processing...';
-            output.innerHTML = '🎨 AI is crafting your masterpiece...';
-            setTimeout(() => {
-                status.innerText = 'ready';
-                output.innerHTML = '✅ ' + activeMedia.toUpperCase() + ' generated successfully! (4K ready)';
-            }, 2000);
-        }
-
-        function showPayment() {
-            alert(`💳 ${document.getElementById('membershipBtnText').innerText}\nPrice: ${document.getElementById('membershipPrice').innerText}`);
-        }
-
-        function continueAsGuest() {
-            alert('👋 You are now in guest mode. Some features are limited.');
-        }
-
-        // -------------------- MODALS --------------------
-        function openModal(type) {
-            document.getElementById(type + 'Modal').classList.add('show');
-        }
-        function closeModal(type) {
-            document.getElementById(type + 'Modal').classList.remove('show');
-        }
-
-        function showFeatureDetails(feature) {
-            const modal = document.getElementById('featureModal');
-            const title = document.getElementById('featureModalTitle');
-            const content = document.getElementById('featureModalContent');
-            const t = translations[currentLang];
-            if (feature === '4k') {
-                title.innerText = t.feature1Title;
-                content.innerHTML = `<p>${t.feature1Desc} With our AI rendering engine, you get photorealistic 4K output at 60fps, perfect for cinema.</p>`;
-            } else if (feature === 'characters') {
-                title.innerText = t.feature2Title;
-                content.innerHTML = `<p>${t.feature2Desc} Auto‑rigging, pre‑built animations, and style transfer included.</p>`;
-            } else if (feature === '
+            
+            // Pricing section
+            document.getElementById('pricingTitle').innerText = t.pricingTitle;
+            document.getElementById('pricingSubtitle').innerText = t.pricingSubtitle;
+            document.getElementById('starterName').innerText =
