@@ -116,6 +116,7 @@
             min-width: 200px;
             display: none;
             z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .lang-selector:hover .lang-dropdown {
@@ -663,6 +664,10 @@
             color: var(--text);
             margin: 20px 0 10px;
         }
+
+        .modal-body strong {
+            color: var(--primary);
+        }
     </style>
 </head>
 <body dir="ltr">
@@ -704,12 +709,12 @@
             <div class="tools-title" id="toolsTitle">
                 <i class="fas fa-wand-magic" style="color: var(--primary);"></i> AI Creation Tools
             </div>
-            <button class="guest-btn" id="guestBtn">
+            <button class="guest-btn" id="guestBtn" onclick="continueAsGuest()">
                 <i class="fas fa-user"></i> <span id="guestText">Continue as Guest</span>
             </button>
         </div>
 
-        <!-- Prompt Box (مكبر للأسفل) -->
+        <!-- Prompt Box -->
         <div class="prompt-box">
             <input type="text" id="promptInput" value="Steampunk warrior, cinematic lighting, 4K" placeholder="Describe your masterpiece...">
             <i class="fas fa-magic" id="magicBtn" onclick="enhancePrompt()"></i>
@@ -720,7 +725,7 @@
             <i class="fas fa-robot"></i> AI Intelligent Engine
         </div>
 
-        <!-- Media Types (مع أيقونات ديناميكية) -->
+        <!-- Media Types -->
         <div class="media-types">
             <div class="media-type active" onclick="selectMedia('image')" id="mediaImage"><i class="fas fa-image"></i> IMAGE</div>
             <div class="media-type" onclick="selectMedia('video')" id="mediaVideo"><i class="fas fa-video"></i> VIDEO</div>
@@ -758,7 +763,7 @@
         </div>
     </div>
 
-    <!-- Features (أيقونات ديناميكية) -->
+    <!-- Features -->
     <div class="features">
         <div class="feature-card" onclick="showFeature('4k')">
             <div class="feature-icon"><i class="fas fa-film"></i></div>
@@ -797,25 +802,32 @@
     <div class="modal" id="privacyModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="privacyTitle">Privacy Policy</h2>
+                <h2 id="privacyTitle">🔒 Privacy Policy - Vividia AI</h2>
                 <span class="close-btn" onclick="closeModal('privacy')">&times;</span>
             </div>
             <div class="modal-body" id="privacyContent">
-                <p>At Vividia AI, we take your privacy seriously. This policy describes how we collect, use, and protect your information.</p>
+                <h3>📌 معلومات عامة</h3>
+                <p>في <strong>Vividia AI</strong>، خصوصيتك هي أولويتنا القصوى. نحن نلتزم بحماية بياناتك الشخصية وشفافية التعامل معها.</p>
                 
-                <h3>Information We Collect</h3>
-                <p>We collect information you provide directly, such as your name and email when you create an account. We also collect data about your usage of our AI tools to improve our services.</p>
+                <h3>🔍 ما هي المعلومات التي نجمعها؟</h3>
+                <p>• المعلومات الأساسية: الاسم، البريد الإلكتروني، الدولة (عند إنشاء حساب).<br>
+                • معلومات الاستخدام: كيفية تفاعلك مع أدوات الذكاء الاصطناعي الخاصة بنا.<br>
+                • المحتوى الذي تنشئه: مشاريعك، أفلامك، وشخصياتك الكرتونية (وهي ملكك بالكامل).<br>
+                • بيانات التقنية: نوع الجهاز، المتصفح، عنوان IP (لتحسين الأداء).</p>
                 
-                <h3>How We Use Your Information</h3>
-                <p>Your information is used to provide and improve our services, personalize your experience, and communicate with you about updates and offers.</p>
+                <h3>🤖 كيف نستخدم الذكاء الاصطناعي مع بياناتك؟</h3>
+                <p>نستخدم تقنيات الذكاء الاصطناعي لتحسين جودة إنتاجك. جميع بياناتك تُستخدم فقط لتشغيل الخدمة، ولا نبيع بياناتك لأي طرف ثالث.</p>
                 
-                <h3>Data Security</h3>
-                <p>We implement industry-standard security measures to protect your data. All information is encrypted and stored securely.</p>
+                <h3>🔐 حماية البيانات</h3>
+                <p>جميع بياناتك مشفرة باستخدام تقنيات AES-256. خوادمنا محمية بأحدث معايير الأمان العالمي.</p>
                 
-                <h3>Your Rights</h3>
-                <p>You have the right to access, correct, or delete your personal information at any time through your account settings.</p>
+                <h3>🌍 نقل البيانات الدولي</h3>
+                <p>خوادمنا موزعة حول العالم (أمريكا الشمالية، أوروبا، آسيا) لضمان سرعة الأداء. نلتزم بقوانين حماية البيانات المحلية والدولية.</p>
                 
-                <p>Last updated: March 2026</p>
+                <h3>📧 التواصل مع مسؤول الخصوصية</h3>
+                <p>لأي استفسار بخصوص بياناتك، تواصل معنا على: <strong>privacy@vividia-ai.com</strong></p>
+                
+                <p><small>آخر تحديث: مارس 2026</small></p>
             </div>
         </div>
     </div>
@@ -824,28 +836,40 @@
     <div class="modal" id="termsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="termsTitle">Terms of Service</h2>
+                <h2 id="termsTitle">📜 Terms of Service - Vividia AI</h2>
                 <span class="close-btn" onclick="closeModal('terms')">&times;</span>
             </div>
             <div class="modal-body" id="termsContent">
-                <p>By using Vividia AI, you agree to these terms. Please read them carefully.</p>
+                <h3>📋 قبول الشروط</h3>
+                <p>باستخدامك لمنصة <strong>Vividia AI</strong>، أنت توافق على هذه الشروط بشكل كامل. إذا كنت لا توافق، يرجى عدم استخدام المنصة.</p>
                 
-                <h3>Account Registration</h3>
-                <p>You must be 13 or older to use our service. You are responsible for maintaining the security of your account.</p>
+                <h3>👤 حسابات المستخدمين</h3>
+                <p>• يجب أن يكون عمرك 13 سنة على الأقل لاستخدام المنصة.<br>
+                • أنت مسؤول عن الحفاظ على سرية كلمة المرور.<br>
+                • جميع الأنشطة التي تتم عبر حسابك هي مسؤوليتك وحدك.</p>
                 
-                <h3>Usage Guidelines</h3>
-                <p>Our AI tools are for creating original content. You may not use them to generate harmful, illegal, or infringing material.</p>
+                <h3>🎬 ملكية المحتوى</h3>
+                <p>أنت تملك كامل الحقوق للمحتوى الذي تنشئه باستخدام أدواتنا. نحن لا نطالب بأي ملكية على إبداعاتك. يمكنك استخدامها تجارياً بحرية.</p>
                 
-                <h3>Intellectual Property</h3>
-                <p>You own the content you create with Vividia AI. We claim no ownership over your creations.</p>
+                <h3>⚖️ الاستخدام المقبول</h3>
+                <p>ممنوع استخدام المنصة لإنشاء محتوى:<br>
+                • غير قانوني أو عنيف أو إباحي<br>
+                • ينتهك حقوق الملكية الفكرية للآخرين<br>
+                • يروج للكراهية أو التمييز</p>
                 
-                <h3>Subscription and Payments</h3>
-                <p>Membership fees are billed monthly. You can cancel anytime through your account settings.</p>
+                <h3>💳 الاشتراكات والمدفوعات</h3>
+                <p>• رسوم العضوية تُدفع شهرياً مسبقاً.<br>
+                • يمكنك الإلغاء في أي وقت من إعدادات الحساب.<br>
+                • لا نقدم استرداداً للفترة المتبقية بعد الإلغاء.<br>
+                • الأسعار قابلة للتغيير مع إشعار مسبق بـ 30 يوماً.</p>
                 
-                <h3>Termination</h3>
-                <p>We reserve the right to terminate accounts that violate these terms or engage in abusive behavior.</p>
+                <h3>⚠️ إخلاء مسؤولية</h3>
+                <p>نحن لا نضمن أن تكون الخدمة خالية من الأخطاء أو متاحة بشكل مستمر. نقدم الخدمة "كما هي" بدون ضمانات.</p>
                 
-                <p>Last updated: March 2026</p>
+                <h3>🔨 إنهاء الخدمة</h3>
+                <p>نحتفظ بالحق في إنهاء أو تعليق أي حساب ينتهك هذه الشروط، دون إشعار مسبق.</p>
+                
+                <p><small>آخر تحديث: مارس 2026</small></p>
             </div>
         </div>
     </div>
@@ -854,41 +878,50 @@
     <div class="modal" id="supportModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="supportTitle">Support Center</h2>
+                <h2 id="supportTitle">🆘 Support Center - Vividia AI</h2>
                 <span class="close-btn" onclick="closeModal('support')">&times;</span>
             </div>
             <div class="modal-body" id="supportContent">
-                <h3>How can we help you?</h3>
+                <h3>📬 كيف يمكننا مساعدتك؟</h3>
                 
-                <p><strong>📧 Email Support</strong><br>
-                support@vividia-ai.com<br>
-                Response time: 24-48 hours</p>
+                <p><strong>📧 الدعم عبر البريد الإلكتروني</strong><br>
+                <a href="mailto:support@vividia-ai.com" style="color: var(--primary);">support@vividia-ai.com</a><br>
+                ⏱️ مدة الرد: 24-48 ساعة</p>
                 
-                <p><strong>💬 Live Chat</strong><br>
-                Available Monday-Friday<br>
-                9 AM - 6 PM (EST)</p>
+                <p><strong>💬 الدردشة المباشرة (Live Chat)</strong><br>
+                🕘 متاحة: الإثنين - الجمعة<br>
+                🕘 9 صباحاً - 6 مساءً (بتوقيت السعودية)</p>
                 
-                <p><strong>📚 Frequently Asked Questions</strong></p>
+                <p><strong>📞 الدعم الهاتفي</strong><br>
+                (للعضوية فقط) - متاح عند الطلب</p>
                 
-                <p><strong>Q: How do I create an account?</strong><br>
-                A: Click "Continue as Guest" or "Sign Up" to get started.</p>
+                <h3>📚 الأسئلة الشائعة</h3>
                 
-                <p><strong>Q: What payment methods do you accept?</strong><br>
-                A: We accept credit cards, PayPal, and cryptocurrency.</p>
+                <p><strong>❓ كيف أنشئ حساباً؟</strong><br>
+                ✅ اضغط على "Continue as Guest" أو "Sign Up" واتبع التعليمات.</p>
                 
-                <p><strong>Q: Can I cancel my membership?</strong><br>
-                A: Yes, anytime through your account settings.</p>
+                <p><strong>❓ ما هي طرق الدفع المقبولة؟</strong><br>
+                ✅ نقبل: بطاقات الائتمان (Visa, Mastercard, Amex)، PayPal، والعملات الرقمية (BTC, ETH, USDT).</p>
                 
-                <p><strong>Q: Is my content private?</strong><br>
-                A: Yes, your projects are private and secure.</p>
+                <p><strong>❓ هل يمكنني إلغاء العضوية؟</strong><br>
+                ✅ نعم، في أي وقت من إعدادات الحساب. يستمر الوصول حتى نهاية الفترة المدفوعة.</p>
                 
-                <p><strong>Q: What is the maximum video duration?</strong><br>
-                A: Up to 60 minutes for Elite members, 10 minutes for free users.</p>
+                <p><strong>❓ هل محتواي الخاص آمن؟</strong><br>
+                ✅ نعم، جميع مشاريعك خاصة ومشفرة. لا يمكن لأحد الوصول إليها غيرك.</p>
+                
+                <p><strong>❓ ما هي المدة القصوى للفيديو؟</strong><br>
+                ✅ العضوية المجانية: 10 دقائق. العضوية الكاملة: 60 دقيقة.</p>
+                
+                <p><strong>❓ كيف أعمل مزامنة الشفاه (Lip Sync) بالعربية؟</strong><br>
+                ✅ اختر VOICE، ارفع ملفاً صوتياً بالعربية، والنظام سيعمل تلقائياً.</p>
+                
+                <h3>🌐 الدعم باللغات</h3>
+                <p>نقدم الدعم باللغات: العربية، الإنجليزية، الفرنسية، الإسبانية، الألمانية.</p>
             </div>
         </div>
     </div>
 
-    <!-- Feature Modals -->
+    <!-- Feature Modal -->
     <div class="modal" id="featureModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -896,7 +929,7 @@
                 <span class="close-btn" onclick="closeFeatureModal()">&times;</span>
             </div>
             <div class="modal-body" id="featureModalContent">
-                <!-- Dynamic content will be inserted here -->
+                <!-- Dynamic content -->
             </div>
         </div>
     </div>
@@ -915,68 +948,4 @@
                 heroDesc: 'Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence',
                 toolsTitle: 'AI Creation Tools',
                 guestText: 'Continue as Guest',
-                aiBadge: 'AI Intelligent Engine',
-                mediaImage: 'IMAGE',
-                mediaVideo: 'VIDEO',
-                mediaMusic: 'MUSIC',
-                mediaVoice: 'VOICE',
-                outputLabel: 'OUTPUT',
-                welcomeText: 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
-                generateText: 'GENERATE MAGIC',
-                membershipTitle: 'Elite Membership',
-                membershipPeriod: '/month',
-                membershipBtnText: 'Full Access to All AI Models',
-                feature1Title: '4K Cinematic',
-                feature1Desc: 'Generate Hollywood‑quality films in minutes',
-                feature2Title: 'AI Characters',
-                feature2Desc: 'Create and animate unique characters',
-                feature3Title: 'Lip Sync',
-                feature3Desc: 'Multi‑language support with automatic lip movement',
-                feature4Title: 'Cloud Storage',
-                feature4Desc: 'Save and access your projects anywhere',
-                footerPrivacy: 'Privacy',
-                footerTerms: 'Terms',
-                footerSupport: 'Support',
-                copyright: '© 2026 Vividia AI. All rights reserved.',
-                privacyTitle: 'Privacy Policy',
-                termsTitle: 'Terms of Service',
-                supportTitle: 'Support Center',
-                feature4kTitle: '4K Cinematic',
-                feature4kDesc: 'Generate Hollywood-quality films in minutes with our advanced AI rendering engine. Supports 24fps, 30fps, and 60fps output with HDR color grading.',
-                featureCharsTitle: 'AI Characters',
-                featureCharsDesc: 'Create unique characters from text descriptions or upload photos. Auto-rigging and pre-built animations included.',
-                featureLipsyncTitle: 'Lip Sync',
-                featureLipsyncDesc: 'Multi-language support with automatic lip movement. Works with English, Arabic, French, Spanish, German, Japanese, and more.',
-                featureCloudTitle: 'Cloud Storage',
-                featureCloudDesc: 'Save your projects securely in the cloud. Access them from any device. 100GB storage included with Elite membership.'
-            },
-            ar: {
-                heroTitle: 'اصنع <span>روائع سينمائية</span><br>بالذكاء الاصطناعي',
-                heroDesc: 'حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K باستخدام أحدث تقنيات الذكاء الاصطناعي',
-                toolsTitle: 'أدوات الإبداع بالذكاء الاصطناعي',
-                guestText: 'متابعة كزائر',
-                aiBadge: 'محرك الذكاء الاصطناعي',
-                mediaImage: 'صورة',
-                mediaVideo: 'فيديو',
-                mediaMusic: 'موسيقى',
-                mediaVoice: 'صوت',
-                outputLabel: 'النتيجة',
-                welcomeText: 'مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!',
-                generateText: 'توليد الإبداع',
-                membershipTitle: 'عضوية النخبة',
-                membershipPeriod: '/شهر',
-                membershipBtnText: 'وصول كامل لجميع نماذج الذكاء الاصطناعي',
-                feature1Title: 'سينما 4K',
-                feature1Desc: 'أنتج أفلاماً بجودة هوليوود في دقائق',
-                feature2Title: 'شخصيات ذكية',
-                feature2Desc: 'اصنع وحرك شخصيات فريدة',
-                feature3Title: 'مزامنة الشفاه',
-                feature3Desc: 'دعم متعدد اللغات مع حركة شفاه تلقائية',
-                feature4Title: 'تخزين سحابي',
-                feature4Desc: 'احفظ مشاريعك وصول إليها من أي مكان',
-                footerPrivacy: 'الخصوصية',
-                footerTerms: 'الشروط',
-                footerSupport: 'الدعم',
-                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة',
-                privacyTitle: 'سياسة الخصوصية',
-                termsTitle: '
+                aiBadge: '
