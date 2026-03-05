@@ -36,19 +36,33 @@
             display: flex;
             flex-direction: column;
             line-height: 1.5;
+            transition: all 0.3s ease;
         }
 
         /* RTL Support */
         body[dir="rtl"] {
             text-align: right;
         }
-        body[dir="rtl"] .header,
-        body[dir="rtl"] .pricing-cards,
+        body[dir="rtl"] .header {
+            flex-direction: row-reverse;
+        }
+        body[dir="rtl"] .tools-header {
+            flex-direction: row-reverse;
+        }
+        body[dir="rtl"] .pricing-cards {
+            direction: rtl;
+        }
         body[dir="rtl"] .footer-links {
             direction: rtl;
         }
         body[dir="rtl"] .prompt-box i {
             transform: scaleX(-1);
+        }
+        body[dir="rtl"] .media-types {
+            direction: rtl;
+        }
+        body[dir="rtl"] .footer {
+            flex-direction: row-reverse;
         }
 
         /* Layout */
@@ -587,19 +601,19 @@
                 <span id="currentLang">🇺🇸 English</span>
                 <i class="fas fa-chevron-down"></i>
                 <div class="lang-dropdown">
-                    <div class="lang-item" onclick="switchLanguage('en', '🇺🇸', 'English', '$', 7.99, 29.99, 24.99)">
+                    <div class="lang-item" onclick="changeLanguage('en', '🇺🇸', 'English', '$', 7.99, 29.99, 24.99)">
                         <span>🇺🇸 English</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('ar', '🇸🇦', 'Arabic', '﷼', 29.99, 99.99, 94.99)">
-                        <span>🇸🇦 Arabic</span>
+                    <div class="lang-item" onclick="changeLanguage('ar', '🇸🇦', 'العربية', '﷼', 29.99, 99.99, 94.99)">
+                        <span>🇸🇦 العربية</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('fr', '🇫🇷', 'Français', '€', 7.99, 29.99, 24.99)">
+                    <div class="lang-item" onclick="changeLanguage('fr', '🇫🇷', 'Français', '€', 7.99, 29.99, 24.99)">
                         <span>🇫🇷 Français</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('es', '🇪🇸', 'Español', '€', 7.99, 29.99, 24.99)">
+                    <div class="lang-item" onclick="changeLanguage('es', '🇪🇸', 'Español', '€', 7.99, 29.99, 24.99)">
                         <span>🇪🇸 Español</span>
                     </div>
-                    <div class="lang-item" onclick="switchLanguage('de', '🇩🇪', 'Deutsch', '€', 7.99, 29.99, 24.99)">
+                    <div class="lang-item" onclick="changeLanguage('de', '🇩🇪', 'Deutsch', '€', 7.99, 29.99, 24.99)">
                         <span>🇩🇪 Deutsch</span>
                     </div>
                 </div>
@@ -702,22 +716,22 @@
 
         <!-- Features -->
         <section class="features">
-            <div class="feature-card" onclick="showFeatureDetails('4k')">
+            <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-film"></i></div>
                 <h3 id="feature1Title">4K Cinematic</h3>
                 <p id="feature1Desc">Generate Hollywood‑quality films in minutes</p>
             </div>
-            <div class="feature-card" onclick="showFeatureDetails('characters')">
+            <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-robot"></i></div>
                 <h3 id="feature2Title">AI Characters</h3>
                 <p id="feature2Desc">Create and animate unique characters</p>
             </div>
-            <div class="feature-card" onclick="showFeatureDetails('lipsync')">
+            <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-language"></i></div>
                 <h3 id="feature3Title">Lip Sync</h3>
                 <p id="feature3Desc">Multi‑language support with automatic lip movement</p>
             </div>
-            <div class="feature-card" onclick="showFeatureDetails('cloud')">
+            <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-cloud"></i></div>
                 <h3 id="feature4Title">Cloud Storage</h3>
                 <p id="feature4Desc">Save and access your projects anywhere</p>
@@ -808,20 +822,10 @@
     </div>
 
     <script>
-        // ==================== GLOBAL STATE ====================
+        // ==================== MULTI-LANGUAGE DYNAMIC SYSTEM ====================
         let currentLang = 'en';
-        let activeMedia = 'image';
-
-        // ==================== PRICE CONFIGURATION ====================
-        const prices = {
-            en: { starter: 0, elite: 7.99, pro: 24.99, currency: '$' },
-            ar: { starter: 0, elite: 29.99, pro: 94.99, currency: '﷼' },
-            fr: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
-            es: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
-            de: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' }
-        };
-
-        // ==================== TRANSLATIONS ====================
+        
+        // Translations for all languages
         const translations = {
             en: {
                 heroTitle: 'Create <span>Cinematic Masterpieces</span> with AI',
@@ -829,23 +833,36 @@
                 toolsTitle: 'AI Creation Tools',
                 guestText: 'Continue as Guest',
                 aiBadge: 'AI Intelligent Engine',
-                mediaImage: 'IMAGE', mediaVideo: 'VIDEO', mediaMusic: 'MUSIC', mediaVoice: 'VOICE',
+                mediaImage: 'IMAGE',
+                mediaVideo: 'VIDEO',
+                mediaMusic: 'MUSIC',
+                mediaVoice: 'VOICE',
                 outputLabel: 'OUTPUT',
                 welcomeText: 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
                 generateText: 'GENERATE MAGIC',
                 pricingTitle: 'Choose Your Plan',
                 pricingSubtitle: 'Flexible plans for every creator',
-                starterName: 'Starter', eliteName: 'Elite', proName: 'Pro Studio',
+                starterName: 'Starter',
+                eliteName: 'Elite',
+                proName: 'Pro Studio',
                 starterFeatures: ['5 images per day (Vividia 3.0)', 'SD quality', 'Community access'],
                 eliteFeatures: ['Unlimited 8K images', '🎙️ 10 min ElevenLabs voice', 'No watermark', 'Priority processing'],
                 proFeatures: ['Everything in Elite', '🎙️ 60 min ElevenLabs voice', 'Unlimited dubbing', 'Commercial license', 'Custom API access'],
-                starterBtn: 'Get Started', eliteBtn: 'Get Elite', proBtn: 'Get Pro',
+                starterBtn: 'Get Started',
+                eliteBtn: 'Get Elite',
+                proBtn: 'Get Pro',
                 popularBadge: 'Most Popular',
-                feature1Title: '4K Cinematic', feature1Desc: 'Generate Hollywood‑quality films in minutes',
-                feature2Title: 'AI Characters', feature2Desc: 'Create and animate unique characters',
-                feature3Title: 'Lip Sync', feature3Desc: 'Multi‑language support with automatic lip movement',
-                feature4Title: 'Cloud Storage', feature4Desc: 'Save and access your projects anywhere',
-                footerPrivacy: 'Privacy', footerTerms: 'Terms', footerSupport: 'Support',
+                feature1Title: '4K Cinematic',
+                feature1Desc: 'Generate Hollywood‑quality films in minutes',
+                feature2Title: 'AI Characters',
+                feature2Desc: 'Create and animate unique characters',
+                feature3Title: 'Lip Sync',
+                feature3Desc: 'Multi‑language support with automatic lip movement',
+                feature4Title: 'Cloud Storage',
+                feature4Desc: 'Save and access your projects anywhere',
+                footerPrivacy: 'Privacy',
+                footerTerms: 'Terms',
+                footerSupport: 'Support',
                 copyright: '© 2026 Vividia AI. All rights reserved.',
                 period: '/month'
             },
@@ -855,13 +872,21 @@
                 toolsTitle: 'أدوات الإبداع بالذكاء الاصطناعي',
                 guestText: 'متابعة كزائر',
                 aiBadge: 'محرك الذكاء الاصطناعي',
-                mediaImage: 'صورة', mediaVideo: 'فيديو', mediaMusic: 'موسيقى', mediaVoice: 'صوت',
+                mediaImage: 'صورة',
+                mediaVideo: 'فيديو',
+                mediaMusic: 'موسيقى',
+                mediaVoice: 'صوت',
                 outputLabel: 'النتيجة',
                 welcomeText: 'مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!',
                 generateText: 'توليد الإبداع',
                 pricingTitle: 'اختر خطتك',
                 pricingSubtitle: 'خطط مرنة لكل مبدع',
-                starterName: 'المبتدئ', eliteName: 'النخبة', proName: 'برو ستوديو',
+                starterName: 'المبتدئ',
+                eliteName: 'النخبة',
+                proName: 'برو ستوديو',
                 starterFeatures: ['5 صور يومياً (Vividia 3.0)', 'جودة عادية', 'وصول للمجتمع'],
                 eliteFeatures: ['صور غير محدودة 8K', '🎙️ 10 دقائق ElevenLabs', 'بدون علامة مائية', 'معالجة أولوية'],
-                proFeatures: ['كل مميزات النخبة', '🎙️ 60 دقيقة ElevenLabs', 'دبلجة غير محدودة', 'رخصة
+                proFeatures: ['كل مميزات النخبة', '🎙️ 60 دقيقة ElevenLabs', 'دبلجة غير محدودة', 'رخصة تجارية', 'API خاص'],
+                starterBtn: 'ابدأ مجاناً',
+                eliteBtn: 'اشترك الآن',
+                pro
