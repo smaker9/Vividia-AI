@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - منصة الرسوم المتحركة</title>
+    <title>Vividia AI - منصة الربح من الذكاء الاصطناعي</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body { background: #0A0A1A; color: white; padding: 20px; transition: all 0.3s ease; }
@@ -20,22 +20,23 @@
         .btn.active { background: #8B5CF6; }
         .output { background: #0A0A1A; border: 1px solid #1E1E3A; border-radius: 10px; padding: 15px; margin: 20px 0; }
         
-        /* تنسيقات خطط الأسعار */
+        /* خطط الأسعار المحسنة */
         .pricing-section { margin: 40px 0; }
-        .pricing-title { text-align: center; font-size: 28px; margin-bottom: 30px; color: white; }
-        .pricing-cards { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .pricing-card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 25px; flex: 1 1 250px; position: relative; transition: transform 0.3s; }
-        .pricing-card:hover { transform: translateY(-5px); border-color: #8B5CF6; }
+        .pricing-title { text-align: center; font-size: 32px; margin-bottom: 30px; color: white; }
+        .pricing-subtitle { text-align: center; color: #9CA3AF; margin-bottom: 40px; font-size: 16px; }
+        .pricing-cards { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; }
+        .pricing-card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 25px; padding: 30px; flex: 1 1 280px; position: relative; transition: transform 0.3s; }
+        .pricing-card:hover { transform: translateY(-8px); border-color: #8B5CF6; box-shadow: 0 20px 30px -10px rgba(139,92,246,0.3); }
         .pricing-card.popular { border: 2px solid #8B5CF6; background: linear-gradient(145deg, #12122A, #1A1A3A); }
-        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #8B5CF6; color: white; padding: 4px 20px; border-radius: 30px; font-size: 12px; font-weight: bold; }
-        .pricing-name { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: white; }
-        .pricing-price { font-size: 32px; font-weight: bold; color: #8B5CF6; margin-bottom: 5px; }
+        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #8B5CF6; color: white; padding: 5px 25px; border-radius: 30px; font-size: 13px; font-weight: bold; }
+        .pricing-name { font-size: 24px; font-weight: bold; margin-bottom: 15px; color: white; }
+        .pricing-price { font-size: 38px; font-weight: bold; color: #8B5CF6; margin-bottom: 5px; }
         .pricing-price small { font-size: 14px; color: #9CA3AF; font-weight: normal; }
         .pricing-period { color: #9CA3AF; font-size: 14px; margin-bottom: 20px; }
-        .pricing-features { list-style: none; margin-bottom: 25px; }
+        .pricing-features { list-style: none; margin-bottom: 25px; min-height: 180px; }
         .pricing-features li { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: #9CA3AF; font-size: 14px; }
         .pricing-features i { color: #10B981; min-width: 20px; }
-        .pricing-btn { background: transparent; border: 1px solid #1E1E3A; color: white; padding: 12px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; }
+        .pricing-btn { background: transparent; border: 1px solid #1E1E3A; color: white; padding: 14px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; font-size: 16px; }
         .pricing-btn:hover { background: #8B5CF6; border-color: #8B5CF6; }
         .pricing-btn.popular-btn { background: #8B5CF6; border: none; }
         .pricing-btn.popular-btn:hover { background: #7C3AED; }
@@ -43,6 +44,10 @@
         .footer { margin-top: 40px; color: #9CA3AF; }
         .footer a { color: #9CA3AF; text-decoration: none; margin: 0 10px; cursor: pointer; }
         .footer a:hover { color: #8B5CF6; }
+        
+        /* رسالة الربح اليومي */
+        .profit-message { background: rgba(16,185,129,0.1); border: 1px solid #10B981; border-radius: 15px; padding: 15px; margin: 20px 0; text-align: center; }
+        .profit-message p { color: #10B981; font-size: 16px; margin: 0; }
     </style>
 </head>
 <body class="">
@@ -59,8 +64,8 @@
 
         <!-- المحتوى الرئيسي -->
         <div class="card">
-            <h1 id="title">Create Cinematic Masterpieces with AI</h1>
-            <p id="desc">Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence.</p>
+            <h1 id="title">ابدأ الربح من اليوم الأول مع Vividia AI</h1>
+            <p id="desc">حوّل أفكارك إلى صور وفيديوهات احترافية وابيعها للعملاء مباشرة</p>
 
             <!-- الأزرار الداخلية -->
             <div class="buttons">
@@ -72,145 +77,153 @@
 
             <!-- صندوق الإخراج -->
             <div class="output" id="output">
-                👋 Welcome! Describe your idea and click GENERATE.
+                👋 مرحباً! صف فكرتك وانقر على توليد.
             </div>
 
             <!-- زر التوليد -->
-            <button class="lang-btn" style="width: 100%; padding: 15px;" onclick="generate()">✨ GENERATE MAGIC</button>
+            <button class="lang-btn" style="width: 100%; padding: 15px;" onclick="generate()">✨ توليد الإبداع</button>
+
+            <!-- رسالة الربح اليومي -->
+            <div class="profit-message" id="profitMessage">
+                <p>💰 مع 5 صور يومياً = ربح يصل إلى $1500 شهرياً</p>
+            </div>
         </div>
 
-        <!-- قسم خطط الأسعار (يظهر تحت المحتوى الرئيسي) -->
+        <!-- قسم خطط الأسعار المحسن -->
         <div class="pricing-section">
-            <h2 class="pricing-title" id="pricingTitle">Choose Your Plan</h2>
+            <h2 class="pricing-title" id="pricingTitle">اختر خطتك وابدأ الربح اليوم</h2>
+            <p class="pricing-subtitle" id="pricingSubtitle">خطط مصممة خصيصاً لتحقق دخل يومي من اليوم الأول</p>
             
             <div class="pricing-cards">
-                <!-- الخطة المجانية (Starter) -->
+                <!-- الخطة المجانية (Starter) - 5 صور يومياً -->
                 <div class="pricing-card">
                     <div class="pricing-name" id="starterName">Starter</div>
-                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/month</small></div>
+                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="starterFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature1">5 images per day</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature2">SD quality</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature3">Community access</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature1">✅ 5 صور يومياً (تكفي لربح يومي)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature2">🖼️ جودة عادية (SD)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature3">👥 وصول للمجتمع</span></li>
                     </ul>
-                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">Get Started</button>
+                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">ابدأ مجاناً</button>
                 </div>
 
-                <!-- الخطة المميزة (Elite - الأكثر طلباً) -->
+                <!-- الخطة المميزة (Elite) - الأكثر طلباً للمحترفين -->
                 <div class="pricing-card popular">
-                    <div class="popular-badge" id="popularBadge">Most Popular</div>
+                    <div class="popular-badge" id="popularBadge">الأكثر طلباً</div>
                     <div class="pricing-name" id="eliteName">Elite</div>
-                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/month</small></div>
+                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/شهر</small></div>
                     <ul class="pricing-features" id="eliteFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature1">Unlimited 8K images</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature2">🎙️ 10 min ElevenLabs voice</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature3">No watermark</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature4">Priority processing</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature1">🎨 صور غير محدودة 8K</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature2">🎙️ 10 دقائق ElevenLabs (صوت بشري)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature3">🚫 بدون علامة مائية</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature4">⚡ معالجة أولوية (أسرع)</span></li>
                     </ul>
-                    <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">Get Elite</button>
+                    <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">اشترك الآن</button>
                 </div>
 
-                <!-- الخطة الاحترافية (Pro Studio) -->
+                <!-- الخطة الاحترافية (Pro Studio) - للمشاريع الكبيرة -->
                 <div class="pricing-card">
                     <div class="pricing-name" id="proName">Pro Studio</div>
-                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/month</small></div>
+                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature1">Everything in Elite</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature2">🎙️ 60 min ElevenLabs voice</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature3">Unlimited dubbing</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature4">Commercial license</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature5">Custom API access</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeature1">✨ كل مميزات Elite</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeature2">🎙️ 60 دقيقة ElevenLabs (مشاريع كبيرة)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeature3">🌍 دبلجة غير محدودة (أي لغة)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeature4">💰 رخصة تجارية (بيع ما تنتج)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeature5">🔧 API خاص (للمطورين)</span></li>
                     </ul>
-                    <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">Get Pro</button>
+                    <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">اشترك في برو</button>
                 </div>
             </div>
         </div>
 
         <!-- روابط أسفل الصفحة -->
         <div class="footer" style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
-            <a href="#" onclick="showModal('privacy'); return false;" id="footer1">Privacy</a>
-            <a href="#" onclick="showModal('terms'); return false;" id="footer2">Terms</a>
-            <a href="#" onclick="showModal('support'); return false;" id="footer3">Support</a>
+            <a href="#" onclick="showModal('privacy'); return false;" id="footer1">الخصوصية</a>
+            <a href="#" onclick="showModal('terms'); return false;" id="footer2">الشروط</a>
+            <a href="#" onclick="showModal('support'); return false;" id="footer3">الدعم</a>
         </div>
-        <div style="text-align: center; margin-top: 20px;">© 2026 Vividia AI</div>
+        <div style="text-align: center; margin-top: 20px;">© 2026 Vividia AI - اربح من اليوم الأول</div>
     </div>
 
     <!-- Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script>
-        // ==================== بيانات الترجمة الكاملة مع خطط الأسعار ====================
+        // ==================== بيانات الترجمة الكاملة ====================
         const translations = {
             en: {
-                title: "Create Cinematic Masterpieces with AI",
-                desc: "Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence.",
+                title: "Start Earning from Day One with Vividia AI",
+                desc: "Turn your ideas into professional images and videos and sell them directly to clients.",
                 btn1: "IMAGE", btn2: "VIDEO", btn3: "MUSIC", btn4: "VOICE",
                 output: "👋 Welcome! Describe your idea and click GENERATE.",
+                profitMessage: "💰 With 5 images daily = up to $1500 monthly profit",
                 
-                // خطط الأسعار
-                pricingTitle: "Choose Your Plan",
+                pricingTitle: "Choose Your Plan & Start Earning Today",
+                pricingSubtitle: "Plans designed to help you generate daily income from day one",
+                
                 starterName: "Starter",
-                starterFeature1: "5 images per day (Vividia 3.0)",
-                starterFeature2: "SD quality",
-                starterFeature3: "Community access",
-                starterBtn: "Get Started",
+                starterFeature1: "✅ 5 images daily (enough for daily profit)",
+                starterFeature2: "🖼️ SD quality",
+                starterFeature3: "👥 Community access",
+                starterBtn: "Start Free",
                 
                 eliteName: "Elite",
-                eliteFeature1: "Unlimited 8K images",
+                eliteFeature1: "🎨 Unlimited 8K images",
                 eliteFeature2: "🎙️ 10 min ElevenLabs voice",
-                eliteFeature3: "No watermark",
-                eliteFeature4: "Priority processing",
-                eliteBtn: "Get Elite",
+                eliteFeature3: "🚫 No watermark",
+                eliteFeature4: "⚡ Priority processing",
+                eliteBtn: "Subscribe Now",
                 
                 proName: "Pro Studio",
-                proFeature1: "Everything in Elite",
+                proFeature1: "✨ Everything in Elite",
                 proFeature2: "🎙️ 60 min ElevenLabs voice",
-                proFeature3: "Unlimited dubbing",
-                proFeature4: "Commercial license",
-                proFeature5: "Custom API access",
+                proFeature3: "🌍 Unlimited dubbing",
+                proFeature4: "💰 Commercial license (sell your work)",
+                proFeature5: "🔧 Custom API access",
                 proBtn: "Get Pro",
                 
                 popularBadge: "Most Popular",
                 
-                // الأسعار
                 starterPrice: "$0", starterPeriod: "/month",
                 elitePrice: "$7.99", elitePeriod: "/month",
                 proPrice: "$24.99", proPeriod: "/month",
                 
-                // روابط التذييل
                 footer1: "Privacy", footer2: "Terms", footer3: "Support",
                 
-                // محتوى النوافذ المنبثقة
-                modalPrivacy: "🔒 Privacy Policy\n\nWe collect basic account details (name, email) and usage data to improve our AI services. Your creations remain yours.\n\nAll data is encrypted using industry-standard AES-256. Our servers are secured 24/7.\n\nFor any inquiries: privacy@vividia-ai.com",
-                modalTerms: "📜 Terms of Service\n\nYou must be 13 or older to use Vividia AI. You are responsible for maintaining your account security.\n\nYou own everything you create. We claim no rights over your work.\n\nDo not generate illegal, harmful, or infringing content. We reserve the right to terminate accounts that violate this rule.\n\nMemberships are billed monthly. Cancel anytime from your account settings.",
-                modalSupport: "🆘 Support Center\n\n📧 Email: support@vividia-ai.com – reply within 24 hours\n\n💬 Live Chat: Monday–Friday, 9am–6pm (your local time)\n\n❓ FAQ:\n• How do I start? Just type a description and click GENERATE.\n• Payment methods? Cards, PayPal, crypto (BTC, ETH).\n• Can I cancel? Yes, instantly from your dashboard."
+                modalPrivacy: "🔒 Privacy Policy\n\nWe collect basic account details (name, email) and usage data to improve our AI services. Your creations remain yours.\n\nAll data is encrypted using industry-standard AES-256.",
+                modalTerms: "📜 Terms of Service\n\nYou must be 13 or older to use Vividia AI. You own everything you create. No illegal content.\n\nMemberships are billed monthly.",
+                modalSupport: "🆘 Support Center\n\n📧 Email: support@vividia-ai.com – reply within 24 hours\n\n💬 Live Chat: Monday–Friday, 9am–6pm"
             },
             ar: {
-                title: "اصنع روائع سينمائية بالذكاء الاصطناعي",
-                desc: "حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K باستخدام أحدث تقنيات الذكاء الاصطناعي",
+                title: "ابدأ الربح من اليوم الأول مع Vividia AI",
+                desc: "حوّل أفكارك إلى صور وفيديوهات احترافية وبيعها للعملاء مباشرة",
                 btn1: "صورة", btn2: "فيديو", btn3: "موسيقى", btn4: "صوت",
                 output: "👋 مرحباً! صف فكرتك وانقر على توليد.",
+                profitMessage: "💰 مع 5 صور يومياً = ربح يصل إلى $1500 شهرياً",
                 
-                pricingTitle: "اختر خطتك",
+                pricingTitle: "اختر خطتك وابدأ الربح اليوم",
+                pricingSubtitle: "خطط مصممة خصيصاً لتحقق دخل يومي من اليوم الأول",
+                
                 starterName: "المبتدئ",
-                starterFeature1: "5 صور يومياً (Vividia 3.0)",
-                starterFeature2: "جودة عادية",
-                starterFeature3: "وصول للمجتمع",
+                starterFeature1: "✅ 5 صور يومياً (تكفي لربح يومي)",
+                starterFeature2: "🖼️ جودة عادية",
+                starterFeature3: "👥 وصول للمجتمع",
                 starterBtn: "ابدأ مجاناً",
                 
                 eliteName: "النخبة",
-                eliteFeature1: "صور غير محدودة 8K",
+                eliteFeature1: "🎨 صور غير محدودة 8K",
                 eliteFeature2: "🎙️ 10 دقائق ElevenLabs",
-                eliteFeature3: "بدون علامة مائية",
-                eliteFeature4: "معالجة أولوية",
+                eliteFeature3: "🚫 بدون علامة مائية",
+                eliteFeature4: "⚡ معالجة أولوية",
                 eliteBtn: "اشترك الآن",
                 
-                proName: "برو ستوديو",
-                proFeature1: "كل مميزات النخبة",
+                proName: "احترافية",
+                proFeature1: "✨ كل مميزات النخبة",
                 proFeature2: "🎙️ 60 دقيقة ElevenLabs",
-                proFeature3: "دبلجة غير محدودة",
-                proFeature4: "رخصة تجارية",
-                proFeature5: "API خاص",
+                proFeature3: "🌍 دبلجة غير محدودة",
+                proFeature4: "💰 رخصة تجارية (بيع إنتاجك)",
+                proFeature5: "🔧 API خاص",
                 proBtn: "اشترك في برو",
                 
                 popularBadge: "الأكثر طلباً",
@@ -221,129 +234,9 @@
                 
                 footer1: "الخصوصية", footer2: "الشروط", footer3: "الدعم",
                 
-                modalPrivacy: "🔒 سياسة الخصوصية\n\nنقوم بجمع المعلومات الأساسية (الاسم، البريد الإلكتروني) وبيانات الاستخدام لتحسين خدمات الذكاء الاصطناعي. إبداعاتك تبقى ملكك.\n\nجميع البيانات مشفرة باستخدام معايير AES-256. خوادمنا محمية على مدار الساعة.\n\nللاستفسارات: privacy@vividia-ai.com",
-                modalTerms: "📜 شروط الخدمة\n\nيجب أن يكون عمرك 13 سنة أو أكثر لاستخدام Vividia AI. أنت مسؤول عن أمان حسابك.\n\nأنت تملك كل ما تنشئه. لا نملك أي حقوق على عملك.\n\nيمنع إنشاء محتوى غير قانوني أو ضار. نحتفظ بالحق في إنهاء الحسابات المخالفة.\n\nالاشتراكات تدفع شهرياً. يمكنك الإلغاء في أي وقت من إعدادات الحساب.",
-                modalSupport: "🆘 مركز الدعم\n\n📧 البريد الإلكتروني: support@vividia-ai.com – الرد خلال 24 ساعة\n\n💬 الدردشة المباشرة: الإثنين–الجمعة، 9 صباحاً–6 مساءً\n\n❓ الأسئلة الشائعة:\n• كيف أبدأ؟ اكتب وصفاً وانقر على توليد.\n• وسائل الدفع؟ بطاقات، PayPal، عملات رقمية.\n• هل يمكن الإلغاء؟ نعم، فوراً من لوحة التحكم."
-            },
-            fr: {
-                title: "Créez des chefs-d'œuvre cinématographiques avec l'IA",
-                desc: "Transformez vos idées en animations, films et personnages 4K époustouflants avec l'IA de nouvelle génération.",
-                btn1: "IMAGE", btn2: "VIDÉO", btn3: "MUSIQUE", btn4: "VOIX",
-                output: "👋 Bienvenue! Décrivez votre idée et cliquez sur GÉNÉRER.",
-                
-                pricingTitle: "Choisissez votre plan",
-                starterName: "Débutant",
-                starterFeature1: "5 images par jour (Vividia 3.0)",
-                starterFeature2: "Qualité SD",
-                starterFeature3: "Accès à la communauté",
-                starterBtn: "Commencer",
-                
-                eliteName: "Elite",
-                eliteFeature1: "Images 8K illimitées",
-                eliteFeature2: "🎙️ 10 min ElevenLabs",
-                eliteFeature3: "Sans filigrane",
-                eliteFeature4: "Traitement prioritaire",
-                eliteBtn: "Choisir Elite",
-                
-                proName: "Pro Studio",
-                proFeature1: "Tout dans Elite",
-                proFeature2: "🎙️ 60 min ElevenLabs",
-                proFeature3: "Doublage illimité",
-                proFeature4: "Licence commerciale",
-                proFeature5: "Accès API",
-                proBtn: "Choisir Pro",
-                
-                popularBadge: "Plus populaire",
-                
-                starterPrice: "€0", starterPeriod: "/mois",
-                elitePrice: "€7.99", elitePeriod: "/mois",
-                proPrice: "€24.99", proPeriod: "/mois",
-                
-                footer1: "Confidentialité", footer2: "Conditions", footer3: "Assistance",
-                
-                modalPrivacy: "🔒 Politique de Confidentialité\n\nNous collectons les informations de base (nom, email) et les données d'utilisation pour améliorer nos services IA. Vos créations restent vôtres.\n\nToutes les données sont cryptées avec AES-256. Nos serveurs sont sécurisés 24/7.\n\nContact: privacy@vividia-ai.com",
-                modalTerms: "📜 Conditions d'Utilisation\n\nVous devez avoir 13 ans ou plus pour utiliser Vividia AI. Vous êtes responsable de la sécurité de votre compte.\n\nVous possédez tout ce que vous créez. Nous ne revendiquons aucun droit sur votre travail.\n\nNe générez pas de contenu illégal ou nuisible.\n\nAbonnements facturés mensuellement. Annulation possible à tout moment.",
-                modalSupport: "🆘 Centre d'Aide\n\n📧 Email: support@vividia-ai.com – réponse sous 24h\n\n💬 Chat en direct: Lun–Ven, 9h–18h\n\n❓ FAQ:\n• Comment commencer? Décrivez votre idée et cliquez sur GÉNÉRER.\n• Moyens de paiement? Cartes, PayPal, crypto.\n• Puis-je annuler? Oui, depuis votre tableau de bord."
-            },
-            es: {
-                title: "Crea obras maestras cinematográficas con IA",
-                desc: "Convierte tus ideas en impresionantes animaciones, películas y personajes 4K con inteligencia artificial de última generación.",
-                btn1: "IMAGEN", btn2: "VIDEO", btn3: "MÚSICA", btn4: "VOZ",
-                output: "👋 ¡Bienvenido! Describe tu idea y haz clic en GENERAR.",
-                
-                pricingTitle: "Elige tu plan",
-                starterName: "Principiante",
-                starterFeature1: "5 imágenes por día (Vividia 3.0)",
-                starterFeature2: "Calidad SD",
-                starterFeature3: "Acceso a la comunidad",
-                starterBtn: "Comenzar",
-                
-                eliteName: "Élite",
-                eliteFeature1: "Imágenes 8K ilimitadas",
-                eliteFeature2: "🎙️ 10 min ElevenLabs",
-                eliteFeature3: "Sin marca de agua",
-                eliteFeature4: "Procesamiento prioritario",
-                eliteBtn: "Elegir Élite",
-                
-                proName: "Pro Studio",
-                proFeature1: "Todo en Élite",
-                proFeature2: "🎙️ 60 min ElevenLabs",
-                proFeature3: "Doblaje ilimitado",
-                proFeature4: "Licencia comercial",
-                proFeature5: "Acceso API",
-                proBtn: "Elegir Pro",
-                
-                popularBadge: "Más popular",
-                
-                starterPrice: "€0", starterPeriod: "/mes",
-                elitePrice: "€7.99", elitePeriod: "/mes",
-                proPrice: "€24.99", proPeriod: "/mes",
-                
-                footer1: "Privacidad", footer2: "Términos", footer3: "Soporte",
-                
-                modalPrivacy: "🔒 Política de Privacidad\n\nRecopilamos información básica (nombre, email) y datos de uso para mejorar nuestros servicios de IA. Tus creaciones son tuyas.\n\nTodos los datos están encriptados con AES-256. Nuestros servidores están protegidos 24/7.\n\nContacto: privacy@vividia-ai.com",
-                modalTerms: "📜 Términos de Servicio\n\nDebes tener 13 años o más para usar Vividia AI. Eres responsable de la seguridad de tu cuenta.\n\nEres dueño de todo lo que creas. No reclamamos derechos sobre tu trabajo.\n\nNo generes contenido ilegal o dañino.\n\nSuscripciones facturadas mensualmente. Cancelación en cualquier momento.",
-                modalSupport: "🆘 Centro de Soporte\n\n📧 Email: support@vividia-ai.com – respuesta en 24h\n\n💬 Chat en vivo: Lun–Vie, 9am–6pm\n\n❓ Preguntas:\n• ¿Cómo empezar? Describe tu idea y haz clic en GENERAR.\n• Métodos de pago? Tarjetas, PayPal, cripto.\n• ¿Puedo cancelar? Sí, desde tu panel."
-            },
-            de: {
-                title: "Erstelle filmische Meisterwerke mit KI",
-                desc: "Verwandle deine Ideen in atemberaubende 4K-Animationen, Filme und Charaktere mit modernster künstlicher Intelligenz.",
-                btn1: "BILD", btn2: "VIDEO", btn3: "MUSIK", btn4: "STIMME",
-                output: "👋 Willkommen! Beschreibe deine Idee und klicke auf GENERIEREN.",
-                
-                pricingTitle: "Wähle deinen Plan",
-                starterName: "Einsteiger",
-                starterFeature1: "5 Bilder pro Tag (Vividia 3.0)",
-                starterFeature2: "SD-Qualität",
-                starterFeature3: "Community-Zugang",
-                starterBtn: "Starten",
-                
-                eliteName: "Elite",
-                eliteFeature1: "Unbegrenzte 8K-Bilder",
-                eliteFeature2: "🎙️ 10 min ElevenLabs",
-                eliteFeature3: "Ohne Wasserzeichen",
-                eliteFeature4: "Priorisierte Verarbeitung",
-                eliteBtn: "Elite wählen",
-                
-                proName: "Pro Studio",
-                proFeature1: "Alles in Elite",
-                proFeature2: "🎙️ 60 min ElevenLabs",
-                proFeature3: "Unbegrenztes Dubbing",
-                proFeature4: "Kommerzielle Lizenz",
-                proFeature5: "API-Zugang",
-                proBtn: "Pro wählen",
-                
-                popularBadge: "Am beliebtesten",
-                
-                starterPrice: "€0", starterPeriod: "/Monat",
-                elitePrice: "€7.99", elitePeriod: "/Monat",
-                proPrice: "€24.99", proPeriod: "/Monat",
-                
-                footer1: "Datenschutz", footer2: "AGB", footer3: "Support",
-                
-                modalPrivacy: "🔒 Datenschutz\n\nWir sammeln grundlegende Informationen (Name, E-Mail) und Nutzungsdaten zur Verbesserung unserer KI-Dienste. Ihre Kreationen bleiben Ihr Eigentum.\n\nAlle Daten sind mit AES-256 verschlüsselt. Unsere Server sind 24/7 gesichert.\n\nKontakt: privacy@vividia-ai.com",
-                modalTerms: "📜 AGB\n\nSie müssen mindestens 13 Jahre alt sein, um Vividia AI zu nutzen. Sie sind für die Sicherheit Ihres Kontos verantwortlich.\n\nSie besitzen alles, was Sie erstellen. Wir beanspruchen keine Rechte an Ihrer Arbeit.\n\nKeine illegalen oder schädlichen Inhalte erstellen.\n\nMonatliche Abrechnung. Jederzeit kündbar.",
-                modalSupport: "🆘 Support\n\n📧 E-Mail: support@vividia-ai.com – Antwort innerhalb 24h\n\n💬 Live-Chat: Mo–Fr, 9–18 Uhr\n\n❓ FAQ:\n• Wie starten? Beschreibe deine Idee und klicke auf GENERIEREN.\n• Zahlungsmethoden? Karten, PayPal, Krypto.\n• Kann ich kündigen? Ja, im Dashboard."
+                modalPrivacy: "🔒 سياسة الخصوصية\n\nنقوم بجمع المعلومات الأساسية (الاسم، البريد الإلكتروني) وبيانات الاستخدام لتحسين خدمات الذكاء الاصطناعي. إبداعاتك تبقى ملكك.\n\nجميع البيانات مشفرة باستخدام معايير AES-256.",
+                modalTerms: "📜 شروط الخدمة\n\nيجب أن يكون عمرك 13 سنة أو أكثر لاستخدام Vividia AI. أنت تملك كل ما تنشئه. يمنع إنشاء محتوى غير قانوني.\n\nالاشتراكات تدفع شهرياً.",
+                modalSupport: "🆘 مركز الدعم\n\n📧 البريد الإلكتروني: support@vividia-ai.com – الرد خلال 24 ساعة\n\n💬 الدردشة المباشرة: الإثنين–الجمعة، 9 صباحاً–6 مساءً"
             }
         };
 
@@ -351,14 +244,12 @@
         function setLanguage(lang) {
             const t = translations[lang];
             
-            // تغيير اتجاه الصفحة
             if (lang === 'ar') {
                 document.body.classList.add('rtl');
             } else {
                 document.body.classList.remove('rtl');
             }
 
-            // تغيير النصوص الرئيسية
             document.getElementById('title').innerText = t.title;
             document.getElementById('desc').innerText = t.desc;
             document.getElementById('btn1').innerText = t.btn1;
@@ -366,18 +257,17 @@
             document.getElementById('btn3').innerText = t.btn3;
             document.getElementById('btn4').innerText = t.btn4;
             document.getElementById('output').innerHTML = t.output;
+            document.getElementById('profitMessage').innerHTML = `<p>${t.profitMessage}</p>`;
             
-            // تغيير نصوص خطط الأسعار
             document.getElementById('pricingTitle').innerText = t.pricingTitle;
+            document.getElementById('pricingSubtitle').innerText = t.pricingSubtitle;
             
-            // الخطة المجانية
             document.getElementById('starterName').innerText = t.starterName;
             document.getElementById('starterFeature1').innerText = t.starterFeature1;
             document.getElementById('starterFeature2').innerText = t.starterFeature2;
             document.getElementById('starterFeature3').innerText = t.starterFeature3;
             document.getElementById('starterBtn').innerText = t.starterBtn;
             
-            // الخطة المميزة
             document.getElementById('eliteName').innerText = t.eliteName;
             document.getElementById('eliteFeature1').innerText = t.eliteFeature1;
             document.getElementById('eliteFeature2').innerText = t.eliteFeature2;
@@ -385,7 +275,6 @@
             document.getElementById('eliteFeature4').innerText = t.eliteFeature4;
             document.getElementById('eliteBtn').innerText = t.eliteBtn;
             
-            // الخطة الاحترافية
             document.getElementById('proName').innerText = t.proName;
             document.getElementById('proFeature1').innerText = t.proFeature1;
             document.getElementById('proFeature2').innerText = t.proFeature2;
@@ -396,21 +285,17 @@
             
             document.getElementById('popularBadge').innerText = t.popularBadge;
             
-            // تغيير الأسعار
             document.getElementById('starterPrice').innerHTML = t.starterPrice + ' <small>' + t.starterPeriod + '</small>';
             document.getElementById('elitePrice').innerHTML = t.elitePrice + ' <small>' + t.elitePeriod + '</small>';
             document.getElementById('proPrice').innerHTML = t.proPrice + ' <small>' + t.proPeriod + '</small>';
             
-            // تغيير روابط التذييل
             document.getElementById('footer1').innerText = t.footer1;
             document.getElementById('footer2').innerText = t.footer2;
             document.getElementById('footer3').innerText = t.footer3;
 
-            // حفظ اللغة الحالية
             window.currentLang = lang;
         }
 
-        // ==================== تفعيل الأزرار الداخلية ====================
         function setActive(btn) {
             document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -421,34 +306,31 @@
             }, 2000);
         }
 
-        // ==================== زر التوليد ====================
         function generate() {
             const output = document.getElementById('output');
-            output.innerHTML = "⏳ AI is creating your masterpiece...";
+            output.innerHTML = "⏳ AI is creating...";
             setTimeout(() => {
                 const lang = window.currentLang || 'en';
-                output.innerHTML = "✅ Generation complete!";
+                output.innerHTML = "✅ Done!";
                 setTimeout(() => {
                     output.innerHTML = translations[lang].output;
                 }, 2000);
             }, 2000);
         }
 
-        // ==================== اختيار الخطة ====================
         function selectPlan(plan) {
             const lang = window.currentLang || 'en';
             const t = translations[lang];
             
             if (plan === 'starter') {
-                alert("🎉 " + t.starterName + " plan selected! You can start creating now.");
+                alert("🎉 " + t.starterName + " - ابدأ بإنشاء 5 صور يومياً وبيعها!");
             } else if (plan === 'elite') {
-                alert("✨ " + t.eliteName + " plan selected! You now have access to premium features.");
+                alert("✨ " + t.eliteName + " - صور غير محدودة + صوت احترافي!");
             } else if (plan === 'pro') {
-                alert("🚀 " + t.proName + " plan selected! Welcome to professional studio access.");
+                alert("🚀 " + t.proName + " - رخصة تجارية + بيع إنتاجك!");
             }
         }
 
-        // ==================== النوافذ المنبثقة ====================
         function showModal(type) {
             const lang = window.currentLang || 'en';
             const t = translations[lang];
@@ -458,10 +340,9 @@
             else if (type === 'support') alert(t.modalSupport);
         }
 
-        // ==================== ضبط اللغة الافتراضية ====================
         window.onload = function() {
-            window.currentLang = 'en';
-            setLanguage('en');
+            window.currentLang = 'ar';
+            setLanguage('ar');
         };
     </script>
 </body>
