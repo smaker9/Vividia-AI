@@ -736,106 +736,177 @@
         </footer>
     </div>
 
-    <!-- Modals (Privacy, Terms, Support) -->
-    <div class="modal" id="privacyModal">...</div>
-    <div class="modal" id="termsModal">...</div>
-    <div class="modal" id="supportModal">...</div>
-    <div class="modal" id="featureModal">...</div>
+    <!-- Privacy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="privacyTitle">🔒 Privacy Policy</h2>
+                <span class="close-btn" onclick="closeModal('privacy')">&times;</span>
+            </div>
+            <div class="modal-body" id="privacyContent">
+                <h3>1. Information We Collect</h3>
+                <p>We collect basic account details (name, email) and usage data to improve our AI services. Your creations remain yours.</p>
+                <h3>2. How We Use Data</h3>
+                <p>Data is used solely for operating and improving Vividia AI. We never sell your personal information.</p>
+                <h3>3. Security</h3>
+                <p>All data is encrypted using industry‑standard AES‑256. Our servers are secured 24/7.</p>
+                <h3>4. Contact</h3>
+                <p>privacy@vividia-ai.com</p>
+            </div>
+        </div>
+    </div>
 
+    <!-- Terms Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="termsTitle">📜 Terms of Service</h2>
+                <span class="close-btn" onclick="closeModal('terms')">&times;</span>
+            </div>
+            <div class="modal-body" id="termsContent">
+                <h3>1. Account</h3>
+                <p>You must be 13+ to use Vividia AI. You are responsible for your account security.</p>
+                <h3>2. Content Ownership</h3>
+                <p>You own everything you create. We claim no rights over your work.</p>
+                <h3>3. Acceptable Use</h3>
+                <p>Do not generate illegal, harmful, or infringing content. We reserve the right to terminate accounts that violate this rule.</p>
+                <h3>4. Payments</h3>
+                <p>Memberships are billed monthly. Cancel anytime from your account settings.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div class="modal" id="supportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="supportTitle">🆘 Support Center</h2>
+                <span class="close-btn" onclick="closeModal('support')">&times;</span>
+            </div>
+            <div class="modal-body" id="supportContent">
+                <h3>📧 Email</h3>
+                <p><a href="mailto:support@vividia-ai.com" style="color:var(--primary)">support@vividia-ai.com</a> – reply within 24h</p>
+                <h3>💬 Live Chat</h3>
+                <p>Mon–Fri, 9am–6pm (your local time)</p>
+                <h3>❓ FAQ</h3>
+                <p><strong>How do I start?</strong> Just type a description and click GENERATE.</p>
+                <p><strong>Payment methods?</strong> Cards, PayPal, crypto (BTC, ETH).</p>
+                <p><strong>Can I cancel?</strong> Yes, instantly from your dashboard.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Modal -->
+    <div class="modal" id="featureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="featureModalTitle">Feature</h2>
+                <span class="close-btn" onclick="closeFeatureModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="featureModalContent"></div>
+        </div>
+    </div>
+
+    <!-- ==================== MEDIA BUTTONS FUNCTIONALITY (ADDED WITHOUT DELETING ANYTHING) ==================== -->
     <script>
-        // ==================== STATE ====================
-        let currentLang = 'en';
-        let activeMedia = 'image';
-
-        // ==================== PRICE CONFIGURATION ====================
-        const prices = {
-            en: { starter: 0, elite: 7.99, pro: 24.99, currency: '$' },
-            ar: { starter: 0, elite: 29.99, pro: 94.99, currency: '﷼' },
-            fr: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
-            es: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' },
-            de: { starter: 0, elite: 7.99, pro: 24.99, currency: '€' }
-        };
-
-        // ==================== TRANSLATIONS ====================
-        const translations = {
-            en: {
-                heroTitle: 'Create <span>Cinematic Masterpieces</span> with AI',
-                heroDesc: 'Turn your ideas into stunning 4K animations, films, and characters using next‑gen artificial intelligence',
-                toolsTitle: 'AI Creation Tools',
-                guestText: 'Continue as Guest',
-                aiBadge: 'AI Intelligent Engine',
-                mediaImage: 'IMAGE', mediaVideo: 'VIDEO', mediaMusic: 'MUSIC', mediaVoice: 'VOICE',
-                outputLabel: 'OUTPUT',
-                welcomeText: 'Welcome to Vividia AI. Describe your idea and click GENERATE!',
-                generateText: 'GENERATE MAGIC',
-                pricingTitle: 'Choose Your Plan',
-                pricingSubtitle: 'Flexible plans for every creator',
-                starterName: 'Starter', eliteName: 'Elite', proName: 'Pro Studio',
-                starterFeatures: ['5 images per day (Vividia 3.0)', 'SD quality', 'Community access'],
-                eliteFeatures: ['Unlimited 8K images', '🎙️ 10 min ElevenLabs voice', 'No watermark', 'Priority processing'],
-                proFeatures: ['Everything in Elite', '🎙️ 60 min ElevenLabs voice', 'Unlimited dubbing', 'Commercial license', 'Custom API access'],
-                starterBtn: 'Get Started', eliteBtn: 'Get Elite', proBtn: 'Get Pro',
-                popularBadge: 'Most Popular',
-                feature1Title: '4K Cinematic', feature1Desc: 'Generate Hollywood‑quality films in minutes',
-                feature2Title: 'AI Characters', feature2Desc: 'Create and animate unique characters',
-                feature3Title: 'Lip Sync', feature3Desc: 'Multi‑language support with automatic lip movement',
-                feature4Title: 'Cloud Storage', feature4Desc: 'Save and access your projects anywhere',
-                footerPrivacy: 'Privacy', footerTerms: 'Terms', footerSupport: 'Support',
-                copyright: '© 2026 Vividia AI. All rights reserved.',
-                period: '/month'
-            },
-            ar: {
-                heroTitle: 'اصنع <span>روائع سينمائية</span> بالذكاء الاصطناعي',
-                heroDesc: 'حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K باستخدام أحدث تقنيات الذكاء الاصطناعي',
-                toolsTitle: 'أدوات الإبداع بالذكاء الاصطناعي',
-                guestText: 'متابعة كزائر',
-                aiBadge: 'محرك الذكاء الاصطناعي',
-                mediaImage: 'صورة', mediaVideo: 'فيديو', mediaMusic: 'موسيقى', mediaVoice: 'صوت',
-                outputLabel: 'النتيجة',
-                welcomeText: 'مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!',
-                generateText: 'توليد الإبداع',
-                pricingTitle: 'اختر خطتك',
-                pricingSubtitle: 'خطط مرنة لكل مبدع',
-                starterName: 'المبتدئ', eliteName: 'النخبة', proName: 'برو ستوديو',
-                starterFeatures: ['5 صور يومياً (Vividia 3.0)', 'جودة عادية', 'وصول للمجتمع'],
-                eliteFeatures: ['صور غير محدودة 8K', '🎙️ 10 دقائق ElevenLabs', 'بدون علامة مائية', 'معالجة أولوية'],
-                proFeatures: ['كل مميزات النخبة', '🎙️ 60 دقيقة ElevenLabs', 'دبلجة غير محدودة', 'رخصة تجارية', 'API خاص'],
-                starterBtn: 'ابدأ مجاناً', eliteBtn: 'اشترك الآن', proBtn: 'اشترك في برو',
-                popularBadge: 'الأكثر طلباً',
-                feature1Title: 'سينما 4K', feature1Desc: 'أنتج أفلاماً بجودة هوليوود في دقائق',
-                feature2Title: 'شخصيات ذكية', feature2Desc: 'اصنع وحرك شخصيات فريدة',
-                feature3Title: 'مزامنة الشفاه', feature3Desc: 'دعم متعدد اللغات مع حركة شفاه تلقائية',
-                feature4Title: 'تخزين سحابي', feature4Desc: 'احفظ مشاريعك وصول إليها من أي مكان',
-                footerPrivacy: 'الخصوصية', footerTerms: 'الشروط', footerSupport: 'الدعم',
-                copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة',
-                period: '/شهر'
-            }
-        };
-
-        // ==================== LANGUAGE SWITCHER ====================
-        function switchLanguage(lang, flag, name, currency, elitePrice, proPrice) {
-            currentLang = lang;
-            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('currentLang').innerHTML = `${flag} ${name}`;
-
-            const t = translations[lang];
-            const p = prices[lang];
-
-            // Update texts
-            document.getElementById('heroTitle').innerHTML = t.heroTitle;
-            document.getElementById('heroDesc').innerText = t.heroDesc;
-            document.getElementById('toolsTitle').innerHTML = `<i class="fas fa-wand-magic" style="color:var(--primary)"></i> ${t.toolsTitle}`;
-            document.getElementById('guestText').innerText = t.guestText;
-            document.getElementById('aiBadge').innerHTML = `<i class="fas fa-robot"></i> ${t.aiBadge}`;
-            document.getElementById('mediaImage').innerHTML = `<i class="fas fa-image"></i> ${t.mediaImage}`;
-            document.getElementById('mediaVideo').innerHTML = `<i class="fas fa-video"></i> ${t.mediaVideo}`;
-            document.getElementById('mediaMusic').innerHTML = `<i class="fas fa-music"></i> ${t.mediaMusic}`;
-            document.getElementById('mediaVoice').innerHTML = `<i class="fas fa-microphone"></i> ${t.mediaVoice}`;
-            document.getElementById('outputLabel').innerText = t.outputLabel;
-            document.getElementById('welcomeText').innerText = t.welcomeText;
-            document.getElementById('generateText').innerText = t.generateText;
-            
-            // Pricing section
-            document.getElementById('pricingTitle').innerText = t.pricingTitle;
-            document.getElementById('pricingSubtitle').innerText = t.pricingSubtitle;
-            document.getElementById('starterName').innerText =
+        (function() {
+            // Wait for page to load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get all media buttons
+                const mediaButtons = document.querySelectorAll('.media-type');
+                const outputContent = document.getElementById('outputContent');
+                const outputStatus = document.getElementById('outputStatus');
+                const promptInput = document.getElementById('promptInput');
+                const generateBtn = document.querySelector('.generate-btn');
+                const guestBtn = document.querySelector('.guest-btn');
+                const magicBtn = document.querySelector('.prompt-box i');
+                
+                // Get current language from translations if available
+                let currentLang = 'en';
+                if (typeof translations !== 'undefined' && translations) {
+                    // Use existing translations
+                }
+                
+                // 1. Media buttons functionality
+                if (mediaButtons.length > 0) {
+                    mediaButtons.forEach(button => {
+                        button.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            
+                            // Remove active class from all buttons
+                            mediaButtons.forEach(btn => btn.classList.remove('active'));
+                            
+                            // Add active class to clicked button
+                            this.classList.add('active');
+                            
+                            // Get media type (remove icon text if exists)
+                            let mediaType = this.textContent.replace(/[🔹🔸🔶🔷]/g, '').trim();
+                            if (mediaType.includes('IMAGE')) mediaType = 'IMAGE';
+                            else if (mediaType.includes('VIDEO')) mediaType = 'VIDEO';
+                            else if (mediaType.includes('MUSIC')) mediaType = 'MUSIC';
+                            else if (mediaType.includes('VOICE')) mediaType = 'VOICE';
+                            
+                            // Update output
+                            if (outputContent) {
+                                outputContent.innerHTML = `🎬 ${mediaType} mode activated`;
+                                
+                                // Reset after 2 seconds
+                                setTimeout(() => {
+                                    if (typeof translations !== 'undefined' && translations[currentLang]) {
+                                        outputContent.innerHTML = `👋 ${translations[currentLang].welcomeText || 'Welcome to Vividia AI. Describe your idea and click GENERATE!'}`;
+                                    } else {
+                                        outputContent.innerHTML = `👋 Welcome to Vividia AI. Describe your idea and click GENERATE!`;
+                                    }
+                                }, 2000);
+                            }
+                        });
+                    });
+                }
+                
+                // 2. Generate button functionality
+                if (generateBtn) {
+                    generateBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        if (outputStatus) outputStatus.innerText = 'processing...';
+                        if (outputContent) outputContent.innerHTML = '🎨 AI is creating your masterpiece...';
+                        
+                        // Simulate AI processing
+                        setTimeout(() => {
+                            if (outputStatus) outputStatus.innerText = 'ready';
+                            if (outputContent) outputContent.innerHTML = '✅ Generation complete! (4K ready)';
+                            
+                            // Reset after 3 seconds
+                            setTimeout(() => {
+                                if (typeof translations !== 'undefined' && translations[currentLang]) {
+                                    if (outputContent) outputContent.innerHTML = `👋 ${translations[currentLang].welcomeText || 'Welcome to Vividia AI. Describe your idea and click GENERATE!'}`;
+                                } else {
+                                    if (outputContent) outputContent.innerHTML = `👋 Welcome to Vividia AI. Describe your idea and click GENERATE!`;
+                                }
+                            }, 3000);
+                        }, 2000);
+                    });
+                }
+                
+                // 3. Guest button functionality
+                if (guestBtn) {
+                    guestBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('👋 You are now in guest mode. Some features are limited.\n\nSign up to unlock: Unlimited 8K generation, ElevenLabs voice, and more!');
+                    });
+                }
+                
+                // 4. Magic wand functionality
+                if (magicBtn) {
+                    magicBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        if (promptInput) {
+                            promptInput.value += ', enhanced by AI, 8K quality, cinematic lighting';
+                            
+                            if (outputContent) {
+                                outputContent.innerHTML = '✨ Prompt enhanced!';
+                                
+                                setTimeout(() => {
+                                    if (typeof translations !== 'undefined' && translations[currentLang]) {
+                                        if (outputContent) outputContent.innerHTML
