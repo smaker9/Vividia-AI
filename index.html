@@ -240,15 +240,17 @@
             background: var(--bg-dark);
             border: 1px solid var(--border);
             border-radius: 50px;
-            padding: 12px 20px;
+            padding: 15px 20px;
             margin: 20px 0;
             display: flex;
             align-items: center;
+            min-height: 70px;
         }
 
         @media (max-width: 480px) {
             .prompt-box {
-                padding: 10px 15px;
+                padding: 12px 15px;
+                min-height: 60px;
             }
         }
 
@@ -259,6 +261,8 @@
             font-size: clamp(14px, 2.5vw, 16px);
             width: 100%;
             outline: none;
+            line-height: 1.5;
+            padding: 5px 0;
         }
 
         .prompt-box input::placeholder {
@@ -267,10 +271,16 @@
 
         .prompt-box i {
             color: var(--primary);
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             min-width: 40px;
             text-align: center;
+            transition: 0.3s;
+        }
+
+        .prompt-box i:hover {
+            transform: scale(1.2);
+            color: var(--secondary);
         }
 
         .ai-badge {
@@ -301,6 +311,9 @@
             transition: 0.3s;
             font-size: clamp(12px, 2.5vw, 14px);
             flex: 0 1 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         @media (max-width: 480px) {
@@ -308,6 +321,7 @@
                 padding: 6px 15px;
                 flex: 1 1 calc(50% - 10px);
                 text-align: center;
+                justify-content: center;
             }
         }
 
@@ -358,6 +372,10 @@
             width: 100%;
             margin: 20px 0;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         @media (max-width: 480px) {
@@ -369,11 +387,6 @@
         .generate-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
-        }
-
-        .generate-btn i {
-            margin-left: 10px;
-            margin-right: 10px;
         }
 
         .membership-card {
@@ -419,12 +432,16 @@
             cursor: pointer;
             font-size: clamp(12px, 2.5vw, 14px);
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         @media (max-width: 480px) {
             .membership-btn {
                 width: 100%;
                 white-space: normal;
+                justify-content: center;
             }
         }
 
@@ -456,6 +473,14 @@
             border-radius: 20px;
             padding: 25px 20px;
             text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.2);
         }
 
         .feature-icon {
@@ -521,6 +546,9 @@
             font-size: clamp(12px, 2.5vw, 14px);
             padding: 5px 0;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .footer-links a:hover {
@@ -648,8 +676,8 @@
                 <div class="lang-item active" onclick="changeLanguage('en', '🇺🇸', 'English', '$', 7.99)">
                     <span>🇺🇸 English</span>
                 </div>
-                <div class="lang-item" onclick="changeLanguage('ar', '🇸🇦', 'العربية', '﷼', 29.99)">
-                    <span>🇸🇦 العربية</span>
+                <div class="lang-item" onclick="changeLanguage('ar', '🇸🇦', 'Arabic', '﷼', 29.99)">
+                    <span>🇸🇦 Arabic</span>
                 </div>
                 <div class="lang-item" onclick="changeLanguage('fr', '🇫🇷', 'Français', '€', 7.99)">
                     <span>🇫🇷 Français</span>
@@ -681,9 +709,9 @@
             </button>
         </div>
 
-        <!-- Prompt Box -->
+        <!-- Prompt Box (مكبر للأسفل) -->
         <div class="prompt-box">
-            <input type="text" id="promptInput" value="Steampunk warrior, cinematic lighting, 4K">
+            <input type="text" id="promptInput" value="Steampunk warrior, cinematic lighting, 4K" placeholder="Describe your masterpiece...">
             <i class="fas fa-magic" id="magicBtn" onclick="enhancePrompt()"></i>
         </div>
 
@@ -692,12 +720,12 @@
             <i class="fas fa-robot"></i> AI Intelligent Engine
         </div>
 
-        <!-- Media Types -->
+        <!-- Media Types (مع أيقونات ديناميكية) -->
         <div class="media-types">
-            <div class="media-type active" onclick="selectMedia('image')" id="mediaImage">IMAGE</div>
-            <div class="media-type" onclick="selectMedia('video')" id="mediaVideo">VIDEO</div>
-            <div class="media-type" onclick="selectMedia('music')" id="mediaMusic">MUSIC</div>
-            <div class="media-type" onclick="selectMedia('voice')" id="mediaVoice">VOICE</div>
+            <div class="media-type active" onclick="selectMedia('image')" id="mediaImage"><i class="fas fa-image"></i> IMAGE</div>
+            <div class="media-type" onclick="selectMedia('video')" id="mediaVideo"><i class="fas fa-video"></i> VIDEO</div>
+            <div class="media-type" onclick="selectMedia('music')" id="mediaMusic"><i class="fas fa-music"></i> MUSIC</div>
+            <div class="media-type" onclick="selectMedia('voice')" id="mediaVoice"><i class="fas fa-microphone"></i> VOICE</div>
         </div>
 
         <!-- Output Area -->
@@ -730,24 +758,24 @@
         </div>
     </div>
 
-    <!-- Features -->
+    <!-- Features (أيقونات ديناميكية) -->
     <div class="features">
-        <div class="feature-card">
+        <div class="feature-card" onclick="showFeature('4k')">
             <div class="feature-icon"><i class="fas fa-film"></i></div>
             <h3 id="feature1Title">4K Cinematic</h3>
             <p id="feature1Desc">Generate Hollywood‑quality films in minutes</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" onclick="showFeature('characters')">
             <div class="feature-icon"><i class="fas fa-robot"></i></div>
             <h3 id="feature2Title">AI Characters</h3>
             <p id="feature2Desc">Create and animate unique characters</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" onclick="showFeature('lipsync')">
             <div class="feature-icon"><i class="fas fa-language"></i></div>
             <h3 id="feature3Title">Lip Sync</h3>
             <p id="feature3Desc">Multi‑language support with automatic lip movement</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" onclick="showFeature('cloud')">
             <div class="feature-icon"><i class="fas fa-cloud"></i></div>
             <h3 id="feature4Title">Cloud Storage</h3>
             <p id="feature4Desc">Save and access your projects anywhere</p>
@@ -758,9 +786,9 @@
     <div class="footer">
         <div class="logo" style="font-size: 20px;">VIVIDIA AI</div>
         <div class="footer-links">
-            <a onclick="showModal('privacy')" id="footerPrivacy">Privacy</a>
-            <a onclick="showModal('terms')" id="footerTerms">Terms</a>
-            <a onclick="showModal('support')" id="footerSupport">Support</a>
+            <a onclick="showModal('privacy')" id="footerPrivacy"><i class="fas fa-shield-alt"></i> Privacy</a>
+            <a onclick="showModal('terms')" id="footerTerms"><i class="fas fa-file-contract"></i> Terms</a>
+            <a onclick="showModal('support')" id="footerSupport"><i class="fas fa-headset"></i> Support</a>
         </div>
         <div class="copyright" id="copyright">© 2026 Vividia AI. All rights reserved.</div>
     </div>
@@ -840,7 +868,7 @@
                 Available Monday-Friday<br>
                 9 AM - 6 PM (EST)</p>
                 
-                <p><strong>📚 FAQ</strong></p>
+                <p><strong>📚 Frequently Asked Questions</strong></p>
                 
                 <p><strong>Q: How do I create an account?</strong><br>
                 A: Click "Continue as Guest" or "Sign Up" to get started.</p>
@@ -853,11 +881,33 @@
                 
                 <p><strong>Q: Is my content private?</strong><br>
                 A: Yes, your projects are private and secure.</p>
+                
+                <p><strong>Q: What is the maximum video duration?</strong><br>
+                A: Up to 60 minutes for Elite members, 10 minutes for free users.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Modals -->
+    <div class="modal" id="featureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="featureModalTitle">Feature Details</h2>
+                <span class="close-btn" onclick="closeFeatureModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="featureModalContent">
+                <!-- Dynamic content will be inserted here -->
             </div>
         </div>
     </div>
 
     <script>
+        // ==================== GLOBAL STATE ====================
+        let currentMedia = 'image';
+        let currentLang = 'en';
+        let currentCurrency = '$';
+        let currentPrice = 7.99;
+
         // ==================== LANGUAGE TRANSLATIONS ====================
         const translations = {
             en: {
@@ -890,7 +940,15 @@
                 copyright: '© 2026 Vividia AI. All rights reserved.',
                 privacyTitle: 'Privacy Policy',
                 termsTitle: 'Terms of Service',
-                supportTitle: 'Support Center'
+                supportTitle: 'Support Center',
+                feature4kTitle: '4K Cinematic',
+                feature4kDesc: 'Generate Hollywood-quality films in minutes with our advanced AI rendering engine. Supports 24fps, 30fps, and 60fps output with HDR color grading.',
+                featureCharsTitle: 'AI Characters',
+                featureCharsDesc: 'Create unique characters from text descriptions or upload photos. Auto-rigging and pre-built animations included.',
+                featureLipsyncTitle: 'Lip Sync',
+                featureLipsyncDesc: 'Multi-language support with automatic lip movement. Works with English, Arabic, French, Spanish, German, Japanese, and more.',
+                featureCloudTitle: 'Cloud Storage',
+                featureCloudDesc: 'Save your projects securely in the cloud. Access them from any device. 100GB storage included with Elite membership.'
             },
             ar: {
                 heroTitle: 'اصنع <span>روائع سينمائية</span><br>بالذكاء الاصطناعي',
@@ -921,60 +979,4 @@
                 footerSupport: 'الدعم',
                 copyright: '© 2026 Vividia AI. جميع الحقوق محفوظة',
                 privacyTitle: 'سياسة الخصوصية',
-                termsTitle: 'شروط الخدمة',
-                supportTitle: 'مركز الدعم'
-            },
-            fr: {
-                heroTitle: 'Créez des <span>chefs-d\'œuvre cinématographiques</span><br>avec l\'IA',
-                heroDesc: 'Transformez vos idées en animations, films et personnages 4K époustouflants grâce à l\'IA de nouvelle génération',
-                toolsTitle: 'Outils de création IA',
-                guestText: 'Continuer en tant qu\'invité',
-                aiBadge: 'Moteur intelligent IA',
-                mediaImage: 'IMAGE',
-                mediaVideo: 'VIDÉO',
-                mediaMusic: 'MUSIQUE',
-                mediaVoice: 'VOIX',
-                outputLabel: 'SORTIE',
-                welcomeText: 'Bienvenue sur Vividia AI. Décrivez votre idée et cliquez sur GÉNÉRER!',
-                generateText: 'GÉNÉRER MAGIQUE',
-                membershipTitle: 'Adhésion Elite',
-                membershipPeriod: '/mois',
-                membershipBtnText: 'Accès complet à tous les modèles IA',
-                feature1Title: 'Cinéma 4K',
-                feature1Desc: 'Générez des films de qualité Hollywood en quelques minutes',
-                feature2Title: 'Personnages IA',
-                feature2Desc: 'Créez et animez des personnages uniques',
-                feature3Title: 'Syncho labiale',
-                feature3Desc: 'Support multilingue avec mouvement labial automatique',
-                feature4Title: 'Stockage Cloud',
-                feature4Desc: 'Sauvegardez et accédez à vos projets partout',
-                footerPrivacy: 'Confidentialité',
-                footerTerms: 'Conditions',
-                footerSupport: 'Assistance',
-                copyright: '© 2026 Vividia AI. Tous droits réservés.',
-                privacyTitle: 'Politique de confidentialité',
-                termsTitle: 'Conditions d\'utilisation',
-                supportTitle: 'Centre d\'aide'
-            },
-            es: {
-                heroTitle: 'Crea <span>obras maestras cinematográficas</span><br>con IA',
-                heroDesc: 'Convierte tus ideas en impresionantes animaciones, películas y personajes 4K con inteligencia artificial de última generación',
-                toolsTitle: 'Herramientas de creación IA',
-                guestText: 'Continuar como invitado',
-                aiBadge: 'Motor inteligente IA',
-                mediaImage: 'IMAGEN',
-                mediaVideo: 'VIDEO',
-                mediaMusic: 'MÚSICA',
-                mediaVoice: 'VOZ',
-                outputLabel: 'SALIDA',
-                welcomeText: 'Bienvenido a Vividia AI. ¡Describe tu idea y haz clic en GENERAR!',
-                generateText: 'GENERAR MAGIA',
-                membershipTitle: 'Membresía Elite',
-                membershipPeriod: '/mes',
-                membershipBtnText: 'Acceso completo a todos los modelos IA',
-                feature1Title: 'Cinematografía 4K',
-                feature1Desc: 'Genera películas de calidad Hollywood en minutos',
-                feature2Title: 'Personajes IA',
-                feature2Desc: 'Crea y anima personajes únicos',
-                feature3Title: 'Sincronía labial',
-                feature3
+                termsTitle: '
