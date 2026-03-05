@@ -3,346 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - منصة الربح من الذكاء الاصطناعي</title>
+    <title>Vividia AI - منصة الذكاء الاصطناعي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body { background: #0A0A1A; color: white; padding: 20px; transition: all 0.3s ease; }
         body.rtl { direction: rtl; text-align: right; }
+        
+        /* Header with Profile */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+        .logo { font-size: 28px; font-weight: bold; background: linear-gradient(135deg, #8B5CF6, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile { display: flex; align-items: center; gap: 20px; background: #12122A; padding: 10px 20px; border-radius: 50px; border: 1px solid #1E1E3A; }
+        .points { display: flex; align-items: center; gap: 8px; background: #1E1E3A; padding: 8px 15px; border-radius: 30px; }
+        .points i { color: gold; }
+        .points-value { font-weight: bold; color: #8B5CF6; }
+        .user-icon { width: 40px; height: 40px; background: #8B5CF6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        /* Language Selector */
         .lang-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
         .lang-btn { background: #1E1E3A; color: white; border: 1px solid #8B5CF6; padding: 10px 20px; border-radius: 30px; cursor: pointer; }
         .lang-btn:hover { background: #8B5CF6; }
+        
+        /* Main Card */
         .card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 30px; margin-bottom: 20px; max-width: 600px; }
         h1 { margin-bottom: 10px; }
         p { color: #9CA3AF; margin-bottom: 20px; }
-        .price { font-size: 24px; font-weight: bold; color: #8B5CF6; }
+        
+        /* Media Buttons */
         .buttons { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
         .btn { background: #1E1E3A; border: 1px solid #1E1E3A; padding: 10px 20px; border-radius: 30px; cursor: pointer; }
         .btn.active { background: #8B5CF6; }
+        
+        /* Output */
         .output { background: #0A0A1A; border: 1px solid #1E1E3A; border-radius: 10px; padding: 15px; margin: 20px 0; }
         
-        /* خطط الأسعار المحسنة */
-        .pricing-section { margin: 40px 0; }
-        .pricing-title { text-align: center; font-size: 32px; margin-bottom: 30px; color: white; }
-        .pricing-subtitle { text-align: center; color: #9CA3AF; margin-bottom: 40px; font-size: 16px; }
-        .pricing-cards { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; }
-        .pricing-card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 25px; padding: 30px; flex: 1 1 280px; position: relative; transition: transform 0.3s; }
-        .pricing-card:hover { transform: translateY(-8px); border-color: #8B5CF6; box-shadow: 0 20px 30px -10px rgba(139,92,246,0.3); }
-        .pricing-card.popular { border: 2px solid #8B5CF6; background: linear-gradient(145deg, #12122A, #1A1A3A); }
-        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #8B5CF6; color: white; padding: 5px 25px; border-radius: 30px; font-size: 13px; font-weight: bold; }
-        .pricing-name { font-size: 24px; font-weight: bold; margin-bottom: 15px; color: white; }
-        .pricing-price { font-size: 38px; font-weight: bold; color: #8B5CF6; margin-bottom: 5px; }
-        .pricing-price small { font-size: 14px; color: #9CA3AF; font-weight: normal; }
-        .pricing-period { color: #9CA3AF; font-size: 14px; margin-bottom: 20px; }
-        .pricing-features { list-style: none; margin-bottom: 25px; min-height: 180px; }
-        .pricing-features li { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: #9CA3AF; font-size: 14px; }
-        .pricing-features i { color: #10B981; min-width: 20px; }
-        .pricing-btn { background: transparent; border: 1px solid #1E1E3A; color: white; padding: 14px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; font-size: 16px; }
-        .pricing-btn:hover { background: #8B5CF6; border-color: #8B5CF6; }
-        .pricing-btn.popular-btn { background: #8B5CF6; border: none; }
-        .pricing-btn.popular-btn:hover { background: #7C3AED; }
+        /* Generate Button */
+        .generate-btn { background: #8B5CF6; color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 16px; cursor: pointer; margin: 20px 0; }
+        .generate-btn:hover { background: #7C3AED; }
         
-        .footer { margin-top: 40px; color: #9CA3AF; }
-        .footer a { color: #9CA3AF; text-decoration: none; margin: 0 10px; cursor: pointer; }
+        /* Pricing Section */
+        .pricing-section { margin: 40px 0; }
+        .pricing-title { text-align: center; font-size: 28px; margin-bottom: 10px; }
+        .pricing-subtitle { text-align: center; color: #9CA3AF; margin-bottom: 30px; }
+        .pricing-cards { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .pricing-card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 25px; flex: 1 1 250px; transition: transform 0.3s; }
+        .pricing-card:hover { transform: translateY(-5px); border-color: #8B5CF6; }
+        .pricing-card.popular { border: 2px solid #8B5CF6; }
+        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #8B5CF6; padding: 5px 20px; border-radius: 30px; font-size: 12px; }
+        .pricing-name { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+        .pricing-price { font-size: 28px; font-weight: bold; color: #8B5CF6; margin-bottom: 5px; }
+        .pricing-price small { font-size: 14px; color: #9CA3AF; }
+        .pricing-features { list-style: none; margin: 20px 0; min-height: 120px; }
+        .pricing-features li { margin-bottom: 10px; color: #9CA3AF; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .pricing-features i { color: #10B981; }
+        .pricing-btn { background: transparent; border: 1px solid #1E1E3A; color: white; padding: 12px; border-radius: 30px; cursor: pointer; width: 100%; }
+        .pricing-btn.popular-btn { background: #8B5CF6; border: none; }
+        
+        /* Footer */
+        .footer { margin-top: 40px; color: #9CA3AF; display: flex; gap: 20px; justify-content: center; }
+        .footer a { color: #9CA3AF; text-decoration: none; cursor: pointer; }
         .footer a:hover { color: #8B5CF6; }
         
-        /* رسالة الربح اليومي */
-        .profit-message { background: rgba(16,185,129,0.1); border: 1px solid #10B981; border-radius: 15px; padding: 15px; margin: 20px 0; text-align: center; }
-        .profit-message p { color: #10B981; font-size: 16px; margin: 0; }
+        /* Upgrade Modal */
+        .upgrade-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .upgrade-modal.show { display: flex; }
+        .upgrade-card {
+            background: #12122A;
+            border: 2px solid #8B5CF6;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        .upgrade-icon { font-size: 60px; color: #8B5CF6; margin-bottom: 20px; }
+        .upgrade-title { font-size: 28px; margin-bottom: 10px; }
+        .upgrade-desc { color: #9CA3AF; margin-bottom: 30px; }
+        
+        /* Disabled */
+        .disabled { opacity: 0.5; pointer-events: none; }
     </style>
 </head>
-<body class="">
+<body>
     <div style="max-width: 1200px; margin: 0 auto;">
+        
+        <!-- Header with Profile -->
+        <div class="header">
+            <div class="logo">VIVIDIA AI</div>
+            <div class="profile" id="profile">
+                <div class="points">
+                    <i class="fas fa-star"></i>
+                    <span class="points-value" id="points">10</span>
+                    <span id="pointsText">نقاط</span>
+                </div>
+                <div class="user-icon" id="userIcon">Z</div>
+            </div>
+        </div>
 
-        <!-- أزرار تغيير اللغة -->
+        <!-- Language Buttons -->
         <div class="lang-buttons">
             <button class="lang-btn" onclick="setLanguage('en')">🇺🇸 English</button>
-            <button class="lang-btn" onclick="setLanguage('ar')">🇸🇦 Arabic</button>
+            <button class="lang-btn" onclick="setLanguage('ar')">🇸🇦 العربية</button>
             <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
             <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
             <button class="lang-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
         </div>
 
-        <!-- المحتوى الرئيسي -->
-        <div class="card">
-            <h1 id="title">ابدأ الربح من اليوم الأول مع Vividia AI</h1>
-            <p id="desc">حوّل أفكارك إلى صور وفيديوهات احترافية وابيعها للعملاء مباشرة</p>
+        <!-- Main Card -->
+        <div class="card" id="mainContent">
+            <h1 id="title">Create Cinematic Masterpieces with AI</h1>
+            <p id="desc">Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence.</p>
 
-            <!-- الأزرار الداخلية -->
+            <!-- Media Buttons -->
             <div class="buttons">
-                <button class="btn active" id="btn1" onclick="setActive(this)">IMAGE</button>
-                <button class="btn" id="btn2" onclick="setActive(this)">VIDEO</button>
-                <button class="btn" id="btn3" onclick="setActive(this)">MUSIC</button>
-                <button class="btn" id="btn4" onclick="setActive(this)">VOICE</button>
+                <button class="btn active" id="btn1" onclick="useFeature(this, 'IMAGE')">IMAGE</button>
+                <button class="btn" id="btn2" onclick="useFeature(this, 'VIDEO')">VIDEO</button>
+                <button class="btn" id="btn3" onclick="useFeature(this, 'MUSIC')">MUSIC</button>
+                <button class="btn" id="btn4" onclick="useFeature(this, 'VOICE')">VOICE</button>
             </div>
 
-            <!-- صندوق الإخراج -->
+            <!-- Output -->
             <div class="output" id="output">
-                👋 مرحباً! صف فكرتك وانقر على توليد.
+                👋 <span id="welcomeText">Welcome to Vividia AI. Describe your idea and click GENERATE!</span>
             </div>
 
-            <!-- زر التوليد -->
-            <button class="lang-btn" style="width: 100%; padding: 15px;" onclick="generate()">✨ توليد الإبداع</button>
-
-            <!-- رسالة الربح اليومي -->
-            <div class="profit-message" id="profitMessage">
-                <p>💰 مع 5 صور يومياً = ربح يصل إلى $1500 شهرياً</p>
-            </div>
+            <!-- Generate Button -->
+            <button class="generate-btn" onclick="generate()" id="generateBtn">
+                <i class="fas fa-wand-magic"></i> <span id="generateText">GENERATE MAGIC</span>
+            </button>
         </div>
 
-        <!-- قسم خطط الأسعار المحسن -->
+        <!-- Pricing Section -->
         <div class="pricing-section">
-            <h2 class="pricing-title" id="pricingTitle">اختر خطتك وابدأ الربح اليوم</h2>
-            <p class="pricing-subtitle" id="pricingSubtitle">خطط مصممة خصيصاً لتحقق دخل يومي من اليوم الأول</p>
+            <h2 class="pricing-title" id="pricingTitle">Choose Your Plan</h2>
+            <p class="pricing-subtitle" id="pricingSubtitle">Flexible plans for every creator</p>
             
             <div class="pricing-cards">
-                <!-- الخطة المجانية (Starter) - 5 صور يومياً -->
+                <!-- Starter -->
                 <div class="pricing-card">
                     <div class="pricing-name" id="starterName">Starter</div>
-                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/شهر</small></div>
+                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/month</small></div>
                     <ul class="pricing-features" id="starterFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature1">✅ 5 صور يومياً (تكفي لربح يومي)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature2">🖼️ جودة عادية (SD)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeature3">👥 وصول للمجتمع</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>5 images per day</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>SD quality</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Community access</span></li>
                     </ul>
-                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">ابدأ مجاناً</button>
+                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">Get Started</button>
                 </div>
 
-                <!-- الخطة المميزة (Elite) - الأكثر طلباً للمحترفين -->
+                <!-- Elite -->
                 <div class="pricing-card popular">
-                    <div class="popular-badge" id="popularBadge">الأكثر طلباً</div>
+                    <div class="popular-badge" id="popularBadge">Most Popular</div>
                     <div class="pricing-name" id="eliteName">Elite</div>
-                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/شهر</small></div>
+                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/month</small></div>
                     <ul class="pricing-features" id="eliteFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature1">🎨 صور غير محدودة 8K</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature2">🎙️ 10 دقائق ElevenLabs (صوت بشري)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature3">🚫 بدون علامة مائية</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeature4">⚡ معالجة أولوية (أسرع)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Unlimited 8K images</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>🎙️ 10 min ElevenLabs voice</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>No watermark</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Priority processing</span></li>
                     </ul>
-                    <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">اشترك الآن</button>
+                    <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">Get Elite</button>
                 </div>
 
-                <!-- الخطة الاحترافية (Pro Studio) - للمشاريع الكبيرة -->
+                <!-- Pro -->
                 <div class="pricing-card">
                     <div class="pricing-name" id="proName">Pro Studio</div>
-                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/شهر</small></div>
+                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/month</small></div>
                     <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature1">✨ كل مميزات Elite</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature2">🎙️ 60 دقيقة ElevenLabs (مشاريع كبيرة)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature3">🌍 دبلجة غير محدودة (أي لغة)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature4">💰 رخصة تجارية (بيع ما تنتج)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeature5">🔧 API خاص (للمطورين)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Everything in Elite</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>🎙️ 60 min ElevenLabs voice</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Unlimited dubbing</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Commercial license</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Custom API access</span></li>
                     </ul>
-                    <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">اشترك في برو</button>
+                    <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">Get Pro</button>
                 </div>
             </div>
         </div>
 
-        <!-- روابط أسفل الصفحة -->
-        <div class="footer" style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
-            <a href="#" onclick="showModal('privacy'); return false;" id="footer1">الخصوصية</a>
-            <a href="#" onclick="showModal('terms'); return false;" id="footer2">الشروط</a>
-            <a href="#" onclick="showModal('support'); return false;" id="footer3">الدعم</a>
+        <!-- Footer -->
+        <div class="footer">
+            <a href="#" onclick="showModal('privacy'); return false;">Privacy</a>
+            <a href="#" onclick="showModal('terms'); return false;">Terms</a>
+            <a href="#" onclick="showModal('support'); return false;">Support</a>
         </div>
-        <div style="text-align: center; margin-top: 20px;">© 2026 Vividia AI - اربح من اليوم الأول</div>
     </div>
 
-    <!-- Font Awesome للأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Upgrade Modal -->
+    <div class="upgrade-modal" id="upgradeModal">
+        <div class="upgrade-card">
+            <div class="upgrade-icon">✨</div>
+            <h2 class="upgrade-title" id="upgradeTitle">You've Used All Your Points!</h2>
+            <p class="upgrade-desc" id="upgradeDesc">Upgrade to continue creating amazing content.</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="pricing-btn popular-btn" onclick="selectPlan('elite')">Get Elite ($7.99)</button>
+                <button class="pricing-btn popular-btn" onclick="selectPlan('pro')">Get Pro ($24.99)</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // ==================== بيانات الترجمة الكاملة ====================
+        // ==================== GLOBAL STATE ====================
+        let points = 10; // يبدأ ب 10 نقاط
+        let currentLang = 'en';
+        let activeMedia = 'image';
+
+        // ==================== TRANSLATIONS ====================
         const translations = {
             en: {
-                title: "Start Earning from Day One with Vividia AI",
-                desc: "Turn your ideas into professional images and videos and sell them directly to clients.",
+                title: "Create Cinematic Masterpieces with AI",
+                desc: "Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence.",
                 btn1: "IMAGE", btn2: "VIDEO", btn3: "MUSIC", btn4: "VOICE",
-                output: "👋 Welcome! Describe your idea and click GENERATE.",
-                profitMessage: "💰 With 5 images daily = up to $1500 monthly profit",
-                
-                pricingTitle: "Choose Your Plan & Start Earning Today",
-                pricingSubtitle: "Plans designed to help you generate daily income from day one",
-                
-                starterName: "Starter",
-                starterFeature1: "✅ 5 images daily (enough for daily profit)",
-                starterFeature2: "🖼️ SD quality",
-                starterFeature3: "👥 Community access",
-                starterBtn: "Start Free",
-                
-                eliteName: "Elite",
-                eliteFeature1: "🎨 Unlimited 8K images",
-                eliteFeature2: "🎙️ 10 min ElevenLabs voice",
-                eliteFeature3: "🚫 No watermark",
-                eliteFeature4: "⚡ Priority processing",
-                eliteBtn: "Subscribe Now",
-                
-                proName: "Pro Studio",
-                proFeature1: "✨ Everything in Elite",
-                proFeature2: "🎙️ 60 min ElevenLabs voice",
-                proFeature3: "🌍 Unlimited dubbing",
-                proFeature4: "💰 Commercial license (sell your work)",
-                proFeature5: "🔧 Custom API access",
-                proBtn: "Get Pro",
-                
+                welcomeText: "Welcome to Vividia AI. Describe your idea and click GENERATE!",
+                generateText: "GENERATE MAGIC",
+                pointsText: "Points",
+                pricingTitle: "Choose Your Plan",
+                pricingSubtitle: "Flexible plans for every creator",
+                starterName: "Starter", eliteName: "Elite", proName: "Pro Studio",
+                starterPeriod: "/month", elitePeriod: "/month", proPeriod: "/month",
                 popularBadge: "Most Popular",
-                
-                starterPrice: "$0", starterPeriod: "/month",
-                elitePrice: "$7.99", elitePeriod: "/month",
-                proPrice: "$24.99", proPeriod: "/month",
-                
-                footer1: "Privacy", footer2: "Terms", footer3: "Support",
-                
-                modalPrivacy: "🔒 Privacy Policy\n\nWe collect basic account details (name, email) and usage data to improve our AI services. Your creations remain yours.\n\nAll data is encrypted using industry-standard AES-256.",
-                modalTerms: "📜 Terms of Service\n\nYou must be 13 or older to use Vividia AI. You own everything you create. No illegal content.\n\nMemberships are billed monthly.",
-                modalSupport: "🆘 Support Center\n\n📧 Email: support@vividia-ai.com – reply within 24 hours\n\n💬 Live Chat: Monday–Friday, 9am–6pm"
+                starterBtn: "Get Started", eliteBtn: "Get Elite", proBtn: "Get Pro",
+                upgradeTitle: "You've Used All Your Points!",
+                upgradeDesc: "Upgrade to continue creating amazing content."
             },
             ar: {
-                title: "ابدأ الربح من اليوم الأول مع Vividia AI",
-                desc: "حوّل أفكارك إلى صور وفيديوهات احترافية وبيعها للعملاء مباشرة",
+                title: "اصنع روائع سينمائية بالذكاء الاصطناعي",
+                desc: "حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K",
                 btn1: "صورة", btn2: "فيديو", btn3: "موسيقى", btn4: "صوت",
-                output: "👋 مرحباً! صف فكرتك وانقر على توليد.",
-                profitMessage: "💰 مع 5 صور يومياً = ربح يصل إلى $1500 شهرياً",
-                
-                pricingTitle: "اختر خطتك وابدأ الربح اليوم",
-                pricingSubtitle: "خطط مصممة خصيصاً لتحقق دخل يومي من اليوم الأول",
-                
-                starterName: "المبتدئ",
-                starterFeature1: "✅ 5 صور يومياً (تكفي لربح يومي)",
-                starterFeature2: "🖼️ جودة عادية",
-                starterFeature3: "👥 وصول للمجتمع",
-                starterBtn: "ابدأ مجاناً",
-                
-                eliteName: "النخبة",
-                eliteFeature1: "🎨 صور غير محدودة 8K",
-                eliteFeature2: "🎙️ 10 دقائق ElevenLabs",
-                eliteFeature3: "🚫 بدون علامة مائية",
-                eliteFeature4: "⚡ معالجة أولوية",
-                eliteBtn: "اشترك الآن",
-                
-                proName: "احترافية",
-                proFeature1: "✨ كل مميزات النخبة",
-                proFeature2: "🎙️ 60 دقيقة ElevenLabs",
-                proFeature3: "🌍 دبلجة غير محدودة",
-                proFeature4: "💰 رخصة تجارية (بيع إنتاجك)",
-                proFeature5: "🔧 API خاص",
-                proBtn: "اشترك في برو",
-                
+                welcomeText: "مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!",
+                generateText: "توليد الإبداع",
+                pointsText: "نقاط",
+                pricingTitle: "اختر خطتك",
+                pricingSubtitle: "خطط مرنة لكل مبدع",
+                starterName: "المبتدئ", eliteName: "النخبة", proName: "برو ستوديو",
+                starterPeriod: "/شهر", elitePeriod: "/شهر", proPeriod: "/شهر",
                 popularBadge: "الأكثر طلباً",
-                
-                starterPrice: "﷼ 0", starterPeriod: "/شهر",
-                elitePrice: "﷼ 29.99", elitePeriod: "/شهر",
-                proPrice: "﷼ 94.99", proPeriod: "/شهر",
-                
-                footer1: "الخصوصية", footer2: "الشروط", footer3: "الدعم",
-                
-                modalPrivacy: "🔒 سياسة الخصوصية\n\nنقوم بجمع المعلومات الأساسية (الاسم، البريد الإلكتروني) وبيانات الاستخدام لتحسين خدمات الذكاء الاصطناعي. إبداعاتك تبقى ملكك.\n\nجميع البيانات مشفرة باستخدام معايير AES-256.",
-                modalTerms: "📜 شروط الخدمة\n\nيجب أن يكون عمرك 13 سنة أو أكثر لاستخدام Vividia AI. أنت تملك كل ما تنشئه. يمنع إنشاء محتوى غير قانوني.\n\nالاشتراكات تدفع شهرياً.",
-                modalSupport: "🆘 مركز الدعم\n\n📧 البريد الإلكتروني: support@vividia-ai.com – الرد خلال 24 ساعة\n\n💬 الدردشة المباشرة: الإثنين–الجمعة، 9 صباحاً–6 مساءً"
+                starterBtn: "ابدأ مجاناً", eliteBtn: "اشترك الآن", proBtn: "اشترك في برو",
+                upgradeTitle: "لقد استنفدت كل نقاطك!",
+                upgradeDesc: "اشترك للاستمرار في إنشاء محتوى رائع."
             }
         };
 
-        // ==================== دالة تغيير اللغة ====================
-        function setLanguage(lang) {
-            const t = translations[lang];
+        // ==================== UPDATE UI ====================
+        function updateUI() {
+            const t = translations[currentLang];
             
-            if (lang === 'ar') {
-                document.body.classList.add('rtl');
-            } else {
-                document.body.classList.remove('rtl');
-            }
-
-            document.getElementById('title').innerText = t.title;
-            document.getElementById('desc').innerText = t.desc;
-            document.getElementById('btn1').innerText = t.btn1;
-            document.getElementById('btn2').innerText = t.btn2;
-            document.getElementById('btn3').innerText = t.btn3;
-            document.getElementById('btn4').innerText = t.btn4;
-            document.getElementById('output').innerHTML = t.output;
-            document.getElementById('profitMessage').innerHTML = `<p>${t.profitMessage}</p>`;
+            // Update points display
+            document.getElementById('points').textContent = points;
+            document.getElementById('pointsText').textContent = t.pointsText;
             
-            document.getElementById('pricingTitle').innerText = t.pricingTitle;
-            document.getElementById('pricingSubtitle').innerText = t.pricingSubtitle;
+            // Update main content
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('desc').textContent = t.desc;
+            document.getElementById('btn1').textContent = t.btn1;
+            document.getElementById('btn2').textContent = t.btn2;
+            document.getElementById('btn3').textContent = t.btn3;
+            document.getElementById('btn4').textContent = t.btn4;
+            document.getElementById('welcomeText').textContent = t.welcomeText;
+            document.getElementById('generateText').textContent = t.generateText;
             
-            document.getElementById('starterName').innerText = t.starterName;
-            document.getElementById('starterFeature1').innerText = t.starterFeature1;
-            document.getElementById('starterFeature2').innerText = t.starterFeature2;
-            document.getElementById('starterFeature3').innerText = t.starterFeature3;
-            document.getElementById('starterBtn').innerText = t.starterBtn;
+            // Update pricing
+            document.getElementById('pricingTitle').textContent = t.pricingTitle;
+            document.getElementById('pricingSubtitle').textContent = t.pricingSubtitle;
+            document.getElementById('starterName').textContent = t.starterName;
+            document.getElementById('eliteName').textContent = t.eliteName;
+            document.getElementById('proName').textContent = t.proName;
+            document.getElementById('starterPeriod').textContent = t.starterPeriod;
+            document.getElementById('elitePeriod').textContent = t.elitePeriod;
+            document.getElementById('proPeriod').textContent = t.proPeriod;
+            document.getElementById('popularBadge').textContent = t.popularBadge;
+            document.getElementById('starterBtn').textContent = t.starterBtn;
+            document.getElementById('eliteBtn').textContent = t.eliteBtn;
+            document.getElementById('proBtn').textContent = t.proBtn;
             
-            document.getElementById('eliteName').innerText = t.eliteName;
-            document.getElementById('eliteFeature1').innerText = t.eliteFeature1;
-            document.getElementById('eliteFeature2').innerText = t.eliteFeature2;
-            document.getElementById('eliteFeature3').innerText = t.eliteFeature3;
-            document.getElementById('eliteFeature4').innerText = t.eliteFeature4;
-            document.getElementById('eliteBtn').innerText = t.eliteBtn;
+            // Update modal
+            document.getElementById('upgradeTitle').textContent = t.upgradeTitle;
+            document.getElementById('upgradeDesc').textContent = t.upgradeDesc;
             
-            document.getElementById('proName').innerText = t.proName;
-            document.getElementById('proFeature1').innerText = t.proFeature1;
-            document.getElementById('proFeature2').innerText = t.proFeature2;
-            document.getElementById('proFeature3').innerText = t.proFeature3;
-            document.getElementById('proFeature4').innerText = t.proFeature4;
-            document.getElementById('proFeature5').innerText = t.proFeature5;
-            document.getElementById('proBtn').innerText = t.proBtn;
-            
-            document.getElementById('popularBadge').innerText = t.popularBadge;
-            
-            document.getElementById('starterPrice').innerHTML = t.starterPrice + ' <small>' + t.starterPeriod + '</small>';
-            document.getElementById('elitePrice').innerHTML = t.elitePrice + ' <small>' + t.elitePeriod + '</small>';
-            document.getElementById('proPrice').innerHTML = t.proPrice + ' <small>' + t.proPeriod + '</small>';
-            
-            document.getElementById('footer1').innerText = t.footer1;
-            document.getElementById('footer2').innerText = t.footer2;
-            document.getElementById('footer3').innerText = t.footer3;
-
-            window.currentLang = lang;
+            // Update direction
+            document.body.className = currentLang === 'ar' ? 'rtl' : '';
         }
 
-        function setActive(btn) {
+        // ==================== LANGUAGE ====================
+        function setLanguage(lang) {
+            currentLang = lang;
+            updateUI();
+        }
+
+        // ==================== MEDIA BUTTONS ====================
+        function useFeature(btn, mediaType) {
+            if (points <= 0) {
+                document.getElementById('upgradeModal').classList.add('show');
+                return;
+            }
+            
+            // Update active button
             document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('output').innerHTML = "✅ " + btn.innerText + " mode activated";
-            setTimeout(() => {
-                const lang = window.currentLang || 'en';
-                document.getElementById('output').innerHTML = translations[lang].output;
-            }, 2000);
-        }
-
-        function generate() {
-            const output = document.getElementById('output');
-            output.innerHTML = "⏳ AI is creating...";
-            setTimeout(() => {
-                const lang = window.currentLang || 'en';
-                output.innerHTML = "✅ Done!";
-                setTimeout(() => {
-                    output.innerHTML = translations[lang].output;
-                }, 2000);
-            }, 2000);
-        }
-
-        function selectPlan(plan) {
-            const lang = window.currentLang || 'en';
-            const t = translations[lang];
             
-            if (plan === 'starter') {
-                alert("🎉 " + t.starterName + " - ابدأ بإنشاء 5 صور يومياً وبيعها!");
-            } else if (plan === 'elite') {
-                alert("✨ " + t.eliteName + " - صور غير محدودة + صوت احترافي!");
-            } else if (plan === 'pro') {
-                alert("🚀 " + t.proName + " - رخصة تجارية + بيع إنتاجك!");
+            // Consume point
+            points--;
+            document.getElementById('points').textContent = points;
+            
+            // Show output
+            document.getElementById('output').innerHTML = `✅ ${mediaType} mode activated! (1 point used)`;
+            
+            // Check if points exhausted
+            if (points <= 0) {
+                document.getElementById('upgradeModal').classList.add('show');
             }
         }
 
-        function showModal(type) {
-            const lang = window.currentLang || 'en';
-            const t = translations[lang];
+        // ==================== GENERATE ====================
+        function generate() {
+            if (points <= 0) {
+                document.getElementById('upgradeModal').classList.add('show');
+                return;
+            }
             
-            if (type === 'privacy') alert(t.modalPrivacy);
-            else if (type === 'terms') alert(t.modalTerms);
-            else if (type === 'support') alert(t.modalSupport);
+            points--;
+            document.getElementById('points').textContent = points;
+            document.getElementById('output').innerHTML = "🎨 AI is creating your masterpiece...";
+            
+            setTimeout(() => {
+                document.getElementById('output').innerHTML = "✅ Generation complete!";
+                if (points <= 0) {
+                    document.getElementById('upgradeModal').classList.add('show');
+                }
+            }, 2000);
         }
 
+        // ==================== SELECT PLAN ====================
+        function selectPlan(plan) {
+            if (plan === 'starter') {
+                points = 5;
+                document.getElementById('points').textContent = points;
+                document.getElementById('upgradeModal').classList.remove('show');
+            } else if (plan === 'elite') {
+                alert("✨ Elite plan selected! Thank you for subscribing.");
+                points = 999999;
+                document.getElementById('points').textContent = "∞";
+                document.getElementById('upgradeModal').classList.remove('show');
+            } else if (plan === 'pro') {
+                alert("🚀 Pro Studio plan selected! Thank you for subscribing.");
+                points = 999999;
+                document.getElementById('points').textContent = "∞";
+                document.getElementById('upgradeModal').classList.remove('show');
+            }
+            updateUI();
+        }
+
+        // ==================== MODALS ====================
+        function showModal(type) {
+            const t = translations[currentLang];
+            if (type === 'privacy') alert("🔒 " + (currentLang === 'ar' ? 'سياسة الخصوصية...' : 'Privacy Policy...'));
+            else if (type === 'terms') alert("📜 " + (currentLang === 'ar' ? 'شروط الخدمة...' : 'Terms of Service...'));
+            else if (type === 'support') alert("🆘 " + (currentLang === 'ar' ? 'مركز الدعم...' : 'Support Center...'));
+        }
+
+        // ==================== INIT ====================
         window.onload = function() {
-            window.currentLang = 'ar';
             setLanguage('ar');
+            // Simulate user login
+            document.getElementById('userIcon').textContent = 'Z';
         };
     </script>
 </body>
