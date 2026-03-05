@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - اختبار اللغات</title>
+    <title>Vividia AI - منصة الرسوم المتحركة</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body { background: #0A0A1A; color: white; padding: 20px; transition: all 0.3s ease; }
@@ -20,6 +20,8 @@
         .btn.active { background: #8B5CF6; }
         .output { background: #0A0A1A; border: 1px solid #1E1E3A; border-radius: 10px; padding: 15px; margin: 20px 0; }
         .footer { margin-top: 40px; color: #9CA3AF; }
+        .footer a { color: #9CA3AF; text-decoration: none; margin: 0 10px; cursor: pointer; }
+        .footer a:hover { color: #8B5CF6; }
     </style>
 </head>
 <body class="">
@@ -65,15 +67,15 @@
 
         <!-- روابط أسفل الصفحة (تعمل) -->
         <div class="footer" style="display: flex; gap: 20px; justify-content: center;">
-            <a href="#" onclick="showModal('privacy'); return false;">Privacy</a>
-            <a href="#" onclick="showModal('terms'); return false;">Terms</a>
-            <a href="#" onclick="showModal('support'); return false;">Support</a>
+            <a href="#" onclick="showModal('privacy'); return false;" id="footer1">Privacy</a>
+            <a href="#" onclick="showModal('terms'); return false;" id="footer2">Terms</a>
+            <a href="#" onclick="showModal('support'); return false;" id="footer3">Support</a>
         </div>
         <div style="text-align: center; margin-top: 20px;">© 2026 Vividia AI</div>
     </div>
 
     <script>
-        // ==================== بيانات الترجمة ====================
+        // ==================== بيانات الترجمة الكاملة ====================
         const translations = {
             en: {
                 title: "Create Cinematic Masterpieces with AI",
@@ -81,7 +83,10 @@
                 btn1: "IMAGE", btn2: "VIDEO", btn3: "MUSIC", btn4: "VOICE",
                 output: "👋 Welcome! Describe your idea and click GENERATE.",
                 price: "$7.99", period: "/month",
-                footer1: "Privacy", footer2: "Terms", footer3: "Support"
+                footer1: "Privacy", footer2: "Terms", footer3: "Support",
+                modalPrivacy: "🔒 Privacy Policy\n\nWe collect basic account details (name, email) and usage data to improve our AI services. Your creations remain yours.\n\nAll data is encrypted using industry-standard AES-256. Our servers are secured 24/7.\n\nFor any inquiries: privacy@vividia-ai.com",
+                modalTerms: "📜 Terms of Service\n\nYou must be 13 or older to use Vividia AI. You are responsible for maintaining your account security.\n\nYou own everything you create. We claim no rights over your work.\n\nDo not generate illegal, harmful, or infringing content. We reserve the right to terminate accounts that violate this rule.\n\nMemberships are billed monthly. Cancel anytime from your account settings.",
+                modalSupport: "🆘 Support Center\n\n📧 Email: support@vividia-ai.com – reply within 24 hours\n\n💬 Live Chat: Monday–Friday, 9am–6pm (your local time)\n\n❓ FAQ:\n• How do I start? Just type a description and click GENERATE.\n• Payment methods? Cards, PayPal, crypto (BTC, ETH).\n• Can I cancel? Yes, instantly from your dashboard."
             },
             ar: {
                 title: "اصنع روائع سينمائية بالذكاء الاصطناعي",
@@ -89,7 +94,10 @@
                 btn1: "صورة", btn2: "فيديو", btn3: "موسيقى", btn4: "صوت",
                 output: "👋 مرحباً! صف فكرتك وانقر على توليد.",
                 price: "﷼ 29.99", period: "/شهر",
-                footer1: "الخصوصية", footer2: "الشروط", footer3: "الدعم"
+                footer1: "الخصوصية", footer2: "الشروط", footer3: "الدعم",
+                modalPrivacy: "🔒 سياسة الخصوصية\n\nنقوم بجمع المعلومات الأساسية (الاسم، البريد الإلكتروني) وبيانات الاستخدام لتحسين خدمات الذكاء الاصطناعي. إبداعاتك تبقى ملكك.\n\nجميع البيانات مشفرة باستخدام معايير AES-256. خوادمنا محمية على مدار الساعة.\n\nللاستفسارات: privacy@vividia-ai.com",
+                modalTerms: "📜 شروط الخدمة\n\nيجب أن يكون عمرك 13 سنة أو أكثر لاستخدام Vividia AI. أنت مسؤول عن أمان حسابك.\n\nأنت تملك كل ما تنشئه. لا نملك أي حقوق على عملك.\n\nيمنع إنشاء محتوى غير قانوني أو ضار. نحتفظ بالحق في إنهاء الحسابات المخالفة.\n\nالاشتراكات تدفع شهرياً. يمكنك الإلغاء في أي وقت من إعدادات الحساب.",
+                modalSupport: "🆘 مركز الدعم\n\n📧 البريد الإلكتروني: support@vividia-ai.com – الرد خلال 24 ساعة\n\n💬 الدردشة المباشرة: الإثنين–الجمعة، 9 صباحاً–6 مساءً\n\n❓ الأسئلة الشائعة:\n• كيف أبدأ؟ اكتب وصفاً وانقر على توليد.\n• وسائل الدفع؟ بطاقات، PayPal، عملات رقمية.\n• هل يمكن الإلغاء؟ نعم، فوراً من لوحة التحكم."
             },
             fr: {
                 title: "Créez des chefs-d'œuvre cinématographiques avec l'IA",
@@ -97,7 +105,10 @@
                 btn1: "IMAGE", btn2: "VIDÉO", btn3: "MUSIQUE", btn4: "VOIX",
                 output: "👋 Bienvenue! Décrivez votre idée et cliquez sur GÉNÉRER.",
                 price: "€7.99", period: "/mois",
-                footer1: "Confidentialité", footer2: "Conditions", footer3: "Assistance"
+                footer1: "Confidentialité", footer2: "Conditions", footer3: "Assistance",
+                modalPrivacy: "🔒 Politique de Confidentialité\n\nNous collectons les informations de base (nom, email) et les données d'utilisation pour améliorer nos services IA. Vos créations restent vôtres.\n\nToutes les données sont cryptées avec AES-256. Nos serveurs sont sécurisés 24/7.\n\nContact: privacy@vividia-ai.com",
+                modalTerms: "📜 Conditions d'Utilisation\n\nVous devez avoir 13 ans ou plus pour utiliser Vividia AI. Vous êtes responsable de la sécurité de votre compte.\n\nVous possédez tout ce que vous créez. Nous ne revendiquons aucun droit sur votre travail.\n\nNe générez pas de contenu illégal ou nuisible.\n\nAbonnements facturés mensuellement. Annulation possible à tout moment.",
+                modalSupport: "🆘 Centre d'Aide\n\n📧 Email: support@vividia-ai.com – réponse sous 24h\n\n💬 Chat en direct: Lun–Ven, 9h–18h\n\n❓ FAQ:\n• Comment commencer? Décrivez votre idée et cliquez sur GÉNÉRER.\n• Moyens de paiement? Cartes, PayPal, crypto.\n• Puis-je annuler? Oui, depuis votre tableau de bord."
             },
             es: {
                 title: "Crea obras maestras cinematográficas con IA",
@@ -105,7 +116,10 @@
                 btn1: "IMAGEN", btn2: "VIDEO", btn3: "MÚSICA", btn4: "VOZ",
                 output: "👋 ¡Bienvenido! Describe tu idea y haz clic en GENERAR.",
                 price: "€7.99", period: "/mes",
-                footer1: "Privacidad", footer2: "Términos", footer3: "Soporte"
+                footer1: "Privacidad", footer2: "Términos", footer3: "Soporte",
+                modalPrivacy: "🔒 Política de Privacidad\n\nRecopilamos información básica (nombre, email) y datos de uso para mejorar nuestros servicios de IA. Tus creaciones son tuyas.\n\nTodos los datos están encriptados con AES-256. Nuestros servidores están protegidos 24/7.\n\nContacto: privacy@vividia-ai.com",
+                modalTerms: "📜 Términos de Servicio\n\nDebes tener 13 años o más para usar Vividia AI. Eres responsable de la seguridad de tu cuenta.\n\nEres dueño de todo lo que creas. No reclamamos derechos sobre tu trabajo.\n\nNo generes contenido ilegal o dañino.\n\nSuscripciones facturadas mensualmente. Cancelación en cualquier momento.",
+                modalSupport: "🆘 Centro de Soporte\n\n📧 Email: support@vividia-ai.com – respuesta en 24h\n\n💬 Chat en vivo: Lun–Vie, 9am–6pm\n\n❓ Preguntas:\n• ¿Cómo empezar? Describe tu idea y haz clic en GENERAR.\n• Métodos de pago? Tarjetas, PayPal, cripto.\n• ¿Puedo cancelar? Sí, desde tu panel."
             },
             de: {
                 title: "Erstelle filmische Meisterwerke mit KI",
@@ -113,22 +127,25 @@
                 btn1: "BILD", btn2: "VIDEO", btn3: "MUSIK", btn4: "STIMME",
                 output: "👋 Willkommen! Beschreibe deine Idee und klicke auf GENERIEREN.",
                 price: "€7.99", period: "/Monat",
-                footer1: "Datenschutz", footer2: "AGB", footer3: "Support"
+                footer1: "Datenschutz", footer2: "AGB", footer3: "Support",
+                modalPrivacy: "🔒 Datenschutz\n\nWir sammeln grundlegende Informationen (Name, E-Mail) und Nutzungsdaten zur Verbesserung unserer KI-Dienste. Ihre Kreationen bleiben Ihr Eigentum.\n\nAlle Daten sind mit AES-256 verschlüsselt. Unsere Server sind 24/7 gesichert.\n\nKontakt: privacy@vividia-ai.com",
+                modalTerms: "📜 AGB\n\nSie müssen mindestens 13 Jahre alt sein, um Vividia AI zu nutzen. Sie sind für die Sicherheit Ihres Kontos verantwortlich.\n\nSie besitzen alles, was Sie erstellen. Wir beanspruchen keine Rechte an Ihrer Arbeit.\n\nKeine illegalen oder schädlichen Inhalte erstellen.\n\nMonatliche Abrechnung. Jederzeit kündbar.",
+                modalSupport: "🆘 Support\n\n📧 E-Mail: support@vividia-ai.com – Antwort innerhalb 24h\n\n💬 Live-Chat: Mo–Fr, 9–18 Uhr\n\n❓ FAQ:\n• Wie starten? Beschreibe deine Idee und klicke auf GENERIEREN.\n• Zahlungsmethoden? Karten, PayPal, Krypto.\n• Kann ich kündigen? Ja, im Dashboard."
             }
         };
 
-        // ==================== دالة تغيير اللغة (تعمل 100%) ====================
+        // ==================== دالة تغيير اللغة ====================
         function setLanguage(lang) {
             const t = translations[lang];
             
-            // تغيير اتجاه الصفحة (يمين لليسار للعربية)
+            // تغيير اتجاه الصفحة
             if (lang === 'ar') {
                 document.body.classList.add('rtl');
             } else {
                 document.body.classList.remove('rtl');
             }
 
-            // تغيير جميع النصوص
+            // تغيير النصوص الرئيسية
             document.getElementById('title').innerText = t.title;
             document.getElementById('desc').innerText = t.desc;
             document.getElementById('btn1').innerText = t.btn1;
@@ -139,30 +156,22 @@
             document.getElementById('price').innerHTML = t.price + ' <span style="font-size:14px;color:#9CA3AF;" id="period">' + t.period + '</span>';
             
             // تغيير روابط التذييل
-            const footerLinks = document.querySelectorAll('.footer a');
-            if (footerLinks.length >= 3) {
-                footerLinks[0].innerText = t.footer1;
-                footerLinks[1].innerText = t.footer2;
-                footerLinks[2].innerText = t.footer3;
-            }
+            document.getElementById('footer1').innerText = t.footer1;
+            document.getElementById('footer2').innerText = t.footer2;
+            document.getElementById('footer3').innerText = t.footer3;
 
-            console.log("تم تغيير اللغة إلى:", lang);
+            // حفظ اللغة الحالية
+            window.currentLang = lang;
         }
 
-        // ==================== تفعيل الأزرار الداخلية (IMAGE, VIDEO, ...) ====================
+        // ==================== تفعيل الأزرار الداخلية ====================
         function setActive(btn) {
-            // إزالة التفعيل من جميع الأزرار
-            document.querySelectorAll('.buttons .btn').forEach(b => {
-                b.classList.remove('active');
-            });
-            // تفعيل الزر المضغوط
+            document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            // تغيير نص الإخراج
             document.getElementById('output').innerHTML = "✅ " + btn.innerText + " mode activated";
-            // إعادة النص الأصلي بعد ثانيتين
             setTimeout(() => {
-                const currentLang = document.body.classList.contains('rtl') ? 'ar' : 'en';
-                document.getElementById('output').innerHTML = translations[currentLang].output;
+                const lang = window.currentLang || 'en';
+                document.getElementById('output').innerHTML = translations[lang].output;
             }, 2000);
         }
 
@@ -171,23 +180,27 @@
             const output = document.getElementById('output');
             output.innerHTML = "⏳ AI is creating your masterpiece...";
             setTimeout(() => {
-                const currentLang = document.body.classList.contains('rtl') ? 'ar' : 'en';
+                const lang = window.currentLang || 'en';
                 output.innerHTML = "✅ Generation complete!";
                 setTimeout(() => {
-                    output.innerHTML = translations[currentLang].output;
+                    output.innerHTML = translations[lang].output;
                 }, 2000);
             }, 2000);
         }
 
-        // ==================== النوافذ المنبثقة (روابط التذييل) ====================
+        // ==================== النوافذ المنبثقة (مترجمة بالكامل) ====================
         function showModal(type) {
-            if (type === 'privacy') alert("🔒 Privacy Policy: We collect basic account details and usage data to improve our services. Your creations remain yours.");
-            else if (type === 'terms') alert("📜 Terms of Service: You must be 13+ to use this service. You own everything you create. No illegal content.");
-            else if (type === 'support') alert("🆘 Support: Email: support@vividia-ai.com - Live chat available Mon-Fri 9am-6pm");
+            const lang = window.currentLang || 'en';
+            const t = translations[lang];
+            
+            if (type === 'privacy') alert(t.modalPrivacy);
+            else if (type === 'terms') alert(t.modalTerms);
+            else if (type === 'support') alert(t.modalSupport);
         }
 
-        // ==================== ضبط اللغة الافتراضية عند تحميل الصفحة ====================
+        // ==================== ضبط اللغة الافتراضية ====================
         window.onload = function() {
+            window.currentLang = 'en';
             setLanguage('en');
         };
     </script>
