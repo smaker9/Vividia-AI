@@ -20,48 +20,51 @@
         .user-icon { width: 40px; height: 40px; background: #8B5CF6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         
         /* Language Selector */
-        .lang-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
-        .lang-btn { background: #1E1E3A; color: white; border: 1px solid #8B5CF6; padding: 10px 20px; border-radius: 30px; cursor: pointer; }
+        .lang-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; justify-content: center; }
+        .lang-btn { background: #1E1E3A; color: white; border: 1px solid #8B5CF6; padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: 0.2s; }
         .lang-btn:hover { background: #8B5CF6; }
+        .lang-btn.active { background: #8B5CF6; }
         
         /* Main Card */
-        .card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 30px; margin-bottom: 20px; max-width: 600px; }
-        h1 { margin-bottom: 10px; }
+        .card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 30px; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        h1 { margin-bottom: 10px; font-size: 28px; }
         p { color: #9CA3AF; margin-bottom: 20px; }
         
         /* Media Buttons */
-        .buttons { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
-        .btn { background: #1E1E3A; border: 1px solid #1E1E3A; padding: 10px 20px; border-radius: 30px; cursor: pointer; }
-        .btn.active { background: #8B5CF6; }
+        .buttons { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; justify-content: center; }
+        .btn { background: #1E1E3A; border: 1px solid #1E1E3A; padding: 10px 24px; border-radius: 30px; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .btn:hover { border-color: #8B5CF6; background: rgba(139,92,246,0.2); }
+        .btn.active { background: #8B5CF6; border: none; }
         
         /* Output */
         .output { background: #0A0A1A; border: 1px solid #1E1E3A; border-radius: 10px; padding: 15px; margin: 20px 0; }
         
         /* Generate Button */
-        .generate-btn { background: #8B5CF6; color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 16px; cursor: pointer; margin: 20px 0; }
-        .generate-btn:hover { background: #7C3AED; }
+        .generate-btn { background: linear-gradient(135deg, #8B5CF6, #3B82F6); color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; margin: 20px 0; transition: 0.2s; }
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139,92,246,0.3); }
         
         /* Pricing Section */
-        .pricing-section { margin: 40px 0; }
-        .pricing-title { text-align: center; font-size: 28px; margin-bottom: 10px; }
-        .pricing-subtitle { text-align: center; color: #9CA3AF; margin-bottom: 30px; }
-        .pricing-cards { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .pricing-card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 25px; flex: 1 1 250px; transition: transform 0.3s; }
-        .pricing-card:hover { transform: translateY(-5px); border-color: #8B5CF6; }
-        .pricing-card.popular { border: 2px solid #8B5CF6; }
-        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #8B5CF6; padding: 5px 20px; border-radius: 30px; font-size: 12px; }
-        .pricing-name { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
-        .pricing-price { font-size: 28px; font-weight: bold; color: #8B5CF6; margin-bottom: 5px; }
-        .pricing-price small { font-size: 14px; color: #9CA3AF; }
-        .pricing-features { list-style: none; margin: 20px 0; min-height: 120px; }
-        .pricing-features li { margin-bottom: 10px; color: #9CA3AF; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .pricing-features i { color: #10B981; }
-        .pricing-btn { background: transparent; border: 1px solid #1E1E3A; color: white; padding: 12px; border-radius: 30px; cursor: pointer; width: 100%; }
+        .pricing-section { margin: 60px 0; }
+        .pricing-title { text-align: center; font-size: 32px; margin-bottom: 10px; }
+        .pricing-subtitle { text-align: center; color: #9CA3AF; margin-bottom: 40px; }
+        .pricing-cards { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; }
+        .pricing-card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 25px; padding: 30px; flex: 1 1 280px; position: relative; transition: transform 0.3s; }
+        .pricing-card:hover { transform: translateY(-8px); border-color: #8B5CF6; box-shadow: 0 20px 30px -10px rgba(139,92,246,0.3); }
+        .pricing-card.popular { border: 2px solid #8B5CF6; background: linear-gradient(145deg, #12122A, #1A1A3A); }
+        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #8B5CF6; color: white; padding: 5px 25px; border-radius: 30px; font-size: 13px; font-weight: bold; }
+        .pricing-name { font-size: 24px; font-weight: bold; margin-bottom: 15px; }
+        .pricing-price { font-size: 36px; font-weight: bold; color: #8B5CF6; margin-bottom: 5px; }
+        .pricing-price small { font-size: 14px; color: #9CA3AF; font-weight: normal; }
+        .pricing-features { list-style: none; margin: 25px 0; min-height: 180px; }
+        .pricing-features li { margin-bottom: 12px; color: #9CA3AF; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .pricing-features i { color: #10B981; min-width: 20px; }
+        .pricing-btn { background: transparent; border: 1px solid #1E1E3A; color: white; padding: 14px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; font-size: 16px; }
+        .pricing-btn:hover { background: #8B5CF6; border-color: #8B5CF6; }
         .pricing-btn.popular-btn { background: #8B5CF6; border: none; }
         
         /* Footer */
-        .footer { margin-top: 40px; color: #9CA3AF; display: flex; gap: 20px; justify-content: center; }
-        .footer a { color: #9CA3AF; text-decoration: none; cursor: pointer; }
+        .footer { margin-top: 40px; color: #9CA3AF; display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .footer a { color: #9CA3AF; text-decoration: none; cursor: pointer; transition: 0.2s; }
         .footer a:hover { color: #8B5CF6; }
         
         /* Upgrade Modal */
@@ -84,6 +87,11 @@
             max-width: 500px;
             width: 90%;
             text-align: center;
+            animation: pop 0.3s ease;
+        }
+        @keyframes pop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         .upgrade-icon { font-size: 60px; color: #8B5CF6; margin-bottom: 20px; }
         .upgrade-title { font-size: 28px; margin-bottom: 10px; }
@@ -91,6 +99,13 @@
         
         /* Disabled */
         .disabled { opacity: 0.5; pointer-events: none; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { flex-direction: column; align-items: flex-start; }
+            .lang-buttons { justify-content: flex-start; }
+            .pricing-card { flex: 1 1 100%; }
+        }
     </style>
 </head>
 <body>
@@ -103,7 +118,7 @@
                 <div class="points">
                     <i class="fas fa-star"></i>
                     <span class="points-value" id="points">10</span>
-                    <span id="pointsText">نقاط</span>
+                    <span id="pointsText">Points</span>
                 </div>
                 <div class="user-icon" id="userIcon">Z</div>
             </div>
@@ -153,9 +168,9 @@
                     <div class="pricing-name" id="starterName">Starter</div>
                     <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/month</small></div>
                     <ul class="pricing-features" id="starterFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span>5 images per day</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>SD quality</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Community access</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat1">5 images per day</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat2">SD quality</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat3">Community access</span></li>
                     </ul>
                     <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">Get Started</button>
                 </div>
@@ -166,10 +181,10 @@
                     <div class="pricing-name" id="eliteName">Elite</div>
                     <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/month</small></div>
                     <ul class="pricing-features" id="eliteFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span>Unlimited 8K images</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>🎙️ 10 min ElevenLabs voice</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>No watermark</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Priority processing</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat1">Unlimited 8K images</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat2">🎙️ 10 min ElevenLabs voice</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat3">No watermark</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat4">Priority processing</span></li>
                     </ul>
                     <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">Get Elite</button>
                 </div>
@@ -179,11 +194,11 @@
                     <div class="pricing-name" id="proName">Pro Studio</div>
                     <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/month</small></div>
                     <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span>Everything in Elite</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>🎙️ 60 min ElevenLabs voice</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Unlimited dubbing</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Commercial license</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Custom API access</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">Everything in Elite</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat2">🎙️ 60 min ElevenLabs voice</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat3">Unlimited dubbing</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat4">Commercial license</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat5">Custom API access</span></li>
                     </ul>
                     <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">Get Pro</button>
                 </div>
@@ -192,9 +207,9 @@
 
         <!-- Footer -->
         <div class="footer">
-            <a href="#" onclick="showModal('privacy'); return false;">Privacy</a>
-            <a href="#" onclick="showModal('terms'); return false;">Terms</a>
-            <a href="#" onclick="showModal('support'); return false;">Support</a>
+            <a href="#" onclick="showModal('privacy'); return false;" id="footerPrivacy">Privacy</a>
+            <a href="#" onclick="showModal('terms'); return false;" id="footerTerms">Terms</a>
+            <a href="#" onclick="showModal('support'); return false;" id="footerSupport">Support</a>
         </div>
     </div>
 
@@ -204,16 +219,16 @@
             <div class="upgrade-icon">✨</div>
             <h2 class="upgrade-title" id="upgradeTitle">You've Used All Your Points!</h2>
             <p class="upgrade-desc" id="upgradeDesc">Upgrade to continue creating amazing content.</p>
-            <div style="display: flex; gap: 15px; justify-content: center;">
-                <button class="pricing-btn popular-btn" onclick="selectPlan('elite')">Get Elite ($7.99)</button>
-                <button class="pricing-btn popular-btn" onclick="selectPlan('pro')">Get Pro ($24.99)</button>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="pricing-btn popular-btn" onclick="selectPlan('elite')" id="modalEliteBtn">Get Elite ($7.99)</button>
+                <button class="pricing-btn popular-btn" onclick="selectPlan('pro')" id="modalProBtn">Get Pro ($24.99)</button>
             </div>
         </div>
     </div>
 
     <script>
         // ==================== GLOBAL STATE ====================
-        let points = 10; // يبدأ ب 10 نقاط
+        let points = 10;
         let currentLang = 'en';
         let activeMedia = 'image';
 
@@ -229,11 +244,16 @@
                 pricingTitle: "Choose Your Plan",
                 pricingSubtitle: "Flexible plans for every creator",
                 starterName: "Starter", eliteName: "Elite", proName: "Pro Studio",
+                starterFeat1: "5 images per day", starterFeat2: "SD quality", starterFeat3: "Community access",
+                eliteFeat1: "Unlimited 8K images", eliteFeat2: "🎙️ 10 min ElevenLabs voice", eliteFeat3: "No watermark", eliteFeat4: "Priority processing",
+                proFeat1: "Everything in Elite", proFeat2: "🎙️ 60 min ElevenLabs voice", proFeat3: "Unlimited dubbing", proFeat4: "Commercial license", proFeat5: "Custom API access",
+                starterBtn: "Get Started", eliteBtn: "Get Elite", proBtn: "Get Pro",
                 starterPeriod: "/month", elitePeriod: "/month", proPeriod: "/month",
                 popularBadge: "Most Popular",
-                starterBtn: "Get Started", eliteBtn: "Get Elite", proBtn: "Get Pro",
                 upgradeTitle: "You've Used All Your Points!",
-                upgradeDesc: "Upgrade to continue creating amazing content."
+                upgradeDesc: "Upgrade to continue creating amazing content.",
+                footerPrivacy: "Privacy", footerTerms: "Terms", footerSupport: "Support",
+                currency: "$", elitePrice: "7.99", proPrice: "24.99"
             },
             ar: {
                 title: "اصنع روائع سينمائية بالذكاء الاصطناعي",
@@ -245,11 +265,79 @@
                 pricingTitle: "اختر خطتك",
                 pricingSubtitle: "خطط مرنة لكل مبدع",
                 starterName: "المبتدئ", eliteName: "النخبة", proName: "برو ستوديو",
+                starterFeat1: "5 صور يومياً", starterFeat2: "جودة عادية", starterFeat3: "وصول للمجتمع",
+                eliteFeat1: "صور غير محدودة 8K", eliteFeat2: "🎙️ 10 دقائق ElevenLabs", eliteFeat3: "بدون علامة مائية", eliteFeat4: "معالجة أولوية",
+                proFeat1: "كل مميزات النخبة", proFeat2: "🎙️ 60 دقيقة ElevenLabs", proFeat3: "دبلجة غير محدودة", proFeat4: "رخصة تجارية", proFeat5: "API خاص",
+                starterBtn: "ابدأ مجاناً", eliteBtn: "اشترك الآن", proBtn: "اشترك في برو",
                 starterPeriod: "/شهر", elitePeriod: "/شهر", proPeriod: "/شهر",
                 popularBadge: "الأكثر طلباً",
-                starterBtn: "ابدأ مجاناً", eliteBtn: "اشترك الآن", proBtn: "اشترك في برو",
                 upgradeTitle: "لقد استنفدت كل نقاطك!",
-                upgradeDesc: "اشترك للاستمرار في إنشاء محتوى رائع."
+                upgradeDesc: "اشترك للاستمرار في إنشاء محتوى رائع.",
+                footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerSupport: "الدعم",
+                currency: "﷼", elitePrice: "29.99", proPrice: "94.99"
+            },
+            fr: {
+                title: "Créez des chefs-d'œuvre cinématographiques avec l'IA",
+                desc: "Transformez vos idées en animations, films et personnages 4K époustouflants avec l'IA.",
+                btn1: "IMAGE", btn2: "VIDÉO", btn3: "MUSIQUE", btn4: "VOIX",
+                welcomeText: "Bienvenue sur Vividia AI. Décrivez votre idée et cliquez sur GÉNÉRER!",
+                generateText: "GÉNÉRER MAGIQUE",
+                pointsText: "Points",
+                pricingTitle: "Choisissez votre plan",
+                pricingSubtitle: "Plans flexibles pour chaque créateur",
+                starterName: "Débutant", eliteName: "Elite", proName: "Pro Studio",
+                starterFeat1: "5 images par jour", starterFeat2: "Qualité SD", starterFeat3: "Accès communauté",
+                eliteFeat1: "Images 8K illimitées", eliteFeat2: "🎙️ 10 min ElevenLabs", eliteFeat3: "Sans filigrane", eliteFeat4: "Traitement prioritaire",
+                proFeat1: "Tout dans Elite", proFeat2: "🎙️ 60 min ElevenLabs", proFeat3: "Doublage illimité", proFeat4: "Licence commerciale", proFeat5: "API personnalisé",
+                starterBtn: "Commencer", eliteBtn: "Choisir Elite", proBtn: "Choisir Pro",
+                starterPeriod: "/mois", elitePeriod: "/mois", proPeriod: "/mois",
+                popularBadge: "Plus populaire",
+                upgradeTitle: "Vous avez utilisé tous vos points!",
+                upgradeDesc: "Passez à un plan supérieur pour continuer.",
+                footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerSupport: "Assistance",
+                currency: "€", elitePrice: "7.99", proPrice: "24.99"
+            },
+            es: {
+                title: "Crea obras maestras cinematográficas con IA",
+                desc: "Convierte tus ideas en animaciones, películas y personajes 4K impresionantes.",
+                btn1: "IMAGEN", btn2: "VIDEO", btn3: "MÚSICA", btn4: "VOZ",
+                welcomeText: "Bienvenido a Vividia AI. ¡Describe tu idea y haz clic en GENERAR!",
+                generateText: "GENERAR MAGIA",
+                pointsText: "Puntos",
+                pricingTitle: "Elige tu plan",
+                pricingSubtitle: "Planes flexibles para cada creador",
+                starterName: "Principiante", eliteName: "Élite", proName: "Pro Studio",
+                starterFeat1: "5 imágenes por día", starterFeat2: "Calidad SD", starterFeat3: "Acceso comunitario",
+                eliteFeat1: "Imágenes 8K ilimitadas", eliteFeat2: "🎙️ 10 min ElevenLabs", eliteFeat3: "Sin marca de agua", eliteFeat4: "Procesamiento prioritario",
+                proFeat1: "Todo en Élite", proFeat2: "🎙️ 60 min ElevenLabs", proFeat3: "Doblaje ilimitado", proFeat4: "Licencia comercial", proFeat5: "API personalizado",
+                starterBtn: "Comenzar", eliteBtn: "Elegir Élite", proBtn: "Elegir Pro",
+                starterPeriod: "/mes", elitePeriod: "/mes", proPeriod: "/mes",
+                popularBadge: "Más popular",
+                upgradeTitle: "¡Has usado todos tus puntos!",
+                upgradeDesc: "Actualiza para continuar creando.",
+                footerPrivacy: "Privacidad", footerTerms: "Términos", footerSupport: "Soporte",
+                currency: "€", elitePrice: "7.99", proPrice: "24.99"
+            },
+            de: {
+                title: "Erstelle filmische Meisterwerke mit KI",
+                desc: "Verwandle deine Ideen in atemberaubende 4K-Animationen, Filme und Charaktere.",
+                btn1: "BILD", btn2: "VIDEO", btn3: "MUSIK", btn4: "STIMME",
+                welcomeText: "Willkommen bei Vividia AI. Beschreibe deine Idee und klicke auf GENERIEREN!",
+                generateText: "MAGIE GENERIEREN",
+                pointsText: "Punkte",
+                pricingTitle: "Wähle deinen Plan",
+                pricingSubtitle: "Flexible Pläne für jeden Kreativen",
+                starterName: "Einsteiger", eliteName: "Elite", proName: "Pro Studio",
+                starterFeat1: "5 Bilder pro Tag", starterFeat2: "SD-Qualität", starterFeat3: "Community-Zugang",
+                eliteFeat1: "Unbegrenzte 8K-Bilder", eliteFeat2: "🎙️ 10 min ElevenLabs", eliteFeat3: "Ohne Wasserzeichen", eliteFeat4: "Priorisierte Verarbeitung",
+                proFeat1: "Alles in Elite", proFeat2: "🎙️ 60 min ElevenLabs", proFeat3: "Unbegrenztes Dubbing", proFeat4: "Kommerzielle Lizenz", proFeat5: "API-Zugang",
+                starterBtn: "Starten", eliteBtn: "Elite wählen", proBtn: "Pro wählen",
+                starterPeriod: "/Monat", elitePeriod: "/Monat", proPeriod: "/Monat",
+                popularBadge: "Am beliebtesten",
+                upgradeTitle: "Du hast alle Punkte aufgebraucht!",
+                upgradeDesc: "Upgrade, um weiterzumachen.",
+                footerPrivacy: "Datenschutz", footerTerms: "AGB", footerSupport: "Support",
+                currency: "€", elitePrice: "7.99", proPrice: "24.99"
             }
         };
 
@@ -257,7 +345,18 @@
         function updateUI() {
             const t = translations[currentLang];
             
-            // Update points display
+            // Update direction
+            document.body.className = currentLang === 'ar' ? 'rtl' : '';
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(t.currency === '﷼' ? 'العربية' : currentLang.toUpperCase())) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update points
             document.getElementById('points').textContent = points;
             document.getElementById('pointsText').textContent = t.pointsText;
             
@@ -277,20 +376,47 @@
             document.getElementById('starterName').textContent = t.starterName;
             document.getElementById('eliteName').textContent = t.eliteName;
             document.getElementById('proName').textContent = t.proName;
-            document.getElementById('starterPeriod').textContent = t.starterPeriod;
-            document.getElementById('elitePeriod').textContent = t.elitePeriod;
-            document.getElementById('proPeriod').textContent = t.proPeriod;
-            document.getElementById('popularBadge').textContent = t.popularBadge;
+            
+            document.getElementById('starterFeat1').textContent = t.starterFeat1;
+            document.getElementById('starterFeat2').textContent = t.starterFeat2;
+            document.getElementById('starterFeat3').textContent = t.starterFeat3;
+            
+            document.getElementById('eliteFeat1').textContent = t.eliteFeat1;
+            document.getElementById('eliteFeat2').textContent = t.eliteFeat2;
+            document.getElementById('eliteFeat3').textContent = t.eliteFeat3;
+            document.getElementById('eliteFeat4').textContent = t.eliteFeat4;
+            
+            document.getElementById('proFeat1').textContent = t.proFeat1;
+            document.getElementById('proFeat2').textContent = t.proFeat2;
+            document.getElementById('proFeat3').textContent = t.proFeat3;
+            document.getElementById('proFeat4').textContent = t.proFeat4;
+            document.getElementById('proFeat5').textContent = t.proFeat5;
+            
             document.getElementById('starterBtn').textContent = t.starterBtn;
             document.getElementById('eliteBtn').textContent = t.eliteBtn;
             document.getElementById('proBtn').textContent = t.proBtn;
             
+            document.getElementById('starterPeriod').textContent = t.starterPeriod;
+            document.getElementById('elitePeriod').textContent = t.elitePeriod;
+            document.getElementById('proPeriod').textContent = t.proPeriod;
+            
+            document.getElementById('popularBadge').textContent = t.popularBadge;
+            
+            // Update prices with currency
+            document.getElementById('starterPrice').innerHTML = `${t.currency}0 <small>${t.starterPeriod}</small>`;
+            document.getElementById('elitePrice').innerHTML = `${t.currency}${t.elitePrice} <small>${t.elitePeriod}</small>`;
+            document.getElementById('proPrice').innerHTML = `${t.currency}${t.proPrice} <small>${t.proPeriod}</small>`;
+            
             // Update modal
             document.getElementById('upgradeTitle').textContent = t.upgradeTitle;
             document.getElementById('upgradeDesc').textContent = t.upgradeDesc;
+            document.getElementById('modalEliteBtn').innerHTML = `${t.eliteBtn} (${t.currency}${t.elitePrice})`;
+            document.getElementById('modalProBtn').innerHTML = `${t.proBtn} (${t.currency}${t.proPrice})`;
             
-            // Update direction
-            document.body.className = currentLang === 'ar' ? 'rtl' : '';
+            // Update footer
+            document.getElementById('footerPrivacy').textContent = t.footerPrivacy;
+            document.getElementById('footerTerms').textContent = t.footerTerms;
+            document.getElementById('footerSupport').textContent = t.footerSupport;
         }
 
         // ==================== LANGUAGE ====================
@@ -306,20 +432,17 @@
                 return;
             }
             
-            // Update active button
             document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            // Consume point
             points--;
             document.getElementById('points').textContent = points;
-            
-            // Show output
             document.getElementById('output').innerHTML = `✅ ${mediaType} mode activated! (1 point used)`;
             
-            // Check if points exhausted
             if (points <= 0) {
-                document.getElementById('upgradeModal').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('upgradeModal').classList.add('show');
+                }, 500);
             }
         }
 
@@ -344,17 +467,20 @@
 
         // ==================== SELECT PLAN ====================
         function selectPlan(plan) {
+            const t = translations[currentLang];
+            
             if (plan === 'starter') {
-                points = 5;
+                points = 10;
                 document.getElementById('points').textContent = points;
                 document.getElementById('upgradeModal').classList.remove('show');
+                document.getElementById('output').innerHTML = "🎉 You got 10 more free points!";
             } else if (plan === 'elite') {
-                alert("✨ Elite plan selected! Thank you for subscribing.");
+                alert(`✨ ${t.eliteName} plan selected! Thank you for subscribing.`);
                 points = 999999;
                 document.getElementById('points').textContent = "∞";
                 document.getElementById('upgradeModal').classList.remove('show');
             } else if (plan === 'pro') {
-                alert("🚀 Pro Studio plan selected! Thank you for subscribing.");
+                alert(`🚀 ${t.proName} plan selected! Thank you for subscribing.`);
                 points = 999999;
                 document.getElementById('points').textContent = "∞";
                 document.getElementById('upgradeModal').classList.remove('show');
@@ -365,15 +491,18 @@
         // ==================== MODALS ====================
         function showModal(type) {
             const t = translations[currentLang];
-            if (type === 'privacy') alert("🔒 " + (currentLang === 'ar' ? 'سياسة الخصوصية...' : 'Privacy Policy...'));
-            else if (type === 'terms') alert("📜 " + (currentLang === 'ar' ? 'شروط الخدمة...' : 'Terms of Service...'));
-            else if (type === 'support') alert("🆘 " + (currentLang === 'ar' ? 'مركز الدعم...' : 'Support Center...'));
+            if (type === 'privacy') {
+                alert(t.footerPrivacy + (currentLang === 'ar' ? ':\nسياسة الخصوصية...' : ' Policy:\nWe value your privacy...'));
+            } else if (type === 'terms') {
+                alert(t.footerTerms + (currentLang === 'ar' ? ':\nشروط الخدمة...' : ' of Service:\nPlease read carefully...'));
+            } else if (type === 'support') {
+                alert(t.footerSupport + (currentLang === 'ar' ? ':\nمركز الدعم...' : ' Center:\nWe are here to help...'));
+            }
         }
 
         // ==================== INIT ====================
         window.onload = function() {
             setLanguage('ar');
-            // Simulate user login
             document.getElementById('userIcon').textContent = 'Z';
         };
     </script>
