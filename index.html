@@ -66,7 +66,7 @@
         .generate-btn { background: linear-gradient(135deg, #8B5CF6, #3B82F6); color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; margin: 20px 0; transition: 0.2s; }
         .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139,92,246,0.3); }
         
-        /* Admin Panel Button (سري) */
+        /* Admin Toggle Button (سري) */
         .admin-toggle {
             position: fixed;
             bottom: 20px;
@@ -193,7 +193,7 @@
             <div class="profile" id="profile">
                 <div class="points">
                     <i class="fas fa-star"></i>
-                    <span class="points-value" id="points">0</span>
+                    <span class="points-value" id="points">5</span>
                     <span id="pointsText">نقاط</span>
                 </div>
                 <div class="user-icon" id="userIcon">Z</div>
@@ -214,32 +214,32 @@
             <h1 id="title">اصنع روائع سينمائية بالذكاء الاصطناعي الصيني</h1>
             <p id="desc">أقوى الخدمات الصينية بأسعار منافسة وجودة عالمية</p>
 
-            <!-- Credits Display -->
+            <!-- Credits Display (معدل) -->
             <div class="credits-grid" id="creditsGrid">
                 <div class="credit-item">
                     <i class="fas fa-image credit-icon"></i>
                     <span class="credit-name">Z-Image</span>
-                    <span class="credit-value" id="zimageCredits">0</span>
+                    <span class="credit-value" id="zimageCredits">2</span>
                 </div>
                 <div class="credit-item">
                     <i class="fas fa-video credit-icon"></i>
                     <span class="credit-name">Kling</span>
-                    <span class="credit-value" id="klingCredits">0</span>
+                    <span class="credit-value" id="klingCredits">1</span>
                 </div>
                 <div class="credit-item">
                     <i class="fas fa-music credit-icon"></i>
                     <span class="credit-name">Mureka</span>
-                    <span class="credit-value" id="murekaCredits">0</span>
+                    <span class="credit-value" id="murekaCredits">1</span>
                 </div>
                 <div class="credit-item">
                     <i class="fas fa-microphone credit-icon"></i>
                     <span class="credit-name">Fish Audio</span>
-                    <span class="credit-value" id="fishCredits">0</span>
+                    <span class="credit-value" id="fishCredits">1</span>
                 </div>
                 <div class="credit-item">
                     <i class="fas fa-file-alt credit-icon"></i>
                     <span class="credit-name">DeepSeek</span>
-                    <span class="credit-value" id="deepseekCredits">0</span>
+                    <span class="credit-value" id="deepseekCredits">1000</span>
                 </div>
             </div>
 
@@ -276,6 +276,7 @@
                         <li><i class="fas fa-check-circle"></i> <span id="starterFeat1">2 صورة (Z-Image)</span></li>
                         <li><i class="fas fa-check-circle"></i> <span id="starterFeat2">1 فيديو (Kling)</span></li>
                         <li><i class="fas fa-check-circle"></i> <span id="starterFeat3">1 أغنية (Mureka)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat4">1 دقيقة صوت</span></li>
                     </ul>
                     <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">ابدأ مجاناً</button>
                 </div>
@@ -286,10 +287,10 @@
                     <div class="pricing-name" id="eliteName">احترافي</div>
                     <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/شهر</small></div>
                     <ul class="pricing-features" id="eliteFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat1">صور غير محدودة 8K</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat2">10 فيديوهات (Kling Pro)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat3">10 أغاني (Mureka)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat4">5 دقائق Fish Audio</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat1">50 صورة شهرياً</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat2">10 فيديوهات</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat3">5 أغاني</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat4">10 دقائق Fish Audio</span></li>
                     </ul>
                     <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">اشترك الآن</button>
                 </div>
@@ -299,10 +300,10 @@
                     <div class="pricing-name" id="proName">مبدع</div>
                     <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">كل خدمات الاحترافي</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">صور غير محدودة</span></li>
                         <li><i class="fas fa-check-circle"></i> <span id="proFeat2">فيديوهات غير محدودة</span></li>
                         <li><i class="fas fa-check-circle"></i> <span id="proFeat3">موسيقى غير محدودة</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat4">دبلجة + بث مباشر</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat4">30 دقيقة Fish Audio</span></li>
                         <li><i class="fas fa-check-circle"></i> <span id="proFeat5">DeepSeek غير محدود</span></li>
                     </ul>
                     <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">اشترك في المبدع</button>
@@ -427,7 +428,7 @@
             deepseek: 1000  // كل مستخدم جديد: 1000 token
         };
         
-        // نقاط المستخدم الحالي (يتم تعبئتها حسب الإعدادات)
+        // نقاط المستخدم الحالي
         let userCredits = {
             zimage: distributionSettings.zimage,
             kling: distributionSettings.kling,
@@ -437,7 +438,7 @@
         };
         
         let currentLang = 'ar';
-        let emergencyMode = false; // وضع الطوارئ (إيقاف النقاط المجانية)
+        let emergencyMode = false;
 
         // ==================== تحديث عرض النقاط ====================
         function updateCreditsDisplay() {
@@ -448,7 +449,7 @@
             document.getElementById('deepseekCredits').textContent = userCredits.deepseek;
             
             // تحديث النقاط الإجمالية (للشاشة)
-            const totalPoints = userCredits.zimage + userCredits.kling * 5 + userCredits.mureka * 2 + userCredits.fish * 3;
+            const totalPoints = userCredits.zimage + userCredits.kling + userCredits.mureka + userCredits.fish;
             document.getElementById('points').textContent = totalPoints;
         }
 
@@ -461,7 +462,6 @@
             }
             
             let service = '';
-            let cost = 1;
             
             if (mediaType === 'IMAGE') service = 'zimage';
             else if (mediaType === 'VIDEO') service = 'kling';
@@ -474,7 +474,11 @@
                 
                 document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                document.getElementById('output').innerHTML = `✅ تم التوليد! (بقيت ${userCredits[service]} نقاط في ${service})`;
+                document.getElementById('output').innerHTML = `✅ تم التوليد! (بقيت ${userCredits[service]} نقاط)`;
+                
+                // تحديث إحصائيات الاستهلاك
+                const total = parseInt(document.getElementById('totalConsumed').textContent) + 1;
+                document.getElementById('totalConsumed').textContent = total;
             } else {
                 document.getElementById('upgradeModal').classList.add('show');
             }
@@ -488,7 +492,6 @@
                 return;
             }
             
-            // استخدم نقطة من Z-Image كمثال
             if (userCredits.zimage > 0) {
                 userCredits.zimage--;
                 updateCreditsDisplay();
@@ -504,7 +507,6 @@
         // ==================== اختيار خطة ====================
         function selectPlan(plan) {
             if (plan === 'starter') {
-                // تجديد النقاط المجانية حسب الإعدادات
                 userCredits = {
                     zimage: distributionSettings.zimage,
                     kling: distributionSettings.kling,
@@ -517,34 +519,32 @@
                 document.getElementById('output').innerHTML = "🎉 تم تجديد نقاطك المجانية!";
             } else if (plan === 'elite') {
                 alert("✨ شكراً لاشتراكك في الخطة الاحترافية!");
-                // نقاط غير محدودة للمشتركين
                 userCredits = {
-                    zimage: 9999,
-                    kling: 9999,
-                    mureka: 9999,
-                    fish: 9999,
-                    deepseek: 999999
+                    zimage: 50,
+                    kling: 10,
+                    mureka: 5,
+                    fish: 10,
+                    deepseek: 10000
                 };
                 updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
                 
-                // تحديث إحصائيات المترقين
-                document.getElementById('upgradedUsers').textContent = 
-                    parseInt(document.getElementById('upgradedUsers').textContent) + 1;
+                const upgraded = parseInt(document.getElementById('upgradedUsers').textContent) + 1;
+                document.getElementById('upgradedUsers').textContent = upgraded;
             } else if (plan === 'pro') {
                 alert("🚀 شكراً لاشتراكك في خطة المبدع!");
                 userCredits = {
-                    zimage: 99999,
-                    kling: 99999,
-                    mureka: 99999,
-                    fish: 99999,
-                    deepseek: 9999999
+                    zimage: 200,
+                    kling: 50,
+                    mureka: 20,
+                    fish: 30,
+                    deepseek: 50000
                 };
                 updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
                 
-                document.getElementById('upgradedUsers').textContent = 
-                    parseInt(document.getElementById('upgradedUsers').textContent) + 1;
+                const upgraded = parseInt(document.getElementById('upgradedUsers').textContent) + 1;
+                document.getElementById('upgradedUsers').textContent = upgraded;
             }
         }
 
@@ -552,14 +552,12 @@
         function toggleAdminPanel() {
             document.getElementById('adminPanel').classList.toggle('show');
             
-            // تحديث عرض الرصيد الحقيقي
             document.getElementById('adminZimage').textContent = platformCredits.zimage + ' صورة';
             document.getElementById('adminKling').textContent = platformCredits.kling + ' نقطة/يوم';
             document.getElementById('adminMureka').textContent = platformCredits.mureka + ' نقطة';
             document.getElementById('adminFish').textContent = platformCredits.fish + ' توليد';
             document.getElementById('adminDeepseek').textContent = platformCredits.deepseek + ' tokens';
             
-            // عرض الإعدادات الحالية
             document.getElementById('setZimage').value = distributionSettings.zimage;
             document.getElementById('setKling').value = distributionSettings.kling;
             document.getElementById('setMureka').value = distributionSettings.mureka;
@@ -569,4 +567,40 @@
         function saveAdminSettings() {
             distributionSettings = {
                 zimage: parseInt(document.getElementById('setZimage').value) || 2,
-                kling: parseInt(document.getElementById('setKling').value)
+                kling: parseInt(document.getElementById('setKling').value) || 1,
+                mureka: parseInt(document.getElementById('setMureka').value) || 1,
+                fish: parseInt(document.getElementById('setFish').value) || 1,
+                deepseek: 1000
+            };
+            
+            alert("✅ تم حفظ الإعدادات! ستطبق على المستخدمين الجدد.");
+            toggleAdminPanel();
+        }
+        
+        function resetUserCredits() {
+            userCredits = {
+                zimage: distributionSettings.zimage,
+                kling: distributionSettings.kling,
+                mureka: distributionSettings.mureka,
+                fish: distributionSettings.fish,
+                deepseek: distributionSettings.deepseek
+            };
+            updateCreditsDisplay();
+            document.getElementById('output').innerHTML = "🔄 تم تجديد نقاطك!";
+            toggleAdminPanel();
+        }
+        
+        function emergencyStop() {
+            emergencyMode = !emergencyMode;
+            alert(emergencyMode ? "⛔ تم إيقاف النقاط المجانية" : "✅ تم تفعيل النقاط المجانية");
+            toggleAdminPanel();
+        }
+
+        // ==================== لغة ====================
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.body.className = lang === 'ar' ? 'rtl' : '';
+            
+            if (lang === 'ar') {
+                document.getElementById('title').textContent = "اصنع روائع سينمائية بالذكاء الاصطناعي الصيني";
+                document.getElementById('desc').textContent = "أقوى الخدمات الصينية بأسعار منافسة وجودة
