@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - منصة الذكاء الاصطناعي</title>
+    <title>Vividia AI Studio - منصة الذكاء الاصطناعي الصينية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
@@ -29,6 +29,29 @@
         .card { background: #12122A; border: 1px solid #1E1E3A; border-radius: 20px; padding: 30px; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
         h1 { margin-bottom: 10px; font-size: 28px; }
         p { color: #9CA3AF; margin-bottom: 20px; }
+        
+        /* Credits Display */
+        .credits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #0A0A1A;
+            border-radius: 15px;
+            border: 1px solid #1E1E3A;
+        }
+        .credit-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: #1E1E3A;
+            border-radius: 10px;
+        }
+        .credit-icon { color: #8B5CF6; }
+        .credit-name { font-size: 12px; color: #9CA3AF; }
+        .credit-value { font-weight: bold; color: white; margin-left: auto; }
         
         /* Media Buttons */
         .buttons { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; justify-content: center; }
@@ -97,9 +120,6 @@
         .upgrade-title { font-size: 28px; margin-bottom: 10px; }
         .upgrade-desc { color: #9CA3AF; margin-bottom: 30px; }
         
-        /* Disabled */
-        .disabled { opacity: 0.5; pointer-events: none; }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .header { flex-direction: column; align-items: flex-start; }
@@ -135,81 +155,110 @@
 
         <!-- Main Card -->
         <div class="card" id="mainContent">
-            <h1 id="title">Create Cinematic Masterpieces with AI</h1>
-            <p id="desc">Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence.</p>
+            <h1 id="title">اصنع روائع سينمائية بالذكاء الاصطناعي الصيني</h1>
+            <p id="desc">أقوى الخدمات الصينية بأسعار منافسة وجودة عالمية</p>
+
+            <!-- Credits Display (النظام الذكي) -->
+            <div class="credits-grid" id="creditsGrid">
+                <div class="credit-item">
+                    <i class="fas fa-image credit-icon"></i>
+                    <span class="credit-name">Z-Image</span>
+                    <span class="credit-value" id="zimageCredits">20</span>
+                </div>
+                <div class="credit-item">
+                    <i class="fas fa-video credit-icon"></i>
+                    <span class="credit-name">Kling</span>
+                    <span class="credit-value" id="klingCredits">2</span>
+                </div>
+                <div class="credit-item">
+                    <i class="fas fa-music credit-icon"></i>
+                    <span class="credit-name">Mureka</span>
+                    <span class="credit-value" id="murekaCredits">2</span>
+                </div>
+                <div class="credit-item">
+                    <i class="fas fa-microphone credit-icon"></i>
+                    <span class="credit-name">Fish Audio</span>
+                    <span class="credit-value" id="fishCredits">1</span>
+                </div>
+                <div class="credit-item">
+                    <i class="fas fa-file-alt credit-icon"></i>
+                    <span class="credit-name">DeepSeek</span>
+                    <span class="credit-value" id="deepseekCredits">1K</span>
+                </div>
+            </div>
 
             <!-- Media Buttons -->
             <div class="buttons">
-                <button class="btn active" id="btn1" onclick="useFeature(this, 'IMAGE')">IMAGE</button>
-                <button class="btn" id="btn2" onclick="useFeature(this, 'VIDEO')">VIDEO</button>
-                <button class="btn" id="btn3" onclick="useFeature(this, 'MUSIC')">MUSIC</button>
-                <button class="btn" id="btn4" onclick="useFeature(this, 'VOICE')">VOICE</button>
+                <button class="btn active" id="btn1" onclick="useFeature(this, 'IMAGE')">صورة</button>
+                <button class="btn" id="btn2" onclick="useFeature(this, 'VIDEO')">فيديو</button>
+                <button class="btn" id="btn3" onclick="useFeature(this, 'MUSIC')">موسيقى</button>
+                <button class="btn" id="btn4" onclick="useFeature(this, 'VOICE')">صوت</button>
             </div>
 
             <!-- Output -->
             <div class="output" id="output">
-                👋 <span id="welcomeText">Welcome to Vividia AI. Describe your idea and click GENERATE!</span>
+                👋 <span id="welcomeText">مرحباً! جرب الخدمات الصينية المميزة بنقاط محدودة</span>
             </div>
 
             <!-- Generate Button -->
             <button class="generate-btn" onclick="generate()" id="generateBtn">
-                <i class="fas fa-wand-magic"></i> <span id="generateText">GENERATE MAGIC</span>
+                <i class="fas fa-wand-magic"></i> <span id="generateText">توليد بالإبداع</span>
             </button>
         </div>
 
         <!-- Pricing Section -->
         <div class="pricing-section">
-            <h2 class="pricing-title" id="pricingTitle">Choose Your Plan</h2>
-            <p class="pricing-subtitle" id="pricingSubtitle">Flexible plans for every creator</p>
+            <h2 class="pricing-title" id="pricingTitle">اختر خطتك وابدأ الإبداع</h2>
+            <p class="pricing-subtitle" id="pricingSubtitle">خطط مدعومة بأقوى الخدمات الصينية</p>
             
             <div class="pricing-cards">
                 <!-- Starter -->
                 <div class="pricing-card">
-                    <div class="pricing-name" id="starterName">Starter</div>
-                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/month</small></div>
+                    <div class="pricing-name" id="starterName">مجاني</div>
+                    <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="starterFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat1">5 images per day</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat2">SD quality</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat3">Community access</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat1">20 صورة (Z-Image)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat2">2 فيديو (Kling)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat3">2 أغنية (Mureka)</span></li>
                     </ul>
-                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">Get Started</button>
+                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">ابدأ مجاناً</button>
                 </div>
 
                 <!-- Elite -->
                 <div class="pricing-card popular">
-                    <div class="popular-badge" id="popularBadge">Most Popular</div>
-                    <div class="pricing-name" id="eliteName">Elite</div>
-                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/month</small></div>
+                    <div class="popular-badge" id="popularBadge">الأكثر طلباً</div>
+                    <div class="pricing-name" id="eliteName">احترافي</div>
+                    <div class="pricing-price" id="elitePrice">$7.99 <small id="elitePeriod">/شهر</small></div>
                     <ul class="pricing-features" id="eliteFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat1">Unlimited 8K images</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat2">🎙️ 10 min ElevenLabs voice</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat3">No watermark</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat4">Priority processing</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat1">صور غير محدودة 8K</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat2">10 فيديوهات (Kling Pro)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat3">10 أغاني (Mureka)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="eliteFeat4">10 دقائق Fish Audio</span></li>
                     </ul>
-                    <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">Get Elite</button>
+                    <button class="pricing-btn popular-btn" id="eliteBtn" onclick="selectPlan('elite')">اشترك الآن</button>
                 </div>
 
                 <!-- Pro -->
                 <div class="pricing-card">
-                    <div class="pricing-name" id="proName">Pro Studio</div>
-                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/month</small></div>
+                    <div class="pricing-name" id="proName">مبدع</div>
+                    <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">Everything in Elite</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat2">🎙️ 60 min ElevenLabs voice</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat3">Unlimited dubbing</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat4">Commercial license</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat5">Custom API access</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">كل خدمات الاحترافي</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat2">فيديوهات غير محدودة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat3">موسيقى غير محدودة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat4">دبلجة + بث مباشر</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat5">DeepSeek غير محدود</span></li>
                     </ul>
-                    <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">Get Pro</button>
+                    <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">اشترك في المبدع</button>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <a href="#" onclick="showModal('privacy'); return false;" id="footerPrivacy">Privacy</a>
-            <a href="#" onclick="showModal('terms'); return false;" id="footerTerms">Terms</a>
-            <a href="#" onclick="showModal('support'); return false;" id="footerSupport">Support</a>
+            <a href="#" onclick="showModal('privacy'); return false;" id="footerPrivacy">الخصوصية</a>
+            <a href="#" onclick="showModal('terms'); return false;" id="footerTerms">الشروط</a>
+            <a href="#" onclick="showModal('support'); return false;" id="footerSupport">الدعم</a>
         </div>
     </div>
 
@@ -217,292 +266,147 @@
     <div class="upgrade-modal" id="upgradeModal">
         <div class="upgrade-card">
             <div class="upgrade-icon">✨</div>
-            <h2 class="upgrade-title" id="upgradeTitle">You've Used All Your Points!</h2>
-            <p class="upgrade-desc" id="upgradeDesc">Upgrade to continue creating amazing content.</p>
+            <h2 class="upgrade-title" id="upgradeTitle">انتهت نقاطك المجانية!</h2>
+            <p class="upgrade-desc" id="upgradeDesc">اشترك للاستمرار في استخدام الخدمات الصينية المميزة</p>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <button class="pricing-btn popular-btn" onclick="selectPlan('elite')" id="modalEliteBtn">Get Elite ($7.99)</button>
-                <button class="pricing-btn popular-btn" onclick="selectPlan('pro')" id="modalProBtn">Get Pro ($24.99)</button>
+                <button class="pricing-btn popular-btn" onclick="selectPlan('elite')" id="modalEliteBtn">احترافي ($7.99)</button>
+                <button class="pricing-btn popular-btn" onclick="selectPlan('pro')" id="modalProBtn">مبدع ($24.99)</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== GLOBAL STATE ====================
-        let points = 10;
-        let currentLang = 'en';
-        let activeMedia = 'image';
-
-        // ==================== TRANSLATIONS ====================
-        const translations = {
-            en: {
-                title: "Create Cinematic Masterpieces with AI",
-                desc: "Turn your ideas into stunning 4K animations, films, and characters using next-gen artificial intelligence.",
-                btn1: "IMAGE", btn2: "VIDEO", btn3: "MUSIC", btn4: "VOICE",
-                welcomeText: "Welcome to Vividia AI. Describe your idea and click GENERATE!",
-                generateText: "GENERATE MAGIC",
-                pointsText: "Points",
-                pricingTitle: "Choose Your Plan",
-                pricingSubtitle: "Flexible plans for every creator",
-                starterName: "Starter", eliteName: "Elite", proName: "Pro Studio",
-                starterFeat1: "5 images per day", starterFeat2: "SD quality", starterFeat3: "Community access",
-                eliteFeat1: "Unlimited 8K images", eliteFeat2: "🎙️ 10 min ElevenLabs voice", eliteFeat3: "No watermark", eliteFeat4: "Priority processing",
-                proFeat1: "Everything in Elite", proFeat2: "🎙️ 60 min ElevenLabs voice", proFeat3: "Unlimited dubbing", proFeat4: "Commercial license", proFeat5: "Custom API access",
-                starterBtn: "Get Started", eliteBtn: "Get Elite", proBtn: "Get Pro",
-                starterPeriod: "/month", elitePeriod: "/month", proPeriod: "/month",
-                popularBadge: "Most Popular",
-                upgradeTitle: "You've Used All Your Points!",
-                upgradeDesc: "Upgrade to continue creating amazing content.",
-                footerPrivacy: "Privacy", footerTerms: "Terms", footerSupport: "Support",
-                currency: "$", elitePrice: "7.99", proPrice: "24.99"
-            },
-            ar: {
-                title: "اصنع روائع سينمائية بالذكاء الاصطناعي",
-                desc: "حوّل أفكارك إلى رسوم متحركة وأفلام وشخصيات مذهلة بدقة 4K",
-                btn1: "صورة", btn2: "فيديو", btn3: "موسيقى", btn4: "صوت",
-                welcomeText: "مرحباً بك في Vividia AI. صف فكرتك وانقر على توليد!",
-                generateText: "توليد الإبداع",
-                pointsText: "نقاط",
-                pricingTitle: "اختر خطتك",
-                pricingSubtitle: "خطط مرنة لكل مبدع",
-                starterName: "المبتدئ", eliteName: "النخبة", proName: "برو ستوديو",
-                starterFeat1: "5 صور يومياً", starterFeat2: "جودة عادية", starterFeat3: "وصول للمجتمع",
-                eliteFeat1: "صور غير محدودة 8K", eliteFeat2: "🎙️ 10 دقائق ElevenLabs", eliteFeat3: "بدون علامة مائية", eliteFeat4: "معالجة أولوية",
-                proFeat1: "كل مميزات النخبة", proFeat2: "🎙️ 60 دقيقة ElevenLabs", proFeat3: "دبلجة غير محدودة", proFeat4: "رخصة تجارية", proFeat5: "API خاص",
-                starterBtn: "ابدأ مجاناً", eliteBtn: "اشترك الآن", proBtn: "اشترك في برو",
-                starterPeriod: "/شهر", elitePeriod: "/شهر", proPeriod: "/شهر",
-                popularBadge: "الأكثر طلباً",
-                upgradeTitle: "لقد استنفدت كل نقاطك!",
-                upgradeDesc: "اشترك للاستمرار في إنشاء محتوى رائع.",
-                footerPrivacy: "الخصوصية", footerTerms: "الشروط", footerSupport: "الدعم",
-                currency: "﷼", elitePrice: "29.99", proPrice: "94.99"
-            },
-            fr: {
-                title: "Créez des chefs-d'œuvre cinématographiques avec l'IA",
-                desc: "Transformez vos idées en animations, films et personnages 4K époustouflants avec l'IA.",
-                btn1: "IMAGE", btn2: "VIDÉO", btn3: "MUSIQUE", btn4: "VOIX",
-                welcomeText: "Bienvenue sur Vividia AI. Décrivez votre idée et cliquez sur GÉNÉRER!",
-                generateText: "GÉNÉRER MAGIQUE",
-                pointsText: "Points",
-                pricingTitle: "Choisissez votre plan",
-                pricingSubtitle: "Plans flexibles pour chaque créateur",
-                starterName: "Débutant", eliteName: "Elite", proName: "Pro Studio",
-                starterFeat1: "5 images par jour", starterFeat2: "Qualité SD", starterFeat3: "Accès communauté",
-                eliteFeat1: "Images 8K illimitées", eliteFeat2: "🎙️ 10 min ElevenLabs", eliteFeat3: "Sans filigrane", eliteFeat4: "Traitement prioritaire",
-                proFeat1: "Tout dans Elite", proFeat2: "🎙️ 60 min ElevenLabs", proFeat3: "Doublage illimité", proFeat4: "Licence commerciale", proFeat5: "API personnalisé",
-                starterBtn: "Commencer", eliteBtn: "Choisir Elite", proBtn: "Choisir Pro",
-                starterPeriod: "/mois", elitePeriod: "/mois", proPeriod: "/mois",
-                popularBadge: "Plus populaire",
-                upgradeTitle: "Vous avez utilisé tous vos points!",
-                upgradeDesc: "Passez à un plan supérieur pour continuer.",
-                footerPrivacy: "Confidentialité", footerTerms: "Conditions", footerSupport: "Assistance",
-                currency: "€", elitePrice: "7.99", proPrice: "24.99"
-            },
-            es: {
-                title: "Crea obras maestras cinematográficas con IA",
-                desc: "Convierte tus ideas en animaciones, películas y personajes 4K impresionantes.",
-                btn1: "IMAGEN", btn2: "VIDEO", btn3: "MÚSICA", btn4: "VOZ",
-                welcomeText: "Bienvenido a Vividia AI. ¡Describe tu idea y haz clic en GENERAR!",
-                generateText: "GENERAR MAGIA",
-                pointsText: "Puntos",
-                pricingTitle: "Elige tu plan",
-                pricingSubtitle: "Planes flexibles para cada creador",
-                starterName: "Principiante", eliteName: "Élite", proName: "Pro Studio",
-                starterFeat1: "5 imágenes por día", starterFeat2: "Calidad SD", starterFeat3: "Acceso comunitario",
-                eliteFeat1: "Imágenes 8K ilimitadas", eliteFeat2: "🎙️ 10 min ElevenLabs", eliteFeat3: "Sin marca de agua", eliteFeat4: "Procesamiento prioritario",
-                proFeat1: "Todo en Élite", proFeat2: "🎙️ 60 min ElevenLabs", proFeat3: "Doblaje ilimitado", proFeat4: "Licencia comercial", proFeat5: "API personalizado",
-                starterBtn: "Comenzar", eliteBtn: "Elegir Élite", proBtn: "Elegir Pro",
-                starterPeriod: "/mes", elitePeriod: "/mes", proPeriod: "/mes",
-                popularBadge: "Más popular",
-                upgradeTitle: "¡Has usado todos tus puntos!",
-                upgradeDesc: "Actualiza para continuar creando.",
-                footerPrivacy: "Privacidad", footerTerms: "Términos", footerSupport: "Soporte",
-                currency: "€", elitePrice: "7.99", proPrice: "24.99"
-            },
-            de: {
-                title: "Erstelle filmische Meisterwerke mit KI",
-                desc: "Verwandle deine Ideen in atemberaubende 4K-Animationen, Filme und Charaktere.",
-                btn1: "BILD", btn2: "VIDEO", btn3: "MUSIK", btn4: "STIMME",
-                welcomeText: "Willkommen bei Vividia AI. Beschreibe deine Idee und klicke auf GENERIEREN!",
-                generateText: "MAGIE GENERIEREN",
-                pointsText: "Punkte",
-                pricingTitle: "Wähle deinen Plan",
-                pricingSubtitle: "Flexible Pläne für jeden Kreativen",
-                starterName: "Einsteiger", eliteName: "Elite", proName: "Pro Studio",
-                starterFeat1: "5 Bilder pro Tag", starterFeat2: "SD-Qualität", starterFeat3: "Community-Zugang",
-                eliteFeat1: "Unbegrenzte 8K-Bilder", eliteFeat2: "🎙️ 10 min ElevenLabs", eliteFeat3: "Ohne Wasserzeichen", eliteFeat4: "Priorisierte Verarbeitung",
-                proFeat1: "Alles in Elite", proFeat2: "🎙️ 60 min ElevenLabs", proFeat3: "Unbegrenztes Dubbing", proFeat4: "Kommerzielle Lizenz", proFeat5: "API-Zugang",
-                starterBtn: "Starten", eliteBtn: "Elite wählen", proBtn: "Pro wählen",
-                starterPeriod: "/Monat", elitePeriod: "/Monat", proPeriod: "/Monat",
-                popularBadge: "Am beliebtesten",
-                upgradeTitle: "Du hast alle Punkte aufgebraucht!",
-                upgradeDesc: "Upgrade, um weiterzumachen.",
-                footerPrivacy: "Datenschutz", footerTerms: "AGB", footerSupport: "Support",
-                currency: "€", elitePrice: "7.99", proPrice: "24.99"
-            }
+        // ==================== نظام النقاط الذكي ====================
+        let userCredits = {
+            zimage: 20,     // 20 صورة فقط (بدلاً من 50)
+            kling: 2,       // 2 فيديوهات فقط
+            mureka: 2,      // 2 أغاني فقط
+            fish: 1,        // 1 دقيقة صوت
+            deepseek: 1000  // 1000 token
         };
 
-        // ==================== UPDATE UI ====================
-        function updateUI() {
-            const t = translations[currentLang];
-            
-            // Update direction
-            document.body.className = currentLang === 'ar' ? 'rtl' : '';
-            
-            // Update active language button
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes(t.currency === '﷼' ? 'العربية' : currentLang.toUpperCase())) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Update points
-            document.getElementById('points').textContent = points;
-            document.getElementById('pointsText').textContent = t.pointsText;
-            
-            // Update main content
-            document.getElementById('title').textContent = t.title;
-            document.getElementById('desc').textContent = t.desc;
-            document.getElementById('btn1').textContent = t.btn1;
-            document.getElementById('btn2').textContent = t.btn2;
-            document.getElementById('btn3').textContent = t.btn3;
-            document.getElementById('btn4').textContent = t.btn4;
-            document.getElementById('welcomeText').textContent = t.welcomeText;
-            document.getElementById('generateText').textContent = t.generateText;
-            
-            // Update pricing
-            document.getElementById('pricingTitle').textContent = t.pricingTitle;
-            document.getElementById('pricingSubtitle').textContent = t.pricingSubtitle;
-            document.getElementById('starterName').textContent = t.starterName;
-            document.getElementById('eliteName').textContent = t.eliteName;
-            document.getElementById('proName').textContent = t.proName;
-            
-            document.getElementById('starterFeat1').textContent = t.starterFeat1;
-            document.getElementById('starterFeat2').textContent = t.starterFeat2;
-            document.getElementById('starterFeat3').textContent = t.starterFeat3;
-            
-            document.getElementById('eliteFeat1').textContent = t.eliteFeat1;
-            document.getElementById('eliteFeat2').textContent = t.eliteFeat2;
-            document.getElementById('eliteFeat3').textContent = t.eliteFeat3;
-            document.getElementById('eliteFeat4').textContent = t.eliteFeat4;
-            
-            document.getElementById('proFeat1').textContent = t.proFeat1;
-            document.getElementById('proFeat2').textContent = t.proFeat2;
-            document.getElementById('proFeat3').textContent = t.proFeat3;
-            document.getElementById('proFeat4').textContent = t.proFeat4;
-            document.getElementById('proFeat5').textContent = t.proFeat5;
-            
-            document.getElementById('starterBtn').textContent = t.starterBtn;
-            document.getElementById('eliteBtn').textContent = t.eliteBtn;
-            document.getElementById('proBtn').textContent = t.proBtn;
-            
-            document.getElementById('starterPeriod').textContent = t.starterPeriod;
-            document.getElementById('elitePeriod').textContent = t.elitePeriod;
-            document.getElementById('proPeriod').textContent = t.proPeriod;
-            
-            document.getElementById('popularBadge').textContent = t.popularBadge;
-            
-            // Update prices with currency
-            document.getElementById('starterPrice').innerHTML = `${t.currency}0 <small>${t.starterPeriod}</small>`;
-            document.getElementById('elitePrice').innerHTML = `${t.currency}${t.elitePrice} <small>${t.elitePeriod}</small>`;
-            document.getElementById('proPrice').innerHTML = `${t.currency}${t.proPrice} <small>${t.proPeriod}</small>`;
-            
-            // Update modal
-            document.getElementById('upgradeTitle').textContent = t.upgradeTitle;
-            document.getElementById('upgradeDesc').textContent = t.upgradeDesc;
-            document.getElementById('modalEliteBtn').innerHTML = `${t.eliteBtn} (${t.currency}${t.elitePrice})`;
-            document.getElementById('modalProBtn').innerHTML = `${t.proBtn} (${t.currency}${t.proPrice})`;
-            
-            // Update footer
-            document.getElementById('footerPrivacy').textContent = t.footerPrivacy;
-            document.getElementById('footerTerms').textContent = t.footerTerms;
-            document.getElementById('footerSupport').textContent = t.footerSupport;
+        let currentLang = 'ar';
+
+        // ==================== تحديث عرض النقاط ====================
+        function updateCreditsDisplay() {
+            document.getElementById('zimageCredits').textContent = userCredits.zimage;
+            document.getElementById('klingCredits').textContent = userCredits.kling;
+            document.getElementById('murekaCredits').textContent = userCredits.mureka;
+            document.getElementById('fishCredits').textContent = userCredits.fish;
+            document.getElementById('deepseekCredits').textContent = userCredits.deepseek + 'K';
         }
 
-        // ==================== LANGUAGE ====================
-        function setLanguage(lang) {
-            currentLang = lang;
-            updateUI();
-        }
-
-        // ==================== MEDIA BUTTONS ====================
+        // ==================== استخدام خدمة ====================
         function useFeature(btn, mediaType) {
-            if (points <= 0) {
+            let service = '';
+            let cost = 1;
+            
+            if (mediaType === 'IMAGE') service = 'zimage';
+            else if (mediaType === 'VIDEO') service = 'kling';
+            else if (mediaType === 'MUSIC') service = 'mureka';
+            else if (mediaType === 'VOICE') service = 'fish';
+            
+            if (service && userCredits[service] > 0) {
+                userCredits[service]--;
+                updateCreditsDisplay();
+                
+                document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('output').innerHTML = `✅ تم التوليد! (بقيت ${userCredits[service]} نقاط في ${service})`;
+            } else {
                 document.getElementById('upgradeModal').classList.add('show');
-                return;
-            }
-            
-            document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            points--;
-            document.getElementById('points').textContent = points;
-            document.getElementById('output').innerHTML = `✅ ${mediaType} mode activated! (1 point used)`;
-            
-            if (points <= 0) {
-                setTimeout(() => {
-                    document.getElementById('upgradeModal').classList.add('show');
-                }, 500);
             }
         }
 
-        // ==================== GENERATE ====================
+        // ==================== توليد ====================
         function generate() {
-            if (points <= 0) {
+            // استخدام نقطة عشوائية (محاكاة)
+            if (userCredits.zimage > 0) {
+                userCredits.zimage--;
+                updateCreditsDisplay();
+                document.getElementById('output').innerHTML = "🎨 جاري الإبداع...";
+                setTimeout(() => {
+                    document.getElementById('output').innerHTML = "✅ تم التوليد بنجاح!";
+                }, 2000);
+            } else {
                 document.getElementById('upgradeModal').classList.add('show');
-                return;
             }
-            
-            points--;
-            document.getElementById('points').textContent = points;
-            document.getElementById('output').innerHTML = "🎨 AI is creating your masterpiece...";
-            
-            setTimeout(() => {
-                document.getElementById('output').innerHTML = "✅ Generation complete!";
-                if (points <= 0) {
-                    document.getElementById('upgradeModal').classList.add('show');
-                }
-            }, 2000);
         }
 
-        // ==================== SELECT PLAN ====================
+        // ==================== اختيار خطة ====================
         function selectPlan(plan) {
-            const t = translations[currentLang];
-            
             if (plan === 'starter') {
-                points = 10;
-                document.getElementById('points').textContent = points;
+                // تجديد النقاط المجانية
+                userCredits = {
+                    zimage: 20,
+                    kling: 2,
+                    mureka: 2,
+                    fish: 1,
+                    deepseek: 1000
+                };
+                updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
-                document.getElementById('output').innerHTML = "🎉 You got 10 more free points!";
+                document.getElementById('output').innerHTML = "🎉 تم تجديد نقاطك المجانية!";
             } else if (plan === 'elite') {
-                alert(`✨ ${t.eliteName} plan selected! Thank you for subscribing.`);
-                points = 999999;
-                document.getElementById('points').textContent = "∞";
+                alert("✨ شكراً لاشتراكك في الخطة الاحترافية!");
+                // نقاط غير محدودة
+                userCredits = {
+                    zimage: 9999,
+                    kling: 9999,
+                    mureka: 9999,
+                    fish: 9999,
+                    deepseek: 999999
+                };
+                updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
             } else if (plan === 'pro') {
-                alert(`🚀 ${t.proName} plan selected! Thank you for subscribing.`);
-                points = 999999;
-                document.getElementById('points').textContent = "∞";
+                alert("🚀 شكراً لاشتراكك في خطة المبدع!");
+                userCredits = {
+                    zimage: 99999,
+                    kling: 99999,
+                    mureka: 99999,
+                    fish: 99999,
+                    deepseek: 9999999
+                };
+                updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
             }
-            updateUI();
         }
 
-        // ==================== MODALS ====================
-        function showModal(type) {
-            const t = translations[currentLang];
-            if (type === 'privacy') {
-                alert(t.footerPrivacy + (currentLang === 'ar' ? ':\nسياسة الخصوصية...' : ' Policy:\nWe value your privacy...'));
-            } else if (type === 'terms') {
-                alert(t.footerTerms + (currentLang === 'ar' ? ':\nشروط الخدمة...' : ' of Service:\nPlease read carefully...'));
-            } else if (type === 'support') {
-                alert(t.footerSupport + (currentLang === 'ar' ? ':\nمركز الدعم...' : ' Center:\nWe are here to help...'));
+        // ==================== لغة ====================
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.body.className = lang === 'ar' ? 'rtl' : '';
+            
+            // تحديث النصوص حسب اللغة (مختصر)
+            if (lang === 'ar') {
+                document.getElementById('title').textContent = "اصنع روائع سينمائية بالذكاء الاصطناعي الصيني";
+                document.getElementById('desc').textContent = "أقوى الخدمات الصينية بأسعار منافسة وجودة عالمية";
+                document.getElementById('btn1').textContent = "صورة";
+                document.getElementById('btn2').textContent = "فيديو";
+                document.getElementById('btn3').textContent = "موسيقى";
+                document.getElementById('btn4').textContent = "صوت";
+                document.getElementById('generateText').textContent = "توليد بالإبداع";
+            } else {
+                document.getElementById('title').textContent = "Create Cinematic Masterpieces with Chinese AI";
+                document.getElementById('desc').textContent = "Powerful Chinese AI services at competitive prices";
+                document.getElementById('btn1').textContent = "IMAGE";
+                document.getElementById('btn2').textContent = "VIDEO";
+                document.getElementById('btn3').textContent = "MUSIC";
+                document.getElementById('btn4').textContent = "VOICE";
+                document.getElementById('generateText').textContent = "GENERATE MAGIC";
             }
         }
 
-        // ==================== INIT ====================
+        // ==================== نوافذ ====================
+        function showModal(type) {
+            alert(type === 'privacy' ? 'سياسة الخصوصية...' : type === 'terms' ? 'شروط الخدمة...' : 'مركز الدعم...');
+        }
+
+        // ==================== بدء التشغيل ====================
         window.onload = function() {
             setLanguage('ar');
+            updateCreditsDisplay();
             document.getElementById('userIcon').textContent = 'Z';
         };
     </script>
