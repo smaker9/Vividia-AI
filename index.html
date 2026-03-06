@@ -66,7 +66,7 @@
         .generate-btn { background: linear-gradient(135deg, #8B5CF6, #3B82F6); color: white; border: none; width: 100%; padding: 15px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; margin: 20px 0; transition: 0.2s; }
         .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139,92,246,0.3); }
         
-        /* Admin Toggle Button (سري) */
+        /* Admin Toggle Button */
         .admin-toggle {
             position: fixed;
             bottom: 20px;
@@ -193,7 +193,7 @@
             <div class="profile" id="profile">
                 <div class="points">
                     <i class="fas fa-star"></i>
-                    <span class="points-value" id="points">5</span>
+                    <span class="points-value" id="points">2</span>
                     <span id="pointsText">نقاط</span>
                 </div>
                 <div class="user-icon" id="userIcon">Z</div>
@@ -214,7 +214,7 @@
             <h1 id="title">اصنع روائع سينمائية بالذكاء الاصطناعي الصيني</h1>
             <p id="desc">أقوى الخدمات الصينية بأسعار منافسة وجودة عالمية</p>
 
-            <!-- Credits Display (معدل) -->
+            <!-- Credits Display -->
             <div class="credits-grid" id="creditsGrid">
                 <div class="credit-item">
                     <i class="fas fa-image credit-icon"></i>
@@ -268,20 +268,19 @@
             <p class="pricing-subtitle" id="pricingSubtitle">خطط مدعومة بأقوى الخدمات الصينية</p>
             
             <div class="pricing-cards">
-                <!-- Starter -->
+                <!-- Starter (مجاني) -->
                 <div class="pricing-card">
                     <div class="pricing-name" id="starterName">مجاني</div>
                     <div class="pricing-price" id="starterPrice">$0 <small id="starterPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="starterFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat1">2 صورة (Z-Image)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat2">1 فيديو (Kling)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat3">1 أغنية (Mureka)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat4">1 دقيقة صوت</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat1">2 صورة فقط</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat2">1 فيديو فقط</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="starterFeat3">1 أغنية فقط</span></li>
                     </ul>
-                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">ابدأ مجاناً</button>
+                    <button class="pricing-btn" id="starterBtn" onclick="selectPlan('starter')">جرب مجاناً</button>
                 </div>
 
-                <!-- Elite -->
+                <!-- Elite (المدفوعة) -->
                 <div class="pricing-card popular">
                     <div class="popular-badge" id="popularBadge">الأكثر طلباً</div>
                     <div class="pricing-name" id="eliteName">احترافي</div>
@@ -300,11 +299,10 @@
                     <div class="pricing-name" id="proName">مبدع</div>
                     <div class="pricing-price" id="proPrice">$24.99 <small id="proPeriod">/شهر</small></div>
                     <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">صور غير محدودة</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat2">فيديوهات غير محدودة</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat3">موسيقى غير محدودة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat1">200 صورة شهرياً</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat2">50 فيديو</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="proFeat3">20 أغنية</span></li>
                         <li><i class="fas fa-check-circle"></i> <span id="proFeat4">30 دقيقة Fish Audio</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span id="proFeat5">DeepSeek غير محدود</span></li>
                     </ul>
                     <button class="pricing-btn" id="proBtn" onclick="selectPlan('pro')">اشترك في المبدع</button>
                 </div>
@@ -319,7 +317,7 @@
         </div>
     </div>
 
-    <!-- Admin Toggle Button (سري) -->
+    <!-- Admin Toggle Button -->
     <div class="admin-toggle" onclick="toggleAdminPanel()">
         <i class="fas fa-cog"></i>
     </div>
@@ -331,7 +329,7 @@
             <h2 class="admin-title">🔧 لوحة التحكم السرية</h2>
             
             <div class="admin-stats">
-                <h3>📊 الرصيد المتبقي في حسابك</h3>
+                <h3>📊 رصيدك الحقيقي في المنصات</h3>
                 <div class="stat-row">
                     <span class="stat-label">Z-Image (Alibaba):</span>
                     <span class="stat-value" id="adminZimage">1000 صورة</span>
@@ -355,40 +353,37 @@
             </div>
             
             <div class="admin-control">
-                <h3>🎯 التحكم في توزيع النقاط للمستخدمين</h3>
+                <h3>🎯 توزيع النقاط للمستخدمين</h3>
                 
-                <label class="control-label">Z-Image (عدد الصور لكل مستخدم جديد):</label>
-                <input type="number" class="control-input" id="setZimage" value="2" min="0" max="100">
+                <label class="control-label">Z-Image (عدد الصور للمجاني):</label>
+                <input type="number" class="control-input" id="setZimage" value="2" min="1" max="10">
                 
-                <label class="control-label">Kling (عدد الفيديوهات لكل مستخدم):</label>
-                <input type="number" class="control-input" id="setKling" value="1" min="0" max="50">
+                <label class="control-label">Kling (عدد الفيديوهات للمجاني):</label>
+                <input type="number" class="control-input" id="setKling" value="1" min="1" max="5">
                 
-                <label class="control-label">Mureka (عدد النقاط لكل مستخدم):</label>
-                <input type="number" class="control-input" id="setMureka" value="1" min="0" max="50">
-                
-                <label class="control-label">Fish Audio (عدد التوليدات لكل مستخدم):</label>
-                <input type="number" class="control-input" id="setFish" value="1" min="0" max="20">
+                <label class="control-label">Mureka (عدد النقاط للمجاني):</label>
+                <input type="number" class="control-input" id="setMureka" value="1" min="1" max="5">
                 
                 <div style="margin-top: 20px;">
-                    <button class="admin-btn success" onclick="saveAdminSettings()">💾 حفظ الإعدادات</button>
-                    <button class="admin-btn" onclick="resetUserCredits()">🔄 تجديد نقاط المستخدم الحالي</button>
-                    <button class="admin-btn danger" onclick="emergencyStop()">⛔ إيقاف النقاط المجانية</button>
+                    <button class="admin-btn success" onclick="saveAdminSettings()">💾 حفظ التوزيع</button>
+                    <button class="admin-btn" onclick="resetUserCredits()">🔄 تجديد للمستخدم الحالي</button>
+                    <button class="admin-btn danger" onclick="emergencyStop()">⛔ إيقاف المجاني</button>
                 </div>
             </div>
             
             <div class="admin-control">
-                <h3>📈 إحصائيات المنصة</h3>
+                <h3>💰 أرباحك</h3>
                 <div class="stat-row">
-                    <span class="stat-label">عدد المستخدمين النشطين:</span>
-                    <span class="stat-value" id="activeUsers">1</span>
+                    <span class="stat-label">المشتركين في Elite ($7.99):</span>
+                    <span class="stat-value" id="eliteCount">0</span>
                 </div>
                 <div class="stat-row">
-                    <span class="stat-label">إجمالي النقاط المستهلكة:</span>
-                    <span class="stat-value" id="totalConsumed">0</span>
+                    <span class="stat-label">المشتركين في Pro ($24.99):</span>
+                    <span class="stat-value" id="proCount">0</span>
                 </div>
                 <div class="stat-row">
-                    <span class="stat-label">المستخدمين المترقين:</span>
-                    <span class="stat-value" id="upgradedUsers">0</span>
+                    <span class="stat-label">إجمالي الأرباح:</span>
+                    <span class="stat-value" id="totalProfit">$0</span>
                 </div>
             </div>
         </div>
@@ -399,7 +394,7 @@
         <div class="upgrade-card">
             <div class="upgrade-icon">✨</div>
             <h2 class="upgrade-title" id="upgradeTitle">انتهت نقاطك المجانية!</h2>
-            <p class="upgrade-desc" id="upgradeDesc">اشترك للاستمرار في استخدام الخدمات الصينية المميزة</p>
+            <p class="upgrade-desc" id="upgradeDesc">اشترك الآن واستمر في الإبداع</p>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                 <button class="pricing-btn popular-btn" onclick="selectPlan('elite')" id="modalEliteBtn">احترافي ($7.99)</button>
                 <button class="pricing-btn popular-btn" onclick="selectPlan('pro')" id="modalProBtn">مبدع ($24.99)</button>
@@ -408,9 +403,7 @@
     </div>
 
     <script>
-        // ==================== النظام السري للتحكم في النقاط ====================
-        
-        // رصيدك الحقيقي في المنصات الصينية (تعدله من هنا)
+        // ==================== رصيدك الحقيقي ====================
         const platformCredits = {
             zimage: 1000,      // 1000 صورة من Alibaba
             kling: 66,          // 66 نقطة يومياً من Kling
@@ -419,28 +412,44 @@
             deepseek: 50000     // 50K tokens
         };
         
-        // إعدادات توزيع النقاط (تتحكم فيها من لوحة التحكم)
+        // ==================== إعدادات التوزيع ====================
         let distributionSettings = {
-            zimage: 2,      // كل مستخدم جديد: 2 صورة
-            kling: 1,       // كل مستخدم جديد: 1 فيديو
-            mureka: 1,      // كل مستخدم جديد: 1 نقطة
-            fish: 1,        // كل مستخدم جديد: 1 توليد
-            deepseek: 1000  // كل مستخدم جديد: 1000 token
+            free: {
+                zimage: 2,      // المستخدم المجاني: 2 صورة
+                kling: 1,       // المستخدم المجاني: 1 فيديو
+                mureka: 1,      // المستخدم المجاني: 1 نقطة
+                fish: 1,        // المستخدم المجاني: 1 دقيقة
+                deepseek: 1000
+            },
+            elite: {
+                zimage: 50,     // المشترك Elite: 50 صورة
+                kling: 10,      // 10 فيديوهات
+                mureka: 5,      // 5 أغاني
+                fish: 10,       // 10 دقائق
+                deepseek: 10000
+            },
+            pro: {
+                zimage: 200,    // المشترك Pro: 200 صورة
+                kling: 50,      // 50 فيديو
+                mureka: 20,     // 20 أغنية
+                fish: 30,       // 30 دقيقة
+                deepseek: 50000
+            }
         };
         
-        // نقاط المستخدم الحالي
+        // ==================== نقاط المستخدم الحالي ====================
         let userCredits = {
-            zimage: distributionSettings.zimage,
-            kling: distributionSettings.kling,
-            mureka: distributionSettings.mureka,
-            fish: distributionSettings.fish,
-            deepseek: distributionSettings.deepseek
+            ...distributionSettings.free
         };
         
         let currentLang = 'ar';
         let emergencyMode = false;
+        
+        // إحصائيات الأرباح
+        let eliteSubscribers = 0;
+        let proSubscribers = 0;
 
-        // ==================== تحديث عرض النقاط ====================
+        // ==================== تحديث العرض ====================
         function updateCreditsDisplay() {
             document.getElementById('zimageCredits').textContent = userCredits.zimage;
             document.getElementById('klingCredits').textContent = userCredits.kling;
@@ -448,7 +457,6 @@
             document.getElementById('fishCredits').textContent = userCredits.fish;
             document.getElementById('deepseekCredits').textContent = userCredits.deepseek;
             
-            // تحديث النقاط الإجمالية (للشاشة)
             const totalPoints = userCredits.zimage + userCredits.kling + userCredits.mureka + userCredits.fish;
             document.getElementById('points').textContent = totalPoints;
         }
@@ -456,8 +464,7 @@
         // ==================== استخدام خدمة ====================
         function useFeature(btn, mediaType) {
             if (emergencyMode) {
-                document.getElementById('output').innerHTML = "⚠️ النقاط المجانية متوقفة حالياً. اشترك للاستمرار.";
-                document.getElementById('upgradeModal').classList.add('show');
+                document.getElementById('output').innerHTML = "⚠️ الخدمة متوقفة مؤقتاً";
                 return;
             }
             
@@ -474,11 +481,7 @@
                 
                 document.querySelectorAll('.buttons .btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                document.getElementById('output').innerHTML = `✅ تم التوليد! (بقيت ${userCredits[service]} نقاط)`;
-                
-                // تحديث إحصائيات الاستهلاك
-                const total = parseInt(document.getElementById('totalConsumed').textContent) + 1;
-                document.getElementById('totalConsumed').textContent = total;
+                document.getElementById('output').innerHTML = `✅ تم التوليد! (بقي ${userCredits[service]})`;
             } else {
                 document.getElementById('upgradeModal').classList.add('show');
             }
@@ -487,8 +490,7 @@
         // ==================== توليد ====================
         function generate() {
             if (emergencyMode) {
-                document.getElementById('output').innerHTML = "⚠️ النقاط المجانية متوقفة حالياً. اشترك للاستمرار.";
-                document.getElementById('upgradeModal').classList.add('show');
+                document.getElementById('output').innerHTML = "⚠️ الخدمة متوقفة مؤقتاً";
                 return;
             }
             
@@ -507,45 +509,34 @@
         // ==================== اختيار خطة ====================
         function selectPlan(plan) {
             if (plan === 'starter') {
-                userCredits = {
-                    zimage: distributionSettings.zimage,
-                    kling: distributionSettings.kling,
-                    mureka: distributionSettings.mureka,
-                    fish: distributionSettings.fish,
-                    deepseek: distributionSettings.deepseek
-                };
+                userCredits = { ...distributionSettings.free };
                 updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
-                document.getElementById('output').innerHTML = "🎉 تم تجديد نقاطك المجانية!";
+                document.getElementById('output').innerHTML = "🎉 عدت للخطة المجانية!";
             } else if (plan === 'elite') {
-                alert("✨ شكراً لاشتراكك في الخطة الاحترافية!");
-                userCredits = {
-                    zimage: 50,
-                    kling: 10,
-                    mureka: 5,
-                    fish: 10,
-                    deepseek: 10000
-                };
+                userCredits = { ...distributionSettings.elite };
                 updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
+                document.getElementById('output').innerHTML = "✨ شكراً لاشتراكك!";
                 
-                const upgraded = parseInt(document.getElementById('upgradedUsers').textContent) + 1;
-                document.getElementById('upgradedUsers').textContent = upgraded;
+                eliteSubscribers++;
+                updateProfit();
             } else if (plan === 'pro') {
-                alert("🚀 شكراً لاشتراكك في خطة المبدع!");
-                userCredits = {
-                    zimage: 200,
-                    kling: 50,
-                    mureka: 20,
-                    fish: 30,
-                    deepseek: 50000
-                };
+                userCredits = { ...distributionSettings.pro };
                 updateCreditsDisplay();
                 document.getElementById('upgradeModal').classList.remove('show');
+                document.getElementById('output').innerHTML = "🚀 شكراً لاشتراكك!";
                 
-                const upgraded = parseInt(document.getElementById('upgradedUsers').textContent) + 1;
-                document.getElementById('upgradedUsers').textContent = upgraded;
+                proSubscribers++;
+                updateProfit();
             }
+        }
+        
+        function updateProfit() {
+            const total = (eliteSubscribers * 7.99) + (proSubscribers * 24.99);
+            document.getElementById('eliteCount').textContent = eliteSubscribers;
+            document.getElementById('proCount').textContent = proSubscribers;
+            document.getElementById('totalProfit').textContent = '$' + total.toFixed(2);
         }
 
         // ==================== لوحة التحكم ====================
@@ -558,33 +549,26 @@
             document.getElementById('adminFish').textContent = platformCredits.fish + ' توليد';
             document.getElementById('adminDeepseek').textContent = platformCredits.deepseek + ' tokens';
             
-            document.getElementById('setZimage').value = distributionSettings.zimage;
-            document.getElementById('setKling').value = distributionSettings.kling;
-            document.getElementById('setMureka').value = distributionSettings.mureka;
-            document.getElementById('setFish').value = distributionSettings.fish;
+            document.getElementById('setZimage').value = distributionSettings.free.zimage;
+            document.getElementById('setKling').value = distributionSettings.free.kling;
+            document.getElementById('setMureka').value = distributionSettings.free.mureka;
         }
         
         function saveAdminSettings() {
-            distributionSettings = {
+            distributionSettings.free = {
                 zimage: parseInt(document.getElementById('setZimage').value) || 2,
                 kling: parseInt(document.getElementById('setKling').value) || 1,
                 mureka: parseInt(document.getElementById('setMureka').value) || 1,
-                fish: parseInt(document.getElementById('setFish').value) || 1,
+                fish: 1,
                 deepseek: 1000
             };
             
-            alert("✅ تم حفظ الإعدادات! ستطبق على المستخدمين الجدد.");
+            alert("✅ تم حفظ الإعدادات!");
             toggleAdminPanel();
         }
         
         function resetUserCredits() {
-            userCredits = {
-                zimage: distributionSettings.zimage,
-                kling: distributionSettings.kling,
-                mureka: distributionSettings.mureka,
-                fish: distributionSettings.fish,
-                deepseek: distributionSettings.deepseek
-            };
+            userCredits = { ...distributionSettings.free };
             updateCreditsDisplay();
             document.getElementById('output').innerHTML = "🔄 تم تجديد نقاطك!";
             toggleAdminPanel();
@@ -592,7 +576,7 @@
         
         function emergencyStop() {
             emergencyMode = !emergencyMode;
-            alert(emergencyMode ? "⛔ تم إيقاف النقاط المجانية" : "✅ تم تفعيل النقاط المجانية");
+            alert(emergencyMode ? "⛔ تم إيقاف الخدمة" : "✅ تم تفعيل الخدمة");
             toggleAdminPanel();
         }
 
@@ -600,7 +584,18 @@
         function setLanguage(lang) {
             currentLang = lang;
             document.body.className = lang === 'ar' ? 'rtl' : '';
-            
-            if (lang === 'ar') {
-                document.getElementById('title').textContent = "اصنع روائع سينمائية بالذكاء الاصطناعي الصيني";
-                document.getElementById('desc').textContent = "أقوى الخدمات الصينية بأسعار منافسة وجودة
+        }
+
+        function showModal(type) {
+            alert(type === 'privacy' ? 'سياسة الخصوصية...' : type === 'terms' ? 'شروط الخدمة...' : 'مركز الدعم...');
+        }
+
+        // بدء التشغيل
+        window.onload = function() {
+            setLanguage('ar');
+            updateCreditsDisplay();
+            document.getElementById('userIcon').textContent = 'Z';
+            updateProfit();
+        };
+    </script>
+</
