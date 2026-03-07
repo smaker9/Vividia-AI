@@ -17,57 +17,13 @@
         .points-value { font-weight: bold; color: #8B5CF6; }
         .user-icon { width: 40px; height: 40px; background: #8B5CF6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         
-        .credits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-            padding: 15px;
-            background: #0A0A1A;
-            border-radius: 15px;
-            border: 1px solid #1E1E3A;
-        }
-        .credit-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: #1E1E3A;
-            border-radius: 10px;
-        }
-        .credit-icon { color: #8B5CF6; }
-        .credit-name { font-size: 12px; color: #9CA3AF; }
-        .credit-value { font-weight: bold; color: white; margin-left: auto; }
-        
-        .service-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-        .service-btn {
-            background: linear-gradient(135deg, #1E1E3A, #2A2A4A);
-            border: 1px solid #8B5CF6;
-            border-radius: 20px;
-            padding: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-align: center;
-        }
-        .service-btn:hover { transform: translateY(-5px); border-color: #8B5CF6; box-shadow: 0 10px 20px rgba(139,92,246,0.3); }
-        .service-btn i { font-size: 40px; color: #8B5CF6; margin-bottom: 10px; }
-        .service-btn h3 { margin-bottom: 10px; }
-        .service-btn p { color: #9CA3AF; font-size: 14px; }
-        .service-btn .remaining { margin-top: 10px; font-weight: bold; color: #8B5CF6; }
-        .service-btn.disabled { opacity: 0.5; cursor: not-allowed; }
-        .service-btn.disabled:hover { transform: none; box-shadow: none; }
-        
-        .generate-area {
+        /* حقل الكتابة في الأعلى */
+        .prompt-area {
             background: #12122A;
             border: 1px solid #1E1E3A;
             border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
+            padding: 20px;
+            margin-bottom: 30px;
         }
         .prompt-input {
             width: 100%;
@@ -77,46 +33,76 @@
             border-radius: 15px;
             color: white;
             font-size: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .generate-btn {
             background: linear-gradient(135deg, #8B5CF6, #3B82F6);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 30px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
         }
         
+        /* مربعات الخدمات - بحجم أصغر */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .service-card {
+            background: linear-gradient(135deg, #1E1E3A, #2A2A4A);
+            border: 1px solid #8B5CF6;
+            border-radius: 15px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .service-card:hover { transform: translateY(-3px); border-color: #8B5CF6; box-shadow: 0 5px 15px rgba(139,92,246,0.3); }
+        .service-card i { font-size: 24px; color: #8B5CF6; margin-bottom: 5px; }
+        .service-card .name { font-size: 14px; font-weight: bold; }
+        .service-card .remaining { font-size: 12px; color: #9CA3AF; margin-top: 5px; }
+        .service-card.disabled { opacity: 0.5; cursor: not-allowed; }
+        .service-card.disabled:hover { transform: none; box-shadow: none; }
+        
+        /* منطقة النتيجة */
         .output {
             background: #0A0A1A;
             border: 1px solid #1E1E3A;
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             margin: 20px 0;
-            min-height: 100px;
+            min-height: 60px;
+            font-size: 14px;
         }
         
-        .pricing-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
+        /* مستطيلات الخطط - في الأسفل (تظهر فقط للمسجلين) */
+        .plans-section {
+            margin-top: 40px;
+            border-top: 1px solid #1E1E3A;
+            padding-top: 30px;
         }
-        .pricing-card {
+        .plans-title { text-align: center; margin-bottom: 20px; color: #8B5CF6; }
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .plan-card {
             background: #12122A;
             border: 1px solid #1E1E3A;
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
-            position: relative;
-            transition: 0.3s;
+            transition: 0.2s;
         }
-        .pricing-card:hover { transform: translateY(-5px); border-color: #8B5CF6; }
-        .pricing-card.popular { border: 2px solid #8B5CF6; background: linear-gradient(145deg, #12122A, #1A1A3A); }
+        .plan-card:hover { transform: translateY(-5px); border-color: #8B5CF6; }
+        .plan-card.popular { border: 2px solid #8B5CF6; background: linear-gradient(145deg, #12122A, #1A1A3A); }
         .popular-badge {
             position: absolute;
             top: -12px;
@@ -126,47 +112,25 @@
             padding: 5px 20px;
             border-radius: 30px;
             font-size: 12px;
-            font-weight: bold;
         }
-        .price { font-size: 48px; font-weight: bold; color: #8B5CF6; margin: 15px 0; }
-        .price small { font-size: 16px; color: #9CA3AF; font-weight: normal; }
-        .features { list-style: none; margin: 20px 0; text-align: right; }
-        .features li { margin: 15px 0; color: #9CA3AF; display: flex; align-items: center; gap: 10px; }
-        .features i { color: #10B981; min-width: 20px; }
-        .subscribe-btn {
+        .plan-price { font-size: 32px; font-weight: bold; color: #8B5CF6; margin: 10px 0; }
+        .plan-price small { font-size: 14px; color: #9CA3AF; }
+        .plan-features { list-style: none; margin: 15px 0; text-align: right; }
+        .plan-features li { margin: 8px 0; color: #9CA3AF; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .plan-features i { color: #10B981; min-width: 18px; }
+        .plan-btn {
             background: transparent;
             border: 1px solid #8B5CF6;
             color: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 30px;
             width: 100%;
-            font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
+            font-size: 14px;
             transition: 0.2s;
         }
-        .subscribe-btn:hover { background: #8B5CF6; }
-        .subscribe-btn.popular { background: #8B5CF6; border: none; }
-        
-        .offer-banner {
-            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            margin: 40px 0;
-        }
-        .offer-banner h2 { font-size: 32px; margin-bottom: 10px; }
-        .offer-banner p { font-size: 18px; opacity: 0.9; margin-bottom: 20px; }
-        .offer-btn {
-            background: white;
-            color: #8B5CF6;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .plan-btn:hover { background: #8B5CF6; }
+        .plan-btn.popular { background: #8B5CF6; border: none; }
         
         .footer {
             border-top: 1px solid #1E1E3A;
@@ -176,7 +140,7 @@
             gap: 30px;
             margin-top: 40px;
         }
-        .footer a { color: #9CA3AF; text-decoration: none; cursor: pointer; }
+        .footer a { color: #9CA3AF; text-decoration: none; cursor: pointer; font-size: 14px; }
         .footer a:hover { color: #8B5CF6; }
         
         .upgrade-modal {
@@ -194,33 +158,29 @@
             background: #12122A;
             border: 2px solid #8B5CF6;
             border-radius: 30px;
-            padding: 40px;
-            max-width: 400px;
+            padding: 30px;
+            max-width: 350px;
             width: 90%;
             text-align: center;
         }
-        .modal-content i { font-size: 60px; color: gold; margin-bottom: 20px; }
+        .modal-content i { font-size: 50px; color: gold; margin-bottom: 15px; }
         
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             border-top-color: white;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
-        @media (max-width: 768px) {
-            .header { flex-direction: column; align-items: flex-start; }
-            .pricing-cards { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
-    <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="max-width: 1000px; margin: 0 auto;">
         
+        <!-- Header -->
         <div class="header">
             <div class="logo">VIVIDIA AI</div>
             <div class="profile">
@@ -233,92 +193,46 @@
             </div>
         </div>
 
-        <!-- عرض الرصيد -->
-        <div class="credits-grid">
-            <div class="credit-item">
-                <i class="fas fa-image credit-icon"></i>
-                <span class="credit-name">صور</span>
-                <span class="credit-value" id="imageCredits">2</span>
-            </div>
-            <div class="credit-item">
-                <i class="fas fa-video credit-icon"></i>
-                <span class="credit-name">فيديو</span>
-                <span class="credit-value" id="videoCredits">0</span>
-            </div>
-            <div class="credit-item">
-                <i class="fas fa-music credit-icon"></i>
-                <span class="credit-name">موسيقى</span>
-                <span class="credit-value" id="musicCredits">0</span>
-            </div>
-            <div class="credit-item">
-                <i class="fas fa-microphone credit-icon"></i>
-                <span class="credit-name">صوت</span>
-                <span class="credit-value" id="voiceCredits">30</span>
-            </div>
-            <div class="credit-item">
-                <i class="fas fa-language credit-icon"></i>
-                <span class="credit-name">دبلجة</span>
-                <span class="credit-value" id="dubbingCredits">0</span>
-            </div>
-            <div class="credit-item">
-                <i class="fas fa-file-alt credit-icon"></i>
-                <span class="credit-name">قصص</span>
-                <span class="credit-value" id="storyCredits">500</span>
-            </div>
-        </div>
-
-        <!-- أزرار الخدمات -->
-        <div class="service-buttons">
-            <div class="service-btn" onclick="selectService('image')">
-                <i class="fas fa-image"></i>
-                <h3>توليد الصور</h3>
-                <p>حوّل النص إلى صورة</p>
-                <div class="remaining" id="remainingImage">2 صور</div>
-            </div>
-            <div class="service-btn disabled" id="videoBtn" onclick="selectService('video')">
-                <i class="fas fa-video"></i>
-                <h3>توليد فيديو</h3>
-                <p>متاح للمشتركين فقط</p>
-                <div class="remaining">مشتركين فقط</div>
-            </div>
-            <div class="service-btn disabled" id="musicBtn" onclick="selectService('music')">
-                <i class="fas fa-music"></i>
-                <h3>توليد موسيقى</h3>
-                <p>متاح للمشتركين فقط</p>
-                <div class="remaining">مشتركين فقط</div>
-            </div>
-            <div class="service-btn" onclick="selectService('voice')">
-                <i class="fas fa-microphone"></i>
-                <h3>توليد صوت</h3>
-                <p>تعليق صوتي طبيعي</p>
-                <div class="remaining" id="remainingVoice">30 ث</div>
-            </div>
-            <div class="service-btn disabled" id="dubbingBtn" onclick="selectService('dubbing')">
-                <i class="fas fa-language"></i>
-                <h3>دبلجة فيديو</h3>
-                <p>متاح للمشتركين فقط</p>
-                <div class="remaining">مشتركين فقط</div>
-            </div>
-            <div class="service-btn" onclick="selectService('story')">
-                <i class="fas fa-file-alt"></i>
-                <h3>توليد قصص</h3>
-                <p>سيناريوهات وحوارات</p>
-                <div class="remaining" id="remainingStory">500 كلمة</div>
-            </div>
-        </div>
-
-        <!-- منطقة التوليد -->
-        <div class="generate-area">
-            <textarea class="prompt-input" id="promptInput" placeholder="اكتب وصفاً لما تريد توليده..." rows="3">مشهد سينمائي لغابة في الليل</textarea>
-            
-            <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                <span style="color: #9CA3AF;">الخدمة المختارة:</span>
-                <span style="color: #8B5CF6; font-weight: bold;" id="selectedServiceDisplay">صور</span>
-            </div>
-
+        <!-- حقل الكتابة في الأعلى -->
+        <div class="prompt-area">
+            <textarea class="prompt-input" id="promptInput" placeholder="اكتب وصفاً لما تريد توليده..." rows="2">مشهد سينمائي لغابة في الليل</textarea>
             <button class="generate-btn" onclick="generate()" id="generateBtn">
                 <i class="fas fa-wand-magic"></i> توليد
             </button>
+        </div>
+
+        <!-- مربعات الخدمات - بحجم أصغر -->
+        <div class="services-grid">
+            <div class="service-card" onclick="selectService('image')">
+                <i class="fas fa-image"></i>
+                <div class="name">صور</div>
+                <div class="remaining" id="remainingImage">2</div>
+            </div>
+            <div class="service-card disabled" id="videoCard" onclick="selectService('video')">
+                <i class="fas fa-video"></i>
+                <div class="name">فيديو</div>
+                <div class="remaining">مشتركين</div>
+            </div>
+            <div class="service-card disabled" id="musicCard" onclick="selectService('music')">
+                <i class="fas fa-music"></i>
+                <div class="name">موسيقى</div>
+                <div class="remaining">مشتركين</div>
+            </div>
+            <div class="service-card" onclick="selectService('voice')">
+                <i class="fas fa-microphone"></i>
+                <div class="name">صوت</div>
+                <div class="remaining" id="remainingVoice">30ث</div>
+            </div>
+            <div class="service-card disabled" id="dubbingCard" onclick="selectService('dubbing')">
+                <i class="fas fa-language"></i>
+                <div class="name">دبلجة</div>
+                <div class="remaining">مشتركين</div>
+            </div>
+            <div class="service-card" onclick="selectService('story')">
+                <i class="fas fa-file-alt"></i>
+                <div class="name">قصص</div>
+                <div class="remaining" id="remainingStory">500</div>
+            </div>
         </div>
 
         <!-- منطقة النتيجة -->
@@ -326,61 +240,39 @@
             <span id="outputMessage">👋 اختر خدمة واكتب وصفك ثم اضغط توليد</span>
         </div>
 
-        <!-- عرض خاص للمجانيين -->
-        <div class="offer-banner">
-            <i class="fas fa-crown" style="font-size: 48px; margin-bottom: 20px;"></i>
-            <h2>🎁 عرض خاص لأول 100 مشترك!</h2>
-            <p>اشترك الآن بخصم 50% واحصل على فيديوهات وموسيقى ودبلجة غير محدودة</p>
-            <p style="font-size: 24px; margin: 20px 0;"><span style="text-decoration: line-through;">$7.99</span> <span style="font-weight: bold;">$3.99</span> فقط لأول شهر!</p>
-            <button class="offer-btn" onclick="selectPlan('pro')">🔥 احصل على العرض الآن</button>
-        </div>
-
-        <!-- خطط الأسعار -->
-        <h2 style="text-align: center; margin: 50px 0 20px;">خطط الأسعار</h2>
-        <div class="pricing-cards">
-            <div class="pricing-card">
-                <h3>مجاني</h3>
-                <div class="price">$0</div>
-                <ul class="features">
-                    <li><i class="fas fa-check-circle"></i> 2 صورة</li>
-                    <li><i class="fas fa-check-circle"></i> 30 ثانية صوت</li>
-                    <li><i class="fas fa-check-circle"></i> 500 كلمة</li>
-                    <li><i class="fas fa-times-circle" style="color: #EF4444;"></i> فيديو</li>
-                    <li><i class="fas fa-times-circle" style="color: #EF4444;"></i> موسيقى</li>
-                    <li><i class="fas fa-times-circle" style="color: #EF4444;"></i> دبلجة</li>
-                </ul>
-                <button class="subscribe-btn" onclick="selectPlan('free')">خطتك الحالية</button>
-            </div>
-            <div class="pricing-card popular">
-                <div class="popular-badge">الأكثر طلباً</div>
-                <h3>احترافي</h3>
-                <div class="price"><small>$</small>7.99 <small>/شهر</small></div>
-                <ul class="features">
-                    <li><i class="fas fa-check-circle"></i> 50 صورة</li>
-                    <li><i class="fas fa-check-circle"></i> 10 فيديوهات</li>
-                    <li><i class="fas fa-check-circle"></i> 5 أغاني</li>
-                    <li><i class="fas fa-check-circle"></i> 10 دقائق صوت</li>
-                    <li><i class="fas fa-check-circle"></i> 5 دبلجة</li>
-                    <li><i class="fas fa-check-circle"></i> 10,000 كلمة</li>
-                </ul>
-                <button class="subscribe-btn popular" onclick="selectPlan('pro')">اشترك الآن</button>
-            </div>
-            <div class="pricing-card">
-                <h3>مبدع</h3>
-                <div class="price"><small>$</small>24.99 <small>/شهر</small></div>
-                <ul class="features">
-                    <li><i class="fas fa-check-circle"></i> 200 صورة</li>
-                    <li><i class="fas fa-check-circle"></i> 50 فيديو</li>
-                    <li><i class="fas fa-check-circle"></i> 20 أغنية</li>
-                    <li><i class="fas fa-check-circle"></i> 30 دقيقة صوت</li>
-                    <li><i class="fas fa-check-circle"></i> 20 دبلجة</li>
-                    <li><i class="fas fa-check-circle"></i> 50,000 كلمة</li>
-                </ul>
-                <button class="subscribe-btn" onclick="selectPlan('creative')">اشترك الآن</button>
+        <!-- مستطيلات الخطط - في الأسفل (تظهر فقط للمسجلين) -->
+        <div class="plans-section" id="plansSection">
+            <h2 class="plans-title">✨ خطط مخصصة للمبدعين</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>احترافي</h3>
+                    <div class="plan-price">$7.99 <small>/شهر</small></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check-circle"></i> 50 صورة</li>
+                        <li><i class="fas fa-check-circle"></i> 10 فيديوهات</li>
+                        <li><i class="fas fa-check-circle"></i> 5 أغاني</li>
+                        <li><i class="fas fa-check-circle"></i> 10 دقائق صوت</li>
+                        <li><i class="fas fa-check-circle"></i> 5 دبلجة</li>
+                    </ul>
+                    <button class="plan-btn popular" onclick="selectPlan('pro')">اشترك الآن</button>
+                </div>
+                <div class="plan-card popular">
+                    <div class="popular-badge">الأكثر طلباً</div>
+                    <h3>مبدع</h3>
+                    <div class="plan-price">$24.99 <small>/شهر</small></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check-circle"></i> 200 صورة</li>
+                        <li><i class="fas fa-check-circle"></i> 50 فيديو</li>
+                        <li><i class="fas fa-check-circle"></i> 20 أغنية</li>
+                        <li><i class="fas fa-check-circle"></i> 30 دقيقة صوت</li>
+                        <li><i class="fas fa-check-circle"></i> 20 دبلجة</li>
+                    </ul>
+                    <button class="plan-btn popular" onclick="selectPlan('creative')">اشترك الآن</button>
+                </div>
             </div>
         </div>
 
-        <!-- التذييل -->
+        <!-- Footer -->
         <div class="footer">
             <a href="#" onclick="showModal('privacy')">الخصوصية</a>
             <a href="#" onclick="showModal('terms')">الشروط</a>
@@ -392,15 +284,15 @@
     <div class="upgrade-modal" id="upgradeModal">
         <div class="modal-content">
             <i class="fas fa-crown"></i>
-            <h2 style="margin-bottom: 20px;">هذه الخدمة للمشتركين فقط!</h2>
-            <p style="color: #9CA3AF; margin-bottom: 30px;">اشترك الآن بخصم 50% واستمتع بكل المميزات</p>
-            <button class="subscribe-btn popular" style="margin: 10px;" onclick="selectPlan('pro')">اشترك ب $3.99 فقط</button>
-            <button class="subscribe-btn" style="margin: 10px;" onclick="closeModal()">ربما لاحقاً</button>
+            <h3 style="margin-bottom: 15px;">هذه الخدمة للمشتركين فقط!</h3>
+            <p style="color: #9CA3AF; margin-bottom: 20px; font-size: 14px;">اشترك الآن وتمتع بكل المميزات</p>
+            <button class="plan-btn popular" style="margin: 5px;" onclick="selectPlan('pro')">اشترك ب $7.99</button>
+            <button class="plan-btn" style="margin: 5px;" onclick="closeModal()">ربما لاحقاً</button>
         </div>
     </div>
 
     <script>
-        // ==================== رصيد المستخدم المجاني ====================
+        // ==================== بيانات المستخدم ====================
         let userCredits = {
             images: 2,
             video: 0,
@@ -412,33 +304,22 @@
 
         let selectedService = 'image';
         let isGenerating = false;
-        let proSubscribers = 0;
-        let creativeSubscribers = 0;
 
         // تحديث العرض
         function updateDisplay() {
-            document.getElementById('imageCredits').textContent = userCredits.images;
-            document.getElementById('videoCredits').textContent = userCredits.video;
-            document.getElementById('musicCredits').textContent = userCredits.music;
-            document.getElementById('voiceCredits').textContent = userCredits.voice;
-            document.getElementById('dubbingCredits').textContent = userCredits.dubbing;
-            document.getElementById('storyCredits').textContent = userCredits.story;
+            document.getElementById('remainingImage').textContent = userCredits.images;
+            document.getElementById('remainingVoice').textContent = userCredits.voice + 'ث';
+            document.getElementById('remainingStory').textContent = userCredits.story;
             
-            document.getElementById('remainingImage').textContent = userCredits.images + ' صور';
-            document.getElementById('remainingVoice').textContent = userCredits.voice + ' ث';
-            document.getElementById('remainingStory').textContent = userCredits.story + ' كلمة';
-            
-            let total = userCredits.images + userCredits.voice + (userCredits.story/100);
+            let total = userCredits.images + (userCredits.voice/10) + (userCredits.story/100);
             document.getElementById('totalPoints').textContent = Math.floor(total);
         }
 
         // اختيار خدمة
         function selectService(service) {
-            if (service === 'video' || service === 'music' || service === 'dubbing') {
-                if (userCredits[service] === 0) {
-                    document.getElementById('upgradeModal').classList.add('show');
-                    return;
-                }
+            if ((service === 'video' || service === 'music' || service === 'dubbing') && userCredits[service] === 0) {
+                document.getElementById('upgradeModal').classList.add('show');
+                return;
             }
             
             selectedService = service;
@@ -468,6 +349,8 @@
             setTimeout(() => {
                 if (service === 'story') {
                     userCredits[service] -= 100;
+                } else if (service === 'voice') {
+                    userCredits[service] -= 10;
                 } else {
                     userCredits[service]--;
                 }
@@ -481,23 +364,16 @@
 
         // اختيار خطة
         function selectPlan(plan) {
-            if (plan === 'free') {
-                userCredits = { images: 2, video: 0, music: 0, voice: 30, dubbing: 0, story: 500 };
-                document.getElementById('videoBtn').classList.add('disabled');
-                document.getElementById('musicBtn').classList.add('disabled');
-                document.getElementById('dubbingBtn').classList.add('disabled');
-            } else if (plan === 'pro') {
+            if (plan === 'pro') {
                 userCredits = { images: 50, video: 10, music: 5, voice: 600, dubbing: 5, story: 10000 };
-                proSubscribers++;
-                document.getElementById('videoBtn').classList.remove('disabled');
-                document.getElementById('musicBtn').classList.remove('disabled');
-                document.getElementById('dubbingBtn').classList.remove('disabled');
+                document.getElementById('videoCard').classList.remove('disabled');
+                document.getElementById('musicCard').classList.remove('disabled');
+                document.getElementById('dubbingCard').classList.remove('disabled');
             } else if (plan === 'creative') {
                 userCredits = { images: 200, video: 50, music: 20, voice: 1800, dubbing: 20, story: 50000 };
-                creativeSubscribers++;
-                document.getElementById('videoBtn').classList.remove('disabled');
-                document.getElementById('musicBtn').classList.remove('disabled');
-                document.getElementById('dubbingBtn').classList.remove('disabled');
+                document.getElementById('videoCard').classList.remove('disabled');
+                document.getElementById('musicCard').classList.remove('disabled');
+                document.getElementById('dubbingCard').classList.remove('disabled');
             }
             
             updateDisplay();
@@ -514,9 +390,15 @@
                   'الدعم: راسلنا على support@vividia.ai');
         }
 
+        // إظهار خطط الأسعار فقط إذا كان المستخدم مسجل (محاكاة)
         window.onload = function() {
             updateDisplay();
             selectService('image');
+            
+            // إخفاء الخطط مؤقتاً (سيظهر للمستخدمين المسجلين فقط)
+            setTimeout(() => {
+                document.getElementById('plansSection').style.display = 'block';
+            }, 1000);
         };
     </script>
 </body>
