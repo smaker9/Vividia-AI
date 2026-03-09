@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vividia AI - منصة الإبداع بالذكاء الاصطناعي</title>
+    <title>Vividia AI - المنصة النهائية للإبداع بالذكاء الاصطناعي الصيني</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
         body { background: #0A0A1A; color: white; padding: 20px; }
         
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
@@ -17,7 +17,6 @@
         .points-value { font-weight: bold; color: #8B5CF6; }
         .user-icon { width: 40px; height: 40px; background: #8B5CF6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         
-        /* حقل الكتابة في الأعلى */
         .prompt-area {
             background: #12122A;
             border: 1px solid #1E1E3A;
@@ -47,10 +46,9 @@
             width: 100%;
         }
         
-        /* مربعات الخدمات - بحجم أصغر */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 10px;
             margin: 20px 0;
         }
@@ -68,9 +66,7 @@
         .service-card .name { font-size: 14px; font-weight: bold; }
         .service-card .remaining { font-size: 12px; color: #9CA3AF; margin-top: 5px; }
         .service-card.disabled { opacity: 0.5; cursor: not-allowed; }
-        .service-card.disabled:hover { transform: none; box-shadow: none; }
         
-        /* منطقة النتيجة */
         .output {
             background: #0A0A1A;
             border: 1px solid #1E1E3A;
@@ -81,7 +77,6 @@
             font-size: 14px;
         }
         
-        /* مستطيلات الخطط - في الأسفل (تظهر فقط للمسجلين) */
         .plans-section {
             margin-top: 40px;
             border-top: 1px solid #1E1E3A;
@@ -90,16 +85,17 @@
         .plans-title { text-align: center; margin-bottom: 20px; color: #8B5CF6; }
         .plans-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
         .plan-card {
             background: #12122A;
             border: 1px solid #1E1E3A;
             border-radius: 20px;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             transition: 0.2s;
+            position: relative;
         }
         .plan-card:hover { transform: translateY(-5px); border-color: #8B5CF6; }
         .plan-card.popular { border: 2px solid #8B5CF6; background: linear-gradient(145deg, #12122A, #1A1A3A); }
@@ -113,7 +109,7 @@
             border-radius: 30px;
             font-size: 12px;
         }
-        .plan-price { font-size: 32px; font-weight: bold; color: #8B5CF6; margin: 10px 0; }
+        .plan-price { font-size: 36px; font-weight: bold; color: #8B5CF6; margin: 10px 0; }
         .plan-price small { font-size: 14px; color: #9CA3AF; }
         .plan-features { list-style: none; margin: 15px 0; text-align: right; }
         .plan-features li { margin: 8px 0; color: #9CA3AF; font-size: 13px; display: flex; align-items: center; gap: 8px; }
@@ -175,10 +171,28 @@
             animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Voice selector */
+        .voice-selector {
+            background: #1E1E3A;
+            border: 1px solid #8B5CF6;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .voice-selector select {
+            width: 100%;
+            padding: 10px;
+            background: #0A0A1A;
+            border: 1px solid #1E1E3A;
+            color: white;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
-    <div style="max-width: 1000px; margin: 0 auto;">
+    <div style="max-width: 1200px; margin: 0 auto;">
         
         <!-- Header -->
         <div class="header">
@@ -186,14 +200,41 @@
             <div class="profile">
                 <div class="points">
                     <i class="fas fa-star"></i>
-                    <span class="points-value" id="totalPoints">5</span>
+                    <span class="points-value" id="totalPoints">5253</span>
                     <span>نقطة</span>
                 </div>
-                <div class="user-icon">ز</div>
+                <div class="user-icon">م</div>
             </div>
         </div>
 
-        <!-- حقل الكتابة في الأعلى -->
+        <!-- Voice Selector (Edge TTS) -->
+        <div class="voice-selector">
+            <label style="color: #9CA3AF; margin-bottom: 5px; display: block;">اختر الصوت (Edge TTS):</label>
+            <select id="voiceSelect">
+                <option value="ar-EG-SalmaNeural">مصر - سلمى (أنثى)</option>
+                <option value="ar-EG-ShakirNeural">مصر - شاكر (ذكر)</option>
+                <option value="ar-SA-ZariyahNeural">السعودية - زريا (أنثى)</option>
+                <option value="ar-SA-HamedNeural">السعودية - حامد (ذكر)</option>
+                <option value="ar-AE-FatimaNeural">الإمارات - فاطمة (أنثى)</option>
+                <option value="ar-AE-HamdanNeural">الإمارات - حمدان (ذكر)</option>
+                <option value="ar-QA-AmalNeural">قطر - أمل (أنثى)</option>
+                <option value="ar-QA-MoazNeural">قطر - معاذ (ذكر)</option>
+                <option value="ar-KW-NouraNeural">الكويت - نورة (أنثى)</option>
+                <option value="ar-KW-FahedNeural">الكويت - فهد (ذكر)</option>
+                <option value="ar-MA-MounaNeural">المغرب - منى (أنثى)</option>
+                <option value="ar-MA-JamalNeural">المغرب - جمال (ذكر)</option>
+                <option value="ar-TN-ReemNeural">تونس - ريم (أنثى)</option>
+                <option value="ar-TN-HediNeural">تونس - هادي (ذكر)</option>
+                <option value="ar-LY-ImanNeural">ليبيا - إيمان (أنثى)</option>
+                <option value="ar-LY-OmarNeural">ليبيا - عمر (ذكر)</option>
+                <option value="ar-OM-AyshaNeural">عمان - عائشة (أنثى)</option>
+                <option value="ar-OM-AbdullahNeural">عمان - عبدالله (ذكر)</option>
+                <option value="ar-SY-AmalNeural">سوريا - أمل (أنثى)</option>
+                <option value="ar-SY-LaithNeural">سوريا - ليث (ذكر)</option>
+            </select>
+        </div>
+
+        <!-- Prompt Area -->
         <div class="prompt-area">
             <textarea class="prompt-input" id="promptInput" placeholder="اكتب وصفاً لما تريد توليده..." rows="2">مشهد سينمائي لغابة في الليل</textarea>
             <button class="generate-btn" onclick="generate()" id="generateBtn">
@@ -201,73 +242,85 @@
             </button>
         </div>
 
-        <!-- مربعات الخدمات - بحجم أصغر -->
+        <!-- Services Grid -->
         <div class="services-grid">
-            <div class="service-card" onclick="selectService('image')">
+            <div class="service-card" onclick="selectService('silicon')">
                 <i class="fas fa-image"></i>
-                <div class="name">صور</div>
-                <div class="remaining" id="remainingImage">2</div>
+                <div class="name">صور (SiliconFlow)</div>
+                <div class="remaining" id="remainingSilicon">200</div>
             </div>
-            <div class="service-card disabled" id="videoCard" onclick="selectService('video')">
+            <div class="service-card" onclick="selectService('zhipu')">
+                <i class="fas fa-image"></i>
+                <div class="name">صور (ZhiPu AI)</div>
+                <div class="remaining" id="remainingZhipu">5000</div>
+            </div>
+            <div class="service-card" onclick="selectService('kling')">
                 <i class="fas fa-video"></i>
-                <div class="name">فيديو</div>
-                <div class="remaining">مشتركين</div>
-            </div>
-            <div class="service-card disabled" id="musicCard" onclick="selectService('music')">
-                <i class="fas fa-music"></i>
-                <div class="name">موسيقى</div>
-                <div class="remaining">مشتركين</div>
+                <div class="name">فيديو (Kling AI)</div>
+                <div class="remaining" id="remainingKling">66</div>
             </div>
             <div class="service-card" onclick="selectService('voice')">
                 <i class="fas fa-microphone"></i>
-                <div class="name">صوت</div>
-                <div class="remaining" id="remainingVoice">30ث</div>
+                <div class="name">صوت (Edge TTS)</div>
+                <div class="remaining" id="remainingVoice">∞</div>
             </div>
-            <div class="service-card disabled" id="dubbingCard" onclick="selectService('dubbing')">
-                <i class="fas fa-language"></i>
-                <div class="name">دبلجة</div>
-                <div class="remaining">مشتركين</div>
+            <div class="service-card" onclick="selectService('music')">
+                <i class="fas fa-music"></i>
+                <div class="name">موسيقى (Mureka)</div>
+                <div class="remaining" id="remainingMusic">50</div>
             </div>
             <div class="service-card" onclick="selectService('story')">
                 <i class="fas fa-file-alt"></i>
-                <div class="name">قصص</div>
-                <div class="remaining" id="remainingStory">500</div>
+                <div class="name">قصص (DeepSeek)</div>
+                <div class="remaining" id="remainingStory">5M</div>
             </div>
         </div>
 
-        <!-- منطقة النتيجة -->
+        <!-- Output -->
         <div class="output" id="output">
             <span id="outputMessage">👋 اختر خدمة واكتب وصفك ثم اضغط توليد</span>
         </div>
 
-        <!-- مستطيلات الخطط - في الأسفل (تظهر فقط للمسجلين) -->
-        <div class="plans-section" id="plansSection">
+        <!-- Pricing Plans -->
+        <div class="plans-section">
             <h2 class="plans-title">✨ خطط مخصصة للمبدعين</h2>
             <div class="plans-grid">
                 <div class="plan-card">
+                    <h3>مجاني</h3>
+                    <div class="plan-price">$0 <small>/شهر</small></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check-circle"></i> 5 صور</li>
+                        <li><i class="fas fa-check-circle"></i> 1 فيديو</li>
+                        <li><i class="fas fa-check-circle"></i> صوت غير محدود</li>
+                        <li><i class="fas fa-check-circle"></i> 500 كلمة</li>
+                        <li><i class="fas fa-times-circle" style="color:#EF4444"></i> موسيقى</li>
+                    </ul>
+                    <button class="plan-btn" onclick="selectPlan('free')">خطتك الحالية</button>
+                </div>
+                <div class="plan-card popular">
+                    <div class="popular-badge">الأكثر طلباً</div>
                     <h3>احترافي</h3>
                     <div class="plan-price">$7.99 <small>/شهر</small></div>
                     <ul class="plan-features">
                         <li><i class="fas fa-check-circle"></i> 50 صورة</li>
                         <li><i class="fas fa-check-circle"></i> 10 فيديوهات</li>
-                        <li><i class="fas fa-check-circle"></i> 5 أغاني</li>
-                        <li><i class="fas fa-check-circle"></i> 10 دقائق صوت</li>
-                        <li><i class="fas fa-check-circle"></i> 5 دبلجة</li>
+                        <li><i class="fas fa-check-circle"></i> صوت غير محدود</li>
+                        <li><i class="fas fa-check-circle"></i> 5 موسيقى</li>
+                        <li><i class="fas fa-check-circle"></i> 10,000 كلمة</li>
                     </ul>
                     <button class="plan-btn popular" onclick="selectPlan('pro')">اشترك الآن</button>
                 </div>
-                <div class="plan-card popular">
-                    <div class="popular-badge">الأكثر طلباً</div>
+                <div class="plan-card">
                     <h3>مبدع</h3>
                     <div class="plan-price">$24.99 <small>/شهر</small></div>
                     <ul class="plan-features">
                         <li><i class="fas fa-check-circle"></i> 200 صورة</li>
                         <li><i class="fas fa-check-circle"></i> 50 فيديو</li>
-                        <li><i class="fas fa-check-circle"></i> 20 أغنية</li>
-                        <li><i class="fas fa-check-circle"></i> 30 دقيقة صوت</li>
-                        <li><i class="fas fa-check-circle"></i> 20 دبلجة</li>
+                        <li><i class="fas fa-check-circle"></i> صوت غير محدود</li>
+                        <li><i class="fas fa-check-circle"></i> 20 موسيقى</li>
+                        <li><i class="fas fa-check-circle"></i> 50,000 كلمة</li>
                     </ul>
-                    <button class="plan-btn popular" onclick="selectPlan('creative')">اشترك الآن</button>
+                    <button class="plan-btn" onclick="selectPlan('creative')">اشترك الآن</button>
                 </div>
             </div>
         </div>
@@ -280,64 +333,86 @@
         </div>
     </div>
 
-    <!-- نافذة الترقية -->
+    <!-- Upgrade Modal -->
     <div class="upgrade-modal" id="upgradeModal">
         <div class="modal-content">
             <i class="fas fa-crown"></i>
-            <h3 style="margin-bottom: 15px;">هذه الخدمة للمشتركين فقط!</h3>
-            <p style="color: #9CA3AF; margin-bottom: 20px; font-size: 14px;">اشترك الآن وتمتع بكل المميزات</p>
+            <h3 style="margin-bottom: 15px;">انتهى رصيدك!</h3>
+            <p style="color: #9CA3AF; margin-bottom: 20px; font-size: 14px;">اشترك للاستمرار في الإبداع</p>
             <button class="plan-btn popular" style="margin: 5px;" onclick="selectPlan('pro')">اشترك ب $7.99</button>
             <button class="plan-btn" style="margin: 5px;" onclick="closeModal()">ربما لاحقاً</button>
         </div>
     </div>
 
     <script>
-        // ==================== بيانات المستخدم ====================
+        // ==================== المفاتيح الصينية (التي حصلت عليها) ====================
+        const CHINA_KEYS = {
+            // SiliconFlow (صور)
+            siliconflow: 'sk-okdgfpnboitlnkyrznklbirazlrirfivfsdinqbzmwyytvwf',
+            
+            // ZhiPu AI (صور إضافية)
+            zhipu: 'd655d7cef24b4cffb2c208d23ff35bea.piRTgHXhBCWbyvqN',
+            
+            // Kling AI (فيديو)
+            kling: {
+                accessKey: 'AD8rEeYePdM4GbaCDdayCYeKTg949Hgd',
+                secretKey: 'NHFbp3MyBeL9AMLtDPAYtnnppfTYKLAt'
+            },
+            
+            // Mureka (موسيقى)
+            mureka: 'pending',
+            
+            // DeepSeek (نصوص)
+            deepseek: '5M tokens'
+        };
+
+        // ==================== رصيد المستخدم ====================
         let userCredits = {
-            images: 2,
-            video: 0,
-            music: 0,
-            voice: 30,
-            dubbing: 0,
+            silicon: 2,
+            zhipu: 3,
+            kling: 1,
+            voice: 999999,
+            music: 1,
             story: 500
         };
 
-        let selectedService = 'image';
+        let selectedService = 'silicon';
         let isGenerating = false;
+        let proCount = 0, creativeCount = 0;
 
-        // تحديث العرض
+        // ==================== تحديث العرض ====================
         function updateDisplay() {
-            document.getElementById('remainingImage').textContent = userCredits.images;
-            document.getElementById('remainingVoice').textContent = userCredits.voice + 'ث';
-            document.getElementById('remainingStory').textContent = userCredits.story;
+            document.getElementById('remainingSilicon').textContent = userCredits.silicon;
+            document.getElementById('remainingZhipu').textContent = userCredits.zhipu;
+            document.getElementById('remainingKling').textContent = userCredits.kling;
+            document.getElementById('remainingVoice').textContent = '∞';
+            document.getElementById('remainingMusic').textContent = userCredits.music;
+            document.getElementById('remainingStory').textContent = (userCredits.story/1000) + 'K';
             
-            let total = userCredits.images + (userCredits.voice/10) + (userCredits.story/100);
-            document.getElementById('totalPoints').textContent = Math.floor(total);
+            let total = userCredits.silicon + userCredits.zhipu + userCredits.kling + userCredits.music;
+            document.getElementById('totalPoints').textContent = total + 5250;
         }
 
-        // اختيار خدمة
+        // ==================== اختيار خدمة ====================
         function selectService(service) {
-            if ((service === 'video' || service === 'music' || service === 'dubbing') && userCredits[service] === 0) {
-                document.getElementById('upgradeModal').classList.add('show');
-                return;
-            }
-            
             selectedService = service;
-            const names = { image: 'صور', video: 'فيديو', music: 'موسيقى', voice: 'صوت', dubbing: 'دبلجة', story: 'قصص' };
-            document.getElementById('selectedServiceDisplay').textContent = names[service];
         }
 
-        // توليد
+        // ==================== توليد (محاكاة) ====================
         function generate() {
             if (isGenerating) return;
 
             let serviceMap = {
-                image: 'images', video: 'video', music: 'music',
-                voice: 'voice', dubbing: 'dubbing', story: 'story'
+                silicon: 'silicon',
+                zhipu: 'zhipu',
+                kling: 'kling',
+                voice: 'voice',
+                music: 'music',
+                story: 'story'
             };
             let service = serviceMap[selectedService];
 
-            if (userCredits[service] <= 0) {
+            if (service !== 'voice' && userCredits[service] <= 0) {
                 document.getElementById('upgradeModal').classList.add('show');
                 return;
             }
@@ -347,33 +422,64 @@
             document.getElementById('outputMessage').innerHTML = '⏳ جاري التوليد <span class="loading"></span>';
 
             setTimeout(() => {
-                if (service === 'story') {
-                    userCredits[service] -= 100;
-                } else if (service === 'voice') {
-                    userCredits[service] -= 10;
-                } else {
-                    userCredits[service]--;
+                if (service !== 'voice') {
+                    if (service === 'story') userCredits[service] -= 100;
+                    else userCredits[service]--;
                 }
                 updateDisplay();
                 
-                document.getElementById('outputMessage').innerHTML = '✅ تم التوليد بنجاح!';
+                let serviceNames = {
+                    silicon: 'صورة من SiliconFlow',
+                    zhipu: 'صورة من ZhiPu AI',
+                    kling: 'فيديو من Kling AI',
+                    voice: 'صوت من Edge TTS',
+                    music: 'موسيقى من Mureka',
+                    story: 'قصة من DeepSeek'
+                };
+                
+                let voiceInfo = '';
+                if (service === 'voice') {
+                    let voiceSelect = document.getElementById('voiceSelect');
+                    voiceInfo = ` (${voiceSelect.options[voiceSelect.selectedIndex].text})`;
+                }
+                
+                document.getElementById('outputMessage').innerHTML = `✅ تم توليد ${serviceNames[service]}${voiceInfo} بنجاح!`;
                 document.getElementById('generateBtn').disabled = false;
                 isGenerating = false;
             }, 2000);
         }
 
-        // اختيار خطة
+        // ==================== اختيار خطة ====================
         function selectPlan(plan) {
-            if (plan === 'pro') {
-                userCredits = { images: 50, video: 10, music: 5, voice: 600, dubbing: 5, story: 10000 };
-                document.getElementById('videoCard').classList.remove('disabled');
-                document.getElementById('musicCard').classList.remove('disabled');
-                document.getElementById('dubbingCard').classList.remove('disabled');
+            if (plan === 'free') {
+                userCredits = {
+                    silicon: 2,
+                    zhipu: 3,
+                    kling: 1,
+                    voice: 999999,
+                    music: 1,
+                    story: 500
+                };
+            } else if (plan === 'pro') {
+                userCredits = {
+                    silicon: 50,
+                    zhipu: 50,
+                    kling: 10,
+                    voice: 999999,
+                    music: 5,
+                    story: 10000
+                };
+                proCount++;
             } else if (plan === 'creative') {
-                userCredits = { images: 200, video: 50, music: 20, voice: 1800, dubbing: 20, story: 50000 };
-                document.getElementById('videoCard').classList.remove('disabled');
-                document.getElementById('musicCard').classList.remove('disabled');
-                document.getElementById('dubbingCard').classList.remove('disabled');
+                userCredits = {
+                    silicon: 200,
+                    zhipu: 200,
+                    kling: 50,
+                    voice: 999999,
+                    music: 20,
+                    story: 50000
+                };
+                creativeCount++;
             }
             
             updateDisplay();
@@ -390,15 +496,9 @@
                   'الدعم: راسلنا على support@vividia.ai');
         }
 
-        // إظهار خطط الأسعار فقط إذا كان المستخدم مسجل (محاكاة)
         window.onload = function() {
             updateDisplay();
-            selectService('image');
-            
-            // إخفاء الخطط مؤقتاً (سيظهر للمستخدمين المسجلين فقط)
-            setTimeout(() => {
-                document.getElementById('plansSection').style.display = 'block';
-            }, 1000);
+            console.log('✅ Vividia AI جاهز مع المفاتيح الصينية و Edge TTS');
         };
     </script>
 </body>
