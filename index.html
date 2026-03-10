@@ -94,9 +94,22 @@
             border-radius: 20px;
             padding: 25px;
             text-align: center;
+            position: relative;
         }
         .pricing-card.popular { border: 2px solid #8B5CF6; }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8B5CF6;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+        }
         .price { font-size: 32px; color: #8B5CF6; margin: 15px 0; }
+        .price small { font-size: 14px; color: #9CA3AF; }
         .subscribe-btn {
             background: transparent;
             border: 1px solid #8B5CF6;
@@ -106,8 +119,46 @@
             width: 100%;
             cursor: pointer;
             margin-top: 15px;
+            transition: 0.2s;
         }
-        .subscribe-btn.popular { background: #8B5CF6; }
+        .subscribe-btn:hover { background: #8B5CF6; }
+        .subscribe-btn.popular { background: #8B5CF6; border: none; }
+        
+        /* Payment Modal */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .payment-modal.show { display: flex; }
+        .payment-card {
+            background: #12122A;
+            border: 2px solid #8B5CF6;
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+        }
+        .payment-option {
+            background: #1E1E3A;
+            border: 1px solid #2A2A4A;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .payment-option:hover { border-color: #8B5CF6; background: #2A2A4A; }
+        .payment-option i { font-size: 30px; color: #8B5CF6; }
+        .payment-info { color: #9CA3AF; font-size: 13px; margin-top: 5px; }
         
         .footer {
             border-top: 1px solid #1E1E3A;
@@ -192,6 +243,7 @@
             👋 اختر خدمة واكتب وصفك
         </div>
 
+        <!-- خطط الأسعار مع Cryptomus -->
         <div class="pricing-grid">
             <div class="pricing-card">
                 <h3>مجاني</h3>
@@ -201,16 +253,51 @@
                 <button class="subscribe-btn" onclick="selectPlan('free')">خطتك الحالية</button>
             </div>
             <div class="pricing-card popular">
+                <div class="popular-badge">الأكثر طلباً</div>
                 <h3>احترافي</h3>
-                <div class="price">$7.99</div>
+                <div class="price">$7.99 <small>/شهر</small></div>
                 <p>100 صورة + 50,000 كلمة + 5 فيديوهات</p>
-                <button class="subscribe-btn popular" onclick="selectPlan('pro')">اشترك الآن</button>
+                <p style="color: #8B5CF6; font-size: 13px;">رسوم Cryptomus: $0.03 (0.4%)</p>
+                <button class="subscribe-btn popular" onclick="showPaymentModal('pro')">اشترك الآن</button>
             </div>
             <div class="pricing-card">
                 <h3>مبدع</h3>
-                <div class="price">$19.99</div>
+                <div class="price">$19.99 <small>/شهر</small></div>
                 <p>500 صورة + 200,000 كلمة + 20 فيديو</p>
-                <button class="subscribe-btn" onclick="selectPlan('creative')">اشترك الآن</button>
+                <p style="color: #8B5CF6; font-size: 13px;">رسوم Cryptomus: $0.08 (0.4%)</p>
+                <button class="subscribe-btn" onclick="showPaymentModal('creative')">اشترك الآن</button>
+            </div>
+        </div>
+
+        <!-- نافذة الدفع بـ Cryptomus -->
+        <div class="payment-modal" id="paymentModal">
+            <div class="payment-card">
+                <h2 style="margin-bottom: 20px;">💰 الدفع بـ Cryptomus</h2>
+                
+                <div class="payment-option" onclick="processPayment('crypto')">
+                    <i class="fas fa-coins"></i>
+                    <div>
+                        <h4>الدفع بالعملات المشفرة</h4>
+                        <p class="payment-info">USDT, BTC, ETH, BNB, 120+ عملة</p>
+                    </div>
+                </div>
+                
+                <div class="payment-option" onclick="processPayment('card')">
+                    <i class="fas fa-credit-card"></i>
+                    <div>
+                        <h4>بطاقة فيزا/ماستركارد</h4>
+                        <p class="payment-info">يدعم Apple Pay, Google Pay (رسوم 3.2% + $0.10-0.25)</p>
+                    </div>
+                </div>
+                
+                <div style="background: #1E1E3A; padding: 15px; border-radius: 15px; margin: 20px 0;">
+                    <p style="color: #9CA3AF;">ملخص رسومك:</p>
+                    <p>💳 رسوم بوابة الدفع: <span style="color: #8B5CF6;">0.4%</span></p>
+                    <p>💳 رسوم البطاقة (إذا اختارها المستخدم): <span style="color: #8B5CF6;">3.2% + $0.10-0.25</span></p>
+                    <p style="margin-top: 10px;">أنت تدفع فقط 0.4%، باقي الرسوم على المستخدم</p>
+                </div>
+                
+                <button class="subscribe-btn" onclick="closePaymentModal()">إلغاء</button>
             </div>
         </div>
 
@@ -231,19 +318,18 @@
         };
         
         let selectedService = 'image';
-        let videoModel = 't2v'; // t2v (نص→فيديو) أو i2v (صورة→فيديو)
+        let videoModel = 't2v';
         let selectedFile = null;
+        let selectedPlan = null;
 
         function selectService(service) {
             selectedService = service;
             
-            // إظهار/إخفاء خيارات الفيديو
             if (service === 'video' || service === 'videoImg') {
                 document.getElementById('videoOptions').style.display = 'block';
                 if (service === 'videoImg') {
                     document.getElementById('imageUpload').style.display = 'block';
                     videoModel = 'i2v';
-                    // تفعيل تبويب i2v
                     document.querySelectorAll('.tab')[0].classList.remove('active');
                     document.querySelectorAll('.tab')[1].classList.add('active');
                 } else {
@@ -267,7 +353,6 @@
                 selectedService = 'video';
             }
             
-            // تحديث التبويبات
             document.querySelectorAll('.tab').forEach((tab, index) => {
                 if (index === 0 && model === 't2v') tab.classList.add('active');
                 else if (index === 1 && model === 'i2v') tab.classList.add('active');
@@ -275,10 +360,52 @@
             });
         }
 
-        // رفع الصورة
         document.getElementById('imageInput').addEventListener('change', function(e) {
             selectedFile = e.target.files[0];
         });
+
+        function showPaymentModal(plan) {
+            selectedPlan = plan;
+            document.getElementById('paymentModal').classList.add('show');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('show');
+        }
+
+        function processPayment(method) {
+            let planPrice = selectedPlan === 'pro' ? 7.99 : 19.99;
+            let cryptomusFee = planPrice * 0.004; // 0.4%
+            
+            let message = `✅ تمت عملية الدفع بنجاح!\n\n`;
+            message += `💰 المبلغ: $${planPrice}\n`;
+            message += `💸 رسوم Cryptomus: $${cryptomusFee.toFixed(2)} (0.4%)\n`;
+            message += `📥 صافي المبلغ لك: $${(planPrice - cryptomusFee).toFixed(2)}\n\n`;
+            
+            if (method === 'card') {
+                let cardFee = planPrice * 0.032 + 0.15;
+                message += `💳 المستخدم اختار الدفع بالبطاقة:\n`;
+                message += `   رسوم إضافية على المستخدم: $${cardFee.toFixed(2)} (3.2% + 0.15)\n`;
+            }
+            
+            alert(message);
+            
+            // تفعيل الخطة
+            if (selectedPlan === 'pro') {
+                userCredits = { images: 100, texts: 500000, videos: 5 };
+            } else if (selectedPlan === 'creative') {
+                userCredits = { images: 500, texts: 2000000, videos: 20 };
+            }
+            updateCredits();
+            closePaymentModal();
+        }
+
+        function selectPlan(plan) {
+            if (plan === 'free') {
+                userCredits = { images: 5, texts: 50000, videos: 0 };
+            }
+            updateCredits();
+        }
 
         async function generate() {
             const prompt = document.getElementById('promptInput').value;
@@ -337,20 +464,17 @@
                     let requestBody = {};
                     
                     if (videoModel === 't2v') {
-                        // نص → فيديو
                         requestBody = {
                             model: 'Wan-AI/Wan2.1-T2V-14B-Turbo',
                             prompt: prompt,
                             image_size: '1280x720'
                         };
                     } else {
-                        // صورة → فيديو
                         if (!selectedFile) {
                             output.innerHTML = '❌ الرجاء اختيار صورة أولاً';
                             return;
                         }
                         
-                        // تحويل الصورة إلى Base64
                         const reader = new FileReader();
                         const base64Promise = new Promise((resolve) => {
                             reader.onloadend = () => resolve(reader.result.split(',')[1]);
@@ -366,7 +490,6 @@
                         };
                     }
                     
-                    // إرسال طلب إنشاء الفيديو (غير متزامن)
                     const submitResponse = await fetch('https://api.siliconflow.cn/v1/video/submit', {
                         method: 'POST',
                         headers: {
@@ -385,7 +508,6 @@
                     
                     output.innerHTML = '⏳ جاري معالجة الفيديو، قد يستغرق 10-60 ثانية...';
                     
-                    // الاستعلام عن حالة الفيديو
                     let videoUrl = null;
                     for (let i = 0; i < 30; i++) {
                         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -418,22 +540,9 @@
             }
         }
 
-        function selectPlan(plan) {
-            if (plan === 'free') {
-                userCredits = { images: 5, texts: 50000, videos: 0 };
-            } else if (plan === 'pro') {
-                userCredits = { images: 100, texts: 500000, videos: 5 };
-            } else if (plan === 'creative') {
-                userCredits = { images: 500, texts: 2000000, videos: 20 };
-            }
-            updateCredits();
-        }
-
         function updateCredits() {
             document.getElementById('imageCredits').innerHTML = userCredits.images + ' صورة';
             document.getElementById('textCredits').innerHTML = (userCredits.texts/1000) + 'K كلمة';
-            document.getElementById('videoTxtCredits').innerHTML = '$0.21/فيديو';
-            document.getElementById('videoImgCredits').innerHTML = '$0.21/فيديو';
         }
 
         window.onload = updateCredits;
