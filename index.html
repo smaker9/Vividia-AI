@@ -30,12 +30,25 @@
             --warning: #f59e0b;
         }
 
+        /* Light Mode */
+        body.light-mode {
+            --bg-dark: #f9fafb;
+            --bg-card: rgba(243, 244, 246, 0.9);
+            --bg-elevated: #e5e7eb;
+            --border: #d1d5db;
+            --text: #111827;
+            --text-muted: #4b5563;
+        }
+
         body {
             min-height: 100vh;
             line-height: 1.6;
             font-family: 'Inter', sans-serif;
             position: relative;
             overflow-x: hidden;
+            background: var(--bg-dark);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* خلفية سينمائية متحركة */
@@ -48,7 +61,7 @@
             height: 100%;
             background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 30%),
                         radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 30%),
-                        linear-gradient(135deg, #030712 0%, #111827 50%, #030712 100%);
+                        linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-card) 50%, var(--bg-dark) 100%);
             z-index: -2;
         }
 
@@ -79,12 +92,41 @@
             z-index: 1;
         }
 
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
         /* Language Selector */
         .lang-selector {
             display: flex;
-            justify-content: flex-end;
             gap: 10px;
-            padding: 20px 0;
             flex-wrap: wrap;
         }
 
@@ -196,7 +238,7 @@
             color: var(--primary);
         }
 
-        .login-btn, .email-login-btn {
+        .login-btn, .show-login-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
@@ -212,12 +254,7 @@
             box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
         }
 
-        .email-login-btn {
-            background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
-            border: 1px solid var(--primary);
-        }
-
-        .login-btn:hover, .email-login-btn:hover {
+        .login-btn:hover, .show-login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
         }
@@ -660,11 +697,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
             z-index: 10001;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
         }
 
         .page-modal.show {
@@ -676,16 +714,17 @@
             backdrop-filter: blur(20px);
             border: 2px solid var(--primary);
             border-radius: 40px;
-            padding: 40px;
-            max-width: 600px;
+            padding: 50px;
+            max-width: 800px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
             position: relative;
+            margin: 20px;
         }
 
         .page-card h2 {
-            font-size: 32px;
+            font-size: 36px;
             margin-bottom: 30px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -694,13 +733,24 @@
 
         .page-card h3 {
             color: var(--primary);
-            margin: 25px 0 10px;
+            margin: 30px 0 15px;
+            font-size: 22px;
         }
 
         .page-card p {
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .page-card ul {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-right: 20px;
+        }
+
+        .page-card li {
+            margin-bottom: 10px;
         }
 
         .page-close {
@@ -803,19 +853,29 @@
             .generate-btn {
                 width: 100%;
             }
+            
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body dir="rtl">
     <div class="container">
         
-        <!-- Language Selector -->
-        <div class="lang-selector" id="langSelector">
-            <button class="lang-btn active" onclick="setLanguage('ar')">🇸🇦 العربية</button>
-            <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
-            <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
-            <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
-            <button class="lang-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="lang-selector" id="langSelector">
+                <button class="lang-btn active" onclick="setLanguage('ar')">🇸🇦 العربية</button>
+                <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+                <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
+                <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
+                <button class="lang-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+            </div>
         </div>
 
         <!-- Header -->
@@ -857,14 +917,14 @@
             <div class="service-card" onclick="useService('video')">
                 <div class="service-icon"><i class="fas fa-video"></i></div>
                 <h3 id="serviceVideoTitle">فيديو</h3>
-                <p id="serviceVideoDesc">قريباً</p>
-                <span class="service-cost" id="serviceVideoCost">قريباً</span>
+                <p id="serviceVideoDesc">خدمة احترافية</p>
+                <span class="service-cost" id="serviceVideoCost">اشترك</span>
             </div>
             <div class="service-card" onclick="useService('voice')">
                 <div class="service-icon"><i class="fas fa-microphone"></i></div>
                 <h3 id="serviceVoiceTitle">صوت</h3>
-                <p id="serviceVoiceDesc">قريباً</p>
-                <span class="service-cost" id="serviceVoiceCost">قريباً</span>
+                <p id="serviceVoiceDesc">خدمة احترافية</p>
+                <span class="service-cost" id="serviceVoiceCost">اشترك</span>
             </div>
         </div>
 
@@ -926,36 +986,4 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="logo" style="font-size: 24px;">VIVIDIA AI</div>
-            <div class="footer-links">
-                <a onclick="openPage('privacy')" id="footerPrivacy">الخصوصية</a>
-                <a onclick="openPage('terms')" id="footerTerms">الشروط</a>
-                <a onclick="openPage('support')" id="footerSupport">الدعم</a>
-            </div>
-            <div class="footer-copyright" id="copyright">© 2026 Vividia AI. جميع الحقوق محفوظة</div>
-        </footer>
-    </div>
-
-    <!-- Auth Modal -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-card">
-            <h2 id="authTitle">تسجيل الدخول</h2>
-            
-            <input type="email" class="auth-input" id="authEmail" placeholder="البريد الإلكتروني">
-            <input type="password" class="auth-input" id="authPassword" placeholder="كلمة المرور">
-            
-            <button class="auth-btn" onclick="loginWithEmail()" id="authLoginBtn">تسجيل الدخول</button>
-            <button class="auth-btn" onclick="registerWithEmail()" id="authRegisterBtn">إنشاء حساب جديد</button>
-            
-            <div class="auth-divider" id="authOr">أو</div>
-            
-            <button class="google-auth-btn" onclick="loginWithGoogle()">
-                <i class="fab fa-google"></i> <span id="authGoogle">تسجيل الدخول بـ Google</span>
-            </button>
-            
-            <div class="auth-close" onclick="closeAuthModal()" id="authClose">إلغاء</div>
-        </div>
-    </div>
-
-    <!-- Privacy Modal -->
-    <div
+            <div class="logo" style="font-size: 24px;">VIVIDIA AI</
