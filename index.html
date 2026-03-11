@@ -238,7 +238,7 @@
             color: var(--primary);
         }
 
-        .login-btn, .show-login-btn {
+        .show-login-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
@@ -254,7 +254,7 @@
             box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
         }
 
-        .login-btn:hover, .show-login-btn:hover {
+        .show-login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
         }
@@ -275,8 +275,8 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
-        /* Auth Modal */
-        .auth-modal {
+        /* Login Modal */
+        .login-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -290,100 +290,56 @@
             align-items: center;
         }
 
-        .auth-modal.show {
+        .login-modal.show {
             display: flex;
         }
 
-        .auth-card {
+        .login-card {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
             border: 2px solid var(--primary);
             border-radius: 40px;
-            padding: 40px;
-            max-width: 400px;
+            padding: 50px;
+            max-width: 450px;
             width: 90%;
             text-align: center;
             animation: modalFade 0.3s ease;
+            box-shadow: 0 30px 60px -20px rgba(99, 102, 241, 0.5);
         }
 
-        @keyframes modalFade {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .auth-card h2 {
-            font-size: 28px;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .login-logo {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .auth-input {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 50px;
+        .login-title {
+            font-size: 28px;
+            margin-bottom: 10px;
             color: var(--text);
-            font-size: 16px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
         }
 
-        .auth-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
-        }
-
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+        .login-subtitle {
             color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 14px;
         }
 
-        .auth-divider::before,
-        .auth-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(99, 102, 241, 0.3);
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .google-auth-btn {
-            width: 100%;
-            padding: 15px;
+        .google-btn, .apple-btn {
             background: white;
             color: #333;
             border: none;
+            padding: 14px;
             border-radius: 50px;
             font-size: 16px;
             font-weight: 600;
@@ -393,17 +349,119 @@
             justify-content: center;
             gap: 10px;
             transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .google-auth-btn:hover {
+        .google-btn:hover, .apple-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px -5px rgba(255, 255, 255, 0.3);
         }
 
-        .auth-close {
+        .google-btn i, .apple-btn i {
+            font-size: 20px;
+        }
+
+        .apple-btn {
+            background: #000;
+            color: white;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            color: var(--text-muted);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .email-login {
+            margin-top: 10px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: var(--text);
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .email-login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .email-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-footer {
             margin-top: 20px;
             color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
             cursor: pointer;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .toggle-auth-mode {
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .toggle-auth-mode span {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* Hero Section */
@@ -883,8 +941,46 @@
             <div class="logo" id="logoText">VIVIDIA AI</div>
             <div id="userSection" class="user-section">
                 <!-- يتم تعبئتها ديناميكياً -->
+                <button class="show-login-btn" onclick="showLoginModal()">
+                    <i class="fas fa-user"></i> تسجيل الدخول
+                </button>
             </div>
         </header>
+
+        <!-- Login Modal -->
+        <div class="login-modal" id="loginModal">
+            <div class="login-card">
+                <div class="close-modal" onclick="closeLoginModal()">×</div>
+                <div class="login-logo">VIVIDIA AI</div>
+                <h2 class="login-title" id="loginTitle">تسجيل الدخول</h2>
+                <p class="login-subtitle" id="loginSubtitle">احصل على إبداعات لا محدودة</p>
+                
+                <div class="social-login">
+                    <button class="google-btn" onclick="loginWithGoogle()">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    <button class="apple-btn" onclick="loginWithApple()">
+                        <i class="fab fa-apple"></i> Continue with Apple
+                    </button>
+                </div>
+                
+                <div class="divider" id="loginOr">أو</div>
+                
+                <div class="email-login">
+                    <input type="email" class="email-input" id="loginEmail" placeholder="البريد الإلكتروني">
+                    <input type="password" class="email-input" id="loginPassword" placeholder="كلمة المرور">
+                    <button class="email-login-btn" onclick="loginWithEmail()" id="loginEmailBtn">تسجيل الدخول</button>
+                </div>
+                
+                <div class="toggle-auth-mode" id="toggleAuth" onclick="toggleAuthMode()">
+                    ليس لديك حساب؟ <span>إنشاء حساب جديد</span>
+                </div>
+                
+                <div class="login-footer">
+                    بالاستمرار، أنت توافق على <a onclick="openPage('terms')">شروط الخدمة</a> و <a onclick="openPage('privacy')">سياسة الخصوصية</a>
+                </div>
+            </div>
+        </div>
 
         <!-- Hero Section -->
         <section class="hero">
@@ -948,42 +1044,4 @@
                     <p class="pricing-description" id="freeDesc">للبدء والتجربة</p>
                     <ul class="pricing-features" id="freeFeatures">
                         <li><i class="fas fa-check-circle"></i> 10 نقاط مجانية عند التسجيل</li>
-                        <li><i class="fas fa-check-circle"></i> توليد الصور والنصوص</li>
-                        <li><i class="fas fa-check-circle"></i> جودة عادية</li>
-                        <li><i class="fas fa-times-circle disabled"></i> الفيديو والصوت</li>
-                    </ul>
-                    <button class="pricing-btn" onclick="selectPlan('free')" id="freeBtn">خطتك الحالية</button>
-                </div>
-
-                <div class="pricing-card popular">
-                    <div class="popular-badge" id="popularBadge">الأكثر طلباً</div>
-                    <h3 class="pricing-name" id="proPlanTitle">احترافي</h3>
-                    <div class="pricing-price" id="proPrice">$7.99 <small id="proPeriod">/شهر</small></div>
-                    <p class="pricing-description" id="proDesc">للمبدعين المحترفين</p>
-                    <ul class="pricing-features" id="proFeatures">
-                        <li><i class="fas fa-check-circle"></i> 100 نقطة شهرياً</li>
-                        <li><i class="fas fa-check-circle"></i> صور بدقة 4K</li>
-                        <li><i class="fas fa-check-circle"></i> توليد الفيديو والصوت</li>
-                        <li><i class="fas fa-check-circle"></i> معالجة أولوية</li>
-                    </ul>
-                    <button class="pricing-btn popular" onclick="processPayment('pro')" id="proBtn">اشترك الآن</button>
-                </div>
-
-                <div class="pricing-card">
-                    <h3 class="pricing-name" id="creativePlanTitle">مبدع</h3>
-                    <div class="pricing-price" id="creativePrice">$19.99 <small id="creativePeriod">/شهر</small></div>
-                    <p class="pricing-description" id="creativeDesc">للمشاريع الكبيرة</p>
-                    <ul class="pricing-features" id="creativeFeatures">
-                        <li><i class="fas fa-check-circle"></i> 500 نقطة شهرياً</li>
-                        <li><i class="fas fa-check-circle"></i> جميع خدمات الاحترافي</li>
-                        <li><i class="fas fa-check-circle"></i> دبلجة متعددة اللغات</li>
-                        <li><i class="fas fa-check-circle"></i> موسيقى تصويرية</li>
-                    </ul>
-                    <button class="pricing-btn" onclick="processPayment('creative')" id="creativeBtn">اشترك الآن</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="logo" style="font-size: 24px;">VIVIDIA AI</
+                        <li><i class="fas fa-check
