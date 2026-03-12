@@ -264,6 +264,10 @@
             text-decoration: none;
         }
 
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
         /* Right Side - Login Card (Axes) */
         .login-wrapper {
             display: flex;
@@ -402,7 +406,7 @@
             line-height: 1.5;
         }
 
-        /* Prompt Area - في الأعلى */
+        /* Prompt Section - في الأعلى */
         .prompt-section {
             margin: 40px 0;
         }
@@ -1012,6 +1016,8 @@
                     <button class="lang-btn active" onclick="setLanguage('ar')">🇸🇦 العربية</button>
                     <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
                     <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
+                    <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
+                    <button class="lang-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
                 </div>
                 <div class="theme-toggle" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
@@ -1021,7 +1027,7 @@
 
         <!-- Main Layout - Studio + Login -->
         <div class="main-layout">
-            <!-- Left Side - Studio Info -->
+            <!-- Left Side - Studio Info (جميع العناصر التي طلبتها محفوظة) -->
             <div class="studio-main">
                 <h1>Vividia AI</h1>
                 <div class="studio-subtitle">استوديو الإبداع الرقمي</div>
@@ -1083,7 +1089,7 @@
             </div>
         </div>
 
-        <!-- Prompt Section - في الأعلى -->
+        <!-- Prompt Section - في الأعلى (مع العناصر الجديدة) -->
         <div class="prompt-section">
             <div class="prompt-title">ماذا تريد إنشاء اليوم؟</div>
             <div class="prompt-container">
@@ -1105,9 +1111,8 @@
                     </div>
                 </div>
 
-                <!-- Video & Audio Options - مخفية للمستخدمين غير المشتركين -->
+                <!-- Video & Audio Options - للمشتركين فقط -->
                 <div class="media-options" id="mediaOptions" style="display: none;">
-                    <!-- Video Options -->
                     <div class="media-section">
                         <h3>مكونات الفيديو</h3>
                         <div class="video-options">
@@ -1123,7 +1128,6 @@
                         </div>
                     </div>
 
-                    <!-- Audio Options -->
                     <div class="media-section">
                         <h3>مكونات الصوت</h3>
                         <div class="voice-options">
@@ -1135,8 +1139,4 @@
                                 </div>
                             </div>
                             <div class="voice-category">
-                                <h4>الفئة العمرية</h4>
-                                <div class="voice-buttons">
-                                    <div class="voice-btn locked">طفل</div>
-                                    <div class="voice-btn locked">شاب</div>
-                                    <div
+                                <h4>الفئة العمرية</h4
