@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Vividia AI - استوديو الإبداع الرقمي</title>
+    <title>Vividia AI - منصة الإبداع بالذكاء الاصطناعي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Firebase SDK -->
@@ -14,36 +14,30 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         
         :root {
-            --primary: #8B5CF6;
-            --primary-light: #A78BFA;
-            --primary-dark: #7C3AED;
-            --secondary: #EC4899;
-            --accent: #3B82F6;
-            --bg-dark: #0F0F1A;
-            --bg-card: rgba(20, 20, 35, 0.7);
-            --bg-elevated: #1A1A2A;
-            --border: #2A2A3A;
-            --text: #FFFFFF;
-            --text-muted: #9CA3AF;
-            --text-light: #E5E7EB;
-            --success: #10B981;
-            --danger: #EF4444;
-            --warning: #F59E0B;
+            --primary: #6366f1;
+            --primary-light: #8183f4;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #d946ef;
+            --bg-dark: #030712;
+            --bg-card: rgba(17, 24, 39, 0.8);
+            --bg-elevated: #1f2937;
+            --border: #1f2937;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
+        /* Light Mode */
         body.light-mode {
-            --primary: #7C3AED;
-            --primary-light: #8B5CF6;
-            --primary-dark: #6D28D9;
-            --secondary: #DB2777;
-            --accent: #2563EB;
-            --bg-dark: #F9FAFB;
-            --bg-card: rgba(255, 255, 255, 0.7);
-            --bg-elevated: #F3F4F6;
-            --border: #E5E7EB;
+            --bg-dark: #f9fafb;
+            --bg-card: rgba(243, 244, 246, 0.9);
+            --bg-elevated: #e5e7eb;
+            --border: #d1d5db;
             --text: #111827;
-            --text-muted: #6B7280;
-            --text-light: #4B5563;
+            --text-muted: #4b5563;
         }
 
         body {
@@ -54,7 +48,7 @@
             overflow-x: hidden;
             background: var(--bg-dark);
             color: var(--text);
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* خلفية سينمائية متحركة */
@@ -65,16 +59,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 30%),
-                        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 30%),
-                        linear-gradient(135deg, #0F0F1A 0%, #1A1A2A 50%, #0F0F1A 100%);
+            background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 30%),
+                        linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-card) 50%, var(--bg-dark) 100%);
             z-index: -2;
-        }
-
-        body.light-mode::before {
-            background: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 30%),
-                        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 30%),
-                        linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 50%, #F9FAFB 100%);
         }
 
         body::after {
@@ -109,34 +97,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
             flex-wrap: wrap;
-            gap: 20px;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .studio-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .studio-name {
-            font-size: 24px;
-            font-weight: 600;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .right-section {
-            display: flex;
-            align-items: center;
             gap: 15px;
         }
 
+        /* Theme Toggle */
         .theme-toggle {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             color: var(--text);
             width: 40px;
             height: 40px;
@@ -161,8 +131,9 @@
         }
 
         .lang-btn {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             color: var(--text);
             padding: 8px 20px;
             border-radius: 40px;
@@ -176,186 +147,189 @@
             background: var(--primary);
             border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.5);
         }
 
-        /* Main Layout */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 40px 0;
-            min-height: 70vh;
-        }
-
-        /* Left Side - Studio Info */
-        .studio-main {
+        /* Header */
+        .header {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 40px 0;
-        }
-
-        .studio-main h1 {
-            font-size: clamp(40px, 5vw, 64px);
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .studio-subtitle {
-            font-size: 18px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .studio-desc {
-            color: var(--text-light);
-            font-size: 16px;
-            max-width: 500px;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-
-        .studio-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .conversation-link {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            color: var(--text);
-            font-size: 16px;
-        }
-
-        .conversation-link i {
-            color: var(--primary);
-            font-size: 20px;
-        }
-
-        .project-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--success);
-            font-size: 14px;
-        }
-
-        .project-status i {
-            font-size: 16px;
-        }
-
-        .contact-info {
-            display: flex;
-            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
             gap: 20px;
-            margin-top: 30px;
-            color: var(--text-muted);
         }
 
-        .contact-info a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        /* Right Side - Login Card (Axes) */
-        .login-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .login-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 40px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
-        }
-
-        .login-welcome {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .login-welcome span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
         }
 
-        .login-sub {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-
-        .social-login {
+        .user-section {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
+            align-items: center;
+            gap: 15px;
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.5);
         }
 
-        .apple-btn, .google-btn {
-            background: var(--bg-elevated);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 14px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .credits {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            padding: 6px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .credits i {
+            color: gold;
+            font-size: 14px;
+        }
+
+        .credits span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .login-btn, .show-login-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+        }
+
+        .login-btn:hover, .show-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 6px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
             transition: all 0.3s;
         }
 
-        .apple-btn:hover, .google-btn:hover {
-            border-color: var(--primary);
-            background: rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
         }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 20px 0;
-            color: var(--text-muted);
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(139, 92, 246, 0.3);
-        }
-
-        .email-input {
+        /* Auth Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 14px 20px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-modal.show {
+            display: flex;
+        }
+
+        .auth-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--primary);
+            border-radius: 40px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .auth-card h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 50px;
             color: var(--text);
             font-size: 16px;
@@ -363,15 +337,15 @@
             transition: all 0.3s;
         }
 
-        .email-input:focus {
+        .auth-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
-        .email-login-btn {
+        .auth-btn {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
@@ -379,61 +353,98 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
+            margin-bottom: 15px;
             transition: all 0.3s;
         }
 
-        .email-login-btn:hover {
+        .auth-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
         }
 
-        .slack-option {
-            margin-top: 15px;
-            text-align: center;
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
             color: var(--text-muted);
-            font-size: 14px;
         }
 
-        .slack-option span {
-            color: var(--primary);
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .google-auth-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .google-auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(255, 255, 255, 0.3);
+        }
+
+        .auth-close {
+            margin-top: 20px;
+            color: var(--text-muted);
             cursor: pointer;
         }
 
-        .login-footer {
-            margin-top: 20px;
-            color: var(--text-muted);
-            font-size: 12px;
-            line-height: 1.5;
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 30px;
+            margin-bottom: 30px;
         }
 
-        /* Prompt Section - في الأعلى */
-        .prompt-section {
-            margin: 40px 0;
-        }
-
-        .prompt-title {
-            font-size: 24px;
-            font-weight: 600;
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            line-height: 1.3;
             margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text), var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
         }
 
-        .prompt-container {
-            background: var(--bg-card);
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Prompt Area */
+        .prompt-area {
+            background: rgba(17, 24, 39, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 30px;
-        }
-
-        .prompt-input-wrapper {
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            padding: 15px 20px;
+            margin: 20px 0;
             display: flex;
             align-items: center;
-            gap: 15px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: 60px;
-            padding: 5px 5px 5px 25px;
-            margin-bottom: 20px;
+            gap: 10px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .prompt-input {
@@ -442,190 +453,49 @@
             border: none;
             color: var(--text);
             font-size: 16px;
-            padding: 15px 0;
+            padding: 10px;
         }
 
         .prompt-input:focus {
             outline: none;
         }
 
-        .prompt-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .prompt-action-btn {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            color: var(--text);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .prompt-action-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .prompt-generate-btn {
+        .generate-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 0 40px;
-            border-radius: 60px;
+            padding: 12px 30px;
+            border-radius: 40px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            height: 50px;
             transition: all 0.3s;
             white-space: nowrap;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
         }
 
-        .prompt-generate-btn:hover {
+        .generate-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
         }
 
-        .prompt-generate-btn:disabled {
+        .generate-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        /* Media Options - Video & Audio */
-        .media-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .media-section {
-            background: var(--bg-elevated);
-            border-radius: 20px;
-            padding: 20px;
-        }
-
-        .media-section h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .video-options {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .video-option {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .video-option:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .video-option.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-            position: relative;
-        }
-
-        .video-option.locked::after {
-            content: '\f023';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            margin-left: 5px;
-            font-size: 12px;
-        }
-
-        .voice-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .voice-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 15px;
-        }
-
-        .voice-category h4 {
-            font-size: 14px;
-            margin-bottom: 10px;
-            color: var(--text-light);
-        }
-
-        .voice-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .voice-btn {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 8px 12px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .voice-btn i {
-            color: var(--primary);
-            font-size: 14px;
-        }
-
-        .voice-btn:hover {
-            border-color: var(--primary);
-        }
-
-        .voice-btn.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .voice-btn.locked::after {
-            content: '\f023';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            margin-left: auto;
-            font-size: 12px;
-        }
-
-        /* Services Grid - أسفل الحقل */
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            margin: 40px 0;
+            margin: 30px 0;
         }
 
         .service-card {
-            background: var(--bg-card);
+            background: rgba(17, 24, 39, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 30px;
             padding: 20px 15px;
             text-align: center;
@@ -636,13 +506,13 @@
         .service-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 15px 30px -15px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 15px 30px -15px rgba(99, 102, 241, 0.5);
         }
 
         .service-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -650,7 +520,7 @@
             margin: 0 auto 15px;
             font-size: 24px;
             color: var(--primary);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.3);
         }
 
         .service-card h3 {
@@ -667,18 +537,18 @@
         .service-cost {
             display: inline-block;
             padding: 3px 10px;
-            background: rgba(139, 92, 246, 0.1);
+            background: rgba(99, 102, 241, 0.1);
             border-radius: 30px;
             font-size: 11px;
             color: var(--primary);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.3);
         }
 
         /* Output */
         .output {
-            background: var(--bg-card);
+            background: rgba(17, 24, 39, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 30px;
             padding: 30px;
             margin: 30px 0;
@@ -714,9 +584,9 @@
         }
 
         .pricing-card {
-            background: var(--bg-card);
+            background: rgba(17, 24, 39, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 40px;
             padding: 40px 25px;
             text-align: center;
@@ -727,12 +597,12 @@
         .pricing-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 30px 50px -20px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 30px 50px -20px rgba(99, 102, 241, 0.5);
         }
 
         .pricing-card.popular {
             border: 2px solid var(--primary);
-            background: linear-gradient(145deg, var(--bg-card), rgba(139, 92, 246, 0.1));
+            background: linear-gradient(145deg, rgba(17, 24, 39, 0.8), rgba(99, 102, 241, 0.1));
         }
 
         .popular-badge {
@@ -819,7 +689,7 @@
             color: white;
         }
 
-        /* Page Modal */
+        /* Pages Modal */
         .page-modal {
             display: none;
             position: fixed;
@@ -899,7 +769,7 @@
 
         /* Footer */
         .footer {
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
             padding: 50px 0;
             margin-top: 60px;
             display: flex;
@@ -932,25 +802,30 @@
             font-size: 14px;
         }
 
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Responsive */
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
             }
             
-            .studio-main {
-                text-align: center;
-                align-items: center;
-            }
-            
-            .studio-desc {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .media-options {
-                grid-template-columns: 1fr;
+            .hero {
+                padding: 30px 0;
             }
             
             .services-grid {
@@ -958,36 +833,6 @@
             }
             
             .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .prompt-input-wrapper {
-                flex-direction: column;
-                padding: 15px;
-            }
-            
-            .prompt-actions {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .prompt-generate-btn {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .right-section {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .voice-options {
                 grid-template-columns: 1fr;
             }
             
@@ -999,6 +844,20 @@
             .footer-links {
                 justify-content: center;
             }
+            
+            .prompt-area {
+                flex-direction: column;
+                border-radius: 30px;
+            }
+            
+            .generate-btn {
+                width: 100%;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -1007,136 +866,124 @@
         
         <!-- Top Bar -->
         <div class="top-bar">
-            <div class="studio-info">
-                <div class="studio-name">VIVIDIA AI</div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
             </div>
+            <div class="lang-selector" id="langSelector">
+                <button class="lang-btn active" onclick="setLanguage('ar')">🇸🇦 العربية</button>
+                <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+                <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
+                <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
+                <button class="lang-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo" id="logoText">VIVIDIA AI</div>
+            <div id="userSection" class="user-section">
+                <!-- يتم تعبئتها ديناميكياً -->
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 id="heroTitle">اصنع عالمك السينمائي<br>بالذكاء الاصطناعي</h1>
+            <p id="heroDesc">حوّل أفكارك إلى صور وفيديوهات ونصوص احترافية باستخدام أحدث تقنيات Vividia</p>
+        </section>
+
+        <!-- Prompt Area -->
+        <div class="prompt-area">
+            <input type="text" class="prompt-input" id="promptInput" placeholder="اكتب وصفاً... (مثال: غابة سحرية في الليل)">
+            <button class="generate-btn" id="generateBtn" onclick="generate()" disabled>
+                <i class="fas fa-wand-magic"></i> <span id="generateText">توليد</span>
+            </button>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="services-grid">
+            <div class="service-card" onclick="useService('image')">
+                <div class="service-icon"><i class="fas fa-image"></i></div>
+                <h3 id="serviceImageTitle">صور</h3>
+                <p id="serviceImageDesc">حوّل النص إلى صورة</p>
+                <span class="service-cost" id="serviceImageCost">نقطة واحدة</span>
+            </div>
+            <div class="service-card" onclick="useService('text')">
+                <div class="service-icon"><i class="fas fa-file-alt"></i></div>
+                <h3 id="serviceTextTitle">نصوص</h3>
+                <p id="serviceTextDesc">كتابة إبداعية</p>
+                <span class="service-cost" id="serviceTextCost">نقطة واحدة</span>
+            </div>
+            <div class="service-card" onclick="useService('video')">
+                <div class="service-icon"><i class="fas fa-video"></i></div>
+                <h3 id="serviceVideoTitle">فيديو</h3>
+                <p id="serviceVideoDesc">خدمة احترافية</p>
+                <span class="service-cost" id="serviceVideoCost">اشترك</span>
+            </div>
+            <div class="service-card" onclick="useService('voice')">
+                <div class="service-icon"><i class="fas fa-microphone"></i></div>
+                <h3 id="serviceVoiceTitle">صوت</h3>
+                <p id="serviceVoiceDesc">خدمة احترافية</p>
+                <span class="service-cost" id="serviceVoiceCost">اشترك</span>
+            </div>
+        </div>
+
+        <!-- Output Area -->
+        <section class="output" id="output">
+            <div class="output-content" id="outputContent">
+                <i class="fas fa-robot" style="font-size: 40px; color: var(--primary); margin-bottom: 15px; display: block;"></i>
+                <p id="welcomeMessage">سجل دخولك وابدأ رحلتك الإبداعية مع Vividia AI</p>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <h2 class="section-title" id="pricingTitle">اختر خطتك</h2>
+            <p class="section-subtitle" id="pricingSubtitle">خطط مرنة تناسب احتياجاتك الإبداعية</p>
             
-            <div class="right-section">
-                <div class="lang-selector" id="langSelector">
-                    <button class="lang-btn active" onclick="setLanguage('ar')">🇸🇦 العربية</button>
-                    <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
-                    <button class="lang-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
-                    <button class="lang-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
-                    <button class="lang-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-name" id="freePlanTitle">مجاني</h3>
+                    <div class="pricing-price" id="freePrice">$0</div>
+                    <p class="pricing-description" id="freeDesc">للبدء والتجربة</p>
+                    <ul class="pricing-features" id="freeFeatures">
+                        <li><i class="fas fa-check-circle"></i> 10 نقاط مجانية عند التسجيل</li>
+                        <li><i class="fas fa-check-circle"></i> توليد الصور والنصوص</li>
+                        <li><i class="fas fa-check-circle"></i> جودة عادية</li>
+                        <li><i class="fas fa-times-circle disabled"></i> الفيديو والصوت</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="selectPlan('free')" id="freeBtn">خطتك الحالية</button>
                 </div>
-                <div class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-moon"></i>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge" id="popularBadge">الأكثر طلباً</div>
+                    <h3 class="pricing-name" id="proPlanTitle">احترافي</h3>
+                    <div class="pricing-price" id="proPrice">$7.99 <small id="proPeriod">/شهر</small></div>
+                    <p class="pricing-description" id="proDesc">للمبدعين المحترفين</p>
+                    <ul class="pricing-features" id="proFeatures">
+                        <li><i class="fas fa-check-circle"></i> 100 نقطة شهرياً</li>
+                        <li><i class="fas fa-check-circle"></i> صور بدقة 4K</li>
+                        <li><i class="fas fa-check-circle"></i> توليد الفيديو والصوت</li>
+                        <li><i class="fas fa-check-circle"></i> معالجة أولوية</li>
+                    </ul>
+                    <button class="pricing-btn popular" onclick="processPayment('pro')" id="proBtn">اشترك الآن</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="pricing-name" id="creativePlanTitle">مبدع</h3>
+                    <div class="pricing-price" id="creativePrice">$19.99 <small id="creativePeriod">/شهر</small></div>
+                    <p class="pricing-description" id="creativeDesc">للمشاريع الكبيرة</p>
+                    <ul class="pricing-features" id="creativeFeatures">
+                        <li><i class="fas fa-check-circle"></i> 500 نقطة شهرياً</li>
+                        <li><i class="fas fa-check-circle"></i> جميع خدمات الاحترافي</li>
+                        <li><i class="fas fa-check-circle"></i> دبلجة متعددة اللغات</li>
+                        <li><i class="fas fa-check-circle"></i> موسيقى تصويرية</li>
+                    </ul>
+                    <button class="pricing-btn" onclick="processPayment('creative')" id="creativeBtn">اشترك الآن</button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Main Layout - Studio + Login -->
-        <div class="main-layout">
-            <!-- Left Side - Studio Info (جميع العناصر التي طلبتها محفوظة) -->
-            <div class="studio-main">
-                <h1>Vividia AI</h1>
-                <div class="studio-subtitle">استوديو الإبداع الرقمي</div>
-                <div class="studio-desc">
-                    منصة متكاملة لصناعة الأفلام والصور والنصوص باستخدام أحدث تقنيات الذكاء الاصطناعي
-                </div>
-                
-                <div class="studio-actions">
-                    <div class="conversation-link">
-                        <i class="fas fa-comment-dots"></i>
-                        <span>Let's start a smart conversation</span>
-                    </div>
-                    
-                    <div class="project-status">
-                        <i class="fas fa-circle"></i>
-                        <span>Open and excited for new projects</span>
-                    </div>
-                    
-                    <div class="contact-info">
-                        <span>معنا - أرسلوا لنا رسالة على</span>
-                        <a href="#"><i class="fab fa-dribbble"></i> Dribbble</a>
-                        <a href="#"><i class="fas fa-envelope"></i> تواصلوا</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side - Login Card (Axes) -->
-            <div class="login-wrapper">
-                <div class="login-card">
-                    <div class="login-welcome">
-                        Welcome to <span>Axes</span>
-                    </div>
-                    <div class="login-sub">AI Managed Access Permits</div>
-                    
-                    <div class="social-login">
-                        <button class="apple-btn" onclick="loginWithApple()">
-                            <i class="fab fa-apple"></i> Login with Apple
-                        </button>
-                        <button class="google-btn" onclick="loginWithGoogle()">
-                            <i class="fab fa-google"></i> Login with Google
-                        </button>
-                    </div>
-                    
-                    <div class="divider">OR</div>
-                    
-                    <div class="email-login">
-                        <input type="email" class="email-input" id="loginEmail" placeholder="Enter your email address">
-                        <button class="email-login-btn" onclick="loginWithEmail()">Login with email</button>
-                    </div>
-                    
-                    <div class="slack-option">
-                        or continue with <span onclick="loginWithSlack()">Slack</span>, <span onclick="loginWithIOS()">iOS</span>
-                    </div>
-                    
-                    <div class="login-footer">
-                        Some of the UI elements used were from Stratis UI a Figma UI kit and design system that can be used by individuals to large teams. You can Preview the kit on Figma as well as purchase it from Gumroad
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Prompt Section - في الأعلى (مع العناصر الجديدة) -->
-        <div class="prompt-section">
-            <div class="prompt-title">ماذا تريد إنشاء اليوم؟</div>
-            <div class="prompt-container">
-                <div class="prompt-input-wrapper">
-                    <input type="text" class="prompt-input" id="promptInput" placeholder="اكتب وصفاً... (مثال: غابة سحرية في الليل)">
-                    <div class="prompt-actions">
-                        <div class="prompt-action-btn" onclick="attachFile()">
-                            <i class="fas fa-paperclip"></i>
-                        </div>
-                        <div class="prompt-action-btn" onclick="addEmoji()">
-                            <i class="fas fa-smile"></i>
-                        </div>
-                        <div class="prompt-action-btn" onclick="addImage()">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <button class="prompt-generate-btn" id="generateBtn" onclick="generate()" disabled>
-                            توليد
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Video & Audio Options - للمشتركين فقط -->
-                <div class="media-options" id="mediaOptions" style="display: none;">
-                    <div class="media-section">
-                        <h3>مكونات الفيديو</h3>
-                        <div class="video-options">
-                            <div class="video-option locked">16:9</div>
-                            <div class="video-option locked">19.6</div>
-                            <div class="video-option locked">1:1</div>
-                            <div class="video-option locked">9:16</div>
-                            <div class="video-option locked">4:5</div>
-                            <div class="video-option locked">2.35:1</div>
-                        </div>
-                        <div style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">
-                            <i class="fas fa-lock"></i> متاح للمشتركين فقط
-                        </div>
-                    </div>
-
-                    <div class="media-section">
-                        <h3>مكونات الصوت</h3>
-                        <div class="voice-options">
-                            <div class="voice-category">
-                                <h4>النوع</h4>
-                                <div class="voice-buttons">
-                                    <div class="voice-btn locked"><i class="fas fa-male"></i> ذكر</div>
-                                    <div class="voice-btn locked"><i class="fas fa-female"></i> أنثى</div>
-                                </div>
-                            </div>
-                            <div class="voice-category">
-                                <h4>الفئة العمرية</h4
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="logo" style="font-size: 24px;">VIVIDIA AI</
